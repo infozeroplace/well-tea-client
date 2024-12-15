@@ -13,13 +13,13 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
+            {/* <Link href="/">
               <Image src="/images/welltea_logo.png" alt="Brand Logo" width={70} height={70} />
-            </Link>
+            </Link> */}
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex gap-10">
             <Link href="/about">
               <p className="hover:text-gray-400 cursor-pointer">About</p>
             </Link>
@@ -28,6 +28,14 @@ const Navbar = () => {
             </Link>
             <Link href="/teawares">
               <p className="hover:text-gray-400 cursor-pointer">Teawares</p>
+            </Link>
+            <Link href="/">
+              <Image
+                src="/images/welltea_logo.png"
+                alt="Brand Logo"
+                width={70}
+                height={70}
+              />
             </Link>
             <Link href="/sales">
               <p className="hover:text-gray-400 cursor-pointer">Sales</p>
@@ -41,15 +49,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex space-x-4">
-            <button>
-              icon
-            </button>
-            <Link href="/">
-              icon
-            </Link>
-            <button>
-              icon
-            </button>
+            <button>icon</button>
+            <Link href="/">icon</Link>
+            <button>icon</button>
           </div>
 
           {/* Mobile Menu Button */}

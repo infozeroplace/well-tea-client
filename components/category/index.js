@@ -1,23 +1,23 @@
-import React from 'react'
+import CategorySlider from "./CategorySlider";
+import CategoryButton from "./CategoryButton";
 
 function Category() {
-  const product = {
-    name: "Organic White Tea",
-    price: "$20",
-    image: "/images/organic_white_tea.png",
-  }
+  
   return (
     <div className="py-14">
-      <h1 className="text-center">Explore our single teas</h1>
-      <div className="flex gap-5 w-full mx-auto items-center justify-center">
-        <button className="border-2 border-primary rounded-full py-2 px-5">Organic tea</button>
-        <button>Green tea</button>
-        <button>Black tea</button>
-        <button>Herbal tea</button>
-        <button>Jasmine tea</button>
+      <h1 className="text-center text-4xl mb-10">Explore our single teas</h1>
+      <div className="flex gap-5 w-full mx-auto items-center justify-center mb-10">
+        <CategoryButton />
       </div>
-      <div>
-
+      <div className="">
+        <div className="my-10 mx-32">
+          <CategorySlider />
+        </div>
+      </div>
+      <div className="flex items-center">
+        <button className="bg-primary text-gray-200 px-10 py-3 text-center mx-auto">
+          Shop All Teas
+        </button>
       </div>
     </div>
   );
