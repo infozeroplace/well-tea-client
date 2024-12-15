@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { Hero } from "@/components";
+import { Hero, Category } from "@/components";
 
 export default function Home() {
   return (
     <div className="">
       <Hero />
+      <Category />
     </div>
   );
 }
