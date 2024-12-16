@@ -5,16 +5,21 @@ import CategoryCard from "./CategoryCard";
 function CategorySlider() {
   const categoryCardDetails = [
     {
-        image: "/images/green_tea.png",
-        title: "Green Tea",
-        price: "$15",
+      image: "/images/product_one.jpg",
+      title: "Green Tea",
+      price: "$15",
     },
     {
-        image: "/images/organic_white_tea.png",
-        title: "Organic White Tea",
-        price: "$20",
+      image: "/images/product_two.jpg",
+      title: "Organic White Tea",
+      price: "$20",
     },
-];
+    {
+      image: "/images/product_three.jpg",
+      title: "Organic black Tea",
+      price: "$25",
+    },
+  ];
 
   var settings = {
     dots: false,

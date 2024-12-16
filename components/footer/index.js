@@ -68,13 +68,15 @@ function Footer() {
             </div>
             <div className="col-span-2 h-1 bg-[#13432C] "></div>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <p className="text-white">
               Copyright © {new Date().getFullYear()}{" "}
               <span className="text-secondary">Welltea.</span> All rights
               reserved
             </p>
-            <div>Payment cards</div>
+            <div>
+              <Image src="/images/payment_methods.png" alt="Payment Methods" width={350} height={50}/>
+            </div>
             <div className="flex gap-3">
               <div>Social icons</div>
               <div className="text-gray-300 flex">

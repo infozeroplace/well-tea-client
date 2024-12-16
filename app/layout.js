@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Prompt } from "next/font/google";
 import "./globals.css";
 import { Header, Footer, Navbar } from "@/components";
 
@@ -11,6 +11,12 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const prompt = Prompt({
+  variable: "--prompt",
+  subsets: ["latin"],
+  weight: "200"
+})
 
 export const metadata = {
   title: "Well Tea",
