@@ -1,56 +1,95 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  const navItemsClasses =
+    "text-teagreen-800 cursor-pointer transition-all duration-500";
+
+  const NavItem = ({ href, name }) => {
+    return (
+      <div className="group relative">
+        <Link href={href}>
+          <p
+            className={
+              navItemsClasses + " tracking-widest"
+            }
+          >
+            {name}
+          </p>
+        </Link>
+        <div className="absolute -bottom-3 w-0 h-[1px] bg-teagreen-500 group-hover:w-full mt-1 transition-all duration-300"></div>
+      </div>
+    );
+  }
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 50);
+  //   };
+
+  //   if (typeof window !== "undefined") {
+  //     window.addEventListener("scroll", handleScroll);
+
+  //     return () => {
+  //       window.removeEventListener("scroll", handleScroll);
+  //     };
+  //   }
+  // }, []);
 
   return (
-    <nav className="bg-gray-200 text-black">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="bg-white sticky top-0 z-10">
+      <div className="px-4 sm:px-6 lg:px-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            {/* <Link href="/">
-              <Image src="/images/welltea_logo.png" alt="Brand Logo" width={70} height={70} />
-            </Link> */}
+            <Link href="/">
+              <Image
+                src="/logo/welltea_logo_color.png"
+                alt="Brand Logo"
+                width={70}
+                height={40}
+              />
+            </Link>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-10">
-            <Link href="/about">
-              <p className="hover:text-gray-400 cursor-pointer">About</p>
+          <div className="hidden md:flex items-center gap-10">
+            <NavItem href="/about" name="About" />
+            <NavItem href="/tea" name="Tea" />
+            <NavItem href="/teawares" name="Teawares" />
+            <NavItem href="/sales" name="Sales" />
+            <NavItem href="/gifts" name="Gifts" />
+            <NavItem href="/explore" name="Explore" />
+
+            {/* <Link href="/about">
+              <p className={navItemsClasses}>About</p>
             </Link>
             <Link href="/tea">
-              <p className="hover:text-gray-400 cursor-pointer">Tea</p>
+              <p className={navItemsClasses}>Tea</p>
             </Link>
             <Link href="/teawares">
-              <p className="hover:text-gray-400 cursor-pointer">Teawares</p>
-            </Link>
-            <Link href="/">
-              <Image
-                src="/images/welltea_logo.png"
-                alt="Brand Logo"
-                width={70}
-                height={70}
-              />
+              <p className={navItemsClasses}>Teawares</p>
             </Link>
             <Link href="/sales">
-              <p className="hover:text-gray-400 cursor-pointer">Sales</p>
+              <p className={navItemsClasses}>Sales</p>
             </Link>
             <Link href="/gifts">
-              <p className="hover:text-gray-400 cursor-pointer">Gifts</p>
+              <p className={navItemsClasses}>Gifts</p>
             </Link>
             <Link href="/explore">
-              <p className="hover:text-gray-400 cursor-pointer">Explore</p>
-            </Link>
+              <p className={navItemsClasses}>Explore</p>
+            </Link> */}
           </div>
 
           <div className="hidden md:flex space-x-4">
             <button>icon</button>
-            <Link href="/">icon</Link>
+            <button>icon</button>
             <button>icon</button>
           </div>
 

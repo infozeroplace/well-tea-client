@@ -23,7 +23,7 @@ function Banner() {
           </p>
           <div className="mt-24">
             <button className="">See More icon</button>
-            <div className="w-[70px] h-[1px] bg-primary group-hover:w-0 transition-all duration-500"></div>
+            <div className="w-[70px] h-[1px] bg-teagreen-800 group-hover:w-0 transition-all duration-500"></div>
           </div>
         </div>
       </div>

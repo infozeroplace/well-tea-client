@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 function CategoryButton({ }) {
   const [active, setActive] = useState("");
 //   const [activeCategory, setActiveCategory] = useState("");
-  const activeClass = "border-2 border-primary";
+  const activeClass = "border-[0.5px] border-teagreen-600";
   const categoryButtons = [
     {
       title: "Organic Tea",
@@ -33,7 +33,7 @@ function CategoryButton({ }) {
           className={
             active === item.title
               ? activeClass + " rounded-full py-2 px-5"
-              : "bg-gray-200 text-gray-600" + " rounded-full py-2 px-5"
+              : "bg-teagreen-100 text-teagreen-600" + " rounded-full py-2 px-5"
           }
           onClick={()=> handleActive(item.title)}
         >

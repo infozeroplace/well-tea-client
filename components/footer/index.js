@@ -2,40 +2,64 @@ import Link from "next/link";
 import Image from "next/image";
 
 function Footer() {
+
+  const FooterBar = () =>{
+    return <div className="w-full h-[1px] bg-teagreen-700"></div>;
+  }
+  const FooterTitle = ({ name }) => {
+    return <h4 className="mb-5 text-white uppercase">{name}</h4>;
+  }
+  const FooterListItem = ({ name, href }) => {
+    return (
+      <Link
+        href={href}
+        className="text-teagreen-100 hover:text-teagreen-200"
+      >
+        {name}
+      </Link>
+    )
+  }
+
   return (
-    <div className="w-full bg-primary">
-      <div className="max-w-screen-xl mx-auto py-10">
-        <div className="grid grid-cols-7 gap-5 justify-around py-10">
+    <div className="w-full bg-teagreen-800">
+      <div className="py-10">
+        <div className="max-w-screen-xl mx-auto grid grid-cols-7 gap-5 justify-around py-10">
           <div className="text-white flex flex-col gap-2">
-            <h4 className="mb-5 text-gray-300 uppercase">About</h4>
-            <Link href="/" className="hover:text-gray-200">Company</Link>
-            <Link href="/">Company</Link>
+            <FooterTitle name="About" />
+            <FooterListItem name="Company" href="/" />
+            <FooterListItem name="Goal" href="/" />
+            <FooterListItem name="Location" href="/" />
           </div>
           <div className="text-white flex flex-col gap-2">
-            <h4 className="mb-5 text-gray-300 uppercase">Shop</h4>
-            <Link href="/">Company</Link>
-            <Link href="/">Company</Link>
+            <FooterTitle name="Shop" />
+            <FooterListItem name="Shop" href="/" />
+            <FooterListItem name="Shop" href="/" />
+            <FooterListItem name="Shop" href="/" />
           </div>
           <div className="text-white flex flex-col gap-2">
-            <h4 className="mb-5 text-gray-300 uppercase">Help Center</h4>
-            <Link href="/">Company</Link>
-            <Link href="/">Company</Link>
+            <FooterTitle name="Help Center" />
+            <FooterListItem name="Customer Care" href="/" />
+            <FooterListItem name="Shop" href="/" />
           </div>
           <div className="col-span-2 mr-10">
             <div className="text-white flex flex-col gap-2 mb-5">
-              <h4 className="mb-5 text-gray-300 uppercase">Get in touch</h4>
+              <FooterTitle name="Get in touch" />
               <p className="text-justify">
                 Dolor eiusmod velit occaecat in adipisicing proident aliqua
                 deserunt eu enim pariatur.
               </p>
             </div>
             <div className="text-white flex flex-col gap-2">
-              <h4 className="text-gray-300 uppercase">About</h4>
-              <Link href="tel:+88012349732497">+440347934739</Link>
+              <p>
+                Phone: <Link href="tel:+88012349732497">+440347934739</Link>
+              </p>
+              <p>
+                Email: <Link href="tel:+88012349732497">example@gmail.com</Link>
+              </p>
             </div>
           </div>
           <div className="col-span-1 lg:col-span-2 text-white flex flex-col gap-2 mb-5">
-            <h4 className="mb-5 text-gray-300 uppercase">Newsletter</h4>
+            <h4 className="mb-5 text-white uppercase">Newsletter</h4>
             <p className="text-justify">
               Dolor eiusmod velit occaecat in adipisicing proident aliqua
               deserunt eu enim pariatur.
@@ -46,7 +70,7 @@ function Footer() {
                 className="w-full px-5 py-3"
                 placeholder="Your Email"
               />
-              <button className="bg-secondary text-white px-4 uppercase">
+              <button className="bg-teagreen-600 text-white px-4 uppercase">
                 Subscribe
               </button>
             </div>
@@ -54,31 +78,36 @@ function Footer() {
         </div>
         {/* Footer Bottom */}
         <div>
-          <div className="grid grid-cols-5 items-center mx-auto gap-10 py-10">
-            <div className="col-span-2 h-1 bg-[#13432C] "></div>
-            <div className="col-span-1 flex items center justify-center">
+          <div className="flex items-center justify-center gap-10 mx-auto py-10">
+            <FooterBar />
+            <div className="flex-none">
               <Link href="/">
                 <Image
-                  src="/images/welltea_logo.png"
+                  src="/logo/welltea_logo_white_color.png"
                   alt="Brand Logo"
-                  width={70}
-                  height={70}
+                  width={80}
+                  height={50}
                 />
               </Link>
             </div>
-            <div className="col-span-2 h-1 bg-[#13432C] "></div>
+            <FooterBar />
           </div>
-          <div className="flex justify-between items-center">
+          <div className="max-w-screen-xl mx-auto flex justify-between items-center">
             <p className="text-white">
               Copyright © {new Date().getFullYear()}{" "}
-              <span className="text-secondary">Welltea.</span> All rights
+              <span className="text-teagreen-500">Welltea.</span> All rights
               reserved
             </p>
             <div>
-              <Image src="/images/payment_methods.png" alt="Payment Methods" width={350} height={50}/>
+              <Image
+                src="/images/payment_methods.png"
+                alt="Payment Methods"
+                width={350}
+                height={50}
+              />
             </div>
             <div className="flex gap-3">
-              <div>Social icons</div>
+              <div className="text-white">Social icons</div>
               <div className="text-gray-300 flex">
                 <p className="uppercase">Back to top</p>
                 icon

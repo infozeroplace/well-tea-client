@@ -5,7 +5,7 @@ function Category() {
   
   return (
     <div className="py-14">
-      <h1 className="text-center text-4xl mb-10">Explore our single teas</h1>
+      <h1 className="text-center text-4xl text-teagreen-800 mb-10">Explore our single teas</h1>
       <div className="flex gap-5 w-full mx-auto items-center justify-center mb-10">
         <CategoryButton />
       </div>
@@ -15,7 +15,7 @@ function Category() {
         </div>
       </div>
       <div className="flex items-center">
-        <button className="bg-primary text-gray-200 px-10 py-3 text-center mx-auto">
+        <button className="bg-teagreen-700 hover:bg-teagreen-600 text-white rounded-full px-10 py-3 text-center mx-auto">
           Shop All Teas
         </button>
       </div>

@@ -28,7 +28,7 @@ function Header() {
       arrows: false,
     };
   return (
-    <div className="w-full bg-primary text-white p-3 text-center">
+    <div className="w-full bg-teagreen-800 text-white p-3 text-center">
       <Slider {...settings}>
         {
             sliderDetails.map((item, index) => (
