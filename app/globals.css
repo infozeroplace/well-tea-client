@@ -5,9 +5,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary-color: #194A34;
-  --secondary-color: #50a923;
+  --teagreen-100: #F2F5F0;
+  --teagreen-200: #ECEDE9;
+  --teagreen-300: #E4E6D9;
+  --teagreen-400: #C0CFB2;
+  --teagreen-500: #8BA888;
+  --teagreen-600: #49654D;
+  --teagreen-700: #253627;
+  --teagreen-800: #131B14;
 }
+
+/* #F2F5F0 #ECEDE9 #E4E6D9 #C0CFB2 #8BA888 #49654D #253627 #131B14 */
 
 /* @media (prefers-color-scheme: dark) {
   :root {
@@ -19,7 +27,23 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-prompt);
+}
+
+h1 {
+  font-weight: 100;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+h4{
+  font-weight: 400;
+}
+
+p, a {
+  font-weight: 200;
 }
 
 .custom-shadow {

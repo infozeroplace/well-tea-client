@@ -1,24 +1,16 @@
 import { Footer, Header, Navbar } from "@/components";
 import ReduxProvider from "@/services/ReduxProvider";
-import { Geist, Geist_Mono, Prompt } from "next/font/google";
+import { Prompt } from "next/font/google";
 import "./globals.css";
+import { UIProvider } from "./UIProvider";
 
-const fonts = `${geistSans.variable} ${geistMono.variable}`;
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const fonts = `${prompt.variable}`;
 
 const prompt = Prompt({
   variable: "--prompt",
   subsets: ["latin"],
   weight: "200",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata = {
@@ -32,12 +24,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${fonts} antialiased`}>
         <ReduxProvider>
-          <>
+          <UIProvider>
             <Header />
             <Navbar />
             {children}
             <Footer />
-          </>
+          </UIProvider>
         </ReduxProvider>
       </body>
     </html>
