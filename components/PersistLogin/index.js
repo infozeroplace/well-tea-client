@@ -2,6 +2,7 @@
 
 import useRefreshToken from "@/hooks/useRefreshToken";
 import { useAppSelector } from "@/services/hook";
+import { Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 const PersistLogin = ({ children }) => {
@@ -30,7 +31,17 @@ const PersistLogin = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth?.token]);
 
-  return <>{isLoading ? <span>Loading...</span> : children}</>;
+  return (
+    <>
+      {isLoading ? (
+        <div className="h-screen flex flex-col justify-center items-center">
+          <Spinner />
+        </div>
+      ) : (
+        children
+      )}
+    </>
+  );
 };
 
 export default PersistLogin;

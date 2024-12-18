@@ -1,12 +1,14 @@
+"use client";
+
 import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
 import { useSignInMutation } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
+import { Spinner } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Spinner } from "@nextui-org/react";
 
 const SignIn = ({ showForm }) => {
   const { handleSuccess, handleError } = useToast();
@@ -25,7 +27,7 @@ const SignIn = ({ showForm }) => {
   const [signIn, { data, error, isLoading }] = useSignInMutation();
 
   useEffect(() => {
-    if (data) {
+    if (data?.success) {
       handleSetCookie("authToken", data?.data?.refreshToken, {
         expires: 7,
         secure: true,
@@ -36,14 +38,12 @@ const SignIn = ({ showForm }) => {
 
       handleSuccess(data?.message);
 
-      return router.push(search || "/");
+      window.location.href = search || "/";
     }
 
     if (error) {
       handleError(error?.data?.message);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error]);
 
   const handleInput = (field, value) =>

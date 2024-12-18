@@ -37,14 +37,12 @@ const SignUp = ({ showForm }) => {
 
       handleSuccess(data?.message);
 
-      return router.push(search || "/");
+      window.location.href = search || "/";
     }
 
     if (error) {
       handleError(error?.data?.message);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error]);
 
   const handleInput = (field, value) =>
