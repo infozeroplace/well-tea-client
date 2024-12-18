@@ -1,8 +1,10 @@
+import { env } from "@/config/env";
 import { logOut, setAuth } from "@/services/features/auth/authSlice";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import Cookies from "js-cookie";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8080",
+  baseUrl: env.app_route_url,
   credentials: "include",
 
   prepareHeaders: (headers, { getState }) => {
@@ -15,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReAuth = async (args, api, extraOptions) => {
-  const { token } = JSON.parse(localStorage.getItem("auth")) || {};
+  const token = Cookies.get("authToken");
 
   let result = await baseQuery(args, api, extraOptions);
 
@@ -33,12 +35,12 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
       // retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
-      localStorage.removeItem("auth");
+      Cookies.remove("authToken");
       api.dispatch(logOut());
     }
   }
   if (result?.error?.status === 401) {
-    localStorage.removeItem("auth");
+    Cookies.remove("authToken");
     api.dispatch(logOut());
   }
 
@@ -48,6 +50,6 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: [],
+  tagTypes: ["user"],
   endpoints: () => ({}),
 });

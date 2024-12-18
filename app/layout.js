@@ -1,8 +1,10 @@
-import { Footer, Header, Navbar } from "@/components";
+import PersistLogin from "@/components/PersistLogin";
 import ReduxProvider from "@/services/ReduxProvider";
 import { Prompt } from "next/font/google";
+import { UIProvider } from "@/app/UIProvider";
+import { Footer, Header, Navbar } from "@/components";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { UIProvider } from "./UIProvider";
 
 const fonts = `${prompt.variable}`;
 
@@ -23,12 +25,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${fonts} antialiased`}>
         <ReduxProvider>
-          <UIProvider>
-            <Header />
-            <Navbar />
-            {children}
-            <Footer />
-          </UIProvider>
+          <PersistLogin>
+            <UIProvider>
+              <Header />
+              <Navbar />
+              {children}
+              <Footer />
+              <Toaster position="bottom-right" />
+            </UIProvider>
+          </PersistLogin>
         </ReduxProvider>
       </body>
     </html>

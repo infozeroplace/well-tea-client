@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  
+
   const navItemsClasses =
     "text-teagreen-800 cursor-pointer transition-all duration-500";
 
@@ -15,18 +15,12 @@ const Navbar = () => {
     return (
       <div className="group relative">
         <Link href={href}>
-          <p
-            className={
-              navItemsClasses + " tracking-widest"
-            }
-          >
-            {name}
-          </p>
+          <p className={navItemsClasses + " tracking-widest"}>{name}</p>
         </Link>
         <div className="absolute -bottom-3 w-0 h-[1px] bg-teagreen-500 group-hover:w-full mt-1 transition-all duration-300"></div>
       </div>
     );
-  }
+  };
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -88,7 +82,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex space-x-4">
-            <button>icon</button>
+            <Link href="/profile">
+              <p className={navItemsClasses}>Profile</p>
+            </Link>
             <button>icon</button>
             <button>icon</button>
           </div>
