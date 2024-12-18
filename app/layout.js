@@ -9,7 +9,6 @@ const fonts = `${prompt.variable}`;
 const prompt = Prompt({
   variable: "--prompt",
   subsets: ["latin"],
-  weight: "200",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
 
