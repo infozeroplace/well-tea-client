@@ -1,13 +1,21 @@
 import { Footer, Header, Navbar } from "@/components";
 import ReduxProvider from "@/services/ReduxProvider";
-import { Prompt } from "next/font/google";
+import { Prompt, SUSE } from "next/font/google";
 import "./globals.css";
+import "boxicons/css/boxicons.min.css";
+
 import { UIProvider } from "./UIProvider";
 
-const fonts = `${prompt.variable}`;
+const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
 const prompt = Prompt({
   variable: "--prompt",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+});
+
+const suse = SUSE({
+  variable: "--suse",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
@@ -21,7 +29,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${fonts} antialiased`}>
+      <body className={fonts}>
         <ReduxProvider>
           <UIProvider>
             <Header />
