@@ -1,3 +1,5 @@
+"use client";
+
 import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
 import { useSignUpMutation } from "@/services/features/auth/authApi";
