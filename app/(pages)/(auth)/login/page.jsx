@@ -25,16 +25,16 @@ export default function SignInScreen() {
                   <div className="w-full flex justify-center items-center gap-2 text-primary">
                     <button
                       onClick={() => handleShowForm("sign-in")}
-                      className={`border border-primary px-4 py-0.5 rounded-full duration-300 ${
-                        isSignIn ? "bg-primary text-white" : "bg-transparent"
+                      className={`border border-teagreen-600 px-4 py-0.5 rounded-full duration-300 ${
+                        isSignIn ? "bg-teagreen-600 text-white" : "bg-transparent"
                       }`}
                     >
                       Sign In
                     </button>
                     <button
                       onClick={() => handleShowForm("sign-up")}
-                      className={`border border-primary px-4 py-0.5 rounded-full duration-300 ${
-                        isSignIn ? "bg-transparent" : "bg-primary text-white"
+                      className={`border border-teagreen-600 px-4 py-0.5 rounded-full duration-300 ${
+                        isSignIn ? "bg-transparent" : "bg-teagreen-600 text-white"
                       }`}
                     >
                       Sign Up

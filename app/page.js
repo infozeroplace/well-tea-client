@@ -1,4 +1,4 @@
-import { Banner, Category, Hero } from "@/components";
+import { Banner, Category, Hero, NewReleases } from "@/components";
 
 export default function Home() {
   return (
@@ -6,6 +6,7 @@ export default function Home() {
       <Hero />
       <Category />
       <Banner />
+      <NewReleases />
     </div>
   );
 }

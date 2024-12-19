@@ -4,3 +4,4 @@ export { default as Navbar} from "./navbar";
 export { default as Hero} from "./hero";
 export { default as Category} from "./category";
 export { default as Banner } from "./banner";
+export { default as NewReleases } from "./newreleases";
