@@ -8,6 +8,7 @@ import { Prompt, SUSE } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { env } from "@/config/env";
+import "swiper/css/bundle";
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 

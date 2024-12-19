@@ -87,8 +87,8 @@ function Footer() {
                 <Image
                   src="/logo/welltea_logo_white_color.png"
                   alt="Brand Logo"
-                  width={80}
-                  height={50}
+                  width={200}
+                  height={100}
                 />
               </Link>
             </div>

@@ -28,10 +28,18 @@
 
 /* var(--prompt), */
 
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--suse);
+  font-family: var(--prompt);
 }
 
 h1 {
@@ -41,7 +49,7 @@ h1 {
 
 h3 {
   font-weight: 100;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 h4{
@@ -51,7 +59,7 @@ h4{
 
 p, a {
   font-weight: 200;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 .custom-shadow {

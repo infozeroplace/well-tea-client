@@ -27,6 +27,9 @@ export default {
           800: "var(--teagreen-800)",
         },
       },
+      // backgroundImage: {
+      //   "welltea-hero": "url('')",
+      // },
     },
   },
   plugins: [nextui()],

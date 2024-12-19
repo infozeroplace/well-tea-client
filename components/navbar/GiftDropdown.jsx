@@ -32,6 +32,7 @@ function GiftDropdown() {
 
   return (
     <div className="w-full grid grid-cols-3 mt-10">
+      {/* Left Section */}
       <div className="border-r-1">
         <Image
           src="/images/welltea_hero.png"
@@ -44,32 +45,7 @@ function GiftDropdown() {
           }}
         />
       </div>
-      <div className="border-r-1 flex flex-col gap-5">
-        <div>
-          <Image
-            src="/images/welltea_hero.png"
-            alt=""
-            width={200}
-            height={200}
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-          />
-        </div>
-        <div>
-          <Image
-            src="/images/welltea_hero.png"
-            alt=""
-            width={200}
-            height={200}
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-          />
-        </div>
-      </div>
+      {/* Middle Section */}
       <div className="border-r-1">
         <div className="flex justify-between mb-5 mx-5">
           <h3>Type</h3>
@@ -94,6 +70,33 @@ function GiftDropdown() {
               <p>{product.name}</p>
             </Link>
           ))}
+        </div>
+      </div>
+      {/* Right Section */}
+      <div className="border-r-1 flex flex-col gap-5">
+        <div>
+          <Image
+            src="/images/welltea_hero.png"
+            alt=""
+            width={200}
+            height={200}
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+          />
+        </div>
+        <div>
+          <Image
+            src="/images/welltea_hero.png"
+            alt=""
+            width={200}
+            height={200}
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+          />
         </div>
       </div>
     </div>
