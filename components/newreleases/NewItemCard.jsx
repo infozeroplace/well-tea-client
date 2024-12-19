@@ -4,10 +4,10 @@ import React from "react";
 const NewItemCard = ({ item }) => {
   if (!item) return null;
   return (
-    <div className="felx flex-col text-center items-center relative max-w-96 mb-8 cursor-pointer group mx-auto">
-      <div className="overflow-hidden h-[460px] md:h-[310px] lg:h-[350px] xl:h-[360px]">
+    <div className="felx flex-col text-center items-center relative aspect-[362/482] mb-4 cursor-pointer group mx-auto">
+      <div className="overflow-hidden">
         <img
-          src="/images/newproduct_bg.jpg"
+          src="/images/product_2nd_01.jpg"
           className="opacity-0 group-hover:opacity-100 h-full group-hover:scale-150 duration-400"
         />
       </div>
@@ -22,14 +22,14 @@ const NewItemCard = ({ item }) => {
             </div>
           )}
         </div>
-        <div className="overflow-hidden md:h-52 lg:h-60">
+        <div className="aspect-square">
           <img
             src={item?.image}
             alt="New Product"
-            className="aspect-square opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
+            className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
           />
         </div>
-        <div className="group-hover:bg-white group-hover:w-[90%] group-hover:-translate-y-16 xl:group-hover:-translate-y-12 duration-400 mx-auto">
+        <div className="group-hover:bg-white group-hover:w-[90%] group-hover:-translate-y-16 duration-400 mx-auto">
           <h5 className="text-sm lg:text-base text-teagreen-500">{item?.type}</h5>
           <h4 className="md:text-base lg:text-lg">{item?.title}</h4>
           <h5 className="text-xs">{item?.rating}</h5>
