@@ -10,6 +10,14 @@ const authApi = api.injectEndpoints({
       }),
       providesTags: ["user"],
     }),
+    googleSignIn: builder.mutation({
+      query: ({ data }) => ({
+        url: "/public/auth/google-sign-in",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
     signIn: builder.mutation({
       query: ({ data }) => ({
         url: "/public/auth/sign-in",
@@ -31,6 +39,7 @@ const authApi = api.injectEndpoints({
 
 export const {
   useGetRefreshTokenMutation,
+  useGoogleSignInMutation,
   useSignInMutation,
   useSignUpMutation,
 } = authApi;

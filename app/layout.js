@@ -1,11 +1,13 @@
-import PersistLogin from "@/components/PersistLogin";
-import ReduxProvider from "@/services/ReduxProvider";
 import { UIProvider } from "@/app/UIProvider";
 import { Footer, Header, Navbar } from "@/components";
+import PersistLogin from "@/components/PersistLogin";
+import ReduxProvider from "@/services/ReduxProvider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import "boxicons/css/boxicons.min.css";
+import { Prompt, SUSE } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { Prompt, SUSE } from "next/font/google";
-import "boxicons/css/boxicons.min.css";
+import { env } from "@/config/env";
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
@@ -33,13 +35,15 @@ export default function RootLayout({ children }) {
       <body className={fonts}>
         <ReduxProvider>
           <PersistLogin>
-            <UIProvider>
-              <Header />
-              <Navbar />
-              {children}
-              <Footer />
-              <Toaster position="bottom-right" />
-            </UIProvider>
+            <GoogleOAuthProvider clientId={env.google_client_id}>
+              <UIProvider>
+                <Header />
+                <Navbar />
+                {children}
+                <Footer />
+                <Toaster position="bottom-right" />
+              </UIProvider>
+            </GoogleOAuthProvider>
           </PersistLogin>
         </ReduxProvider>
       </body>

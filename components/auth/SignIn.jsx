@@ -2,13 +2,19 @@
 
 import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
-import { useSignInMutation } from "@/services/features/auth/authApi";
+import {
+  useGoogleSignInMutation,
+  useSignInMutation,
+} from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
 import { Spinner } from "@nextui-org/react";
+import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import AppleLoginButton from "./AppleLoginButton";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignIn = ({ showForm }) => {
   const { handleSuccess, handleError } = useToast();
@@ -26,25 +32,32 @@ const SignIn = ({ showForm }) => {
 
   const [signIn, { data, error, isLoading }] = useSignInMutation();
 
+  const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
+    useGoogleSignInMutation();
+
   useEffect(() => {
-    if (data?.success) {
-      handleSetCookie("authToken", data?.data?.refreshToken, {
-        expires: 7,
-        secure: true,
-        sameSite: "None",
-      });
+    if (data?.success || googleSignInData?.success) {
+      handleSetCookie(
+        "authToken",
+        data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
+        {
+          expires: 7,
+          secure: true,
+          sameSite: "None",
+        }
+      );
 
-      dispatch(setAuth(data?.data));
+      dispatch(setAuth(data?.data || googleSignInData?.data));
 
-      handleSuccess(data?.message);
+      handleSuccess(data?.message || googleSignInData?.message);
 
       window.location.href = search || "/";
     }
 
     if (error) {
-      handleError(error?.data?.message);
+      handleError(error?.data?.message || googleSignInError?.data?.message);
     }
-  }, [data, error]);
+  }, [data, error, googleSignInData, googleSignInError]);
 
   const handleInput = (field, value) =>
     setCredentials((prev) => ({ ...prev, [field]: value }));
@@ -58,6 +71,20 @@ const SignIn = ({ showForm }) => {
 
     await signIn(options);
   };
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      await googleSignIn({ data: { code } });
+    },
+    flow: "auth-code",
+    onError: () => {
+      handleError(400, "Something went wrong!");
+    },
+  });
+
+  const handleFacebookLogin = () => {
+    alert('login start')
+  }
 
   return (
     <div
@@ -89,10 +116,8 @@ const SignIn = ({ showForm }) => {
         </button>
       </form>
       <h4 className="text-xl font-semibold text-center my-4">Or</h4>
-      <div className="flex justify-center gap-2">
-        <div>Logos</div>
-        <div>Logos</div>
-        <div>Logos</div>
+      <div className="flex justify-center items-center gap-3">
+        <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
       <div className="text-right">
         <Link href="/forgotpassword" className="underline">
