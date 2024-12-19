@@ -62,11 +62,6 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex space-x-4">
-            <Link href="/profile">
-              <p>Profile</p>
-            </Link>
-            <button>icon</button>
-            <button>icon</button>
             {/* Nav Icons */}
             <div className="hidden md:flex items-center space-x-4 text-2xl">
               <button className="flex items-center">
