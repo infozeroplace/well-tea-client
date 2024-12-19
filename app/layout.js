@@ -1,15 +1,22 @@
 import PersistLogin from "@/components/PersistLogin";
 import ReduxProvider from "@/services/ReduxProvider";
-import { Prompt } from "next/font/google";
 import { UIProvider } from "@/app/UIProvider";
 import { Footer, Header, Navbar } from "@/components";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { Prompt, SUSE } from "next/font/google";
+import "boxicons/css/boxicons.min.css";
 
-const fonts = `${prompt.variable}`;
+const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
 const prompt = Prompt({
   variable: "--prompt",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+});
+
+const suse = SUSE({
+  variable: "--suse",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
@@ -23,7 +30,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${fonts} antialiased`}>
+      <body className={fonts}>
         <ReduxProvider>
           <PersistLogin>
             <UIProvider>
