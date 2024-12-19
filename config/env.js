@@ -24,5 +24,4 @@ export const env = {
   cloud_upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
   cloud_upload_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   google_client_id: process.env.NEXT_PUBLIC_APP_GOOGLE_CLIENT_ID,
-  ip_data_api_key: process.env.NEXT_PUBLIC_IP_DATA_API_KEY,
 };
