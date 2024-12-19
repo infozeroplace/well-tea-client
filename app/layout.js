@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Prompt, SUSE } from "next/font/google";
 import "boxicons/css/boxicons.min.css";
+import "swiper/css/bundle";
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 

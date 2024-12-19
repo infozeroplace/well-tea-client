@@ -23,8 +23,8 @@ const Navbar = () => {
               <Image
                 src="/logo/welltea_logo_color.png"
                 alt="Brand Logo"
-                width={70}
-                height={40}
+                width={170}
+                height={100}
                 quality={100}
               />
             </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/tea" name="Tea" />
-              <NavDropdown extraClass="group-hover:h-[500px]">
+              <NavDropdown extraClass="group-hover:h-[700px]">
                 <TeaDropdown />
               </NavDropdown>
             </div>
@@ -43,7 +43,7 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[400px]">
+              <NavDropdown extraClass="group-hover:h-[700px]">
                 <TeawareDropdown />
               </NavDropdown>
             </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/gifts" name="Gifts" />
-              <NavDropdown extraClass="group-hover:h-[600px]">
+              <NavDropdown extraClass="group-hover:h-[700px]">
                 <GiftDropdown />
               </NavDropdown>
             </div>
@@ -65,7 +65,7 @@ const Navbar = () => {
             {/* Nav Icons */}
             <div className="hidden md:flex items-center space-x-4 text-2xl">
               <button className="flex items-center">
-                <i className="bx bx-search-alt-2"></i>
+                <i className="bx bx-search-alt-2 font-"></i>
               </button>
               <button className="flex items-center">
                 <i className="bx bx-cart"></i>
@@ -73,9 +73,9 @@ const Navbar = () => {
               <button className="flex items-center">
                 <i className="bx bx-heart"></i>
               </button>
-              <button className="flex items-center">
+              <Link href="/profile" className="flex items-center">
                 <i className="bx bx-user"></i>
-              </button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
