@@ -128,15 +128,15 @@ const NewReleases = () => {
   };
   return (
     <div className="my-14">
-      <p className="uppercase text-xs ml-5">shop our tea</p>
-      <h4 className="text-4xl ml-5 mb-8">New Realeases</h4>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-5 mx-1">
+      <p className="text-center md:text-left uppercase text-xs ml-5">shop our tea</p>
+      <h4 className="text-center md:text-left text-4xl ml-5 mb-8">New Realeases</h4>
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-5 mx-1">
         {newitems.map(
           (item, idx) =>
             idx < itemLimit && <NewItemCard key={item?.id} item={item} />
         )}
       </div>
-      <div className="flex justify-end text-lg">
+      <div className="flex justify-center md:justify-end text-lg mt-8 md:mt-2">
         <div
           onClick={handleLimit}
           className="bg-teagreen-600 hover:bg-teagreen-700 hover:underline w-fit mr-2 px-2 text-white cursor-pointer"
