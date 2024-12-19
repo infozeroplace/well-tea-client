@@ -1,0 +1,1 @@
+export {default as TeaRange} from './tearange'
