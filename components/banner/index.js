@@ -22,7 +22,9 @@ function Banner() {
             Indulge in a delightful blend.
           </p>
           <div className="mt-24">
-            <button className="">See More icon</button>
+            <button className="flex items-center">
+              See More<i className="bx bx-chevron-right text-[25px]"></i>
+            </button>
             <div className="w-[70px] h-[1px] bg-teagreen-800 group-hover:w-0 transition-all duration-500"></div>
           </div>
         </div>
@@ -47,7 +49,9 @@ function Banner() {
             Indulge in a delightful blend.
           </p>
           <div className="mt-24">
-            <button className="text-white">See More icon</button>
+            <button className="text-white flex items-center">
+              See More<i className="bx bx-chevron-right text-xl"></i>
+            </button>
             <div className="w-[70px] h-[1px] bg-white group-hover:w-0 transition-all duration-500"></div>
           </div>
         </div>

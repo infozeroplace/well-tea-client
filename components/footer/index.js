@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import BackToTopButton from "./BacktoTopButton";
 
 function Footer() {
-
+  const socialIconsExtraClasses = "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
+  
   const FooterBar = () =>{
     return <div className="w-full h-[1px] bg-teagreen-700"></div>;
   }
@@ -106,13 +108,14 @@ function Footer() {
                 height={50}
               />
             </div>
-            <div className="flex gap-3">
-              <div className="text-white">Social icons</div>
-              <div className="text-gray-300 flex">
-                <p className="uppercase">Back to top</p>
-                icon
+              <div className="text-white flex items-center gap-2">
+                <i className={"bx bxl-facebook-circle " + socialIconsExtraClasses}></i>
+                <i className={"bx bxl-instagram " + socialIconsExtraClasses}></i>
+                <i className={"bx bxl-linkedin-square " + socialIconsExtraClasses}></i>
+                <i className={"bx bxl-twitter " + socialIconsExtraClasses}></i>
+                <i className={"bx bxl-tiktok " + socialIconsExtraClasses}></i>
               </div>
-            </div>
+              <BackToTopButton />
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const TeaRange = () => {
   return (
     <div className="relative my-14">
       <div className="w-full h-[500px]">
-        <Image layout="fill" src={bgimage} alt="Discover" />
+        <Image fill src={bgimage} alt="Discover" />
       </div>
       <h2 className="absolute top-[15%] left-[6%] text-white text-4xl">
         Discover Our Tea Range
