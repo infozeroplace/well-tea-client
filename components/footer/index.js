@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import BackToTopButton from "./BacktoTopButton";
 
 function Footer() {
   const socialIconsExtraClasses = "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
@@ -114,10 +115,7 @@ function Footer() {
                 <i className={"bx bxl-twitter " + socialIconsExtraClasses}></i>
                 <i className={"bx bxl-tiktok " + socialIconsExtraClasses}></i>
               </div>
-              <button className="text-gray-300 flex items-center gap-2 group uppercase">
-                Back to top
-                <i className="bx bx-up-arrow-circle text-[25px] text-gray-300 group-hover:-translate-y-[2px]  transition-all duration-300"></i>
-              </button>
+              <BackToTopButton />
           </div>
         </div>
       </div>
