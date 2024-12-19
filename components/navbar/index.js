@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
+import {useState} from 'react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +63,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex space-x-4">
             <Link href="/profile">
-              <p className={navItemsClasses}>Profile</p>
+              <p>Profile</p>
             </Link>
             <button>icon</button>
             <button>icon</button>
