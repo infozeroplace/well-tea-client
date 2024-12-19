@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Credentials
 
-## Getting Started
+Frontend URL : [https://welltea.zeroplace.co](https://welltea.zeroplace.co) <br />
+Admin panel URL : [https://welltea-admin.zeroplace.co](https://welltea-admin.zeroplace.co) <br />
+API URL : [https://api.welltea.zeroplace.co](https://api.welltea.zeroplace.co)
 
-First, run the development server:
+Server Port : 8081
+
+Credential Email :
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Email : 4welltea@gmail.com
+Password : @mina624696
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production database URI :
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+mongodb+srv://churchlogoinfo:1lAPFr9vpYOYTa99@churchlogo.rv9tf.mongodb.net/welltea?retryWrites=true&w=majority
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Development database URI :
 
-## Learn More
+```bash
+mongodb+srv://churchlogoinfo:1lAPFr9vpYOYTa99@churchlogo.rv9tf.mongodb.net/welltea?retryWrites=true&w=majority
+```
 
-To learn more about Next.js, take a look at the following resources:
+Google client ID :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+167441940625-25d9ofhn0t0e91nitmv1bco386efusc6.apps.googleusercontent.com
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Google client secret :
 
-## Deploy on Vercel
+```bash
+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
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Stripe secret key prod :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Stripe secret key dev :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Stripe publishable key prod :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Stripe publishable key dev :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Stripe endpoint secret key prod :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Stripe endpoint secret key dev :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Cloudinary cloud name :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Cloudinary API key :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Cloudinary API secret :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
+
+Cloudinary upload preset :
+
+```bash
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+```
