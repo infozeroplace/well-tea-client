@@ -1,13 +1,15 @@
-import { Banner, Category, Hero, NewReleases, TeaRange } from "@/components";
+import { Banner, Category, Hero, NewReleases, TeaRange, ChooseType, SelectedTeas } from "@/components";
 
 export default function Home() {
   return (
     <div className="">
       <Hero />
-      <Category />
-      <Banner />
+      <ChooseType />
       <NewReleases />
+      <Banner />
+      <Category />
       <TeaRange />
+      <SelectedTeas />
     </div>
   );
 }

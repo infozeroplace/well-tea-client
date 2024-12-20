@@ -5,4 +5,6 @@ export { default as Hero} from "./hero";
 export { default as Category} from "./category";
 export { default as Banner } from "./banner";
 export { default as NewReleases } from "./newreleases";
+export { default as ChooseType } from "./choosetype";
+export { default as SelectedTeas } from "./selectedteas";
 export * from "./homepage";

@@ -12,7 +12,7 @@ const NewItemCard = ({ item }) => {
         />
       </div>
       <div className="absolute inset-0">
-        <div className="flex justify-center items-center text-white text-sm gap-2">
+        <div className="flex justify-center items-center text-white text-sm gap-2 mt-2">
           {item?.designation && <div className="uppercase  bg-teagreen-600 w-fit px-2">
             {item?.designation}
           </div>}
