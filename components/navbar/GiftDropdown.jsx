@@ -1,9 +1,34 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BsArrowRight } from "react-icons/bs";
 
 function GiftDropdown() {
   const productTypes = [
+    {
+      image: "/images/Teanav_Organic_Tea.webp",
+      name: "Black Tea",
+    },
+    {
+      image: "/images/Teanav_Flowering_tea.webp",
+      name: "Green Tea",
+    },
+    {
+      image: "/images/Teanav_Herbal_tea.webp",
+      name: "White Tea",
+    },
+    {
+      image: "/images/Teanav_Flowering_tea.webp",
+      name: "Oolong Tea",
+    },
+    {
+      image: "/images/Teanav_Herbal_tea.webp",
+      name: "Herbal Tea",
+    },
+    {
+      image: "/images/Teanav_Flowering_tea.webp",
+      name: "Pu-erh Tea",
+    },
     {
       image: "/images/product_one.jpg",
       name: "Black Tea",
@@ -18,15 +43,7 @@ function GiftDropdown() {
     },
     {
       image: "/images/product_one.jpg",
-      name: "Oolong Tea",
-    },
-    {
-      image: "/images/product_two.jpg",
-      name: "Herbal Tea",
-    },
-    {
-      image: "/images/product_three.jpg",
-      name: "Pu-erh Tea",
+      name: "Black Tea",
     },
   ];
 
@@ -46,20 +63,20 @@ function GiftDropdown() {
         />
       </div>
       {/* Middle Section */}
-      <div className="border-r-1">
-        <div className="flex justify-between mb-5 mx-5">
+      <div className="w-full mx-auto border-r-1">
+        <div className="flex justify-between mb-10 mx-5">
           <h3>Type</h3>
-          <Link href="/tea" className="flex items-center">
+          <Link href="/tea" className="flex items-center gap-1">
             All Teas
-            <i className="bx bx-right-arrow-alt text-[20px]"></i>
+            <BsArrowRight />
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-5 justify-items-center">
+        <div className="grid grid-cols-2 gap-5 ml-10">
           {productTypes.map((product, index) => (
             <Link
               href="#"
               key={index}
-              className="flex items-center gap-5 hover:brightness-125"
+              className="flex items-center gap-3 hover:brightness-125"
             >
               <Image
                 src={product.image}

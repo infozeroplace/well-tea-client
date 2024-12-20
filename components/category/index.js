@@ -2,6 +2,8 @@ import CategorySlider from "./CategorySlider";
 import CategoryButton from "./CategoryButton";
 
 function Category() {
+
+  
   
   return (
     <div className="py-14">
@@ -10,7 +12,7 @@ function Category() {
         <CategoryButton />
       </div>
       <div className="">
-        <div className="my-10 mx-32">
+        <div className="my-10 mx-20">
           <CategorySlider />
         </div>
       </div>

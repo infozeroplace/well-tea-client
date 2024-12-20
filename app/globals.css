@@ -67,3 +67,26 @@ p, a {
   -moz-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
   box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.scroll-text-left{
+  writing-mode: vertical-rl;
+}
+
+/* .custom-gradient {
+  background: var(--teagreen-800);
+  background: linear-gradient(to top, var(--teagreen-800) 0%, var(--teagreen-400) 80%);
+} */
+
+.custom-gradient{
+  background: rgb(35, 71, 40);
+    background: linear-gradient(to top, rgba(35, 71, 40, 1) 0%, rgba(68, 147, 64, 1) 45%, rgba(129, 231, 60, 0.1461178221288515) 80%);
+}
