@@ -33,7 +33,7 @@ function CategorySlider({ filteredProducts }) {
           nextEl: ".swiper-button-next",
         }}
         // navigation
-        slidesPerView={3}
+        slidesPerView={4}
         spaceBetween={30}
         loop={true}
       >
@@ -42,7 +42,7 @@ function CategorySlider({ filteredProducts }) {
             <CategoryCard item={item} />
           </SwiperSlide>
         ))}
-        <SwiperSlide>
+        <SwiperSlide className="!mr-0">
           <div className="border rounded-lg p-4 flex flex-col items-center justify-center text-center bg-blue-100">
             <h3 className="text-lg font-semibold text-blue-600">
               See All Products

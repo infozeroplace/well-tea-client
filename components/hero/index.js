@@ -10,6 +10,7 @@ import {
   Virtual,
   Parallax,
 } from "swiper/modules";
+import { useState } from 'react';
 
 function Hero() {
   const heroSilderItems = [
@@ -29,14 +30,23 @@ function Hero() {
       image: "/images/welltea_hero_3.jpg",
     }
   ]
+
+  const [isChange, setIsChange] = useState(false);
+
+  const handleChange = () => {
+    setIsChange(!isChange);
+    console.log(isChange);
+  }
+
   return (
     <div>
-      {/* <Image src="/images/welltea_hero.png" alt="Hero Image" width={2400} height={800}/> */}
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect={"fade"}
+        speed={2000}
+        onSlideChange={() => handleChange()}
         autoplay={{
-          delay: 2500,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         spaceBetween={50}
@@ -46,11 +56,13 @@ function Hero() {
         {heroSilderItems.map((item, index) => (
           <SwiperSlide key={index}>
             <div className="w-full h-[60vh]">
-              <Image src={item.image} alt="Hero Image" layout="fill" />
+              <Image src={item.image} alt="Hero Image" fill />
             </div>
 
             <div className="absolute left-20 top-[50%] bg-teagreen-600 p-20">
-              <h1 className="text-teagreen-300 text-4xl">{item.title}</h1>
+              <h1 className="text-teagreen-300 text-4xl transition-all duration-300">
+                {item.title}
+              </h1>
               <p className="text-teagreen-300">{item.description}</p>
             </div>
           </SwiperSlide>

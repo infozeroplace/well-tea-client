@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   return (
-    <nav className="bg-white sticky top-0 z-10">
+    <nav className="bg-white sticky top-0 z-50">
       <div className="px-4 sm:px-6 lg:px-16">
         <div className="flex justify-between items-center">
           {/* Logo */}

@@ -2,12 +2,14 @@
 
 import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
-import { useSignUpMutation } from "@/services/features/auth/authApi";
+import { useGoogleSignInMutation, useSignUpMutation } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
 import { Spinner } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import GoogleLoginButton from "./GoogleLoginButton";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const SignUp = ({ showForm }) => {
   const { handleSuccess, handleError } = useToast();
@@ -27,25 +29,28 @@ const SignUp = ({ showForm }) => {
 
   const [signUp, { data, error, isLoading }] = useSignUpMutation();
 
+const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
+    useGoogleSignInMutation();
+
   useEffect(() => {
-    if (data) {
-      handleSetCookie("authToken", data?.data?.refreshToken, {
+    if (data?.success || googleSignInData?.success) {
+      handleSetCookie("authToken", data?.data?.refreshToken || googleSignInData?.data?.refreshToken, {
         expires: 7,
         secure: true,
         sameSite: "None",
       });
 
-      dispatch(setAuth(data?.data));
+      dispatch(setAuth(data?.data || googleSignInData?.data));
 
-      handleSuccess(data?.message);
+      handleSuccess(data?.message || googleSignInData?.message);
 
       window.location.href = search || "/";
     }
 
     if (error) {
-      handleError(error?.data?.message);
+      handleError(error?.data?.message || googleSignInError?.data?.message);
     }
-  }, [data, error]);
+  }, [data, error, googleSignInData, googleSignInError]);
 
   const handleInput = (field, value) =>
     setCredentials((prev) => ({ ...prev, [field]: value }));
@@ -60,6 +65,17 @@ const SignUp = ({ showForm }) => {
     await signUp(options);
   };
 
+  // Google Login
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      await googleSignIn({ data: { code } });
+    },
+    flow: "auth-code",
+    onError: () => {
+      handleError(400, "Something went wrong!");
+    },
+  });
+
   return (
     <div
       className={`${
@@ -68,11 +84,11 @@ const SignUp = ({ showForm }) => {
           : "hidden translate-x-[100%] opacity-0"
       }`}
     >
-      <h4 className="text-2xl font-semibold text-center mb-2">
+      <h4 className="text-2xl font-semibold text-center mb-4 mt-2">
         Create Account
       </h4>
-      <form onSubmit={handleSubmit} className="gap-3">
-        <div className="flex justify-between gap-2 mb-2">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4">
+        <div className="flex justify-between gap-2">
           <input
             className="w-full border border-gray-400 p-2 rounded-lg"
             type="text"
@@ -87,7 +103,7 @@ const SignUp = ({ showForm }) => {
           />
         </div>
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg mb-2"
+          className="w-full border border-gray-400 p-2 rounded-lg"
           type="text"
           placeholder="Email"
           onChange={(e) => handleInput("email", e.target.value)}
@@ -105,11 +121,14 @@ const SignUp = ({ showForm }) => {
           {isLoading ? <Spinner /> : <span>Submit</span>}
         </button>
       </form>
-      <h4 className="text-xl font-semibold text-center my-4">Or</h4>
-      <div className="flex justify-center gap-2">
-        <div>Logos</div>
-        <div>Logos</div>
-        <div>Logos</div>
+      <div className="flex items-center my-4 xl:my-6">
+        <div className="w-full h-[1px] bg-slate-300"></div>
+        <div className="text-xl font-semibold text-center mx-2">Or</div>
+        <div className="w-full h-[1px] bg-slate-300"></div>
+      </div>
+      <div className="text-center mb-1">Sign in with</div>
+      <div className="flex justify-center gap-3">
+        <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
     </div>
   );
