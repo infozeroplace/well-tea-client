@@ -44,7 +44,7 @@ body {
 
 h1 {
   font-weight: 100;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 h3 {
@@ -54,11 +54,11 @@ h3 {
 
 h4{
   font-weight: 100;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 p, a {
-  font-weight: 200;
+  font-weight: 100;
   /* letter-spacing: 1px; */
 }
 
