@@ -1,1 +1,2 @@
 export {default as TeaRange} from './tearange'
+export {default as WhyChooseUs} from './whychooseus'

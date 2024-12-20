@@ -1,4 +1,4 @@
-import { Banner, Category, Hero, NewReleases, TeaRange } from "@/components";
+import { Banner, Category, Hero, NewReleases, TeaRange, WhyChooseUs } from "@/components";
 
 export default function Home() {
   return (
@@ -8,6 +8,7 @@ export default function Home() {
       <Banner />
       <NewReleases />
       <TeaRange />
+      <WhyChooseUs />
     </div>
   );
 }
