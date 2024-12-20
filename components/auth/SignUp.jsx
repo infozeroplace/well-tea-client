@@ -84,39 +84,39 @@ const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
           : "hidden translate-x-[100%] opacity-0"
       }`}
     >
-      <h4 className="text-2xl font-semibold text-center mb-4 mt-2">
+      <h4 className="text-2xl font-semibold text-center mb-4">
         Create Account
       </h4>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4">
-        <div className="flex justify-between gap-2">
+        {/* <div className="flex justify-between gap-2"> */}
           <input
-            className="w-full border border-gray-400 p-2 rounded-lg"
+            className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300"
             type="text"
             placeholder="First Name"
             onChange={(e) => handleInput("firstName", e.target.value)}
           />
           <input
-            className="w-full border border-gray-400 p-2 rounded-lg"
+            className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300"
             type="text"
             placeholder="Last Name"
             onChange={(e) => handleInput("lastName", e.target.value)}
           />
-        </div>
+        {/* </div> */}
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
+          className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300"
           type="text"
           placeholder="Email"
           onChange={(e) => handleInput("email", e.target.value)}
         />
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg mb-2"
+          className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300 mb-2"
           type="password"
           placeholder="Password"
           onChange={(e) => handleInput("password", e.target.value)}
         />
         <button
           type="submit"
-          className="text-center text-white w-full bg-teagreen-600 p-2 rounded-full flex justify-center items-center gap-2"
+          className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-2 rounded-full flex justify-center items-center gap-2"
         >
           {isLoading ? <Spinner /> : <span>Submit</span>}
         </button>
