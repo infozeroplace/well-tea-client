@@ -83,8 +83,8 @@ const SignIn = ({ showForm }) => {
   });
 
   const handleFacebookLogin = () => {
-    alert('login start')
-  }
+    alert("login start");
+  };
 
   return (
     <div
@@ -94,16 +94,16 @@ const SignIn = ({ showForm }) => {
           : "hidden translate-x-[100%] opacity-0"
       }`}
     >
-      <h4 className="text-2xl font-semibold text-center mb-2">Sign In</h4>
-      <form onSubmit={handleSubmit} className="gap-3">
+      <h4 className="text-2xl font-semibold text-center mb-4 mt-2">Sign In</h4>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4">
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg mb-2"
+          className="w-full border border-gray-400 p-2 rounded-lg"
           type="text"
           placeholder="Email Address"
           onChange={(e) => handleInput("email", e.target.value)}
         />
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg mb-4"
+          className="w-full border border-gray-400 p-2 rounded-lg mb-2"
           type="password"
           placeholder="Password"
           onChange={(e) => handleInput("password", e.target.value)}
@@ -115,7 +115,12 @@ const SignIn = ({ showForm }) => {
           {isLoading ? <Spinner /> : <span>Submit</span>}
         </button>
       </form>
-      <h4 className="text-xl font-semibold text-center my-4">Or</h4>
+      <div className="flex items-center my-4 xl:my-6">
+        <div className="w-full h-[1px] bg-slate-300"></div>
+        <div className="text-xl font-semibold text-center mx-2">Or</div>
+        <div className="w-full h-[1px] bg-slate-300"></div>
+      </div>
+      <div className="text-center mb-1">Sign in with</div>
       <div className="flex justify-center items-center gap-3">
         <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
