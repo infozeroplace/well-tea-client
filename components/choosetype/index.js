@@ -74,7 +74,7 @@ function ChooseTea() {
               </div>
               <div>
                 <p className="text-teagreen-600">
-                  {item.name}({item.number})
+                  {item.name}
                 </p>
               </div>
             </Link>

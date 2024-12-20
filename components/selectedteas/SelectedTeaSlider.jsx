@@ -15,6 +15,7 @@ import { FaStar } from "react-icons/fa6";
 function SelectedTeaSlider() {
     const selectedItems = [
       {
+        id: 1,
         image: "/images/product_2nd_01.jpg",
         name: "Green Tea",
         price: 10,
@@ -22,6 +23,7 @@ function SelectedTeaSlider() {
         discountedPrice: 7,
       },
       {
+        id: 2,
         image: "/images/product_3rd_01.jpg",
         name: "Black Tea",
         price: 15,
@@ -29,6 +31,7 @@ function SelectedTeaSlider() {
         discountedPrice: 7,
       },
       {
+        id: 3,
         image: "/images/product_2nd_01.jpg",
         name: "White Tea",
         price: 20,
@@ -36,6 +39,7 @@ function SelectedTeaSlider() {
         discountedPrice: 7,
       },
       {
+        id: 4,
         image: "/images/product_3rd_01.jpg",
         name: "Oolong Tea",
         price: 25,
@@ -43,6 +47,7 @@ function SelectedTeaSlider() {
         discountedPrice: 7,
       },
       {
+        id: 5,
         image: "/images/product_2nd_01.jpg",
         name: "Herbal Tea",
         price: 30,
@@ -62,7 +67,6 @@ function SelectedTeaSlider() {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        className="mySwiper"
       >
         {selectedItems.map((item, index) => (
           <SwiperSlide key={index}>

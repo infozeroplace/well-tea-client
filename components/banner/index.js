@@ -25,7 +25,7 @@ function Banner() {
             <button className="flex items-center">
               See More<i className="bx bx-chevron-right text-[25px]"></i>
             </button>
-            <div className="w-[70px] h-[1px] bg-teagreen-800 group-hover:w-0 transition-all duration-500"></div>
+            <div className="w-[73px] h-[1px] bg-teagreen-800 group-hover:w-0 transition-all duration-500"></div>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ function Banner() {
             <button className="text-white flex items-center">
               See More<i className="bx bx-chevron-right text-xl"></i>
             </button>
-            <div className="w-[70px] h-[1px] bg-white group-hover:w-0 transition-all duration-500"></div>
+            <div className="w-[73px] h-[1px] bg-white group-hover:w-0 transition-all duration-500"></div>
           </div>
         </div>
       </div>
