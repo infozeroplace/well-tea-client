@@ -127,7 +127,7 @@ const NewReleases = () => {
     }
   };
   return (
-    <div className="my-14">
+    <div className="my-14 bg-teagreen-100"> 
       <p className="text-center md:text-left uppercase text-xs ml-5">shop our tea</p>
       <h4 className="text-center md:text-left text-4xl ml-5 mb-8">New Realeases</h4>
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-5 md:mx-4">
