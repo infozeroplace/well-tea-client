@@ -37,13 +37,12 @@ export default function SignInScreen() {
             <div className="text-center text-3xl mb-4">Welcome!</div>
             {isSignIn && (
               <p className="mb-10">
-                Log in to your personal account on our website to view your
-                welltea visit history and buy something.
+                Log in to your personal account to access your WellTea visit history, discover your favorite teas, and make your next purchase effortlessly!
               </p>
             )}
             {!isSignIn && (
               <p className="mb-10">
-                Open your personal account on our website to view a,azing teas!.
+                Create your personal account today to connect with us and explore our collection of premium teas. Sign up now and enjoy a delightful journey into the world of exquisite flavors!
               </p>
             )}
             {!isSignIn && (

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function Banner() {
   return (
-    <div className="grid grid-cols-2 gap-5 my-14">
+    <div className="grid grid-cols-2 gap-5 section-gap">
       <div className="relative group overflow-hidden w-full">
         <div className="group-hover:scale-125 transition-all duration-500 overflow-hidden">
           <Image

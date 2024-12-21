@@ -19,7 +19,7 @@ const TeaRange = () => {
     setBgimage(image);
   };
   return (
-    <div className="relative my-14">
+    <div className="relative section-gap">
       <div className="w-full h-[500px]">
         <Image fill src={bgimage} alt="Discover" />
       </div>

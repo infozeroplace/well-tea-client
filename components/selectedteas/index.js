@@ -5,7 +5,7 @@ import SelectedTeaSlider from './SelectedTeaSlider';
 function SelectedTeas() {
 
   return (
-    <div className="my-14">
+    <div className="section-gap">
       <div className="grid grid-cols-8">
         <div className="relative col-span-5 w-full overflow-hidden">
           {/* <h1 className="scroll-text-left absolute top-0 left-0 z-10 text-white font-semibold">

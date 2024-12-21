@@ -89,6 +89,7 @@ function Hero() {
 
   return (
     <div className="relative overflow-hidden">
+    <div className='section-gap'>
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect={"fade"}
@@ -151,6 +152,7 @@ function Hero() {
           </SwiperSlide>
         ))}
       </Swiper>
+    </div>
     </div>
   );
 }
