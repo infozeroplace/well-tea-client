@@ -1,5 +1,5 @@
 export const productList = [
-  {
+  { 
     id: "1",
     designation: "best sellar",
     discount: "40",
