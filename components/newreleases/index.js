@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import NewItemCard from "./NewItemCard";
+import { SectionButton } from "../shared";
 
 const newitems = [
   {
@@ -116,33 +117,40 @@ const newitems = [
   },
 ];
 const NewReleases = () => {
-    const size = newitems.length;
+  const size = newitems.length;
   const [itemLimit, setItemLimit] = useState(5);
 
   const handleLimit = () => {
     if (itemLimit < size) setItemLimit(itemLimit + 5);
     else {
-    console.log("No More Items");
-    alert("No More Items");
+      console.log("No More Items");
+      alert("No More Items");
     }
   };
   return (
-    <div className="my-14 bg-teagreen-100"> 
-      <p className="text-center md:text-left uppercase text-xs ml-5">shop our tea</p>
-      <h4 className="text-center md:text-left text-4xl ml-5 mb-8">New Realeases</h4>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-5 md:mx-4">
+    <div className="section-gap bg-teagreen-100 py-1">
+      <div className="ml-12">
+        <p className="text-center md:text-left uppercase text-x">
+          shop our tea
+        </p>
+        <h4 className="text-center md:text-left text-4xl mb-8">
+          New Realeases
+        </h4>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-5">
         {newitems.map(
           (item, idx) =>
             idx < itemLimit && <NewItemCard key={item?.id} item={item} />
         )}
       </div>
-      <div className="flex justify-center md:justify-end text-lg mt-8 md:mt-2">
-        <div
+      <div className="flex justify-center md:justify-center text-lg mt-8 md:mt-16">
+        {/* <div
           onClick={handleLimit}
           className="bg-teagreen-600 hover:bg-teagreen-700 hover:underline w-fit mr-2 px-2 text-white cursor-pointer lg:mt-16 xl:mt-4 2xl:mt-0"
         >
           See More...
-        </div>
+        </div> */}
+        <SectionButton title="See More" onClick={handleLimit} />
       </div>
     </div>
   );

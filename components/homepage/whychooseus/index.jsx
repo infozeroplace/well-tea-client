@@ -1,5 +1,6 @@
 "use client";
 
+import { SectionButton } from "@/components/shared";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -34,14 +35,15 @@ const WhyChooseUs = () => {
     description: discoverItems[0].description,
   });
 
+  const [selected, setSelected] = useState(discoverItems[0].title);
+
   const handleClick = (item) => {
-    const { icon, image, description } = item;
+    const { title, icon, image, description } = item;
     setChoosOption({ ...choosOption, icon, image, description });
-    console.log(item);
-    console.log(icon, image, description);
+    setSelected(title);
   };
   return (
-    <div className="grid grid-cols-3 gap-6 py-14">
+    <div className="grid grid-cols-3 gap-6 section-gap container-scaled">
       <div className="col-span-1 border-r border-slate-200 font-light flex flex-col justify-between">
         <div>
           <p className="text-center md:text-left uppercase text-xs mb-2">
@@ -52,7 +54,7 @@ const WhyChooseUs = () => {
               <button
                 key={item?.title}
                 type="button"
-                className="text-xl lg:text-5xl w-full text-left py-3 hover:text-teagreen-600 duration-400"
+                className={`text-xl lg:text-5xl w-full text-left py-3 hover:text-teagreen-600 duration-400 ${selected === item?.title?'text-teagreen-600':''}`}
                 onClick={() => handleClick(item)}
               >
                 {item?.title}
@@ -64,9 +66,10 @@ const WhyChooseUs = () => {
           <div className="mb-5">{choosOption?.icon}</div>
           <div className="text-sm mb-5">{choosOption?.description}</div>
           <div className="group">
-          <button className="text-center uppercase bg-teagreen-600 group-hover:bg-teagreen-700 text-white text-[10px] py-3 px-6 w-full transition-all duration-400">
+            <SectionButton title="Learn more" />
+          {/* <button className="text-center uppercase bg-teagreen-600 group-hover:bg-teagreen-700 text-white text-[10px] py-3 px-6 w-full transition-all duration-400">
             learn more
-          </button>
+          </button> */}
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import CategorySlider from "./CategorySlider";
 import CategoryButton from "./CategoryButton";
 import { setCategory } from "@/services/features/category/categorySlice";
 import { productList } from "@/data/products";
+import { SectionButton } from "../shared";
 
 function Category() {
   // const productList = [
@@ -274,7 +275,7 @@ function Category() {
   const activeClass = "border-[0.5px] border-teagreen-600";
 
   return (
-    <div className="py-14">
+    <div className="section-gap">
       <h1 className="text-center text-4xl text-teagreen-800 mb-10">
         Explore our single teas
       </h1>
@@ -301,9 +302,10 @@ function Category() {
         </div>
       </div>
       <div className="flex items-center">
-        <button className="bg-teagreen-700 hover:bg-teagreen-600 text-white rounded-full px-10 py-3 text-center mx-auto">
+        <SectionButton title="Shop All Teas" />
+        {/* <button className="bg-teagreen-700 hover:bg-teagreen-600 text-white rounded-full px-10 py-3 text-center mx-auto">
           Shop All Teas
-        </button>
+        </button> */}
       </div>
     </div>
   );
