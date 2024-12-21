@@ -8,6 +8,8 @@ import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
+import { CiSearch, CiShoppingCart, CiHeart } from "react-icons/ci";
+import { PiUser } from "react-icons/pi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
