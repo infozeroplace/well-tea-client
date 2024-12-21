@@ -39,7 +39,7 @@ function Hero() {
   }
 
   return (
-    <div>
+    <div className='section-gap'>
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect={"fade"}

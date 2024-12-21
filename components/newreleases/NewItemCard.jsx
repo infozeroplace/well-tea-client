@@ -22,7 +22,7 @@ const NewItemCard = ({ item }) => {
             </div>
           )}
         </div>
-        <div className="aspect-square">
+        <div className="aspect-square overflow-hidden">
           <img
             src={item?.image}
             alt="New Product"
