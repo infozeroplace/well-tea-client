@@ -40,9 +40,12 @@ function ChooseTea() {
     <div className="section-gap container-scaled">
       <div className="max-w-screen-2xl mx-auto flex items-center gap-20">
         <div className="flex flex-shrink-0 flex-col gap-5">
-          <h3 className="text-2xl font-normal text-teagreen-600">
+          <h3 className="text-3xl font-extralight text-teagreen-600">
             Choose Your Tea Type
           </h3>
+          <p>
+            Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit. Sed do
+          </p>
           <Link href="/tea" className="underline">
             View More Tea Types
           </Link>
