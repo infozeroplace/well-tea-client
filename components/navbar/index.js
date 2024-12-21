@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
-import {useState} from 'react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white sticky top-0 z-50">
-      <div className="px-4 sm:px-6 lg:px-16">
+      <div className="container">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -31,11 +31,10 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-5">
-            <NavItem href="/about" name="About" />
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/tea" name="Tea" />
-              <NavDropdown extraClass="group-hover:h-[700px]">
+              <NavDropdown extraClass="group-hover:h-[500px] shadow">
                 <TeaDropdown />
               </NavDropdown>
             </div>
@@ -43,22 +42,22 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[700px]">
+              <NavDropdown extraClass="group-hover:h-[500px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
             </div>
 
-            <NavItem href="/sales" name="Sales" />
-
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/gifts" name="Gifts" />
-              <NavDropdown extraClass="group-hover:h-[700px]">
+              <NavDropdown extraClass="group-hover:h-[500px] shadow">
                 <GiftDropdown />
               </NavDropdown>
             </div>
 
+            <NavItem href="/sales" name="Sales" />
             <NavItem href="/explore" name="Explore" />
+            <NavItem href="/about" name="About" />
           </div>
 
           <div className="hidden md:flex space-x-4">

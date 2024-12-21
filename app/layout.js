@@ -32,7 +32,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="container-max">
+    <html lang="en">
       <body className={fonts}>
         <ReduxProvider>
           <PersistLogin>
