@@ -2,6 +2,22 @@ import { api } from "@/services/api/apiSlice";
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    resetPassword: builder.mutation({
+      query: ({ data }) => ({
+        url: "/public/auth/reset-password",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
+    forgotPassword: builder.mutation({
+      query: ({ data }) => ({
+        url: "/public/auth/forgot-password",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
     getRefreshToken: builder.mutation({
       query: ({ data }) => ({
         url: "/public/auth/refresh/token",
@@ -38,6 +54,8 @@ const authApi = api.injectEndpoints({
 });
 
 export const {
+  useResetPasswordMutation,
+  useForgotPasswordMutation,
   useGetRefreshTokenMutation,
   useGoogleSignInMutation,
   useSignInMutation,

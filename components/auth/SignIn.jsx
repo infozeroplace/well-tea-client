@@ -23,7 +23,7 @@ const SignIn = ({ showForm }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const search = searchParams.get("redirect");
+  const redirect = searchParams.get("redirect");
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -51,7 +51,7 @@ const SignIn = ({ showForm }) => {
 
       handleSuccess(data?.message || googleSignInData?.message);
 
-      window.location.href = search || "/";
+      window.location.href = redirect || "/";
     }
 
     if (error) {
@@ -115,8 +115,8 @@ const SignIn = ({ showForm }) => {
           {isLoading ? <Spinner /> : <span>Submit</span>}
         </button>
       </form>
-      <div className="text-right">
-        <Link href="/forgotpassword" className="underline">
+      <div className="text-center mt-2">
+        <Link href="/forgot-password" className="underline">
           Forgot Password?
         </Link>
       </div>
