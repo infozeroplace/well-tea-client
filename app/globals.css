@@ -7,14 +7,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --teagreen-100: #F2F5F0;
-  --teagreen-200: #ECEDE9;
-  --teagreen-300: #E4E6D9;
-  --teagreen-400: #C0CFB2;
-  --teagreen-500: #8BA888;
-  --teagreen-600: #49654D;
+  --teagreen-100: #f2f5f0;
+  --teagreen-200: #ecede9;
+  --teagreen-300: #e4e6d9;
+  --teagreen-400: #c0cfb2;
+  --teagreen-500: #8ba888;
+  --teagreen-600: #49654d;
   --teagreen-700: #253627;
-  --teagreen-800: #131B14;
+  --teagreen-800: #131b14;
 }
 
 /* #F2F5F0 #ECEDE9 #E4E6D9 #C0CFB2 #8BA888 #49654D #253627 #131B14 */
@@ -53,15 +53,15 @@ h3 {
   /* letter-spacing: 1px; */
 }
 
-h4{
+h4 {
   font-weight: 100;
   /* letter-spacing: 1px; */
 }
 
-p{
+p {
   font-weight: 200;
   /* letter-spacing: 1px; */
-} 
+}
 a {
   font-weight: 200;
   /* letter-spacing: 1px; */
@@ -81,15 +81,21 @@ a {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .section-gap{
+  .container {
+    max-width: 1340px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .section-gap {
     margin-bottom: 3rem;
   }
 }
 
 .custom-shadow {
-  -webkit-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
-  box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes marquee {
@@ -101,7 +107,7 @@ a {
   }
 }
 
-.scroll-text-left{
+.scroll-text-left {
   writing-mode: vertical-rl;
 }
 
@@ -110,7 +116,12 @@ a {
   background: linear-gradient(to top, var(--teagreen-800) 0%, var(--teagreen-400) 80%);
 } */
 
-.custom-gradient{
+.custom-gradient {
   background: rgb(35, 71, 40);
-    background: linear-gradient(to top, rgba(35, 71, 40, 1) 0%, rgba(68, 147, 64, 1) 45%, rgba(129, 231, 60, 0.1461178221288515) 80%);
+  background: linear-gradient(
+    to top,
+    rgba(35, 71, 40, 1) 0%,
+    rgba(68, 147, 64, 1) 45%,
+    rgba(129, 231, 60, 0.1461178221288515) 80%
+  );
 }

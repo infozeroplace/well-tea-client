@@ -1,44 +1,43 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/image";
+import Link from "next/link";
 
 function ChooseTea() {
   const teaTypes = [
     {
-        image: "/images/newproduct_one.jpg",
-        hoverImage: "/images/newproduct_two.jpg",
-        name: "Green Tea",
-        number: 5
+      image: "/images/newproduct_one.jpg",
+      hoverImage: "/images/newproduct_two.jpg",
+      name: "Green Tea",
+      number: 5,
     },
     {
-        image: "/images/newproduct_one.jpg",
-        hoverImage: "/images/newproduct_two.jpg",
-        name: "Black Tea",
-        number: 10
+      image: "/images/newproduct_one.jpg",
+      hoverImage: "/images/newproduct_two.jpg",
+      name: "Black Tea",
+      number: 10,
     },
     {
-        image: "/images/newproduct_one.jpg",
-        hoverImage: "/images/newproduct_two.jpg",
-        name: "Oolong Tea",
-        number: 7
+      image: "/images/newproduct_one.jpg",
+      hoverImage: "/images/newproduct_two.jpg",
+      name: "Oolong Tea",
+      number: 7,
     },
     {
-        image: "/images/newproduct_one.jpg",
-        hoverImage: "/images/newproduct_two.jpg",
-        name: "White Tea",
-        number: 3
+      image: "/images/newproduct_one.jpg",
+      hoverImage: "/images/newproduct_two.jpg",
+      name: "White Tea",
+      number: 3,
     },
     {
-        image: "/images/newproduct_one.jpg",
-        hoverImage: "/images/newproduct_two.jpg",
-        name: "Herbal Tea",
-        number: 8
-    }
-  ]
+      image: "/images/newproduct_one.jpg",
+      hoverImage: "/images/newproduct_two.jpg",
+      name: "Herbal Tea",
+      number: 8,
+    },
+  ];
 
   return (
-    <div className="section-gap container-scaled">
-      <div className="max-w-screen-2xl mx-auto flex items-center gap-20">
+    <div className="container px-4 section-gap">
+      <div className="flex flex-col xl:flex-row items-start xl:items-center gap-10 xl:gap-20">
         <div className="flex flex-shrink-0 flex-col gap-5">
           <h3 className="text-3xl font-extralight text-teagreen-600">
             Choose Your Tea Type
@@ -50,7 +49,7 @@ function ChooseTea() {
             View More Tea Types
           </Link>
         </div>
-        <div className="flex items-center justify-between w-full mx-auto">
+        <div className="flex items-center justify-center lg:justify-start flex-wrap w-full mx-auto gap-5">
           {teaTypes.map((item, index) => (
             <Link
               key={index}
@@ -76,9 +75,7 @@ function ChooseTea() {
                 </div>
               </div>
               <div>
-                <p className="text-teagreen-600">
-                  {item.name}
-                </p>
+                <p className="text-teagreen-600">{item.name}</p>
               </div>
             </Link>
           ))}
