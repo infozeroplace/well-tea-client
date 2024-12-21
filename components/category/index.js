@@ -276,7 +276,7 @@ function Category() {
 
   return (
     <div className="section-gap">
-      <h1 className="text-center text-4xl text-teagreen-800 mb-10">
+      <h1 className="uppercase text-center text-4xl text-teagreen-800 mb-10">
         Explore our single teas
       </h1>
       <div className="flex gap-5 w-full mx-auto items-center justify-center mb-10">

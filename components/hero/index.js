@@ -13,6 +13,7 @@ import {
 } from "swiper/modules";
 import { delay, motion } from "framer-motion";
 import { useState } from 'react';
+import { SectionButton } from '../shared';
 
 function Hero() {
   const heroSilderItems = [
@@ -89,70 +90,80 @@ function Hero() {
 
   return (
     <div className="relative overflow-hidden">
-    <div className='section-gap'>
-      <Swiper
-        modules={[Autoplay, EffectFade]}
-        effect={"fade"}
-        speed={1000}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
-        // spaceBetween={50}
-        slidesPerView={1}
-        loop={true}
-      >
-        {heroSilderItems.map((item, index) => (
-          <SwiperSlide key={index} className="relative">
-            <div className=" w-full h-[60vh]">
-              <Image src={item.image} alt="Hero Image" fill />
-            </div>
-
-            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-
-            <div className="absolute px-4 sm:px-6 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
-              <div
-              // key={`content-${index}`}
-              // className="bg-teagren-600 opacity-40"
-              // initial={activeSlide === index ? "hidden" : null}
-              // animate={activeSlide === index ? "visible" : "exit"}
-              // variants={textAnimation}
-              >
-                <motion.h1
-                  key={`title-${index}`}
-                  initial={activeSlide === index ? "hidden" : null}
-                  animate={activeSlide === index ? "visible" : "exit"}
-                  variants={textAnimation}
-                  className="space-y-4 text-6xl font-extralight mb-2"
-                >
-                  {item.title}
-                </motion.h1>
-                <motion.p
-                  key={`description-${index}`}
-                  initial={activeSlide === index ? "hidden" : null}
-                  animate={activeSlide === index ? "visible" : "exit"}
-                  variants={textAnimation}
-                  className="space-y-4 text-lg"
-                >
-                  {item.description}
-                </motion.p>
-                <motion.button
-                  key={`content-${index}`}
-                  initial={activeSlide === index ? "hidden" : null}
-                  animate={activeSlide === index ? "visible" : "exit"}
-                  variants={textAnimation}
-                  href="#"
-                  className="space-y-4 inline-block mt-4 bg-teagreen-600 hover:bg-teagreen-500 px-16 py-3 rounded-lg text-white font-medium"
-                >
-                  Shop Now
-                </motion.button>
+      <div className="section-gap">
+        <Swiper
+          modules={[Autoplay, EffectFade]}
+          effect={"fade"}
+          speed={1000}
+          // mousewheel={true}
+          grabCursor={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
+          // spaceBetween={50}
+          slidesPerView={1}
+          loop={true}
+        >
+          {heroSilderItems.map((item, index) => (
+            <SwiperSlide key={index} className="relative">
+              <div className=" w-full ">
+                <Image
+                  src={item.image}
+                  alt="Hero Image"
+                  width={1900}
+                  height={750}
+                  style={{ width: "100%", height: "100%" }}
+                />
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+
+              <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+              <div className="absolute px-4 sm:px-6 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
+                <div
+                // key={`content-${index}`}
+                // className="bg-teagren-600 opacity-40"
+                // initial={activeSlide === index ? "hidden" : null}
+                // animate={activeSlide === index ? "visible" : "exit"}
+                // variants={textAnimation}
+                >
+                  <motion.h1
+                    key={`title-${index}`}
+                    initial={activeSlide === index ? "hidden" : null}
+                    animate={activeSlide === index ? "visible" : "exit"}
+                    variants={textAnimation}
+                    className="space-y-4 text-6xl font-extralight mb-2"
+                  >
+                    {item.title}
+                  </motion.h1>
+                  <motion.p
+                    key={`description-${index}`}
+                    initial={activeSlide === index ? "hidden" : null}
+                    animate={activeSlide === index ? "visible" : "exit"}
+                    variants={textAnimation}
+                    className="space-y-4 text-lg"
+                  >
+                    {item.description}
+                  </motion.p>
+                  <motion.div
+                    key={`content-${index}`}
+                    initial={activeSlide === index ? "hidden" : null}
+                    animate={activeSlide === index ? "visible" : "exit"}
+                    variants={textAnimation}
+                    href="#"
+                    // className="space-y-4 inline-block mt-4 bg-teagreen-600 hover:bg-teagreen-500 px-16 py-3 rounded-lg text-white font-medium duration-300"
+                    className="mt-5"
+                  >
+                    <SectionButton title="Shop Now" textClass="!text-white" buttonClass="!bg-teagreen-500" />
+                  </motion.div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 }

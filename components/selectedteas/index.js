@@ -45,7 +45,7 @@ function SelectedTeas() {
             behavior="scroll"
             direction="right"
             scrollamount="20"
-            className="absolute bottom-0 -right-full z-10 mr-32 font-semibold text-white text-4xl rotate-90"
+            className="absolute bottom-0 -right-full z-10 mr-32 uppercase font-semibold text-white text-4xl rotate-90"
           >
             • Save Up To 50% • Save Up To 50% • Save Up To 50% • Save Up To 50%
             • Save Up To 50% • Save Up To 50% • Save Up To 50% •

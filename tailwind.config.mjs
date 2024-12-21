@@ -60,6 +60,9 @@ export default {
       // backgroundImage: {
       //   "welltea-hero": "url('')",
       // },
+      animation: {
+        "progress-circle": "progressCircle 1s ease-out forwards",
+      },
     },
   },
   plugins: [nextui()],
