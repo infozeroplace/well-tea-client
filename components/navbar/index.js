@@ -3,24 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
+import { PiUser } from "react-icons/pi";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
-import { CiSearch, CiShoppingCart, CiHeart } from "react-icons/ci";
-import { PiUser } from "react-icons/pi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const navIconsClasses = "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
+  const navIconsClasses =
+    "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
   return (
-    <nav className="bg-white sticky top-0 z-50">
+    <nav className="bg-white sticky top-0 z-50 shadow">
       <div className="container">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center h-[10vh]">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
@@ -82,10 +83,7 @@ const Navbar = () => {
               <button className={navIconsClasses}>
                 <CiHeart />
               </button>
-              <Link
-                href="/profile"
-                className={navIconsClasses}
-              >
+              <Link href="/profile" className={navIconsClasses}>
                 <PiUser className="text-xl" />
               </Link>
             </div>
