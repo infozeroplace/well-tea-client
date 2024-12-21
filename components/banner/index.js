@@ -16,12 +16,12 @@ function Banner() {
             }}
           />
         </div>
-        <div className="absolute top-10 left-10">
+        <div className="absolute top-1/2 transform -translate-y-1/2 left-10">
           <h1 className="text-4xl font-bold mb-2">Wellness Tea</h1>
-          <p className="text-lg text-gray-500">
+          <p className="text-lg text-gray-500 -mt-2">
             Indulge in a delightful blend.
           </p>
-          <div className="mt-24">
+          <div className="mt-2">
             <button className="flex items-center">
               See More<i className="bx bx-chevron-right text-[25px]"></i>
             </button>
@@ -43,12 +43,12 @@ function Banner() {
             }}
           />
         </div>
-        <div className="absolute top-10 left-10">
+        <div className="absolute top-1/2 transform -translate-y-1/2 left-10">
           <h1 className="text-4xl text-white font-bold mb-2">Wellness Tea</h1>
-          <p className="text-lg text-gray-400">
+          <p className="text-lg text-gray-400 -mt-2">
             Indulge in a delightful blend.
           </p>
-          <div className="mt-24">
+          <div className="mt-2">
             <button className="text-white flex items-center">
               See More<i className="bx bx-chevron-right text-xl"></i>
             </button>

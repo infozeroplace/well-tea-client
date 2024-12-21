@@ -5,15 +5,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const discoverItems = [
-  { title: "Harbal", image: "/images/welltea_hero.png" },
-  { title: "Blac Tea", image: "/images/discover_image.jpeg" },
-  { title: "Green Tea", image: "/images/welltea_hero.png" },
-  { title: "White Tea", image: "/images/discover_image.jpeg" },
-  { title: "Oolong Tea", image: "/images/welltea_hero.png" },
-  { title: "Matcha", image: "/images/discover_image.jpeg" },
+  { title: "Harbal", image: "/discover/slide_banner_01.jpg" },
+  { title: "Blac Tea", image: "/discover/slide_banner_02.jpg" },
+  { title: "Green Tea", image: "/discover/slide_banner_03.jpg" },
+  { title: "White Tea", image: "/discover/slide_banner_04.jpg" },
+  { title: "Oolong Tea", image: "/discover/slide_banner_05.jpg" },
+  { title: "Matcha", image: "/discover/slide_banner_06.jpg" },
 ];
 const TeaRange = () => {
-  const [bgimage, setBgimage] = useState("/images/welltea_hero.png");
+  const [bgimage, setBgimage] = useState("/discover/slide_banner_01.jpg");
 
   const handleImage = (image) => {
     setBgimage(image);
@@ -23,9 +23,13 @@ const TeaRange = () => {
       <div className="w-full h-[500px]">
         <Image fill src={bgimage} alt="Discover" />
       </div>
-      <h2 className="absolute top-[15%] left-[6%] text-white text-4xl">
-        Discover Our Tea Range
-      </h2>
+      <div className="absolute top-[15%] left-[6%]">
+        <h2 className=" text-white text-4xl">Discover Our Tea Range</h2>
+        <p className="text-white">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod
+        </p>
+      </div>
       <div className="absolute bottom-4 z-10 pl-[10%] w-full h-28 flex flex-col justify-end">
         <div className=" flex">
           {discoverItems.map((item) => (
