@@ -4,7 +4,7 @@ export async function middleware(req) {
   const { value: authToken } = req.cookies.get("authToken") || {};
   const pathname = req.nextUrl.pathname;
 
-  const authPaths = ["/login", "/forget-password", "/reset-password"];
+  const authPaths = ["/login", "/forgot-password", "/reset-password"];
 
   const protectedPaths = ["/profile"];
 
@@ -27,5 +27,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/login", "/forget-password", "/reset-password", "/profile"],
+  matcher: ["/login", "/forgot-password", "/reset-password", "/profile"],
 };
