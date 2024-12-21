@@ -3,13 +3,15 @@
 import React, { useState } from "react";
 import NewItemCard from "./NewItemCard";
 import { SectionButton } from "../shared";
+import { productList } from "@/data/products";
 
 const newitems = [
   {
     id: "1",
     designation: "best sellar",
     discount: "40",
-    image: "/images/newproduct_one.jpg",
+    image: "/products/product_05.jpg",
+    hoverImage: "/products/product_06.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -20,7 +22,8 @@ const newitems = [
     id: "2",
     designation: "best sellar",
     discount: "40",
-    image: "/images/newproduct_two.jpg",
+    image: "/products/product_07.jpg",
+    hoverImage: "/products/product_08.jpg",
     type: "Ginger Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -31,7 +34,8 @@ const newitems = [
     id: "3",
     designation: "best sellar",
     discount: "40",
-    image: "/images/newproduct_one.jpg",
+    image: "/products/product_05.jpg",
+    hoverImage: "/products/product_06.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -42,7 +46,8 @@ const newitems = [
     id: "4",
     designation: "best sellar",
     discount: "",
-    image: "/images/product_two.jpg",
+    image: "/products/product_07.jpg",
+    hoverImage: "/products/product_08.jpg",
     type: "Yellow Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -53,7 +58,8 @@ const newitems = [
     id: "5",
     designation: "best sellar",
     discount: "40",
-    image: "/images/newproduct_two.jpg",
+    image: "/products/product_05.jpg",
+    hoverImage: "/products/product_06.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -64,7 +70,8 @@ const newitems = [
     id: "6",
     designation: "best sellar",
     discount: "40",
-    image: "/images/product_two.jpg",
+    image: "/products/product_07.jpg",
+    hoverImage: "/products/product_08.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -75,7 +82,8 @@ const newitems = [
     id: "7",
     designation: "best sellar",
     discount: "40",
-    image: "/images/product_two.jpg",
+    image: "/products/product_05.jpg",
+    hoverImage: "/products/product_06.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -86,7 +94,8 @@ const newitems = [
     id: "8",
     designation: "best sellar",
     discount: "40",
-    image: "/images/product_two.jpg",
+    image: "/products/product_07.jpg",
+    hoverImage: "/products/product_08.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -97,7 +106,8 @@ const newitems = [
     id: "9",
     designation: "best sellar",
     discount: "40",
-    image: "/images/product_two.jpg",
+    image: "/products/product_05.jpg",
+    hoverImage: "/products/product_06.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -108,7 +118,8 @@ const newitems = [
     id: "10",
     designation: "best sellar",
     discount: "40",
-    image: "/images/product_two.jpg",
+    image: "/products/product_05.jpg",
+    hoverImage: "/products/product_06.jpg",
     type: "Organic Teas",
     title: "White Tera Rose Melange",
     rating: "4",
@@ -129,13 +140,11 @@ const NewReleases = () => {
   };
   return (
     <div className="section-gap bg-teagreen-100 py-1">
-      <div className="ml-12">
+      <div className="ml-[76px] py-5 ">
         <p className="text-center md:text-left uppercase text-x">
           shop our tea
         </p>
-        <h4 className="text-center md:text-left text-4xl mb-8">
-          New Realeases
-        </h4>
+        <h4 className="text-center md:text-left text-4xl">New Realeases</h4>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-5">
         {newitems.map(
@@ -143,7 +152,7 @@ const NewReleases = () => {
             idx < itemLimit && <NewItemCard key={item?.id} item={item} />
         )}
       </div>
-      <div className="flex justify-center md:justify-center text-lg mt-8 md:mt-16">
+      <div className="flex justify-center md:justify-center text-lg mt-8 md:mt-32">
         {/* <div
           onClick={handleLimit}
           className="bg-teagreen-600 hover:bg-teagreen-700 hover:underline w-fit mr-2 px-2 text-white cursor-pointer lg:mt-16 xl:mt-4 2xl:mt-0"

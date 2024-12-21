@@ -28,18 +28,19 @@
 
 /* var(--prompt), */
 
-/* *,
+*,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} */
+}
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--prompt);
+  box-sizing: border-box;
 }
 
 h1 {

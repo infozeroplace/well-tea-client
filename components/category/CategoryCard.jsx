@@ -5,9 +5,9 @@ const CategoryCard = ({ item }) => {
   if (!item) return null;
   return (
     <div className="relative w-full aspect-[362/482] mb-4 group">
-      <div className="overflow-hidden">
+      <div className="aspect-square">
         <img
-          src="/images/product_2nd_01.jpg"
+          src={item?.hoverImage}
           alt="New Product"
           className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
         />
@@ -26,7 +26,7 @@ const CategoryCard = ({ item }) => {
           )}
         </div>
 
-        <div className="aspect-square overflow-hidden">
+        <div className="overflow-hidden">
           <img
             src={item?.image}
             className="opacity-0 group-hover:opacity-100 h-full group-hover:scale-150 duration-400"

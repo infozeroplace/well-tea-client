@@ -13,6 +13,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const navIconsClasses = "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
+
   return (
     <nav className="bg-white sticky top-0 z-50">
       <div className="container">
@@ -60,20 +62,29 @@ const Navbar = () => {
             <NavItem href="/about" name="About" />
           </div>
 
+          {/* <CircularProgress
+            aria-label="Loading..."
+            color="warning"
+            size="lg"
+          /> */}
+
           <div className="hidden md:flex space-x-4">
             {/* Nav Icons */}
             <div className="hidden md:flex items-center space-x-4 text-2xl">
-              <button className="flex items-center">
-                <i className="bx bx-search-alt-2 font-"></i>
+              <button className={navIconsClasses}>
+                <CiSearch />
               </button>
-              <button className="flex items-center">
-                <i className="bx bx-cart"></i>
+              <button className={navIconsClasses}>
+                <CiShoppingCart />
               </button>
-              <button className="flex items-center">
-                <i className="bx bx-heart"></i>
+              <button className={navIconsClasses}>
+                <CiHeart />
               </button>
-              <Link href="/profile" className="flex items-center">
-                <i className="bx bx-user"></i>
+              <Link
+                href="/profile"
+                className={navIconsClasses}
+              >
+                <PiUser className="text-xl" />
               </Link>
             </div>
 

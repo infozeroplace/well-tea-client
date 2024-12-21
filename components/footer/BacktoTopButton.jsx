@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa6";
 
 const BackToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,18 +28,12 @@ const BackToTopButton = () => {
   return (
     <>
       {isVisible && (
-        // <button
-        //   onClick={scrollToTop}
-        //   className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-700 transition duration-300"
-        // >
-        //   ↑ Top
-        // </button>
         <button
           onClick={scrollToTop}
-          className="fixed bottom-10 right-5 z-10 text-teagreen-500 flex items-center gap-2 group uppercase"
+          className="fixed bottom-10 right-10 z-20 bg-teagreen-700 p-3 rounded-full text-teagreen-100 flex items-center gap-2 group uppercase"
         >
-          Back to top
-          <i className="bx bx-up-arrow-circle text-[25px] text-teagreen-500 group-hover:-translate-y-[2px]  transition-all duration-300"></i>
+          {/* <i className="bx bx-up-arrow-circle text-[25px] text-teagreen-500 group-hover:-translate-y-[2px]  transition-all duration-300"></i> */}
+          <FaArrowUp />
         </button>
       )}
     </>
