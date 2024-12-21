@@ -35,6 +35,7 @@ function ChooseTea() {
     },
   ];
 
+  
   return (
     <div className="container px-4 section-gap">
       <div className="flex flex-col xl:flex-row items-start xl:items-center gap-10 xl:gap-20">
@@ -54,20 +55,22 @@ function ChooseTea() {
               className="flex flex-col items-center group gap-5"
             >
               <div className="relative">
-                <div className="w-[150px] h-[150px] rounded-full overflow-hidden group-hover:opacity-0 transition-opacity duration-300">
+                <div className="w-[150px] h-[150px] rounded-full overflow-hidden group-hover:opacity-0 transition-opacity duration-400">
                   <Image
                     src={item.image}
                     alt="Tea Type"
                     width={200}
                     height={200}
+                    className="w-full group-hover:scale-110 transition-transform duration-400"
                   />
                 </div>
-                <div className="w-[150px] h-[150px] rounded-full overflow-hidden absolute top-0 left-0 opacity-0 hover:opacity-100 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="w-[150px] h-[150px] rounded-full overflow-hidden absolute top-0 left-0 opacity-0 hover:opacity-100 transition-opacity duration-400 group-hover:opacity-100">
                   <Image
                     src={item.hoverImage}
                     alt="Tea Type"
                     width={200}
                     height={200}
+                    className="w-full group-hover:scale-110 transition-transform duration-400"
                   />
                 </div>
               </div>
