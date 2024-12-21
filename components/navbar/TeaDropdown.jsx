@@ -146,7 +146,7 @@ function TeaDropdown() {
         </div>
       </div>
       <div className="">
-        <div className="bg-[url('/images/welltea_hero.png')] w-full bg-contain h-[300px]">
+        <div className="bg-[url('/images/welltea_hero.png')] w-full bg-no-repeat bg-contain h-[300px]">
           {/* <Image
             src="/images/welltea_hero.png"
             alt=""
@@ -157,7 +157,7 @@ function TeaDropdown() {
               height: "auto",
             }}
           /> */}
-          <div className="absolute top-56 z-10">
+          <div className="absolute top-44 z-10">
             <h3 className="bg-red-500 text-white py-2 px-5 mb-3">
               Discover Our Newest
             </h3>
@@ -169,7 +169,7 @@ function TeaDropdown() {
             </Link>
           </div>
         </div>
-        <div className="flex gap-5 mt-8">
+        <div className="flex gap-5">
           <div className="flex-1">
             <Image
               src="/images/welltea_hero.png"

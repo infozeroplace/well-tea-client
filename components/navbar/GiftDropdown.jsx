@@ -48,7 +48,7 @@ function GiftDropdown() {
   ];
 
   return (
-    <div className="w-full grid grid-cols-3 mt-10">
+    <div className="w-full grid grid-cols-3 mt-5">
       {/* Left Section */}
       <div className="border-r-1">
         <Image

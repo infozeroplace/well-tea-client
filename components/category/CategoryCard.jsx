@@ -7,7 +7,7 @@ const CategoryCard = ({ item }) => {
     <div className="relative w-full aspect-[362/482] mb-4 group">
       <div className="aspect-square">
         <img
-          src="/images/product_2nd_01.jpg"
+          src={item?.hoverImage}
           alt="New Product"
           className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
         />

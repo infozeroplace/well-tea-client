@@ -4,10 +4,10 @@ export default function Home() {
   return (
     <div className="">
       <Hero />
-      <ChooseType />
+      <Category />
       <NewReleases />
       <Banner />
-      <Category />
+      <ChooseType />
       <TeaRange />
       <SelectedTeas />
       <WhyChooseUs />

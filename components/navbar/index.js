@@ -8,10 +8,24 @@ import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
 import {useState} from 'react';
+import {
+  CiSearch,
+  CiShoppingCart,
+  CiHeart,
+  CiUser,
+} from "react-icons/ci";
+import { CircularProgress } from "@nextui-org/react";
+
+import { RiUser4Line } from "react-icons/ri";
+import { PiUser } from "react-icons/pi";
+
+// import { CiShoppingCart } from "react-icons/ci";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const navIconsClasses = "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
   return (
     <nav className="bg-white sticky top-0 z-50">
@@ -35,7 +49,7 @@ const Navbar = () => {
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/tea" name="Tea" />
-              <NavDropdown extraClass="group-hover:h-[700px]">
+              <NavDropdown extraClass="group-hover:h-[500px]">
                 <TeaDropdown />
               </NavDropdown>
             </div>
@@ -43,7 +57,7 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[700px]">
+              <NavDropdown extraClass="group-hover:h-[600px]">
                 <TeawareDropdown />
               </NavDropdown>
             </div>
@@ -53,7 +67,7 @@ const Navbar = () => {
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/gifts" name="Gifts" />
-              <NavDropdown extraClass="group-hover:h-[700px]">
+              <NavDropdown extraClass="group-hover:h-[600px]">
                 <GiftDropdown />
               </NavDropdown>
             </div>
@@ -61,20 +75,29 @@ const Navbar = () => {
             <NavItem href="/explore" name="Explore" />
           </div>
 
+          {/* <CircularProgress
+            aria-label="Loading..."
+            color="warning"
+            size="lg"
+          /> */}
+
           <div className="hidden md:flex space-x-4">
             {/* Nav Icons */}
             <div className="hidden md:flex items-center space-x-4 text-2xl">
-              <button className="flex items-center">
-                <i className="bx bx-search-alt-2 font-"></i>
+              <button className={navIconsClasses}>
+                <CiSearch />
               </button>
-              <button className="flex items-center">
-                <i className="bx bx-cart"></i>
+              <button className={navIconsClasses}>
+                <CiShoppingCart />
               </button>
-              <button className="flex items-center">
-                <i className="bx bx-heart"></i>
+              <button className={navIconsClasses}>
+                <CiHeart />
               </button>
-              <Link href="/profile" className="flex items-center">
-                <i className="bx bx-user"></i>
+              <Link
+                href="/profile"
+                className={navIconsClasses}
+              >
+                <PiUser className="text-xl" />
               </Link>
             </div>
 
