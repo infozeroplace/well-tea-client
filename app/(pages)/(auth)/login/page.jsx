@@ -8,43 +8,90 @@ import { useState } from "react";
 export default function SignInScreen() {
   const [showForm, setShowForm] = useState("sign-in");
 
-  const handleShowForm = (text) => setShowForm(text);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleShowForm = (form) => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setShowForm(form);
+      setIsAnimating(false);
+    },300);
+  };
+  // const handleShowForm = (text) => setShowForm(text);
 
   const isSignIn = showForm.includes("sign-in");
 
   return (
-    <div className="relative min-h-[90vh] h-full flex justify-center items-center  bg-opacity-40 ">
-      <div className="z-[1] md:w-[70%] my-4 lg:my-10 h-full mx-auto grid grid-cols-2 bg-gray-200 rounded-lg">
-            <Image src="/images/loginform-bg.jpg" alt="login" width={667} height={1000} className="rounded-l-lg w-full" />
-        <div className="w-full h-full flex flex-col items-center justify-center gap-y-5 p-8 mx-auto">
-          <div>
-            <div className="w-full flex justify-center items-center gap-2 text-primary">
+    <div className=" min-h-[90vh] h-full">
+      <div
+        className={`flex transition-transform duration-300 ${
+          !isSignIn ? "flex-row-reverse" : ""
+        }`}
+      >
+        <div className="w-[45%] aspect-[667/1000] relative transition-opacity duration-300">
+          <div
+            className={`absolute inset-0 z-[1] text-white mt-10 px-20 transition-opacity duration-300 ${
+              isAnimating ? "opacity-0 invisible" : "opacity-100 visible"
+            }`}
+          >
+            <div className="text-center text-3xl mb-4">Welcome!</div>
+            {isSignIn && (
+              <p className="mb-10">
+                Log in to your personal account on our website to view your
+                welltea visit history and buy something.
+              </p>
+            )}
+            {!isSignIn && (
+              <p className="mb-10">
+                Open your personal account on our website to view a,azing teas!.
+              </p>
+            )}
+            {!isSignIn && (
               <button
                 onClick={() => handleShowForm("sign-in")}
-                className={`border border-teagreen-600 px-4 py-0.5 rounded-full duration-300 ${
-                  isSignIn ? "bg-teagreen-600 text-white" : "bg-transparent"
-                }`}
+                className={`border-2 border-teagreen-600 hover:bg-teagreen-600 px-4 py-3 rounded-full duration-300`}
               >
-                Sign In
+                Login to your account
               </button>
+            )}
+            {isSignIn && (
               <button
                 onClick={() => handleShowForm("sign-up")}
-                className={`border border-teagreen-600 px-4 py-0.5 rounded-full duration-300 ${
-                  isSignIn ? "bg-transparent" : "bg-teagreen-600 text-white"
-                }`}
+                className={`border-2 border-teagreen-600 hover:bg-teagreen-600 px-4 py-3 rounded-full duration-300`}
               >
-                Sign Up
+                Sign Up for a new account
               </button>
+            )}
+          </div>
+          <Image
+            src="/images/loginform-bg.jpg"
+            alt="login"
+            fill
+            className={`w-full transition-opacity duration-300 ${
+              isAnimating ? "opacity-0 invisible" : "opacity-100 visible"
+            }`}
+          />
+        </div>
+        <div className="w-[55%] h-full flex flex-col items-center justify-center gap-y-5">
+          <div className="flex-1 relative w-[80%] overflow-hidden mt-10">
+            <div
+              className={`w-full transition-opacity duration-300 ${
+                isAnimating ? "opacity-0 invisible" : "opacity-100 visible"
+              }`}
+            >
+              <SignIn showForm={showForm} />
+            </div>
+
+            <div
+              className={`w-full transition-opacity duration-300 ${
+                isAnimating ? "opacity-0 invisible" : "opacity-100 visible"
+              }`}
+            >
+              <SignUp showForm={showForm} />
             </div>
           </div>
-          <div className="flex-1 relative w-full overflow-hidden">
-            <SignIn showForm={showForm} />
-            <SignUp showForm={showForm} />
-          </div>
-
         </div>
       </div>
-      <div className="w-full absolute inset-0 blur-sm bg-[url('/images/login-bg.jpg')] bg-cover bg-center"></div>
     </div>
   );
 }

@@ -94,27 +94,32 @@ const SignIn = ({ showForm }) => {
           : "hidden translate-x-[100%] opacity-0"
       }`}
     >
-      <h4 className="text-2xl font-semibold text-center mb-4 mt-2">Sign In</h4>
+      <h4 className="text-2xl font-semibold text-center mb-4">Sign In</h4>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4">
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
+          className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300"
           type="text"
           placeholder="Email Address"
           onChange={(e) => handleInput("email", e.target.value)}
         />
         <input
-          className="w-full border border-gray-400 p-2 rounded-lg mb-2"
+          className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300 mb-2"
           type="password"
           placeholder="Password"
           onChange={(e) => handleInput("password", e.target.value)}
         />
         <button
           type="submit"
-          className="text-center text-white w-full bg-teagreen-600 p-2 rounded-full flex justify-center items-center gap-2"
+          className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-2 rounded-full flex justify-center items-center gap-2 mb-1"
         >
           {isLoading ? <Spinner /> : <span>Submit</span>}
         </button>
       </form>
+      <div className="text-right">
+        <Link href="/forgotpassword" className="underline">
+          Forgot Password?
+        </Link>
+      </div>
       <div className="flex items-center my-4 xl:my-6">
         <div className="w-full h-[1px] bg-slate-300"></div>
         <div className="text-xl font-semibold text-center mx-2">Or</div>
@@ -123,11 +128,6 @@ const SignIn = ({ showForm }) => {
       <div className="text-center mb-1">Sign in with</div>
       <div className="flex justify-center items-center gap-3">
         <GoogleLoginButton onLogin={handleGoogleLogin} />
-      </div>
-      <div className="text-right">
-        <Link href="/forgotpassword" className="underline">
-          Forgot Password?
-        </Link>
       </div>
     </div>
   );
