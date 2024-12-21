@@ -5,7 +5,7 @@ const initialCategory = typeof window !== "undefined" ? localStorage.getItem("se
 const categorySlice = createSlice({
     name: "category",
     initialState: {
-        selectedCategory: initialCategory || "Green Tea",
+        selectedCategory: initialCategory || "Green Teas",
     },
     reducers: {
         setCategory: (state, action) => {

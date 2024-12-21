@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import Link from "next/link";
 import Slider from "react-slick";
 import CategoryCard from "./CategoryCard";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,11 +13,12 @@ import {
 } from "swiper/modules";
 import { useSwiper } from "swiper/react";
 
-function CategorySlider({ filteredProducts }) {
-  // const swiper = useSwiper();
+function CategorySlider({ visibleProducts }) {
   const [isLastSlide, setIsLastSlide] = useState(false);
+  const [isFirstSlide, setIsFirstSlide] = useState(true);
 
   const handleSlideChange = (swiper) => {
+    setIsFirstSlide(swiper.isBeginning);
     setIsLastSlide(swiper.isEnd);
   };
 
@@ -29,37 +31,41 @@ function CategorySlider({ filteredProducts }) {
         //   delay: 2500,
         //   disableOnInteraction: false,
         // }}
+        onSlideChange={handleSlideChange}
         navigation={{
+          prevEl: ".swiper-button-prev",
           nextEl: ".swiper-button-next",
         }}
         // navigation
         slidesPerView={4}
         spaceBetween={30}
-        loop={true}
+        speed={1000}
+        slidesPerGroup={2}
+        // loop={true}
       >
-        {filteredProducts.map((item, index) => (
+        {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>
             <CategoryCard item={item} />
           </SwiperSlide>
         ))}
-        <SwiperSlide className="!mr-0">
-          <div className="border rounded-lg p-4 flex flex-col items-center justify-center text-center bg-blue-100">
-            <h3 className="text-lg font-semibold text-blue-600">
+        <SwiperSlide className="!mr-0 w-full h-full flex flex-col items-center justify-center">
+          <div className="p-4 flex flex-col items-center justify-center text-center mt-[50%]">
+            <h3 className="text-lg font-semibold text-teagreen-600">
               See All Products
             </h3>
-            <a href="/products" className="text-blue-500 underline mt-2">
+            <Link
+              href="/products"
+              className="text-teagreen-500 hover:text-teagreen-600 font-light underline"
+            >
               Browse All
-            </a>
+            </Link>
           </div>
         </SwiperSlide>
       </Swiper>
       <button
-        className={`swiper-button-next absolute !top-1/2 !transform !-translate-y-1/2 !right-0 px-4 py-2 rounded-lg ${
-          isLastSlide ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-        disabled={isLastSlide}
-      >
-      </button>
+        className={"swiper-button-prev " + (isFirstSlide ? "!hidden" : "")}
+      ></button>
+      <button className="swiper-button-next"></button>
     </div>
   );
 }
