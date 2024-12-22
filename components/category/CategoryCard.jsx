@@ -33,7 +33,7 @@ const CategoryCard = ({ item }) => {
           />
         </div>
         {/* Product Content */}
-        <div className="text-center opacity-0 group-hover:opacity-100 group-hover:bg-teagreen-100 group-hover:w-[90%] group-hover:-translate-y-16 duration-400 mx-auto">
+        <div className="text-center opacity-0 group-hover:opacity-100 group-hover:bg-teagreen-100 group-hover:w-[90%] group-hover:-translate-y-36 duration-400 mx-auto">
           <h5 className="text-sm lg:text-base text-teagreen-800">
             {item?.type}
           </h5>
@@ -49,11 +49,11 @@ const CategoryCard = ({ item }) => {
           {!item?.discount && (
             <div className="mb-1 text-teagreen-800">${item?.price}</div>
           )}
-          <div className="hidden group-hover:flex border-t py-1 opacity-0 group-hover:opacity-100 mt-5 transition duration-400 group-hover:mt-0">
-            <button className="uppercase text-xs py-1 text-center w-full group-hover:flex items-center justify-center border-r text-teagreen-800">
+          <div className="hidden group-hover:flex border-t opacity-0 group-hover:opacity-100 mt-5 transition duration-400 group-hover:mt-0">
+            <button className="uppercase text-xs py-2 text-center w-full group-hover:flex items-center justify-center border-r text-teagreen-800 hover:bg-teagreen-400 duration-400">
               add to cart
             </button>
-            <button className="uppercase text-xs py-1 w-full flex justify-center items-center text-teagreen-800">
+            <button className="uppercase text-xs py-2 w-full flex justify-center items-center text-teagreen-800 hover:bg-teagreen-400 duration-400">
               Add to wishlist
             </button>
           </div>
