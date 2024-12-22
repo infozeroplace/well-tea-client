@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
-import { PiUser } from "react-icons/pi";
+import { PiUser, PiShoppingCartThin } from "react-icons/pi";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
@@ -83,12 +83,6 @@ const Navbar = () => {
                 </svg>
               </button>
               <button className={`nav-button ${navIconsClasses}`}>
-                <CiShoppingCart />
-                <svg className="circle" viewBox="0 0 50 50">
-                  <circle cx="25" cy="25" r="24" />
-                </svg>
-              </button>
-              <button className={`nav-button ${navIconsClasses}`}>
                 <CiHeart />
                 <svg className="circle" viewBox="0 0 50 50">
                   <circle cx="25" cy="25" r="24" />
@@ -102,6 +96,12 @@ const Navbar = () => {
                   </svg>
                 </button>
               </Link>
+              <button className={`nav-button ${navIconsClasses}`}>
+                <PiShoppingCartThin />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
