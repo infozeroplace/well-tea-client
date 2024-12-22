@@ -31,17 +31,33 @@ function CategorySlider({ visibleProducts }) {
         //   delay: 2500,
         //   disableOnInteraction: false,
         // }}
+        slidesPerView={4}
+        spaceBetween={30}
+        speed={1000}
+        slidesPerGroup={2}
         onSlideChange={handleSlideChange}
         navigation={{
           prevEl: ".swiper-button-prev",
           nextEl: ".swiper-button-next",
         }}
-        // navigation
-        slidesPerView={4}
-        spaceBetween={30}
-        speed={1000}
-        slidesPerGroup={2}
-        // loop={true}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+        }}
       >
         {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>

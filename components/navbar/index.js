@@ -73,18 +73,34 @@ const Navbar = () => {
 
           <div className="hidden md:flex space-x-4">
             {/* Nav Icons */}
+            {/* <NavbarIcon /> */}
+
             <div className="hidden md:flex items-center space-x-4 text-2xl">
-              <button className={navIconsClasses}>
+              <button className={`nav-button ${navIconsClasses}`}>
                 <CiSearch />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
               </button>
-              <button className={navIconsClasses}>
+              <button className={`nav-button ${navIconsClasses}`}>
                 <CiShoppingCart />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
               </button>
-              <button className={navIconsClasses}>
+              <button className={`nav-button ${navIconsClasses}`}>
                 <CiHeart />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
               </button>
-              <Link href="/profile" className={navIconsClasses}>
-                <PiUser className="text-xl" />
+              <Link href="/profile">
+                <button className={`nav-button ${navIconsClasses}`}>
+                  <PiUser className="text-xl" />
+                  <svg className="circle" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="24" />
+                  </svg>
+                </button>
               </Link>
             </div>
 
