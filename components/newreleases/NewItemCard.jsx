@@ -1,53 +1,56 @@
-import Image from "next/image";
 import React from "react";
 
 const NewItemCard = ({ item }) => {
   if (!item) return null;
+
   return (
-    <div className="bg-white felx flex-col text-center items-center relative aspect-[789/1026] mb-4 cursor-pointer group mx-auto">
-      <div className="overflow-hidden">
-        <img
-          src={item?.hoverImage}
-          className="opacity-0 group-hover:opacity-100 h-full group-hover:scale-150 duration-400"
-        />
+    <div className="relative">
+      <div className="z-10 absolute flex text-white text-sm gap-2 -top-2 left-1/2 transform -translate-x-1/2">
+        {item?.designation && (
+          <div className="uppercase bg-teagreen-600 px-2 whitespace-nowrap">
+            {item?.designation}
+          </div>
+        )}
+        {item?.discount && (
+          <div className="bg-teagreen-500 px-2 whitespace-nowrap">
+            -{item?.discount}%
+          </div>
+        )}
       </div>
-      <div className="absolute inset-0">
-        <div className="flex justify-center items-center text-white text-sm gap-2 -mt-[10px]">
-          {item?.designation && (
-            <div className="uppercase bg-teagreen-600 w-fit px-2">
-              {item?.designation}
-            </div>
-          )}
-          {item?.discount && (
-            <div className=" bg-teagreen-500 w-fit px-2">
-              -{item?.discount}%
-            </div>
-          )}
-        </div>
-        <div className="aspect-[789/1026] overflow-hidden -mb-5">
+      <div className="bg-white flex flex-col text-center items-center relative mb-12 cursor-pointer group mx-auto overflow-hidden">
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center h-full transition-transform duration-500 ease-out transform scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100"
+          style={{ backgroundImage: `url(${item?.hoverImage})` }}
+        ></div>
+        {/* Product Image */}
+        <div className="aspect-[789/1026]">
           <img
             src={item?.image}
             alt="New Product"
             className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
           />
         </div>
-        <div className="group-hover:bg-white group-hover:w-[90%] group-hover:-translate-y-32 group-hover:pt-[5px] duration-400 mx-auto">
-          <h5 className="text-sm lg:text-base text-teagreen-500 mt-7 group-hover:mt-0">
+        {/* Product Details */}
+        <div className="group-hover:bg-white group-hover:-translate-y-16 duration-400 mx-auto p-2 -mt-8">
+          <h5 className="text-sm lg:text-base text-teagreen-500">
             {item?.type}
           </h5>
           <h4 className="md:text-base lg:text-lg">{item?.title}</h4>
           <h5 className="text-xs">{item?.rating}</h5>
-          {item?.discount && (
+          {item?.discount ? (
             <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">
               <div>${item?.discountPrice}</div> <del>${item?.price}</del>
             </div>
+          ) : (
+            <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">
+              ${item?.price}
+            </div>
           )}
-          {!item?.discount && <div className="mb-1">${item?.price}</div>}
-          <div className="hidden group-hover:flex bg-white border-t py-1 opacity-0 group-hover:opacity-100 mt-5 transition duration-400 group-hover:mt-0">
-            <div className="uppercase text-xs text-center w-full border-r flex justify-center items-center">
+          <div className="flex bg-white border-t opacity-0 group-hover:opacity-100 transition duration-400">
+            <div className="uppercase text-xs text-center w-full py-2 border-r flex justify-center items-center hover:bg-teagreen-400 duration-400">
               add to cart
             </div>
-            <div className="w-full flex justify-center items-center">icon</div>
+            <div className="w-full flex justify-center py-2 items-center uppercase text-xs hover:bg-teagreen-400 duration-400">Add to wishlist</div>
           </div>
         </div>
       </div>
