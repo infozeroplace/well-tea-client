@@ -10,7 +10,7 @@ import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
 import { CiSearch, CiShoppingCart, CiHeart } from "react-icons/ci";
 import { PiUser } from "react-icons/pi";
-import NavbarIcon from "./NavbarIcon";
+// import NavbarIcon from "./NavbarIcon";
 import React from "react";
 
 const Navbar = () => {
