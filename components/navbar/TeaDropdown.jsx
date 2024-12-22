@@ -64,6 +64,7 @@ function TeaDropdown() {
       name: "Sparkling Tea",
     },
   ];
+  const originList = ["China", "Bangldesh", "Japan", "Sri Lanka", "Taiwan", "India", "Myanmar", "Vietnam", "Nepal"];
 
   return (
     <div>
@@ -147,19 +148,25 @@ function TeaDropdown() {
 
         <div className="p-5 basis-[35%] w-full">
           <div className="flex flex-col gap-5">
-            <div className="w-full h-[250px]">
-              <Image
-                src="/images/welltea_hero.png"
-                alt=""
-                width={200}
-                height={200}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
+            <div className="basis-1/2">
+              <h3 className="font-extralight text-xl">Discover</h3>
+              <div className="mt-5 flex flex-wrap gap-5">
+                {
+                  originList.map((origin, index) => {
+                    return (
+                      <button
+                        key={index}
+                        className="bg-teagreen-100 text-teagreen-600 px-3 py-2 rounded-full"
+                      >
+                        {origin}
+                      </button>
+                    );
+                  })
+                }
+              </div>
             </div>
-            <div className="flex gap-5">
+            <hr />
+            <div className="flex basis-1/2 gap-5">
               <div className="flex-1">
                 <Image
                   src="/images/welltea_hero.png"
@@ -168,7 +175,7 @@ function TeaDropdown() {
                   height={200}
                   style={{
                     width: "100%",
-                    height: "100%",
+                    height: "auto",
                   }}
                 />
               </div>
@@ -180,7 +187,7 @@ function TeaDropdown() {
                   height={200}
                   style={{
                     width: "100%",
-                    height: "100%",
+                    height: "auto",
                   }}
                 />
               </div>

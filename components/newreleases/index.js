@@ -139,8 +139,8 @@ const NewReleases = () => {
     }
   };
   return (
-    <div className="section-gap bg-teagreen-100 py-1">
-      <div className="ml-[76px] py-5 ">
+    <div className="section-gap bg-teagreen-100 py-10">
+      <div className="ml-[80px] mb-10 ">
         <p className="text-center md:text-left uppercase text-x">
           shop our tea
         </p>
