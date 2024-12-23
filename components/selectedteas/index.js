@@ -8,9 +8,6 @@ function SelectedTeas() {
     <div className="section-gap">
       <div className="grid grid-cols-8">
         <div className="relative col-span-5 w-full overflow-hidden">
-          {/* <h1 className="scroll-text-left absolute top-0 left-0 z-10 text-white font-semibold">
-            Scrooll Text Left
-          </h1> */}
           <marquee
             behavior="scroll"
             direction="left"
@@ -21,8 +18,16 @@ function SelectedTeas() {
           >
             • Save Up To 50% • Save Up To 50% • Save Up To 50% • Save Up To 50%
             • Save Up To 50% • Save Up To 50% • Save Up To 50% •
-            {/* <h1 className="text-4xl w-full "></h1> */}
           </marquee>
+
+          {/* <div className="absolute text-nowrap flex overflow-hidden top-0 -left-full z-10 ml-10 font-semibold uppercase text-white text-4xl rotate-90">
+            <div className="marquee__item">
+              • Save Up To 50% • Save Up To 50% • Save Up To 50% •
+            </div>
+            <div className="marquee__item">
+              • Save Up To 50% • Save Up To 50% • Save Up To 50% •
+            </div>
+          </div> */}
 
           <div className="w-full h-[80vh]">
             <Image src="/images/selected_tea.jpg" alt="Offer" fill />
@@ -45,7 +50,7 @@ function SelectedTeas() {
             behavior="scroll"
             direction="right"
             scrollamount="20"
-            className="absolute bottom-0 -right-full z-10 mr-32 font-semibold text-white text-4xl rotate-90"
+            className="absolute bottom-0 -right-full z-10 mr-32 uppercase font-semibold text-white text-4xl rotate-90"
           >
             • Save Up To 50% • Save Up To 50% • Save Up To 50% • Save Up To 50%
             • Save Up To 50% • Save Up To 50% • Save Up To 50% •

@@ -26,29 +26,44 @@ function CategorySlider({ visibleProducts }) {
     <div className="relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, A11y]}
-        // effect={"fade"}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
+        slidesPerView={3.5}
+        spaceBetween={25}
+        speed={1000}
+        slidesPerGroup={2}
         onSlideChange={handleSlideChange}
         navigation={{
           prevEl: ".swiper-button-prev",
           nextEl: ".swiper-button-next",
         }}
-        // navigation
-        slidesPerView={4}
-        spaceBetween={30}
-        speed={1000}
-        slidesPerGroup={2}
-        // loop={true}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 5,
+          },
+          640: {
+            slidesPerView: 1.5,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 1.5,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 2.5,
+            spaceBetween: 15,
+          },
+          1280: {
+            slidesPerView: 3.5,
+            spaceBetween: 25,
+          },
+        }}
       >
         {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>
             <CategoryCard item={item} />
           </SwiperSlide>
         ))}
-        <SwiperSlide className="!mr-0 w-full h-full flex flex-col items-center justify-center">
+        {/* <SwiperSlide className="!mr-0 w-full h-full flex flex-col items-center justify-center">
           <div className="p-4 flex flex-col items-center justify-center text-center mt-[50%]">
             <h3 className="text-lg font-semibold text-teagreen-600">
               See All Products
@@ -60,7 +75,7 @@ function CategorySlider({ visibleProducts }) {
               Browse All
             </Link>
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
       <button
         className={"swiper-button-prev " + (isFirstSlide ? "!hidden" : "")}

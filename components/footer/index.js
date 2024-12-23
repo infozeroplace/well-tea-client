@@ -23,7 +23,7 @@ function Footer() {
   }
 
   return (
-    <div className="w-full bg-teagreen-800">
+    <div className="w-full bg-[#194A34]">
       <div className="py-10">
         <div className="max-w-screen-xl mx-auto grid grid-cols-7 gap-5 justify-around py-10">
           <div className="text-white flex flex-col gap-2">
@@ -108,14 +108,18 @@ function Footer() {
                 height={50}
               />
             </div>
-              <div className="text-white flex items-center gap-2">
-                <i className={"bx bxl-facebook-circle " + socialIconsExtraClasses}></i>
-                <i className={"bx bxl-instagram " + socialIconsExtraClasses}></i>
-                <i className={"bx bxl-linkedin-square " + socialIconsExtraClasses}></i>
-                <i className={"bx bxl-twitter " + socialIconsExtraClasses}></i>
-                <i className={"bx bxl-tiktok " + socialIconsExtraClasses}></i>
-              </div>
-              <BackToTopButton />
+            <div className="text-white flex items-center gap-2">
+              <i
+                className={"bx bxl-facebook-circle " + socialIconsExtraClasses}
+              ></i>
+              <i className={"bx bxl-instagram " + socialIconsExtraClasses}></i>
+              <i
+                className={"bx bxl-linkedin-square " + socialIconsExtraClasses}
+              ></i>
+              <i className={"bx bxl-twitter " + socialIconsExtraClasses}></i>
+              <i className={"bx bxl-tiktok " + socialIconsExtraClasses}></i>
+            </div>
+            <BackToTopButton />
           </div>
         </div>
       </div>

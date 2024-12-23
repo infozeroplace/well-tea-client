@@ -1,13 +1,8 @@
 "use client";
 
-import { LiaShippingFastSolid } from "react-icons/lia";
-import { LuClipboardPenLine } from "react-icons/lu";
-import { RiCustomerService2Line, RiSecurePaymentLine } from "react-icons/ri";
+import { LiaShippingFastSolid, LuClipboardPenLine, RiCustomerService2Line, RiSecurePaymentLine } from "@/icons";
 
 import { SignIn, SignUp } from "@/components";
-// import SignIn from "@/components/auth/SignIn";
-// import SignUp from "@/components/auth/SignUp";
-import Image from "next/image";
 import { useState } from "react";
 
 export default function SignInScreen() {
@@ -29,51 +24,8 @@ export default function SignInScreen() {
   return (
     <div>
       <div className="flex justify-center items-center bg-[#EEF2F2]">
-        {/* <div className="w-[45%] aspect-[667/1000] relative transition-opacity duration-300">
-          <div
-            className={`absolute inset-0 z-[1] text-white mt-10 px-20 transition-opacity duration-300 ${
-              isAnimating ? "opacity-0 invisible" : "opacity-100 visible"
-            }`}
-          >
-            <div className="text-center text-3xl mb-4">Welcome!</div>
-            {isSignIn && (
-              <p className="mb-10">
-                Log in to your personal account to access your WellTea visit history, discover your favorite teas, and make your next purchase effortlessly!
-              </p>
-            )}
-            {!isSignIn && (
-              <p className="mb-10">
-                Create your personal account today to connect with us and explore our collection of premium teas. Sign up now and enjoy a delightful journey into the world of exquisite flavors!
-              </p>
-            )}
-            {!isSignIn && (
-              <button
-                onClick={() => handleShowForm("sign-in")}
-                className={`border-2 border-teagreen-600 hover:bg-teagreen-600 px-4 py-3 rounded-full duration-300`}
-              >
-                Login to your account
-              </button>
-            )}
-            {isSignIn && (
-              <button
-                onClick={() => handleShowForm("sign-up")}
-                className={`border-2 border-teagreen-600 hover:bg-teagreen-600 px-4 py-3 rounded-full duration-300`}
-              >
-                Sign Up for a new account
-              </button>
-            )}
-          </div>
-          <Image
-            src="/images/loginform-bg.jpg"
-            alt="login"
-            fill
-            className={`w-full transition-opacity duration-300 ${
-              isAnimating ? "opacity-0 invisible" : "opacity-100 visible"
-            }`}
-          />
-        </div> */}
 
-        {/* Form */}
+        {/* Forms */}
         <div
           className={`flex flex-col ${
             showForm === "sign-in" && "flex-col-reverse"

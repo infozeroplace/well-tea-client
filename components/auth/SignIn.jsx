@@ -13,12 +13,21 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import AppleLoginButton from "./AppleLoginButton";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
+import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
   const { handleGetCookie, handleSetCookie } = useCookie();
+
+  // Password strates
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{6,}$/.test(
+    password
+  );
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -62,7 +71,16 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const handleInput = (field, value) =>
     setCredentials((prev) => ({ ...prev, [field]: value }));
 
-  const handleSubmit = async (e) => {
+  // react-hook-form-fuctions
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleShowPassword = () => setShowPassword((show) => !show);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const options = {
@@ -102,22 +120,60 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
           Provide your email and password to proceed
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4 mb-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-3 xl:gap-4 mb-6"
+      >
         <Input
-          className=""
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Please enter a valid email",
+            },
+            onChange: (e) => handleInput("email", e.target.value),
+          })}
+          errorMessage={getAuthErrorMessage(errors, "email")}
+          isInvalid={!!getAuthErrorMessage(errors, "email")}
           type="email"
-          onChange={(e) => handleInput("email", e.target.value)}
           label="Email"
           variant="bordered"
+          isRequired
         />
         <div>
           <Input
-            className=""
-            type="password"
-            onChange={(e) => handleInput("password", e.target.value)}
+            
+            {...register("password", {
+              required: true,
+              pattern: {
+                value: /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{6,}$/,
+                message:
+                  "Password must contain one special character and minimum six characters.",
+              },
+              onChange: (e) => handleInput("password", e.target.value),
+            })}
+            endContent={
+              <button
+                aria-label="toggle password visibility"
+                className="focus:outline-none"
+                type="button"
+                onClick={handleShowPassword}
+              >
+                {showPassword ? (
+                  <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                ) : (
+                  <FaEye className="text-2xl text-default-400 pointer-events-none" />
+                )}
+              </button>
+            }
+            errorMessage={getAuthErrorMessage(errors, "password")}
+            isInvalid={!!getAuthErrorMessage(errors, "password")}
+            isRequired
+            type={showPassword ? "text" : "password"}
             label="Password"
             variant="bordered"
           />
+         
           <div className="text-right">
             <Link
               href="/forgot-password"

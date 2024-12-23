@@ -8,8 +8,8 @@ export default function Home() {
       <NewReleases />
       <Banner />
       <ChooseType />
-      <TeaRange />
-      <SelectedTeas />
+      {/* <TeaRange /> */}
+      {/* <SelectedTeas /> */}
       <WhyChooseUs />
     </div>
   );

@@ -1,6 +1,6 @@
 export const getAuthErrorMessage = (errors, fieldName) => {
   const error = errors[fieldName];
-  console.log(error)
+
   if (!error) return "";
   switch (error.type) {
     case "required":

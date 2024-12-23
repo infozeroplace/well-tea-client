@@ -3,24 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
+import { PiUser, PiShoppingCartThin } from "react-icons/pi";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
-import { CiSearch, CiShoppingCart, CiHeart } from "react-icons/ci";
-import { PiUser } from "react-icons/pi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const navIconsClasses = "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
+  const navIconsClasses =
+    "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
   return (
-    <nav className="bg-white sticky top-0 z-50">
+    <nav className="bg-white sticky top-0 z-50 shadow">
       <div className="container">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
@@ -38,7 +39,7 @@ const Navbar = () => {
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/tea" name="Tea" />
-              <NavDropdown extraClass="group-hover:h-[500px] shadow">
+              <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeaDropdown />
               </NavDropdown>
             </div>
@@ -46,7 +47,7 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[500px] shadow">
+              <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
             </div>
@@ -54,14 +55,14 @@ const Navbar = () => {
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/gifts" name="Gifts" />
-              <NavDropdown extraClass="group-hover:h-[500px] shadow">
+              <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <GiftDropdown />
               </NavDropdown>
             </div>
 
             <NavItem href="/sales" name="Sales" />
             <NavItem href="/explore" name="Explore" />
-            <NavItem href="/about" name="About" />
+            {/* <NavItem href="/about" name="About" /> */}
           </div>
 
           {/* <CircularProgress
@@ -72,22 +73,35 @@ const Navbar = () => {
 
           <div className="hidden md:flex space-x-4">
             {/* Nav Icons */}
+            {/* <NavbarIcon /> */}
+
             <div className="hidden md:flex items-center space-x-4 text-2xl">
-              <button className={navIconsClasses}>
+              <button className={`nav-button ${navIconsClasses}`}>
                 <CiSearch />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
               </button>
-              <button className={navIconsClasses}>
-                <CiShoppingCart />
-              </button>
-              <button className={navIconsClasses}>
+              <button className={`nav-button ${navIconsClasses}`}>
                 <CiHeart />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
               </button>
-              <Link
-                href="/profile"
-                className={navIconsClasses}
-              >
-                <PiUser className="text-xl" />
+              <Link href="/profile">
+                <button className={`nav-button ${navIconsClasses}`}>
+                  <PiUser className="text-xl" />
+                  <svg className="circle" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="24" />
+                  </svg>
+                </button>
               </Link>
+              <button className={`nav-button ${navIconsClasses}`}>
+                <PiShoppingCartThin />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}

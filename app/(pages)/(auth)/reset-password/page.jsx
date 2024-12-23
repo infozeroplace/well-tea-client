@@ -68,16 +68,16 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    <div className="h-[50vh] flex flex-col items-center justify-center">
-      <div className="max-w-[500px] w-full p-10 rounded-lg mx-auto shadow bg-teagreen-200 flex flex-col gap-5">
-        <div className="flex flex-col gap-2">
-          <h4 className="text-2xl text-teagreen-600 font-semibold text-center">
+    <div className="flex justify-center items-center bg-[#EEF2F2]">
+      <div className="max-w-[510px] w-full px-5 section-gap">
+        <div className="my-12 text-center">
+          <h4 className="text-4xl font-semibold text-teagreen-600 mb-3">
             Reset Password
           </h4>
-          <p className="text-center text-sm mb-3">Please enter new password.</p>
+          <p className="tracking-tight">Please enter the new password.</p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 xl:gap-4">
             <Input
               {...register("password", {
                 required: true,
@@ -107,9 +107,7 @@ const ResetPasswordScreen = () => {
               isRequired
               label="New Password"
               type={showPassword ? "text" : "password"}
-              size="lg"
               variant="bordered"
-              labelPlacement="outside"
             />
             <div>
               <button
@@ -119,7 +117,7 @@ const ResetPasswordScreen = () => {
                   !isPassword
                     ? "bg-text__gray cursor-not-allowed"
                     : "bg-teagreen-600 hover:bg-teagreen-700 cursor-pointer"
-                } w-full py-2 text-white duration-300 rounded-full`}
+                } w-full text-center text-white duration-400 p-4 rounded-xl uppercase tracking-wider`}
               >
                 {isLoading ? "Resetting..." : "Reset"}
               </button>

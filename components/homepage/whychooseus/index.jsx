@@ -8,21 +8,21 @@ const discoverItems = [
   {
     title: "Handmade",
     icon: "icon 1",
-    image: "/images/chooseus-1.jpg",
+    image: "/whychooseus/slide_banner_07.jpg",
     description:
       "We source the finest quality speciality teas, herbs, spices and flowers from around the world. Are you ready to be inspired?",
   },
   {
     title: "Freshness",
     icon: "icon 2",
-    image: "/images/chooseus-2.jpg",
+    image: "/whychooseus/slide_banner_08.jpg",
     description:
       "We are dedicated to creating fresh, small-batch blends that embody the essence of their ingredients, offering vibrant flavors and natural therapeutic benefits.",
   },
   {
     title: "Sustainability",
     icon: "icon 3",
-    image: "/images/chooseus-3.jpg",
+    image: "/whychooseus/slide_banner_09.jpg",
     description:
       "We carefully source all our premium ingredients directly from sustainably certified gardens, ensuring the highest quality and ethical standards.",
   },
@@ -43,8 +43,8 @@ const WhyChooseUs = () => {
     setSelected(title);
   };
   return (
-    <div className="grid grid-cols-3 gap-6 section-gap container-scaled">
-      <div className="col-span-1 border-r border-slate-200 font-light flex flex-col justify-between">
+    <div className="grid grid-cols-3 gap-6 section-gap">
+      <div className="col-span-1 border-r border-slate-200 font-light flex flex-col justify-between ml-20">
         <div>
           <p className="text-center md:text-left uppercase text-xs mb-2">
             why choose us
@@ -73,7 +73,7 @@ const WhyChooseUs = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-2 border aspect-[1180/730]">
+      <div className="col-span-2 border max-w-[1180px] aspect-[1180/730]">
         <Image
           src={choosOption?.image}
           alt="Why Choose Us"
