@@ -8,7 +8,7 @@ import {
 } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
-import { Spinner } from "@nextui-org/react";
+import { Input, Spinner } from "@nextui-org/react";
 import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -16,7 +16,7 @@ import { useCallback, useEffect, useState } from "react";
 import AppleLoginButton from "./AppleLoginButton";
 import GoogleLoginButton from "./GoogleLoginButton";
 
-const SignIn = ({ showForm }) => {
+const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
   const { handleGetCookie, handleSetCookie } = useCookie();
 
@@ -94,31 +94,56 @@ const SignIn = ({ showForm }) => {
           : "hidden translate-x-[100%] opacity-0"
       }`}
     >
-      <h4 className="text-2xl font-semibold text-center mb-4">Sign In</h4>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4">
-        <input
-          className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300"
-          type="text"
-          placeholder="Email Address"
+      <div className="my-12 text-center">
+        <h4 className="text-4xl font-semibold text-teagreen-600 mb-3">
+          Sign In
+        </h4>
+        <p className="tracking-tight">
+          Provide your email and password to proceed
+        </p>
+      </div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4 mb-6">
+        <Input
+          className=""
+          type="email"
           onChange={(e) => handleInput("email", e.target.value)}
+          label="Email"
+          variant="bordered"
         />
-        <input
-          className="w-full border border-gray-400 p-2 rounded-full bg-teagreen-300 mb-2"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => handleInput("password", e.target.value)}
-        />
+        <div>
+          <Input
+            className=""
+            type="password"
+            onChange={(e) => handleInput("password", e.target.value)}
+            label="Password"
+            variant="bordered"
+          />
+          <div className="text-right">
+            <Link
+              href="/forgot-password"
+              className="underline cursor-pointer text-teagreen-500 hover:text-teagreen-600 text-sm"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+        </div>
+
         <button
           type="submit"
-          className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-2 rounded-full flex justify-center items-center gap-2 mb-1"
+          className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-4 rounded-lg flex justify-center items-center gap-2 uppercase tracking-wider"
         >
-          {isLoading ? <Spinner /> : <span>Submit</span>}
+          {isLoading ? <Spinner /> : <span>Login</span>}
         </button>
       </form>
-      <div className="text-center mt-2">
-        <Link href="/forgot-password" className="underline">
-          Forgot Password?
-        </Link>
+
+      <div className="text-teagreen-500 text-center">
+        New customer?{" "}
+        <span
+          onClick={() => handleShowForm("sign-up")}
+          className="underline cursor-pointer hover:text-teagreen-600"
+        >
+          Create an account
+        </span>
       </div>
       <div className="flex items-center my-4 xl:my-6">
         <div className="w-full h-[1px] bg-slate-300"></div>
