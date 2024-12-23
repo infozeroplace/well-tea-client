@@ -130,7 +130,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
         <button
           type="submit"
-          className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-4 rounded-lg flex justify-center items-center gap-2 uppercase tracking-wider"
+          className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-4 rounded-xl flex justify-center items-center gap-2 uppercase tracking-wider"
         >
           {isLoading ? <Spinner /> : <span>Login</span>}
         </button>
