@@ -5,7 +5,7 @@ const SectionButton = ({ title, textClass, buttonClass, hoverClass, onClick = ()
     <button
       onClick={onClick}
       className={
-        "relative w-60 h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full px-10 py-3 text-center mx-auto transition-all duration-300 " + 
+        "relative w-60 h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full px-10 py-3 text-center transition-all duration-300 " + 
         buttonClass
       }
     >

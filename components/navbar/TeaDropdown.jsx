@@ -66,6 +66,74 @@ function TeaDropdown() {
   ];
   const originList = ["China", "Bangldesh", "Japan", "Sri Lanka", "Taiwan", "India", "Myanmar", "Vietnam", "Nepal"];
 
+  const flavourList = [
+    {
+      name: "Citus",
+      url: "/",
+    },
+    {
+      name: "Fruity",
+      url: "/",
+    },
+    {
+      name: "Malty",
+      url: "/",
+    },
+    {
+      name: "Roasted",
+      url: "/",
+    },
+    {
+      name: "Floral",
+      url: "/",
+    },
+  ]
+  const discoverList = [
+    {
+      name: "Caffeine free",
+      url: "/",
+    },
+    {
+      name: "Organic",
+      url: "/",
+    },
+    {
+      name: "Gluten-free",
+      url: "/",
+    },
+    {
+      name: "Vegan",
+      url: "/",
+    },
+    {
+      name: "Sustainable",
+      url: "/",
+    }
+  ]
+
+  const healthList = [
+    {
+      name: "Immune System",
+      url: "/",
+    },
+    {
+      name: "Digestion & Inflammation",
+      url: "/",
+    },
+    {
+      name: "Sleep & Relaxation",
+      url: "/",
+    },
+    {
+      name: "Energy & Focus",
+      url: "/",
+    },
+    {
+      name: "Metabolism & Weight Loss",
+      url: "/",
+    },
+  ];
+
   return (
     <div>
       <div className="w-full mx-auto flex justify-between">
@@ -77,42 +145,52 @@ function TeaDropdown() {
               <BsArrowRight />
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-5">
-            {productTypes.map((product, index) => (
-              <Link
-                href="#"
-                key={index}
-                className="flex items-center gap-3 hover:brightness-125"
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={50}
-                  height={50}
-                />
-                <p>{product.name}</p>
-              </Link>
-            ))}
+          <div className="mx-10 mt-5">
+            <div className="grid grid-cols-2 gap-5">
+              {productTypes.map((product, index) => (
+                <Link
+                  href="#"
+                  key={index}
+                  className="flex items-center gap-3 hover:brightness-125"
+                >
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={50}
+                    height={50}
+                  />
+                  <p>{product.name}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-5 p-5 basis-[15%] w-full border-r">
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">Flavour</h3>
-            <p>Citus</p>
-            <p>Fruity</p>
-            <p>Malty</p>
-            <p>Roasted</p>
-            <p>Floral</p>
+            {flavourList.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.url}
+                  className="hover:text-teagreen-600"
+                >
+                  {item.name}
+                </Link>
+              ))}
           </div>
           <hr />
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">Discover</h3>
-            <p>Caffeine free</p>
-            <p>Organic</p>
-            <p>Gluten-free</p>
-            <p>Vegan</p>
-            <p>Sustainable</p>
+            {discoverList.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.url}
+                  className="hover:text-teagreen-600"
+                >
+                  {item.name}
+                </Link>
+              ))}
           </div>
         </div>
 
@@ -135,7 +213,21 @@ function TeaDropdown() {
               </Link>
             ))}
           </div>
-          <Link
+          <hr />
+          <div className="flex flex-col gap-2">
+            <h3 className="font-extralight text-xl">Health</h3>
+            {healthList.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item.url}
+                  className="hover:text-teagreen-600"
+                >
+                  {item.name}
+                </Link>
+              ))
+            }
+          </div>
+          {/* <Link
             href="/tea"
             className="text-xl text-teagreen-800 hover:text-teagreen-600 mx-2"
           >
@@ -143,25 +235,22 @@ function TeaDropdown() {
             <p>championing</p>
             <p>organic tea culture?</p>
             <BsArrowRight />
-          </Link>
+          </Link> */}
         </div>
 
         <div className="p-5 basis-[35%] w-full">
           <div className="flex flex-col gap-5">
             <div className="basis-1/2">
-              <h3 className="font-extralight text-xl">Discover</h3>
+              <h3 className="font-extralight text-xl">Origin</h3>
               <div className="mt-5 flex flex-wrap gap-5">
-                {
-                  originList.map((origin, index) => {
-                    return (
-                      <button
-                        key={index}
-                        className="bg-teagreen-100 text-teagreen-600 px-3 py-2 rounded-full"
-                      >
-                        {origin}
-                      </button>
-                    );
-                  })
+                {originList.map((origin, index) => (
+                    <button
+                      key={index}
+                      className="bg-teagreen-100 text-teagreen-600 hover:bg-transparent border-[0.3px] border-teagreen-100 hover:border-teagreen-500 px-5 py-2 rounded-full duration-300"
+                    >
+                      {origin}
+                    </button>
+                  ))
                 }
               </div>
             </div>

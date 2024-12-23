@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav className="bg-white sticky top-0 z-50 shadow">
       <div className="container">
-        <div className="flex justify-between items-center h-[10vh]">
+        <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
@@ -39,7 +39,7 @@ const Navbar = () => {
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/tea" name="Tea" />
-              <NavDropdown extraClass="group-hover:h-[500px] shadow">
+              <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeaDropdown />
               </NavDropdown>
             </div>
@@ -47,7 +47,7 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[500px] shadow">
+              <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
             </div>
@@ -55,14 +55,14 @@ const Navbar = () => {
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/gifts" name="Gifts" />
-              <NavDropdown extraClass="group-hover:h-[500px] shadow">
+              <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <GiftDropdown />
               </NavDropdown>
             </div>
 
             <NavItem href="/sales" name="Sales" />
             <NavItem href="/explore" name="Explore" />
-            <NavItem href="/about" name="About" />
+            {/* <NavItem href="/about" name="About" /> */}
           </div>
 
           {/* <CircularProgress

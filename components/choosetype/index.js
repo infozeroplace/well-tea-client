@@ -27,35 +27,14 @@ function ChooseTea() {
       name: "White Tea",
       number: 3,
     },
-    {
-      image: "/images/newproduct_one.jpg",
-      hoverImage: "/images/newproduct_two.jpg",
-      name: "Herbal Tea",
-      number: 8,
-    },
   ];
 
-  
+
   return (
     <div className="container px-4 section-gap">
-      <div className="flex flex-col xl:flex-row items-start xl:items-center gap-10 xl:gap-20">
-        <div className="flex flex-shrink-0 flex-col">
-          <h3 className="text-3xl font-extralight text-teagreen-600">
-            Choose Your Tea Type
-          </h3>
-          <p className="text-gray-500 mt-2 mb-5">
-            Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit. Sed
-            do
-          </p>
-          <Link href="/tea">
-            <div className="flex items-center">
-              <p className="">View More Tea Types</p>
-              <i className="bx bx-chevron-right text-xl"></i>
-            </div>
-            <div className="w-[163px] h-[1px] bg-black"></div>
-          </Link>
-        </div>
-        <div className="flex items-center justify-center lg:justify-start flex-wrap w-full mx-auto gap-5">
+      <div className="flex flex-col items-center gap-10 xl:gap-20">
+        <h1 className="uppercase text-3xl">The Welltea Range</h1>
+        <div className="flex items-center justify-center flex-wrap gap-32">
           {teaTypes.map((item, index) => (
             <Link
               key={index}

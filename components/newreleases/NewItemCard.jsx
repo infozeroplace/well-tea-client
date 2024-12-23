@@ -31,26 +31,28 @@ const NewItemCard = ({ item }) => {
           />
         </div>
         {/* Product Details */}
-        <div className="group-hover:bg-white group-hover:-translate-y-16 duration-400 mx-auto p-2 -mt-8">
-          <h5 className="text-sm lg:text-base text-teagreen-500">
-            {item?.type}
-          </h5>
-          <h4 className="md:text-base lg:text-lg">{item?.title}</h4>
-          <h5 className="text-xs">{item?.rating}</h5>
-          {item?.discount ? (
-            <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">
-              <div>${item?.discountPrice}</div> <del>${item?.price}</del>
-            </div>
-          ) : (
-            <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">
-              ${item?.price}
-            </div>
-          )}
+        <div className="group-hover:bg-white group-hover:-translate-y-16 duration-400 mx-auto pt-2 -mt-8">
+          <div className="px-5">
+            <h5 className="text-sm lg:text-base text-teagreen-500">
+              {item?.type}
+            </h5>
+            <h4 className="md:text-base lg:text-lg">{item?.title}</h4>
+            <h5 className="text-xs">{item?.rating}</h5>
+            {item?.discount ? (
+              <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">
+                <div>${item?.discountPrice}</div> <del>${item?.price}</del>
+              </div>
+            ) : (
+              <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">
+                ${item?.price}
+              </div>
+            )}
+          </div>
           <div className="flex bg-white border-t opacity-0 group-hover:opacity-100 transition duration-400">
-            <div className="uppercase text-xs text-center w-full py-2 border-r flex justify-center items-center hover:bg-teagreen-400 duration-400">
+            <div className="uppercase text-xs text-center w-full py-2 flex justify-center items-center hover:bg-teagreen-400 duration-400">
               add to cart
             </div>
-            <div className="w-full flex justify-center py-2 items-center uppercase text-xs hover:bg-teagreen-400 duration-400">Add to wishlist</div>
+            {/* <div className="w-full flex justify-center py-2 items-center uppercase text-xs hover:bg-teagreen-400 duration-400">Add to wishlist</div> */}
           </div>
         </div>
       </div>
