@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["api.welltea.zeroplace.co"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.welltea.zeroplace.co',
+        pathname: '**',
+      },
+    ],
   },
 };
 
