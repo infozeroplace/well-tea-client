@@ -9,3 +9,4 @@ export { default as ChooseType } from "./choosetype";
 export { default as SelectedTeas } from "./selectedteas";
 export * from "./homepage";
 export * from "./shared";
+export * from "./auth";
