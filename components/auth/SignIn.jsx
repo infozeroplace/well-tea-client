@@ -16,18 +16,15 @@ import { useCallback, useEffect, useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "@/icons";
 
 const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
   const { handleGetCookie, handleSetCookie } = useCookie();
 
   // Password strates
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const isPassword = /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{6,}$/.test(
-    password
-  );
+  
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -75,6 +72,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -104,6 +102,10 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
     alert("login start");
   };
 
+  const handleFormChange = () => {
+    handleShowForm("sign-up");
+    reset();
+  }
   return (
     <div
       className={`${
@@ -195,7 +197,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
       <div className="text-teagreen-500 text-center">
         New customer?{" "}
         <span
-          onClick={() => handleShowForm("sign-up")}
+          onClick={handleFormChange}
           className="underline cursor-pointer hover:text-teagreen-600"
         >
           Create an account

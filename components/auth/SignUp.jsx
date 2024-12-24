@@ -13,10 +13,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useForm } from "react-hook-form";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
+import { FaEye, FaEyeSlash } from "@/icons";
 
 const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
   const { handleGetCookie, handleSetCookie } = useCookie();
+
+  // Password strates
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -30,8 +36,8 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
     password: "",
   });
 
+  // Defined Api fuctions
   const [signUp, { data, error, isLoading }] = useSignUpMutation();
-
   const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
     useGoogleSignInMutation();
 
@@ -62,7 +68,17 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const handleInput = (field, value) =>
     setCredentials((prev) => ({ ...prev, [field]: value }));
 
-  const handleSubmit = async (e) => {
+  // react-hook-form-fuctions
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const handleShowPassword = () => setShowPassword((show) => !show);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const options = {
@@ -70,6 +86,13 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
     };
 
     await signUp(options);
+    setCredentials((prev) => ({
+      ...prev,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    }));
   };
 
   // Google Login
@@ -82,6 +105,11 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
       handleError(400, "Something went wrong!");
     },
   });
+
+  const handleFormChange = () => {
+    handleShowForm("sign-in");
+    reset();
+  }
 
   return (
     <div
@@ -97,28 +125,88 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
         </h4>
         <p className="tracking-tight">Complete the form below to join us</p>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 xl:gap-4 mb-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-3 xl:gap-4 mb-6"
+      >
         <Input
+          {...register("firstName", {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z]$/,
+              message: "Please enter only letters",
+            },
+            onChange: (e) => handleInput("firstName", e.target.value),
+          })}
+          errorMessage={getAuthErrorMessage(errors, "firstName")}
+          isInvalid={!!getAuthErrorMessage(errors, "firstName")}
+          isClearable
           type="text"
-          onChange={(e) => handleInput("firstName", e.target.value)}
           label="First Name"
           variant="bordered"
+          isRequired
         />
         <Input
+          {...register("lastName", {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z]$/,
+              message: "Please enter only letters",
+            },
+            onChange: (e) => handleInput("lastName", e.target.value),
+          })}
+          errorMessage={getAuthErrorMessage(errors, "lastName")}
+          isInvalid={!!getAuthErrorMessage(errors, "lastName")}
+          isClearable
           type="text"
-          onChange={(e) => handleInput("lastName", e.target.value)}
           label="Last Name"
           variant="bordered"
         />
         <Input
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Please enter a valid email",
+            },
+            onChange: (e) => handleInput("email", e.target.value),
+          })}
+          errorMessage={getAuthErrorMessage(errors, "email")}
+          isInvalid={!!getAuthErrorMessage(errors, "email")}
+          isClearable
           type="email"
-          onChange={(e) => handleInput("email", e.target.value)}
           label="Email"
           variant="bordered"
+          isRequired
         />
         <Input
-          type="password"
-          onChange={(e) => handleInput("password", e.target.value)}
+          {...register("password", {
+            required: true,
+            pattern: {
+              value: /^(?=.*[A-Za-z0-9])(?=.*[^A-Za-z0-9]).{6,}$/,
+              message:
+                "Password must contain one special character and minimum six characters.",
+            },
+            onChange: (e) => handleInput("password", e.target.value),
+          })}
+          endContent={
+            <button
+              aria-label="toggle password visibility"
+              className="focus:outline-none"
+              type="button"
+              onClick={handleShowPassword}
+            >
+              {showPassword ? (
+                <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+              ) : (
+                <FaEye className="text-2xl text-default-400 pointer-events-none" />
+              )}
+            </button>
+          }
+          errorMessage={getAuthErrorMessage(errors, "password")}
+          isInvalid={!!getAuthErrorMessage(errors, "password")}
+          isRequired
+          type={showPassword ? "text" : "password"}
           label="Password"
           variant="bordered"
         />
@@ -131,9 +219,9 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
       </form>
 
       <div className="text-teagreen-500 text-center">
-      Have an account?{" "}
+        Have an account?{" "}
         <span
-          onClick={() => handleShowForm("sign-in")}
+          onClick={handleFormChange}
           className="underline cursor-pointer hover:text-teagreen-600"
         >
           Sign in now
