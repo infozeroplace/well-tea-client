@@ -6,43 +6,43 @@ function TeaDropdown() {
   const productTypes = [
     {
       image: "/images/Teanav_Organic_Tea.webp",
-      name: "Black Tea",
+      name: "Black Teas",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
-      name: "Green Tea",
+      name: "Green Teas",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
-      name: "White Tea",
+      name: "White Teas",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
-      name: "Oolong Tea",
+      name: "Oolong Teas",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
-      name: "Herbal Tea",
+      name: "Herbal Teas",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
-      name: "Pu-erh Tea",
+      name: "Pu-erh Teas",
     },
     {
       image: "/images/product_one.jpg",
-      name: "Black Tea",
+      name: "Black Teas",
     },
     {
       image: "/images/product_two.jpg",
-      name: "Green Tea",
+      name: "Green Teas",
     },
     {
       image: "/images/product_three.jpg",
-      name: "White Tea",
+      name: "White Teas",
     },
     {
       image: "/images/product_one.jpg",
-      name: "Black Tea",
+      name: "Black Teas",
     },
   ];
 
@@ -147,19 +147,19 @@ function TeaDropdown() {
           </div>
           <div className="mx-10 mt-5">
             <div className="grid grid-cols-2 gap-5">
-              {productTypes.map((product, index) => (
+              {productTypes.map((type, index) => (
                 <Link
-                  href="#"
+                  href={`/tea/${type.name}`}
                   key={index}
                   className="flex items-center gap-3 hover:brightness-125"
                 >
                   <Image
-                    src={product.image}
-                    alt={product.name}
+                    src={type.image}
+                    alt={type.name}
                     width={50}
                     height={50}
                   />
-                  <p>{product.name}</p>
+                  <p>{type.name}</p>
                 </Link>
               ))}
             </div>
