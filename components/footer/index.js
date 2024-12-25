@@ -3,24 +3,22 @@ import Image from "next/image";
 import BackToTopButton from "./BacktoTopButton";
 
 function Footer() {
-  const socialIconsExtraClasses = "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
-  
-  const FooterBar = () =>{
+  const socialIconsExtraClasses =
+    "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
+
+  const FooterBar = () => {
     return <div className="w-full h-[1px] bg-teagreen-700"></div>;
-  }
+  };
   const FooterTitle = ({ name }) => {
     return <h4 className="mb-5 text-white uppercase">{name}</h4>;
-  }
+  };
   const FooterListItem = ({ name, href }) => {
     return (
-      <Link
-        href={href}
-        className="text-teagreen-100 hover:text-teagreen-200"
-      >
+      <Link href={href} className="text-teagreen-100 hover:text-teagreen-200">
         {name}
       </Link>
-    )
-  }
+    );
+  };
 
   return (
     <div className="w-full bg-[#194A34]">
@@ -28,7 +26,7 @@ function Footer() {
         <div className="max-w-screen-xl mx-auto grid grid-cols-7 gap-5 justify-around py-10">
           <div className="text-white flex flex-col gap-2">
             <FooterTitle name="About" />
-            <FooterListItem name="Company" href="/" />
+            <FooterListItem name="Company Info" href="/about" />
             <FooterListItem name="Goal" href="/" />
             <FooterListItem name="Location" href="/" />
           </div>
@@ -127,4 +125,4 @@ function Footer() {
   );
 }
 
-export default Footer
+export default Footer;
