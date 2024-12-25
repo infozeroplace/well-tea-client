@@ -140,20 +140,22 @@ const NewReleases = () => {
   };
   return (
     <div className="section-gap bg-teagreen-100 py-10">
-      <div className="ml-[80px] mb-10 ">
-        <p className="text-center md:text-left uppercase text-x">
-          shop our tea
-        </p>
-        <h4 className="text-center md:text-left text-4xl">New Releases</h4>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-2">
-        {newitems.map(
-          (item, idx) =>
-            idx < itemLimit && <NewItemCard key={item?.id} item={item} />
-        )}
-      </div>
-      <div className="flex justify-center md:justify-center text-lg">
-        <SectionButton title="See More" onClick={handleLimit} />
+      <div className="mx-20">
+        <div className="ml-[80px] mb-10 ">
+          <p className="text-center md:text-left uppercase text-x">
+            shop our tea
+          </p>
+          <h4 className="text-center md:text-left text-4xl">New Releases</h4>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-2">
+          {newitems.map(
+            (item, idx) =>
+              idx < itemLimit && <NewItemCard key={item?.id} item={item} />
+          )}
+        </div>
+        <div className="flex justify-center md:justify-center text-lg">
+          <SectionButton title="See More" onClick={handleLimit} />
+        </div>
       </div>
     </div>
   );

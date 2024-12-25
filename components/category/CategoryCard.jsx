@@ -29,7 +29,7 @@ const CategoryCard = ({ item }) => {
         <div className="overflow-hidden">
           <img
             src={item?.image}
-            className="opacity-0 group-hover:opacity-100 h-full group-hover:scale-150 duration-400"
+            className="opacity-0 group-hover:opacity-100 h-full group-hover:scale-100 duration-400"
           />
         </div>
         {/* Product Content */}
