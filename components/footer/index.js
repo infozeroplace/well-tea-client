@@ -23,7 +23,7 @@ function Footer() {
   return (
     <div className="w-full bg-[#194A34]">
       <div className="py-10">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-7 gap-5 justify-around py-10">
+        <div className="container px-4 mx-auto grid grid-cols-7 gap-5 justify-around py-10">
           <div className="text-white flex flex-col gap-2">
             <FooterTitle name="About" />
             <FooterListItem name="Company Info" href="/about" />

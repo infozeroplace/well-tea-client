@@ -74,14 +74,14 @@ a {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding: 0 1rem;
   }
   .container-narrow {
     max-width: 1340px;
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding: 0 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .section-gap {
     margin-bottom: 3rem;

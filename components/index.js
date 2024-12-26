@@ -10,3 +10,4 @@ export { default as SelectedTeas } from "./selectedteas";
 export * from "./homepage";
 export * from "./shared";
 export * from "./auth";
+export * from "./about";

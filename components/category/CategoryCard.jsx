@@ -33,9 +33,7 @@ const CategoryCard = ({ item, url }) => {
           </div>
         )}
         {item?.discount && (
-          <div className=" bg-teagreen-500 w-fit px-2 py-1">
-            -{item?.discount}%
-          </div>
+          <div className=" bg-teagreen-500 w-fit px-2 py-1">-{item?.discount}%</div>
         )}
       </div>
       <div className="aspect-square">

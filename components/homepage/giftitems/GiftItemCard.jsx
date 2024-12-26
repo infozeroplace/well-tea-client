@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const NewItemCard = ({ item }) => {
+const GiftItemCard = ({ item }) => {
   if (!item) return null;
 
   return (
@@ -35,7 +35,7 @@ const NewItemCard = ({ item }) => {
           />
         </div>
         {/* Product Details */}
-        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto xl:w-[85%]">
+        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto w-[85%] -mt-4">
           <div className="px-4">
             <h5 className="text-xs lg:text-sm xl:text-base text-teagreen-500">
               {item?.type}
@@ -64,4 +64,4 @@ const NewItemCard = ({ item }) => {
   );
 };
 
-export default NewItemCard;
+export default GiftItemCard;
