@@ -21,7 +21,7 @@ function Category() {
 
   return (
     <div className="section-gap">
-      <div className="ml-20">
+      <div className="mx-20">
         <h1 className="uppercase text-center text-4xl text-teagreen-800 mb-10">
           Explore our single teas
         </h1>

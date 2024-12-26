@@ -10,10 +10,12 @@ import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
+import Cart from "./Cart";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const navIconsClasses =
     "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
@@ -96,12 +98,18 @@ const Navbar = () => {
                   </svg>
                 </button>
               </Link>
-              <button className={`nav-button ${navIconsClasses}`}>
+
+              {/* <button
+                onClick={() => setIsCartOpen(true)}
+                className={`nav-button ${navIconsClasses}`}
+              >
                 <PiShoppingCartThin />
                 <svg className="circle" viewBox="0 0 50 50">
                   <circle cx="25" cy="25" r="24" />
                 </svg>
-              </button>
+              </button> */}
+
+              <Cart buttonClass={`nav-button ${navIconsClasses}`} />
             </div>
 
             {/* Mobile Menu Button */}

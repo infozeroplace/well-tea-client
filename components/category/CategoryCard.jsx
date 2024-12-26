@@ -9,8 +9,6 @@ const CategoryCard = ({ item, url }) => {
   const CardUrl = decodeURIComponent(url);
   const dispatch = useDispatch();
 
-  console.log(url);
-
   const handleAddToCart = () => {
     dispatch(addToCart({
       id: item.id,
