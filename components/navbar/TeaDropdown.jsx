@@ -7,42 +7,52 @@ function TeaDropdown() {
     {
       image: "/images/Teanav_Organic_Tea.webp",
       name: "Black Teas",
+      type: "black-tea",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
       name: "Green Teas",
+      type: "green-tea",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
       name: "White Teas",
+      type: "white-tea",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
       name: "Oolong Teas",
+      type: "oolong-tea",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
       name: "Herbal Teas",
+      type: "herbal-tea",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
       name: "Pu-erh Teas",
+      type: "pureh-tea",
     },
     {
       image: "/images/product_one.jpg",
       name: "Black Teas",
+      type: "black-tea",
     },
     {
       image: "/images/product_two.jpg",
       name: "Green Teas",
+      type: "green-tea",
     },
     {
       image: "/images/product_three.jpg",
       name: "White Teas",
+      type: "white-tea",
     },
     {
       image: "/images/product_one.jpg",
       name: "Black Teas",
+      type: "black-tea",
     },
   ];
 
@@ -149,7 +159,7 @@ function TeaDropdown() {
             <div className="grid grid-cols-2 gap-5">
               {productTypes.map((type, index) => (
                 <Link
-                  href={`/tea/${type.name}`}
+                  href={`/tea/type?type=${type.type}`}
                   key={index}
                   className="flex items-center gap-3 hover:brightness-125"
                 >

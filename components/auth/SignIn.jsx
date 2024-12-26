@@ -2,34 +2,33 @@
 
 import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
+import { FaEye, FaEyeSlash } from "@/icons";
 import {
   useGoogleSignInMutation,
   useSignInMutation,
 } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { Input, Spinner } from "@nextui-org/react";
 import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import GoogleLoginButton from "./GoogleLoginButton";
-import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash } from "@/icons";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
   const { handleGetCookie, handleSetCookie } = useCookie();
 
-  // Password strates
+  // Password states
   const [showPassword, setShowPassword] = useState(false);
-  
 
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  const redirectedUrl = searchParams.get("redirect");
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -57,7 +56,8 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
       handleSuccess(data?.message || googleSignInData?.message);
 
-      window.location.href = redirect || "/";
+      // window.location.href = redirectedUrl || "/";
+      redirect(redirectedUrl || "/");
     }
 
     if (error) {
@@ -68,7 +68,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const handleInput = (field, value) =>
     setCredentials((prev) => ({ ...prev, [field]: value }));
 
-  // react-hook-form-fuctions
+  // react-hook-form-function
   const {
     register,
     handleSubmit,
@@ -105,7 +105,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const handleFormChange = () => {
     handleShowForm("sign-up");
     reset();
-  }
+  };
   return (
     <div
       className={`${
@@ -144,7 +144,6 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
         />
         <div>
           <Input
-            
             {...register("password", {
               required: true,
               pattern: {
@@ -175,7 +174,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
             label="Password"
             variant="bordered"
           />
-         
+
           <div className="text-right">
             <Link
               href="/forgot-password"

@@ -1,10 +1,11 @@
 import { api } from "@/services/api/apiSlice";
+import generateServiceUrl from "@/utils/generateServiceUrl";
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     resetPassword: builder.mutation({
       query: ({ data }) => ({
-        url: "/public/auth/reset-password",
+        url: "/api/v1/public/auth/reset-password",
         method: "POST",
         body: data,
       }),
@@ -12,7 +13,7 @@ const authApi = api.injectEndpoints({
     }),
     forgotPassword: builder.mutation({
       query: ({ data }) => ({
-        url: "/public/auth/forgot-password",
+        url: "/api/v1/public/auth/forgot-password",
         method: "POST",
         body: data,
       }),
@@ -20,7 +21,7 @@ const authApi = api.injectEndpoints({
     }),
     getRefreshToken: builder.mutation({
       query: ({ data }) => ({
-        url: "/public/auth/refresh/token",
+        url: "/api/v1/public/auth/refresh/token",
         method: "POST",
         body: data,
       }),
@@ -28,7 +29,7 @@ const authApi = api.injectEndpoints({
     }),
     googleSignIn: builder.mutation({
       query: ({ data }) => ({
-        url: "/public/auth/google-sign-in",
+        url: "/api/v1/public/auth/google-sign-in",
         method: "POST",
         body: data,
       }),
@@ -36,7 +37,7 @@ const authApi = api.injectEndpoints({
     }),
     signIn: builder.mutation({
       query: ({ data }) => ({
-        url: "/public/auth/sign-in",
+        url: "/api/v1/public/auth/sign-in",
         method: "POST",
         body: data,
       }),
@@ -44,11 +45,21 @@ const authApi = api.injectEndpoints({
     }),
     signUp: builder.mutation({
       query: ({ data }) => ({
-        url: "/public/auth/sign-up",
+        url: "/api/v1/public/auth/sign-up",
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["user"],
+    }),
+    welcome: builder.query({
+      query: (query) => {
+        const url = generateServiceUrl("/", query);
+
+        return {
+          url,
+          method: "GET",
+        };
+      },
     }),
   }),
 });
@@ -60,4 +71,5 @@ export const {
   useGoogleSignInMutation,
   useSignInMutation,
   useSignUpMutation,
+  useWelcomeQuery,
 } = authApi;

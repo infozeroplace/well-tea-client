@@ -2,20 +2,20 @@
 
 import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
+import { FaEye, FaEyeSlash } from "@/icons";
 import {
   useGoogleSignInMutation,
   useSignUpMutation,
 } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
-import { Input, Spinner } from "@nextui-org/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import GoogleLoginButton from "./GoogleLoginButton";
-import { useGoogleLogin } from "@react-oauth/google";
-import { useForm } from "react-hook-form";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
-import { FaEye, FaEyeSlash } from "@/icons";
+import { Input, Spinner } from "@nextui-org/react";
+import { useGoogleLogin } from "@react-oauth/google";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
@@ -27,7 +27,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const search = searchParams.get("redirect");
+  const redirectedUrl = searchParams.get("redirect");
 
   const [credentials, setCredentials] = useState({
     firstName: "",
@@ -36,7 +36,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
     password: "",
   });
 
-  // Defined Api fuctions
+  // Defined Api function
   const [signUp, { data, error, isLoading }] = useSignUpMutation();
   const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
     useGoogleSignInMutation();
@@ -57,7 +57,8 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
 
       handleSuccess(data?.message || googleSignInData?.message);
 
-      window.location.href = search || "/";
+      // window.location.href = redirectedUrl || "/";
+      redirect(redirectedUrl || "/");
     }
 
     if (error) {
@@ -68,7 +69,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const handleInput = (field, value) =>
     setCredentials((prev) => ({ ...prev, [field]: value }));
 
-  // react-hook-form-fuctions
+  // react-hook-form-function
   const {
     register,
     handleSubmit,
@@ -109,7 +110,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const handleFormChange = () => {
     handleShowForm("sign-in");
     reset();
-  }
+  };
 
   return (
     <div

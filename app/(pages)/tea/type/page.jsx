@@ -1,11 +1,14 @@
-
-import { productList } from "@/data/products";
 import CategoryCard from "@/components/category/CategoryCard";
-import {FilterButton, Sort, Filters} from "../components";
-function TeaType({ params}) {
-    const type = decodeURIComponent(params.type);
+import { productList } from "@/data/products";
+import { FilterButton, Filters, Sort } from "../components";
 
-    const filteredProducts = productList.filter((product) => product.type === type);
+function TeaType({ searchParams }) {
+  const { type } = searchParams;
+  console.log(type, " Type")
+
+  const filteredProducts = productList.filter(
+    (product) => product.type === type
+  );
 
 
   return (
@@ -24,7 +27,7 @@ function TeaType({ params}) {
                   <Sort />
                 </div>
               </div>
-              <div className="grid grid-cols-4 gap-4 p-10">
+              <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-10">
                 {filteredProducts.map((item) => (
                   <CategoryCard key={item.id} item={item} />
                 ))}
