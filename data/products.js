@@ -10,6 +10,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "2",
@@ -22,6 +23,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "3",
@@ -34,6 +36,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "4",
@@ -46,6 +49,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "5",
@@ -54,10 +58,11 @@ export const productList = [
     image: "/products/product_01.jpg",
     hoverImage: "/products/product_02.jpg",
     type: "Organic Teas",
-    title: "White Tera Rose Melange",
+    title: "Black Tera Rose Melange",
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "6",
@@ -70,6 +75,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "7",
@@ -82,6 +88,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "8",
@@ -94,6 +101,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "9",
@@ -106,6 +114,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "10",
@@ -118,6 +127,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "11",
@@ -130,6 +140,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "12",
@@ -142,6 +153,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "13",
@@ -154,6 +166,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "14",
@@ -166,6 +179,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "15",
@@ -178,6 +192,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "16",
@@ -190,6 +205,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "17",
@@ -202,6 +218,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "18",
@@ -214,6 +231,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "19",
@@ -226,6 +244,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "20",
@@ -238,6 +257,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "21",
@@ -250,6 +270,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "22",
@@ -262,6 +283,7 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
   {
     id: "23",
@@ -274,5 +296,6 @@ export const productList = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    weight: ["5", "10", "20", "30"],
   },
 ];
