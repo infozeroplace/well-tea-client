@@ -3,10 +3,9 @@ import { productList } from "@/data/products";
 import CategoryCard from "@/components/category/CategoryCard";
 import {FilterButton, Sort, Filters} from "../components";
 function TeaType({ params}) {
-    const type = decodeURIComponent(params.type);
+  const type = decodeURIComponent(params.type);
 
-    const filteredProducts = productList.filter((product) => product.type === type);
-
+  const filteredProducts = productList.filter((product) => product.type === type);
 
   return (
     <div className="w-full">
@@ -26,7 +25,7 @@ function TeaType({ params}) {
               </div>
               <div className="grid grid-cols-4 gap-4 p-10">
                 {filteredProducts.map((item) => (
-                  <CategoryCard key={item.id} item={item} />
+                  <CategoryCard key={item.id} item={item} url={`/tea/${item.type}/${item.id}`} />
                 ))}
               </div>
             </div>

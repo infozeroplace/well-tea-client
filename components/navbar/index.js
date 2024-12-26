@@ -47,7 +47,7 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[520px] shadow">
+              <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
             </div>

@@ -15,7 +15,7 @@ function Category() {
   const categoryList = [...new Set(productList.map((product) => product.type))];
   const filteredProducts = productList.filter((product) => product.type === selectedCategory);
 
-  const visibleProducts = filteredProducts.slice(0, 10);
+  const visibleProducts = filteredProducts.slice(0, 7);
 
   const activeClass = "border-[0.5px] border-teagreen-600";
 

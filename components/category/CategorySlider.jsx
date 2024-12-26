@@ -60,22 +60,9 @@ function CategorySlider({ visibleProducts }) {
       >
         {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>
-            <CategoryCard item={item} />
+            <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} />
           </SwiperSlide>
         ))}
-        {/* <SwiperSlide className="!mr-0 w-full h-full flex flex-col items-center justify-center">
-          <div className="p-4 flex flex-col items-center justify-center text-center mt-[50%]">
-            <h3 className="text-lg font-semibold text-teagreen-600">
-              See All Products
-            </h3>
-            <Link
-              href="/products"
-              className="text-teagreen-500 hover:text-teagreen-600 font-light underline"
-            >
-              Browse All
-            </Link>
-          </div>
-        </SwiperSlide> */}
       </Swiper>
       <button
         className={"swiper-button-prev " + (isFirstSlide ? "!hidden" : "")}

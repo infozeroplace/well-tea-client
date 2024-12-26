@@ -59,12 +59,8 @@ function TeaDropdown() {
       image: "/images/product_three.jpg",
       name: "Tea Caddles",
     },
-    {
-      image: "/images/product_one.jpg",
-      name: "Sparkling Tea",
-    },
   ];
-  const originList = ["China", "Bangldesh", "Japan", "Sri Lanka", "Taiwan", "India", "Myanmar", "Vietnam", "Nepal"];
+  const originList = ["China", "Bangldesh", "Japan", "Sri Lanka"];
 
   const flavourList = [
     {
@@ -170,27 +166,27 @@ function TeaDropdown() {
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">Flavour</h3>
             {flavourList.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.url}
-                  className="hover:text-teagreen-600"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              <Link
+                key={index}
+                href={item.url}
+                className="hover:text-teagreen-600"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
           <hr />
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">Discover</h3>
             {discoverList.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.url}
-                  className="hover:text-teagreen-600"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              <Link
+                key={index}
+                href={item.url}
+                className="hover:text-teagreen-600"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -215,17 +211,12 @@ function TeaDropdown() {
           </div>
           <hr />
           <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Health</h3>
-            {healthList.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.url}
-                  className="hover:text-teagreen-600"
-                >
-                  {item.name}
-                </Link>
-              ))
-            }
+            <h3 className="font-extralight text-xl">Origin</h3>
+            {originList.map((item, index) => (
+              <Link key={index} href="/" className="hover:text-teagreen-600">
+                {item}
+              </Link>
+            ))}
           </div>
           {/* <Link
             href="/tea"
@@ -241,17 +232,17 @@ function TeaDropdown() {
         <div className="p-5 basis-[35%] w-full">
           <div className="flex flex-col gap-5">
             <div className="basis-1/2">
-              <h3 className="font-extralight text-xl">Origin</h3>
-              <div className="mt-5 flex flex-wrap gap-5">
-                {originList.map((origin, index) => (
-                    <button
-                      key={index}
-                      className="bg-teagreen-100 text-teagreen-600 hover:bg-transparent border-[0.3px] border-teagreen-100 hover:border-teagreen-500 px-5 py-2 rounded-full duration-300"
-                    >
-                      {origin}
-                    </button>
-                  ))
-                }
+              <div className="flex flex-col gap-2">
+                <h3 className="font-extralight text-xl">Health</h3>
+                {healthList.map((item, index) => (
+                  <Link
+                    key={index}
+                    href="/"
+                    className="hover:text-teagreen-600"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
               </div>
             </div>
             <hr />
