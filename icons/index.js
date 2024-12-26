@@ -1,8 +1,7 @@
 
 import { LiaShippingFastSolid } from "react-icons/lia";
-import { LuClipboardPenLine } from "react-icons/lu";
 import { RiCustomerService2Line, RiSecurePaymentLine } from "react-icons/ri";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { PiTeaBag } from "react-icons/pi";
 
-
-export { LiaShippingFastSolid, LuClipboardPenLine, RiCustomerService2Line, RiSecurePaymentLine, FaEye, FaEyeSlash };
+export { LiaShippingFastSolid, RiCustomerService2Line, RiSecurePaymentLine, FaEye, FaEyeSlash, PiTeaBag };
