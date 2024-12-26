@@ -25,7 +25,6 @@ const CategoryCard = ({ item, url }) => {
   if (!item) return null;
 
   return (
-    <Link href={CardUrl}>
       <div className="relative w-full aspect-[362/482] mb-4 group">
         <div className="aspect-square">
           <img
@@ -74,7 +73,7 @@ const CategoryCard = ({ item, url }) => {
               )}
             </div>
             <div className="hidden group-hover:flex border-t opacity-0 group-hover:opacity-100 mt-5 transition duration-400 group-hover:mt-0">
-              <button onClick={handleAddToCart} className="uppercase text-xs py-2 text-center w-full group-hover:flex items-center justify-center border-r text-teagreen-800 hover:bg-teagreen-400 duration-400">
+              <button className="uppercase text-xs py-2 text-center w-full group-hover:flex items-center justify-center border-r text-teagreen-800 hover:bg-teagreen-400 duration-400">
                 add to cart
               </button>
               {/* <button className="uppercase text-xs py-2 w-full flex justify-center items-center text-teagreen-800 hover:bg-teagreen-400 duration-400">
@@ -84,7 +83,6 @@ const CategoryCard = ({ item, url }) => {
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 
