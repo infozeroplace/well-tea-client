@@ -3,7 +3,7 @@ import { PiShoppingCartThin } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { SectionButton } from "../shared";
 import { PiTrashSimpleLight } from "react-icons/pi";
-import { Badge } from "@nextui-org/react";
+import { useSelector } from "react-redux";
 
 const Cart = ({ buttonClass }) => {
   const cartItems = [
@@ -20,7 +20,7 @@ const Cart = ({ buttonClass }) => {
       id: 2,
       name: "Breakfast Tea Bag",
       category: "Black Tea",
-      price: 15.0,
+      price: 34.30,
       originalPrice: 23.0,
       quantity: 2,
       image: "/products/product_03.jpg",
@@ -30,7 +30,7 @@ const Cart = ({ buttonClass }) => {
       name: "Breakfast Tea Bag",
       category: "Black Tea",
       price: 15.0,
-      originalPrice: 23.0,
+      originalPrice: 21.0,
       quantity: 2,
       image: "/products/product_03.jpg",
     },
@@ -38,8 +38,8 @@ const Cart = ({ buttonClass }) => {
       id: 4,
       name: "Breakfast Tea Bag",
       category: "Black Tea",
-      price: 15.0,
-      originalPrice: 23.0,
+      price: 22.08,
+      originalPrice: 28.0,
       quantity: 2,
       image: "/products/product_03.jpg",
     },
@@ -47,8 +47,8 @@ const Cart = ({ buttonClass }) => {
       id: 5,
       name: "Breakfast Tea Bag",
       category: "Black Tea",
-      price: 15.0,
-      originalPrice: 23.0,
+      price: 35.76,
+      originalPrice: 43.0,
       quantity: 2,
       image: "/products/product_03.jpg",
     },
@@ -57,7 +57,7 @@ const Cart = ({ buttonClass }) => {
       name: "Breakfast Tea Bag",
       category: "Black Tea",
       price: 15.0,
-      originalPrice: 23.0,
+      originalPrice: 24.0,
       quantity: 2,
       image: "/products/product_03.jpg",
     },
@@ -65,8 +65,8 @@ const Cart = ({ buttonClass }) => {
       id: 7,
       name: "Breakfast Tea Bag",
       category: "Black Tea",
-      price: 15.0,
-      originalPrice: 23.0,
+      price: 12.30,
+      originalPrice: 18.0,
       quantity: 2,
       image: "/products/product_03.jpg",
     },
@@ -81,8 +81,13 @@ const Cart = ({ buttonClass }) => {
     },
   ];
   const [isOpen, setIsOpen] = useState(false);
+  const cartItemss = useSelector((state) => state.cart.items);
 
-  const shippingCost = 35.0;
+  const cartItemsCount = cartItemss.length;
+
+  console.log(cartItemss);
+
+  const shippingCost = 20.0;
 
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const subtotal = cartItems.reduce(
@@ -94,15 +99,18 @@ const Cart = ({ buttonClass }) => {
   return (
     <div>
       <button onClick={() => setIsOpen(true)} className={buttonClass}>
-        <Badge color="warning" content="5" size="md">
-          <PiShoppingCartThin />
-        </Badge>
+        <PiShoppingCartThin />
+        {cartItemsCount > 0 && (
+          <span className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
+            {cartItemsCount}
+          </span>
+        )}
         <svg className="circle" viewBox="0 0 50 50">
           <circle cx="25" cy="25" r="24" />
         </svg>
       </button>
 
-      {/* Sliding Cart */}
+      {/* ------ Cart -------- */}
       <div
         className={`fixed top-0 right-0 h-[100vh] w-[450px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -114,6 +122,7 @@ const Cart = ({ buttonClass }) => {
             <RxCross1 />
           </button>
         </div>
+        {/* ------ Cart Items ------ */}
         <div className="flex flex-col">
           <div className="overflow-y-auto h-[calc(100vh-15rem)]">
             {cartItems.map((item) => (
@@ -148,6 +157,7 @@ const Cart = ({ buttonClass }) => {
               </div>
             ))}
           </div>
+          {/* --------- Cart Bottom --------- */}
           <div className="p-4 border-t text-sm mt-auto">
             <div className="flex justify-between text-sm">
               <span>Items ({totalItems})</span>
@@ -168,6 +178,7 @@ const Cart = ({ buttonClass }) => {
           </div>
         </div>
       </div>
+      {/* -------- Mask -------- */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
