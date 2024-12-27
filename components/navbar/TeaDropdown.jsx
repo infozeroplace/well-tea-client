@@ -83,7 +83,7 @@ function TeaDropdown() {
       name: "Floral",
       url: "/",
     },
-  ]
+  ];
   const discoverList = [
     {
       name: "Caffeine free",
@@ -104,8 +104,8 @@ function TeaDropdown() {
     {
       name: "Sustainable",
       url: "/",
-    }
-  ]
+    },
+  ];
 
   const healthList = [
     {
@@ -126,6 +126,25 @@ function TeaDropdown() {
     },
     {
       name: "Metabolism & Weight Loss",
+      url: "/",
+    },
+  ];
+
+  const caffeineFreeTea = [
+    {
+      name: "⁠Fruity Tea",
+      url: "/",
+    },
+    {
+      name: "⁠Herbal Tea",
+      url: "/",
+    },
+    {
+      name: "⁠Ice Tea",
+      url: "/",
+    },
+    {
+      name: "⁠Rooibos Tea",
       url: "/",
     },
   ];
@@ -229,7 +248,7 @@ function TeaDropdown() {
           </Link> */}
         </div>
 
-        <div className="p-5 basis-[35%] w-full">
+        <div className="p-5 basis-[17.5%] w-full border-r">
           <div className="flex flex-col gap-5">
             <div className="basis-1/2">
               <div className="flex flex-col gap-2">
@@ -247,30 +266,33 @@ function TeaDropdown() {
             </div>
             <hr />
             <div className="flex basis-1/2 gap-5">
-              <div className="flex-1">
-                <Image
-                  src="/images/welltea_hero.png"
-                  alt=""
-                  width={200}
-                  height={200}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                  }}
-                />
+              <div className="flex flex-col gap-2">
+                <h3 className="font-extralight text-xl">Caffeine free Tea</h3>
+                {caffeineFreeTea.map((item, index) => (
+                  <Link
+                    key={index}
+                    href="/"
+                    className="hover:text-teagreen-600"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
               </div>
-              <div className="flex-1">
-                <Image
-                  src="/images/welltea_hero.png"
-                  alt=""
-                  width={200}
-                  height={200}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                  }}
-                />
-              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Image Section */}
+        <div className="p-5 basis-[17.5%] w-full">
+          <div className="">
+            <div className="my-auto">
+              <Image
+                src="/images/teatypesidebar.jpg"
+                alt="Tea Types"
+                width={457}
+                height={1000}
+                className="w-full max-w-[190px]"
+              />
             </div>
           </div>
         </div>
