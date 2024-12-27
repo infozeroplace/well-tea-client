@@ -283,7 +283,7 @@ function TeaDropdown() {
         </div>
 
         {/* Right Image Section */}
-        <div className="pt-5 basis-[17.5%] w-full">
+        <div className="p-5 basis-[17.5%] w-full">
           <div className="">
             <div className="my-auto">
               <Image

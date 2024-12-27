@@ -35,7 +35,7 @@ const NewItemCard = ({ item }) => {
           />
         </div>
         {/* Product Details */}
-        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto xl:w-[85%]">
+        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto xl:w-[85%] 2xl:mt-10">
           <div className="px-4">
             <h5 className="text-xs lg:text-sm xl:text-base text-teagreen-500">
               {item?.type}
