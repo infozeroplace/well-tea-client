@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, clearCart } from "@/services/features/cart/cartSlice";
-import StarRatingDisplay from "./StarRatingDisplay";
+import StarRatingDisplay from "@/components/shared/StarRatingDisplay";
 
 const ProductDetails = ({ product }) => {
   const addOns = [
@@ -25,7 +25,8 @@ const ProductDetails = ({ product }) => {
           <h1 className="text-2xl font-bold">{product.title}</h1>
           <p className="mt-2">Floral, Edamame, Cut Grass</p>
           <p className="">From Hunan, China</p>
-          <div className="">
+          <div className="flex items-center gap-2">
+            <span>{product.rating}</span>
             <StarRatingDisplay rating={product.rating} />
           </div>
           <p className=" mt-4">

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/services/features/cart/cartSlice";
+import StarRatingDisplay from "../shared/StarRatingDisplay";
 
 const CategoryCard = ({ item, url }) => {
   const CardUrl = decodeURIComponent(url);
@@ -67,7 +68,9 @@ const CategoryCard = ({ item, url }) => {
               <h4 className="md:text-base lg:text-lg font-extralight text-teagreen-800">
                 {item?.title}
               </h4>
-              <h5 className="text-xs text-teagreen-800">{item?.rating}</h5>
+              <h5 className="flex items-center justify-center">
+                <StarRatingDisplay rating={item?.rating} />
+              </h5>
               {item?.discount && (
                 <div className="flex justify-center gap-2 text-xs lg:text-sm font-semibold text-teagreen-800">
                   <div>${item?.discountPrice}</div> <del>${item?.price}</del>

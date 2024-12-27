@@ -8,9 +8,6 @@ const StarRatingDisplay = ({ rating }) => {
 
   return (
     <div className="flex items-center">
-      <span className="text-lg font-semibold text-gray-800 mr-2">
-        {numericRating.toFixed(1)}
-      </span>
       {Array.from({ length: fullStars }, (_, index) => (
         <span key={`full-${index}`} className="text-orange-500 text-lg">
           ★
