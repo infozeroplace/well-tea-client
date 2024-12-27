@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, clearCart } from "@/services/features/cart/cartSlice";
+import StarRatingDisplay from "./StarRatingDisplay";
 
 const ProductDetails = ({ product }) => {
   const addOns = [
@@ -17,13 +18,16 @@ const ProductDetails = ({ product }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="mx-auto pr-10 py-8">
       <div className="">
         <div className="mb-6">
           <h4 className="text-green-800 font-semibold">{product.type}</h4>
           <h1 className="text-2xl font-bold">{product.title}</h1>
           <p className="mt-2">Floral, Edamame, Cut Grass</p>
           <p className="">From Hunan, China</p>
+          <div className="">
+            <StarRatingDisplay rating={product.rating} />
+          </div>
           <p className=" mt-4">
             Adipisicing aliqua consequat aliqua amet aliquip tempor elit Lorem
             eiusmod veniam amet. Laboris sunt aliqua ut cillum ipsum sint.
@@ -64,9 +68,7 @@ const ProductDetails = ({ product }) => {
           </div>
         </div>
 
-        <div className="my-5">
-          Subscribe Section
-        </div>
+        <div className="my-5">Subscribe Section</div>
 
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-4">Helpful Add-Ons</h3>
