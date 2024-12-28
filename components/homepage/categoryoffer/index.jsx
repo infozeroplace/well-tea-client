@@ -1,5 +1,5 @@
 import React from "react";
-import CategoryOfferCard from "./CategoryOfferCard";
+import CategoryOfferSlider from "./CategoryOfferSlider";
 
 const CategoryOffer = () => {
   return (
@@ -19,7 +19,7 @@ const CategoryOffer = () => {
         </p>
       </div>
 
-      <CategoryOfferCard />
+      <CategoryOfferSlider />
     </div>
   );
 };
