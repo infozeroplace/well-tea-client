@@ -30,7 +30,7 @@ const Navbar = () => {
               <Image
                 src="/logo/welltea_logo_color.png"
                 alt="Brand Logo"
-                width={170}
+                width={150}
                 height={100}
                 quality={100}
               />
