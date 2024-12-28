@@ -7,7 +7,7 @@ const SectionButton = ({ title, textClass, buttonClass, hoverClass, onClick = ()
     <button
       onClick={onClick}
       className={
-        "relative w-60 h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full px-10 py-3 text-center transition-all duration-300 " + 
+        "relative block w-60 text-nowrap h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full px-10 py-3 text-center transition-all duration-300 " +
         buttonClass
       }
     >
@@ -19,10 +19,11 @@ const SectionButton = ({ title, textClass, buttonClass, hoverClass, onClick = ()
       >
         {title}
       </span>
-      <div className={
-        "absolute z-10 top-0 left-0 w-0 h-full group-hover:w-full bg-teagreen-800 transition-all duration-300 " +
-        hoverClass
-      }
+      <div
+        className={
+          "absolute z-10 top-0 left-0 w-0 h-full group-hover:w-full bg-teagreen-800 transition-all duration-300 " +
+          hoverClass
+        }
       ></div>
     </button>
   );

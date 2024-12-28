@@ -4,12 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/services/features/cart/cartSlice";
+import StarRatingDisplay from "../shared/StarRatingDisplay";
 
 const CategoryCard = ({ item, url }) => {
   const CardUrl = decodeURIComponent(url);
   const dispatch = useDispatch();
-
-  console.log(url);
 
   const handleAddToCart = () => {
     dispatch(
@@ -69,7 +68,9 @@ const CategoryCard = ({ item, url }) => {
               <h4 className="md:text-base lg:text-lg font-extralight text-teagreen-800">
                 {item?.title}
               </h4>
-              <h5 className="text-xs text-teagreen-800">{item?.rating}</h5>
+              <h5 className="flex items-center justify-center">
+                <StarRatingDisplay rating={item?.rating} />
+              </h5>
               {item?.discount && (
                 <div className="flex justify-center gap-2 text-xs lg:text-sm font-semibold text-teagreen-800">
                   <div>${item?.discountPrice}</div> <del>${item?.price}</del>
@@ -83,7 +84,7 @@ const CategoryCard = ({ item, url }) => {
         </Link>
         {/* Add to card */}
         <div className="flex justify-center border-t opacity-0 transform translate-y-10 group-hover:opacity-100 group-hover:-translate-y-36 group-hover:bg-teagreen-100 group-hover:w-[80%] mx-auto transition-all duration-400">
-          <button className="uppercase text-xs py-2 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400">
+          <button onClick={handleAddToCart} className="uppercase text-xs py-2 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400">
             add to cart
           </button>
         </div>
