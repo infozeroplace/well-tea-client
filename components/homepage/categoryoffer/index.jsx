@@ -9,14 +9,6 @@ const CategoryOffer = () => {
           The Well Tea
         </h1>
         <h5 className="text-center text-x my-4">Sharing our heritage</h5>
-        <p className="text-center text-sm md:text-base">
-          Well Tea is a UK-based family business specializing in premium,
-          single-origin estate teas and finely crafted teaware, all with
-          complete traceability. Our deep connection to the land, tea, and
-          communities allows us to inspire tea enthusiasts across the nation and
-          beyond. At Well Tea, we are dedicated to delivering transparently
-          traded, exceptional-quality teas that everyone can enjoy.
-        </p>
       </div>
 
       <CategoryOfferSlider />

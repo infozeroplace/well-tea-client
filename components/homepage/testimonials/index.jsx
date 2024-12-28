@@ -6,26 +6,28 @@ import TestimonialSlider from "./TestimonialSlider";
 
 const Testimonials = () => {
   return (
-    <div className="container px-20 section-gap">
-      <div className="max-w-[638px] mx-auto content-gap">
-        <h1 className="uppercase text-center text-4xl text-teagreen-800">
-          Reviews & Testimonials
-        </h1>
-      </div>
-      <div>
-        <div className="flex justify-between items-center mb-2 mx-1">
-          <div className="flex gap-2 items-center">
-            <StarRatingDisplay rating={4.5} />{" "}
-            <span className="font-extralight">{1033}</span>{" "}
-            <span className="font-extralight">reviews</span>
-          </div>
-          <Link href={"/"} className="hover:text-teagreen-700">
-            See all reviews
-          </Link>
+    <div className="section-gap bg-teagreen-100 py-10">
+      <div className="container px-20">
+        <div className="max-w-[638px] mx-auto content-gap">
+          <h1 className="uppercase text-center text-4xl text-teagreen-800">
+            Reviews & Testimonials
+          </h1>
         </div>
-        {/* Cards Slider */}
         <div>
-          <TestimonialSlider />
+          <div className="flex justify-between items-center mb-2 mx-1">
+            <div className="flex gap-2 items-center">
+              <StarRatingDisplay rating={4.5} />{" "}
+              <span className="font-extralight">{1033}</span>{" "}
+              <span className="font-extralight">reviews</span>
+            </div>
+            <Link href={"/"} className="hover:text-teagreen-700">
+              See all reviews
+            </Link>
+          </div>
+          {/* Cards Slider */}
+          <div>
+            <TestimonialSlider />
+          </div>
         </div>
       </div>
     </div>
