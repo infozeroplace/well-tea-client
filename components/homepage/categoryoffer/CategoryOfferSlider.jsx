@@ -87,8 +87,8 @@ function CategoryOfferSlider({ }) {
         slidesPerGroup={1}
         onSlideChange={handleSlideChange}
         navigation={{
-          prevEl: ".second-swiper-prev", // Unique class
-          nextEl: ".second-swiper-next", // Unique class
+          prevEl: ".offer-swiper-prev", 
+          nextEl: ".offer-swiper-next",
         }}
         breakpoints={{
           320: {
@@ -123,14 +123,14 @@ function CategoryOfferSlider({ }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      <button
-        className={`second-swiper-prev z-10 absolute top-1/2 left-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+      <button className={`offer-swiper-prev z-10 absolute top-1/2 left-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
           firstSlide ? "hidden" : ""
         }`}
       >
         &#x276E;
       </button>
-      <button className="second-swiper-next z-10 absolute top-1/2 right-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg">
+      <button className={`offer-swiper-next z-10 absolute top-1/2 right-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg `}
+      >
         &#x276F;
       </button>
     </div>
