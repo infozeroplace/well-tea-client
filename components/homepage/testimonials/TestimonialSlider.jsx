@@ -11,61 +11,74 @@ import {
   Autoplay,
 } from "swiper/modules";
 import { useSwiper } from "swiper/react";
-import CategoryOfferCard from "./CategoryOfferCard";
+import TestimonialsCard from "./TestimonialsCard";
 
-function CategoryOfferSlider({ }) {
-    const offerProducts = [
+function TestimonialSlider({}) {
+
+    const testimonials = [
       {
         id: 1,
-        name: "Black Tea",
-        discount: "15%",
-        image: "/products/product_01.jpg",
+        avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+        name: "John Doe",
+        date: "December 25, 2024",
+        rating: 4.5,
+        title: "Great Service!",
+        message:
+          "I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!",
       },
       {
         id: 2,
-        name: "Green Tea",
-        discount: "25",
-        image: "/products/product_02.jpg",
+        avatar: "https://randomuser.me/api/portraits/women/75.jpg",
+        name: "Jane Doe",
+        date: "December 25, 2024",
+        rating: 5,
+        title: "Excellent Service!",
+        message:
+          "I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!",
       },
       {
         id: 3,
-        name: "White Tea",
-        discount: "10%",
-        image: "/products/product_03.jpg",
+        avatar: "https://randomuser.me/api/portraits/men/76.jpg",
+        name: "John Doe",
+        date: "December 25, 2024",
+        rating: 4.5,
+        title: "Great Service!",
+        message:
+          "I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!",
       },
       {
         id: 4,
-        name: "Oolong Tea",
-        discount: "20%",
-        image: "/products/product_04.jpg",
+        avatar: "https://randomuser.me/api/portraits/women/76.jpg",
+        name: "Jane Doe",
+        date: "December 25, 2024",
+        rating: 5,
+        title: "Excellent Service!",
+        message:
+          "I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!",
       },
       {
         id: 5,
-        name: "Herbal Tea",
-        discount: "30%",
-        image: "/products/product_05.jpg",
+        avatar: "https://randomuser.me/api/portraits/men/77.jpg",
+        name: "John Doe",
+        date: "December 25, 2024",
+        rating: 4.5,
+        title: "Great Service!",
+        message:
+          "I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!",
       },
       {
         id: 6,
-        name: "Yellow Tea",
-        discount: "10%",
-        image: "/products/product_06.jpg",
-      },
-      {
-        id: 7,
-        name: "White Tea",
-        discount: "15%",
-        image: "/products/product_07.jpg",
-      },
-      {
-        id: 8,
-        name: "Green Tea",
-        discount: "25%",
-        image: "/products/product_08.jpg",
+        avatar: "https://randomuser.me/api/portraits/men/77.jpg",
+        name: "Jane Doe",
+        date: "December 25, 2024",
+        rating: 5,
+        title: "Excellent Service!",
+        message:
+          "I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!",
       },
     ];
 
-    const [firstSlide, setFirstSlide] = useState(true);
+  const [firstSlide, setFirstSlide] = useState(true);
   const [lastSlide, setLastSlide] = useState(false);
 
   const handleSlideChange = (swiper) => {
@@ -111,15 +124,11 @@ function CategoryOfferSlider({ }) {
             slidesPerView: 5,
             spaceBetween: 25,
           },
-          1680: {
-            slidesPerView: 6,
-            spaceBetween: 25,
-          },
         }}
       >
-        {offerProducts.map((item, index) => (
+        {testimonials.map((item, index) => (
           <SwiperSlide key={index}>
-            <CategoryOfferCard item={item} />
+            <TestimonialsCard item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -137,4 +146,4 @@ function CategoryOfferSlider({ }) {
   );
 }
 
-export default CategoryOfferSlider;
+export default TestimonialSlider;

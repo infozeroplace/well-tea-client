@@ -5,7 +5,7 @@ import { SectionLinkButton } from "../shared";
 
 function Banner() {
   return (
-    <div className="px-20 section-gap">
+    <div className="container px-20 section-gap">
       <div className="grid grid-cols-3 section-gap">
         <div className="col-span-1 flex flex-col justify-center px-20 gap-5 bg-teagreen-100">
           <h1 className="text-3xl">Indroducing Palazo Teawares</h1>

@@ -21,7 +21,8 @@ function Category() {
 
   return (
     <div className="section-gap">
-      {/* <div className=""> */}
+      <div className="container px-20">
+        {/* <div className=""> */}
         <h1 className="uppercase text-center text-4xl text-teagreen-800 mb-10">
           Explore our single teas
         </h1>
@@ -42,7 +43,7 @@ function Category() {
             </button>
           ))}
         </div>
-        <div className="ml-20">
+        <div className="">
           <div className="my-10">
             <CategorySlider visibleProducts={visibleProducts} />
           </div>
@@ -50,7 +51,8 @@ function Category() {
         <div className="flex justify-center mx-auto">
           <SectionButton title="Shop All Teas" />
         </div>
-      {/* </div> */}
+        {/* </div> */}
+      </div>
     </div>
   );
 }

@@ -58,8 +58,8 @@ const newitems = [
 const GiftItems = () => {
   return (
     <div className="section-gap bg-teagreen-100 py-10">
-      <div className="container">
-        <div className="mx-16">
+      <div className="container px-20">
+        <div className="">
           <div className="ml-[80px] mb-10 ">
             <p className="text-center md:text-left uppercase text-x">
               Gift our tea

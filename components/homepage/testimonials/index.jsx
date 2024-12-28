@@ -2,10 +2,11 @@ import React from "react";
 import TestimonialsCard from "./TestimonialsCard";
 import StarRatingDisplay from "@/components/shared/StarRatingDisplay";
 import Link from "next/link";
+import TestimonialSlider from "./TestimonialSlider";
 
 const Testimonials = () => {
   return (
-    <div className="container-narrow px-20 section-gap">
+    <div className="container px-20 section-gap">
       <div className="max-w-[638px] mx-auto content-gap">
         <h1 className="uppercase text-center text-4xl text-teagreen-800">
           Reviews & Testimonials
@@ -24,14 +25,7 @@ const Testimonials = () => {
         </div>
         {/* Cards Slider */}
         <div>
-          <TestimonialsCard
-            avatar="https://via.placeholder.com/150"
-            name="John Doe"
-            date="December 25, 2024"
-            rating={4.5}
-            title="Great Service!"
-            message="I had an amazing experience with this service. The team was professional, and the quality exceeded my expectations!"
-          />
+          <TestimonialSlider />
         </div>
       </div>
     </div>

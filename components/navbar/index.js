@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white sticky top-0 z-50 shadow">
-      <div className="container px-4">
+      <div className="container px-20">
         <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
           <div className="flex-shrink-0">
