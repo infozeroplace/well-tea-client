@@ -32,8 +32,8 @@ function CategorySlider({ visibleProducts }) {
         slidesPerGroup={2}
         onSlideChange={handleSlideChange}
         navigation={{
-          prevEl: ".swiper-button-prev",
-          nextEl: ".swiper-button-next",
+          prevEl: ".category-swiper-prev",
+          nextEl: ".category-swiper-next",
         }}
         breakpoints={{
           320: {
@@ -65,9 +65,19 @@ function CategorySlider({ visibleProducts }) {
         ))}
       </Swiper>
       <button
-        className={"swiper-button-prev " + (isFirstSlide ? "!hidden" : "")}
-      ></button>
-      <button className="swiper-button-next"></button>
+        className={`category-swiper-prev z-10 absolute top-1/2 left-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+          isFirstSlide ? "!hidden" : ""
+        }`}
+      >
+        &#x276E;
+      </button>
+      <button
+        className={`category-swiper-next z-10 absolute top-1/2 right-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+          isLastSlide ? "!hidden" : ""
+        }`}
+      >
+        &#x276F;
+      </button>
     </div>
   );
 }
