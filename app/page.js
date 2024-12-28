@@ -1,4 +1,4 @@
-import { Banner, Category, Hero, NewReleases, TeaRange, ChooseType, SelectedTeas, WhyChooseUs, CompanyServices, GiftItems, CategoryOffer } from "@/components";
+import { Banner, Category, Hero, NewReleases, TeaRange, ChooseType, SelectedTeas, WhyChooseUs, CompanyServices, GiftItems, CategoryOffer, Testimonials } from "@/components";
 
 export default function Home() {
   return (
@@ -13,6 +13,7 @@ export default function Home() {
       {/* <TeaRange /> */}
       {/* <SelectedTeas /> */}
       <WhyChooseUs />
+      <Testimonials />
       <CompanyServices />
     </div>
   );

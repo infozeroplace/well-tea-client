@@ -27,15 +27,15 @@ const GiftItemCard = ({ item }) => {
         {/* Product Image */}
         <div className="aspect-square">
           <Image
-          width={220}
-          height={220}
+            width={220}
+            height={220}
             src={item?.image}
             alt="New Product"
             className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
           />
         </div>
         {/* Product Details */}
-        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto w-[85%] -mt-4">
+        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto xl:w-[85%] 2xl:mt-10">
           <div className="px-4">
             <h5 className="text-xs lg:text-sm xl:text-base text-teagreen-500">
               {item?.type}
