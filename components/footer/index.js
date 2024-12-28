@@ -7,7 +7,7 @@ function Footer() {
     "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
 
   const FooterBar = () => {
-    return <div className="w-full h-[1px] bg-teagreen-700"></div>;
+    return <div className="w-full h-[1px] bg-teagreen-100"></div>;
   };
   const FooterTitle = ({ name }) => {
     return <h4 className="mb-5 text-white uppercase">{name}</h4>;
