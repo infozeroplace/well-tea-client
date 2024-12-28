@@ -1,37 +1,26 @@
+"use client";
 import CategoryCard from "@/components/category/CategoryCard";
-import { FilterButton, Filters, Sort } from "../components";
+import FilterButton from "../filterButton";
+import Filters from "../filters";
+import Sort from "../sort";
 
-async function TeaType({ searchParams: rawSearchParams }) {
-  const searchParams = await Promise.resolve(rawSearchParams);
-
-  const apiUrl = new URL("http://localhost:8081/api/v1/public/product/list");
-
-  Object.entries(searchParams).forEach(([key, value]) => {
-    apiUrl.searchParams.append(key, value);
-  });
-
-  const response = await fetch(apiUrl.toString(), { cache: "no-store" });
-
-  const { data } = await response.json();
-
-  console.log(apiUrl, " >>>>>> LENGTH");
-
+const TeaTypeClient = ({ initialProducts }) => {
   return (
     <div className="flex">
       <Filters />
 
       <div>
-        {data.length > 0 ? (
+        {initialProducts.length > 0 ? (
           <div>
             <div className="sticky mx-5 py-5 h-[70px] flex justify-between items-center border-b-1">
-              <p>Products: {data.length}</p>
+              <p>Products: {initialProducts.length}</p>
               <div className="flex gap-10">
                 <FilterButton />
                 <Sort />
               </div>
             </div>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-10">
-              {data.map((item) => (
+              {initialProducts.map((item) => (
                 <CategoryCard key={item.id} item={item} />
               ))}
             </div>
@@ -44,6 +33,6 @@ async function TeaType({ searchParams: rawSearchParams }) {
       </div>
     </div>
   );
-}
+};
 
-export default TeaType;
+export default TeaTypeClient;
