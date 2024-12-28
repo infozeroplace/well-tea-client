@@ -1,11 +1,9 @@
-"use client"
 
 import React from "react";
-import { SectionButton } from "../shared";
+import { SectionLinkButton } from "../shared";
 import Image from "next/image";
 
 const AmazingPeople = () => {
-  const handleContact = () => {};
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 section-gap container-narrow">
       <div className="relative aspect-[758/450] lg:aspect-[630/800] w-full overflow-hidden lg:overflow-visible content-gap">
@@ -40,7 +38,7 @@ const AmazingPeople = () => {
             </p>
           </div>
           <div className="group w-fit mx-auto">
-            <SectionButton title="Our Team" onClick={handleContact} />
+            <SectionLinkButton title="Our Team" url="/ourteam" />
           </div>
         </div>
       </div>

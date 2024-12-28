@@ -63,7 +63,7 @@ function RelatedProducts() {
           >
             {relatedProducts.map((item, index) => (
               <SwiperSlide key={index}>
-                <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} />
+                <CategoryCard item={item} url={`/tea/${item.type}/${item.id}`} />
               </SwiperSlide>
             ))}
           </Swiper>

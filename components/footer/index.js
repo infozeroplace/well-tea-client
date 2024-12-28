@@ -7,7 +7,7 @@ function Footer() {
     "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
 
   const FooterBar = () => {
-    return <div className="w-full h-[1px] bg-teagreen-700"></div>;
+    return <div className="w-full h-[1px] bg-teagreen-100"></div>;
   };
   const FooterTitle = ({ name }) => {
     return <h4 className="mb-5 text-white uppercase">{name}</h4>;
@@ -21,9 +21,9 @@ function Footer() {
   };
 
   return (
-    <div className="w-full bg-[#194A34]">
-      <div className="py-10">
-        <div className="container px-4 mx-auto grid grid-cols-7 gap-5 justify-around py-10">
+    <div className="bg-[#194A34]">
+      <div className="px-20 container py-10">
+        <div className=" mx-auto grid grid-cols-7 gap-5 justify-around py-10">
           <div className="text-white flex flex-col gap-2">
             <FooterTitle name="About" />
             <FooterListItem name="Company Info" href="/about" />
@@ -78,7 +78,7 @@ function Footer() {
         </div>
         {/* Footer Bottom */}
         <div>
-          <div className="flex items-center justify-center gap-10 mx-auto py-10">
+          <div className="flex items-center justify-center gap-10 py-10">
             <FooterBar />
             <div className="flex-none">
               <Link href="/">
@@ -92,7 +92,7 @@ function Footer() {
             </div>
             <FooterBar />
           </div>
-          <div className="max-w-screen-xl mx-auto flex justify-between items-center">
+          <div className="flex justify-between items-center">
             <p className="text-white">
               Copyright © {new Date().getFullYear()}{" "}
               <span className="text-teagreen-500">Welltea.</span> All rights
