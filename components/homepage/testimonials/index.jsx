@@ -13,7 +13,7 @@ const Testimonials = () => {
         </h1>
       </div>
       <div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-2 mx-1">
           <div className="flex gap-2 items-center">
             <StarRatingDisplay rating={4.5} />{" "}
             <span className="font-extralight">{1033}</span>{" "}
