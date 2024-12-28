@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import NewItemCard from "./NewItemCard";
-import { SectionButton } from "../shared";
+import { SectionButton, SectionLinkButton } from "../shared";
 import { productList } from "@/data/products";
 
 const newitems = [
@@ -72,7 +72,8 @@ const NewReleases = () => {
             ))}
           </div>
           <div className="flex justify-center md:justify-center text-lg">
-            <SectionButton title="See More" />
+            {/* <SectionButton title="See More" /> */}
+            <SectionLinkButton title="See More" url="/tea" />
           </div>
         </div>
       </div>

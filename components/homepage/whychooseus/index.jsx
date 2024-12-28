@@ -1,6 +1,6 @@
 "use client";
 
-import { SectionButton } from "@/components/shared";
+import { SectionButton, SectionLinkButton } from "@/components/shared";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -54,7 +54,9 @@ const WhyChooseUs = () => {
               <button
                 key={item?.title}
                 type="button"
-                className={`text-xl lg:text-5xl w-full text-left py-3 hover:text-teagreen-600 duration-400 ${selected === item?.title?'text-teagreen-600':''}`}
+                className={`text-xl lg:text-5xl w-full text-left py-3 hover:text-teagreen-600 duration-400 ${
+                  selected === item?.title ? "text-teagreen-600" : ""
+                }`}
                 onClick={() => handleClick(item)}
               >
                 {item?.title}
@@ -65,11 +67,9 @@ const WhyChooseUs = () => {
         <div>
           <div className="mb-5">{choosOption?.icon}</div>
           <div className="text-sm mb-5">{choosOption?.description}</div>
-          <div className="group">
-            <SectionButton title="Learn more" />
-          {/* <button className="text-center uppercase bg-teagreen-600 group-hover:bg-teagreen-700 text-white text-[10px] py-3 px-6 w-full transition-all duration-400">
-            learn more
-          </button> */}
+          <div className="flex justify-center md:justify-center text-lg">
+            {/* <SectionLinkButton title="See More" url="/tea" /> */}
+            <SectionLinkButton title="Learn more" url="/tea" />
           </div>
         </div>
       </div>

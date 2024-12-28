@@ -1,12 +1,10 @@
-"use client";
 
 import React from "react";
-import { SectionButton } from "../shared";
+import { SectionLinkButton } from "../shared";
 import Image from "next/image";
 
 
 const OurStory = () => {
-    const handleContact = () => {};
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 section-gap container-narrow">
@@ -35,7 +33,7 @@ const OurStory = () => {
               </p>
             </div>
             <div className="group content-gap w-fit mx-auto">
-              <SectionButton title="Contact" onClick={handleContact} />
+              <SectionLinkButton title="Contact" url="/contact" />
             </div>
           </div>
         </div>
