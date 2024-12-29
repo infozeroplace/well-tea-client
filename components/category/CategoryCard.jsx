@@ -5,26 +5,38 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/services/features/cart/cartSlice";
 import StarRatingDisplay from "../shared/StarRatingDisplay";
+import { useState } from "react";
 
 const CategoryCard = ({ item, url }) => {
+  if (!item) return null;
+
   const CardUrl = decodeURIComponent(url);
   const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
+  const [addButtonClicked, setAddButtonClicked] = useState(false);
+
+  const handleAddToCart = (weight) => {
     dispatch(
       addToCart({
         product: item,
-        weight: 50,
+        weight: weight,
         quantity: 1,
         addOns: [],
       })
     );
   };
 
-  if (!item) return null;
+  const handleWeight = () => {
+    setAddButtonClicked(true);
+  };
 
   return (
-    <div className="relative w-full aspect-[362/482] mb-4 group overflow-hidden">
+    <div
+      onMouseLeave={() => {
+        setAddButtonClicked(false);
+      }}
+      className="relative w-full aspect-[362/482] group overflow-hidden"
+    >
       {/* Discount Section */}
       <div className="absolute z-10 inset-x-0 flex justify-center items-center text-white text-sm gap-2">
         {item?.designation && (
@@ -54,11 +66,11 @@ const CategoryCard = ({ item, url }) => {
           <div className="overflow-hidden">
             <img
               src={item?.hoverImage}
-              className="opacity-0 group-hover:opacity-100 h-full group-hover:-translate-y-10 2xl:group-hover:-translate-y-16 duration-400"
+              className="opacity-0 group-hover:opacity-100 h-full duration-400"
             />
           </div>
           {/* Product Content */}
-          <div className="text-center opacity-0 group-hover:opacity-100 group-hover:bg-teagreen-100 w-full group-hover:-translate-y-36 duration-400 mx-auto">
+          <div style={{ display: addButtonClicked ? "none" : "block"}} className="text-center opacity-0 group-hover:opacity-100 group-hover:bg-teagreen-100 w-full group-hover:-translate-y-40 duration-400 mx-auto">
             <div className="py-3">
               <h5 className="text-sm lg:text-base text-teagreen-800">
                 {item?.type}
@@ -71,21 +83,57 @@ const CategoryCard = ({ item, url }) => {
               </h5>
               {item?.discount && (
                 <div className="flex justify-center gap-2 text-xs lg:text-sm font-semibold text-teagreen-800">
-                  <div>${item?.discountPrice}</div> <del>${item?.price}</del>
+                  <div>£{item?.discountPrice}</div> <del>£{item?.price}</del>
                 </div>
               )}
               {!item?.discount && (
-                <div className="text-teagreen-800">${item?.price}</div>
+                <div className="text-teagreen-800">£{item?.price}</div>
               )}
             </div>
           </div>
         </Link>
         {/* Add to card */}
-        <div className="flex justify-center border-t opacity-0 transform translate-y-10 group-hover:opacity-100 group-hover:-translate-y-36 group-hover:bg-teagreen-100 w-full mx-auto transition-all duration-400">
-          <button onClick={handleAddToCart} className="uppercase text-xs py-2 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400">
+        <div className={`border-t opacity-0 transform group-hover:opacity-100 group-hover:-translate-y-40 group-hover:bg-teagreen-100 w-full mx-auto transition-all duration-400 ${
+              addButtonClicked ? "hidden" : "block"
+            }`}>
+          <button
+            onClick={handleWeight}
+            className="uppercase text-xs py-4 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400"
+          >
             add to cart
           </button>
         </div>
+        
+        {/* Weight Selection*/}
+        <div
+            className={` ${
+              addButtonClicked ? "block group-hover:-translate-y-40 group-hover:bg-teagreen-100 transition-transform duration-400 py-1 mt-4" : "hidden transition-transform duration-400"
+            }`}
+          >
+            <p className="uppercase text-center py-2 text-sm border-b">Choose weight for cart</p>
+            <div className="flex justify-between px-4 py-2">
+              <button
+                onClick={() => {
+                  handleAddToCart(50);
+                }}
+                className="flex flex-col items-center border-r w-full py-3 text-teagreen-400 hover:text-teagreen-600"
+              >
+                <div>50g</div>
+                <div>|</div>
+                <div>£{item?.discount?item?.discountPrice:item?.price}</div>
+              </button>
+              <button
+                onClick={() => {
+                  handleAddToCart(100);
+                }}
+                className="w-full py-3 text-teagreen-400 hover:text-teagreen-600"
+              >
+                <div>100g</div>
+                <div>|</div>
+                <div>£{item?.discount?item?.discountPrice*2:item?.price*2}</div>
+              </button>
+            </div>
+          </div>
       </div>
     </div>
   );
