@@ -9,7 +9,7 @@ import ReturnsAndDelivery from './ReturnsAndDelivery';
 function ProductTabs() {
   return (
     <div className="my-10">
-      <div className="flex flex-col mx-20">
+      <div className="flex flex-col">
         <Tabs aria-label="Options">
           <Tab key="description" title="Description">
             <Card>

@@ -1,4 +1,4 @@
-import StarRatingDisplay from '@/components/shared/StarRatingDisplay';
+import { StarRating } from '@/components/shared/';
 import React from 'react'
 
 const TestimonialsCard = ({ item }) => {
@@ -21,7 +21,7 @@ const TestimonialsCard = ({ item }) => {
 
         {/* Rating */}
         <div className="mt-4">
-          <StarRatingDisplay rating={item.rating} />
+          <StarRating rating={item.rating} />
         </div>
 
         {/* Title */}
