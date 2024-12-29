@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SectionTitle } from "../shared";
 
 function ChooseTea() {
   const teaTypes = [
@@ -33,7 +34,8 @@ function ChooseTea() {
   return (
     <div className="container px-20 section-gap">
       <div className="flex flex-col items-center">
-        <h1 className="uppercase text-center text-4xl text-teagreen-800 content-gap">The Welltea Range</h1>
+        {/* <h1 className="uppercase text-center text-4xl text-teagreen-800 content-gap">The Welltea Range</h1> */}
+        <SectionTitle title="The Welltea Range" />
         <div className="flex items-center justify-center flex-wrap gap-32">
           {teaTypes.map((item, index) => (
             <Link

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import NewItemCard from "./NewItemCard";
-import { SectionButton, SectionLinkButton } from "../shared";
+import { SectionButton, SectionLinkButton, SectionTitle } from "../shared";
 import { productList } from "@/data/products";
 
 const newitems = [
@@ -60,11 +60,12 @@ const NewReleases = () => {
     <div className="section-gap bg-teagreen-100 py-10">
       <div className="container px-20">
         <div className="">
-          <div className="ml-[80px] mb-10 ">
-            <p className="text-center md:text-left uppercase text-x">
+          <div className=" md:ml-[80px] mb-10 ">
+            <p className="text-center md:text-left uppercase text-xs md:text-base mb-2">
               shop our tea
             </p>
-            <h4 className="text-center md:text-left text-4xl">New Releases</h4>
+            {/* <h4 className="text-center md:text-left text-4xl">New Releases</h4> */}
+            <SectionTitle title="New Releases" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-2 lg:gap-4">
             {newitems.map((item, idx) => (

@@ -99,7 +99,7 @@ function Hero() {
         >
           {heroSilderItems.map((item, index) => (
             <SwiperSlide key={index} className="relative">
-              <div className=" w-full ">
+              <div className=" w-full h-[30vh] md:h-full">
                 <Image
                   src={item.image}
                   alt="Hero Image"
@@ -111,7 +111,7 @@ function Hero() {
 
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-              <div className="absolute px-4 sm:px-6 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
+              <div className="absolute px-4 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
                 <div
                 // key={`content-${index}`}
                 // className="bg-teagren-600 opacity-40"
@@ -124,7 +124,7 @@ function Hero() {
                     initial={activeSlide === index ? "hidden" : null}
                     animate={activeSlide === index ? "visible" : "exit"}
                     variants={textAnimation}
-                    className="space-y-4 text-6xl font-extralight mb-2"
+                    className="space-y-4 text-center md:text-left text-2xl md:text-4xl lg:text-6xl font-extralight mb-1 md:mb-2"
                   >
                     {item.title}
                   </motion.h1>
@@ -133,7 +133,7 @@ function Hero() {
                     initial={activeSlide === index ? "hidden" : null}
                     animate={activeSlide === index ? "visible" : "exit"}
                     variants={textAnimation}
-                    className="space-y-4 text-lg"
+                    className="space-y-4 text-center md:text-left text-sm md:text-base lg:text-lg"
                   >
                     {item.description}
                   </motion.p>
@@ -144,9 +144,9 @@ function Hero() {
                     variants={textAnimation}
                     href="#"
                     // className="space-y-4 inline-block mt-4 bg-teagreen-600 hover:bg-teagreen-500 px-16 py-3 rounded-lg text-white font-medium duration-300"
-                    className="mt-5"
+                    className="mt-5 ml-[17%] md:ml-0"
                   >
-                    <SectionButton title="Shop Now" textClass="!text-white" buttonClass="!bg-teagreen-500" />
+                    <SectionButton title="Shop Now" textClass="!mx-auto !text-white" buttonClass="!bg-teagreen-500" />
                   </motion.div>
                 </div>
               </div>
