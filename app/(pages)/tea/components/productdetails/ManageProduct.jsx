@@ -54,22 +54,46 @@ function ManageProduct({ product }) {
       },
     ];
 
+    const discountRates = {
+      1: 10,
+      3: 7.5,
+      5: 5,
+    };
+
+    const [purchaseType, setPurchaseType] = useState("one-time");
+    const [discountKey, setdiscountKey] = useState("1");
+
+
     const [quantity, setQuantity] = useState(1);
     const [selectedAddOns, setSelectedAddOns] = useState([]);
     const [selectedWeight, setSelectedWeight] = useState(product.weight[0]);
     const [totalPrice, setTotalPrice] = useState(toNumber(product.price));
     const dispatch = useDispatch();
 
+
+    const calculatePrice = () => {
+      if (purchaseType === "one-time") {
+        return toNumber(product.price).toFixed(2);
+      }
+      const discount = discountRates[discountKey] || 0;
+      const priceDiscounted =
+        (toNumber(product.price).toFixed(2) * discount).toFixed(2) / 100;
+      return toNumber(product.price - priceDiscounted).toFixed(2);
+    };
+
+    // ---------- Handle Quantity Change ---------- //
     const handleQuantityChange = (type) => {
       setQuantity((prevQuantity) =>
         type === "increment" ? prevQuantity + 1 : Math.max(prevQuantity - 1, 1)
       );
     };
 
+    // ---------- Handle Weight Selection ---------- //
     const handleWeightSelect = (weight) => {
       setSelectedWeight(weight);
     };
 
+    // ---------- Handle Add-On Selection ---------- //
     const handleAddOnSelect = (addOn) => {
       setSelectedAddOns((prevAddOns) => {
         if (prevAddOns.some((a) => a.id === addOn.id)) {
@@ -80,27 +104,24 @@ function ManageProduct({ product }) {
       });
     };
 
+
+    // ---------- Calculate Total Price ---------- //
     useEffect(() => {
       const addOnPrice = selectedAddOns.reduce(
         (sum, addOn) => sum + toNumber(addOn.price),
         0
       );
       const pricePerWeight = toNumber(product.price / product.weight[0]);
-      const basePrice = toNumber(product.price);
       const calculatedTotal =
         pricePerWeight * quantity * selectedWeight + addOnPrice;
 
       setTotalPrice(calculatedTotal);
     }, [quantity, selectedAddOns, selectedWeight, product.price]);
 
+    // ---------- Handle Add To Cart ---------- //
     const handleAddToCart = () => {
       const itemsToAdd = [
-        {
-          product,
-          weight: selectedWeight,
-          quantity,
-          addOns: [],
-        },
+        { product, weight: selectedWeight, quantity, addOns: [] },
         ...selectedAddOns.map((addOn) => ({
           product: addOn,
           weight: addOn.weight ? addOn.weight[0] : null,
@@ -108,7 +129,6 @@ function ManageProduct({ product }) {
           addOns: [],
         })),
       ];
-
       itemsToAdd.forEach((item) => dispatch(addToCart(item)));
     };
 
@@ -132,7 +152,81 @@ function ManageProduct({ product }) {
           ))}
         </div>
       </div>
+      {/* --------------- Subscription Options -------------- */}
+      <div className="my-10">
+        <div className="">
+          <div className="space-y-2 text-md">
+            {/* ----------- One-Time Purchase Option ------------- */}
+            <label className="flex items-center p-4 rounded-md bg-teagreen-100 text-lg text-teagreen-600">
+              <input
+                type="radio"
+                name="purchaseType"
+                value="one-time"
+                checked={purchaseType === "one-time"}
+                onChange={() => setPurchaseType("one-time")}
+                className="form-radio h-5 w-5 text-green-600 mr-3"
+              />
+              <span className="">One-Time Purchase</span>
+              <span className="ml-auto font-normal">
+                £{toNumber(product.price).toFixed(2)}
+              </span>
+            </label>
 
+            {/* ------------ Subscribe and Save Option ------------- */}
+            <div className="border rounded-md p-4 bg-teagreen-100 text-lg text-teagreen-600">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="purchaseType"
+                  value="subscribe"
+                  checked={purchaseType === "subscribe"}
+                  onChange={() => setPurchaseType("subscribe")}
+                  className="form-radio h-5 w-5 text-green-600 mr-3"
+                />
+                <span className="">Subscribe and Save</span>
+                <span className="ml-auto">£{calculatePrice()}</span>
+              </label>
+
+              {/* -------------- Subscription Frequency Options ------------- */}
+              {purchaseType === "subscribe" && (
+                <div className="mt-4 space-y-2">
+                  {Object.entries(discountRates).map(([key, discount]) => (
+                    <label key={key} className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        name="frequency"
+                        value={key}
+                        checked={discountKey === key}
+                        onChange={() => setdiscountKey(key)}
+                        className="form-radio h-4 w-4 text-green-600 ml-8"
+                      />
+                      <span>
+                        Every {key} month{key > 1 ? "s" : ""} (
+                        {discount}% off)
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* --------------- Subscribe and Save Description -------------- */}
+          {purchaseType === "subscribe" && (
+            <div className="mt-5">
+              <h3 className="font-normal">Subscribe and Save</h3>
+              <p className="mt-4 text-sm text-gray-600">
+                You're subscribing to receive this item multiple times, on a
+                recurring basis (according to the frequency you select) with a
+                discount on every recurring order. You may cancel or change your
+                subscription at any time.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* --------------- Helpful Addons --------------- */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Helpful Add-Ons</h3>
         {addOns.map((addOn) => (
@@ -160,7 +254,7 @@ function ManageProduct({ product }) {
           </div>
         ))}
       </div>
-
+      {/* ------------ Add to cart Button ----------- */}
       <div className="flex mb-6">
         <div className="flex items-center bg-teagreen-600 text-white py-1">
           <button
