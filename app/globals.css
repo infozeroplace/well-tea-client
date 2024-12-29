@@ -74,17 +74,15 @@ a {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding: 0 1rem;
   }
   .container-narrow {
     max-width: 1340px;
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding: 0 1rem;
   }
   .section-gap {
-    margin-bottom: 3rem;
+    margin-bottom: 4.5rem;
   }
   .content-gap {
     margin-bottom: 2rem;

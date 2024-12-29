@@ -32,8 +32,8 @@ function CategorySlider({ visibleProducts }) {
         slidesPerGroup={2}
         onSlideChange={handleSlideChange}
         navigation={{
-          prevEl: ".swiper-button-prev",
-          nextEl: ".swiper-button-next",
+          prevEl: ".category-swiper-prev",
+          nextEl: ".category-swiper-next",
         }}
         breakpoints={{
           320: {
@@ -60,27 +60,24 @@ function CategorySlider({ visibleProducts }) {
       >
         {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>
-            <CategoryCard item={item} />
+            <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} />
           </SwiperSlide>
         ))}
-        {/* <SwiperSlide className="!mr-0 w-full h-full flex flex-col items-center justify-center">
-          <div className="p-4 flex flex-col items-center justify-center text-center mt-[50%]">
-            <h3 className="text-lg font-semibold text-teagreen-600">
-              See All Products
-            </h3>
-            <Link
-              href="/products"
-              className="text-teagreen-500 hover:text-teagreen-600 font-light underline"
-            >
-              Browse All
-            </Link>
-          </div>
-        </SwiperSlide> */}
       </Swiper>
       <button
-        className={"swiper-button-prev " + (isFirstSlide ? "!hidden" : "")}
-      ></button>
-      <button className="swiper-button-next"></button>
+        className={`category-swiper-prev z-10 absolute top-1/2 left-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+          isFirstSlide ? "!hidden" : ""
+        }`}
+      >
+        &#x276E;
+      </button>
+      <button
+        className={`category-swiper-next z-10 absolute top-1/2 right-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+          isLastSlide ? "!hidden" : ""
+        }`}
+      >
+        &#x276F;
+      </button>
     </div>
   );
 }

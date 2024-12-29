@@ -15,13 +15,14 @@ function Category() {
   const categoryList = [...new Set(productList.map((product) => product.type))];
   const filteredProducts = productList.filter((product) => product.type === selectedCategory);
 
-  const visibleProducts = filteredProducts.slice(0, 10);
+  const visibleProducts = filteredProducts.slice(0, 7);
 
   const activeClass = "border-[0.5px] border-teagreen-600";
 
   return (
     <div className="section-gap">
-      <div className="ml-20">
+      <div className="container px-20">
+        {/* <div className=""> */}
         <h1 className="uppercase text-center text-4xl text-teagreen-800 mb-10">
           Explore our single teas
         </h1>
@@ -50,6 +51,7 @@ function Category() {
         <div className="flex justify-center mx-auto">
           <SectionButton title="Shop All Teas" />
         </div>
+        {/* </div> */}
       </div>
     </div>
   );

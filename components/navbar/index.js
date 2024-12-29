@@ -10,17 +10,19 @@ import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
+import Cart from "./Cart";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const navIconsClasses =
     "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
   return (
     <nav className="bg-white sticky top-0 z-50 shadow">
-      <div className="container">
+      <div className="container px-20">
         <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -28,7 +30,7 @@ const Navbar = () => {
               <Image
                 src="/logo/welltea_logo_color.png"
                 alt="Brand Logo"
-                width={170}
+                width={150}
                 height={100}
                 quality={100}
               />
@@ -47,7 +49,7 @@ const Navbar = () => {
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/teawares" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[520px] shadow">
+              <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
             </div>
@@ -96,12 +98,18 @@ const Navbar = () => {
                   </svg>
                 </button>
               </Link>
-              <button className={`nav-button ${navIconsClasses}`}>
+
+              {/* <button
+                onClick={() => setIsCartOpen(true)}
+                className={`nav-button ${navIconsClasses}`}
+              >
                 <PiShoppingCartThin />
                 <svg className="circle" viewBox="0 0 50 50">
                   <circle cx="25" cy="25" r="24" />
                 </svg>
-              </button>
+              </button> */}
+
+              <Cart buttonClass={`nav-button ${navIconsClasses}`} />
             </div>
 
             {/* Mobile Menu Button */}
