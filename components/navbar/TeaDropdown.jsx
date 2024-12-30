@@ -174,7 +174,7 @@ function TeaDropdown() {
             <div className="grid grid-cols-2 gap-5">
               {productTypes.map((type, index) => (
                 <Link
-                  href={`/tea/type?type=${type.type}`}
+                  href={`/tea?type=${type.type}`}
                   key={index}
                   className="flex items-center gap-3 hover:brightness-125"
                 >

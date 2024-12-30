@@ -1,20 +1,16 @@
+import axios from "@/api/axios";
 import CategoryCard from "@/components/category/CategoryCard";
-import { FilterButton, Filters, Sort } from "../components";
+import { FilterButton, Filters, Sort } from "./components";
 
-async function TeaType({ searchParams: rawSearchParams }) {
+const TeaType = async ({ searchParams: rawSearchParams }) => {
   const searchParams = await Promise.resolve(rawSearchParams);
 
-  const apiUrl = new URL("http://localhost:8081/api/v1/public/product/list");
+  const queryParams = new URLSearchParams(searchParams).toString();
+  const url = `/public/product/list?${queryParams}`
 
-  Object.entries(searchParams).forEach(([key, value]) => {
-    apiUrl.searchParams.append(key, value);
-  });
-
-  const response = await fetch(apiUrl.toString(), { cache: "no-store" });
-
-  const { data } = await response.json();
-
-  console.log(apiUrl, " >>>>>> LENGTH");
+  const {
+    data: { data },
+  } = await axios.get(`/public/product/list?${queryParams}`);
 
   return (
     <div className="flex">
@@ -44,6 +40,6 @@ async function TeaType({ searchParams: rawSearchParams }) {
       </div>
     </div>
   );
-}
+};
 
 export default TeaType;

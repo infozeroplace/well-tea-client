@@ -5,7 +5,7 @@ const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     resetPassword: builder.mutation({
       query: ({ data }) => ({
-        url: "/api/v1/public/auth/reset-password",
+        url: "/public/auth/reset-password",
         method: "POST",
         body: data,
       }),
@@ -13,7 +13,7 @@ const authApi = api.injectEndpoints({
     }),
     forgotPassword: builder.mutation({
       query: ({ data }) => ({
-        url: "/api/v1/public/auth/forgot-password",
+        url: "/public/auth/forgot-password",
         method: "POST",
         body: data,
       }),
@@ -21,7 +21,7 @@ const authApi = api.injectEndpoints({
     }),
     getRefreshToken: builder.mutation({
       query: ({ data }) => ({
-        url: "/api/v1/public/auth/refresh/token",
+        url: "/public/auth/refresh/token",
         method: "POST",
         body: data,
       }),
@@ -29,7 +29,7 @@ const authApi = api.injectEndpoints({
     }),
     googleSignIn: builder.mutation({
       query: ({ data }) => ({
-        url: "/api/v1/public/auth/google-sign-in",
+        url: "/public/auth/google-sign-in",
         method: "POST",
         body: data,
       }),
@@ -37,7 +37,7 @@ const authApi = api.injectEndpoints({
     }),
     signIn: builder.mutation({
       query: ({ data }) => ({
-        url: "/api/v1/public/auth/sign-in",
+        url: "/public/auth/sign-in",
         method: "POST",
         body: data,
       }),
@@ -45,7 +45,7 @@ const authApi = api.injectEndpoints({
     }),
     signUp: builder.mutation({
       query: ({ data }) => ({
-        url: "/api/v1/public/auth/sign-up",
+        url: "/public/auth/sign-up",
         method: "POST",
         body: data,
       }),

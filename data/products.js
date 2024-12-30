@@ -57,20 +57,11 @@ export const productList = [
     discount: "40",
     image: "/products/product_05.jpg",
     hoverImage: "/products/product_02.jpg",
-<<<<<<< HEAD
     type: "organic-tea",
     title: "White Tera Rose Melange",
     rating: "4",
     price: "50",
     discountPrice: "20",
-=======
-    type: "Organic Teas",
-    title: "Black Tera Rose Melange",
-    rating: "4.7",
-    price: "49",
-    discountPrice: "51",
-    weight: ["5", "10", "20", "30"],
->>>>>>> 9e3d05501d6e4a488a0e4e88616709badb108a81
   },
   {
     id: "6",

@@ -1,5 +1,5 @@
 import { productList } from "@/data/products";
-import { ProductDetails, ProductSlider, ProductTabs, RelatedProducts } from "../../components"; 
+import { ProductDetails, ProductSlider, ProductTabs, RelatedProducts } from "../components"; 
 
 function Product({ params }) {
   const productId = decodeURIComponent(params.product);

@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: env.app_url,
+  baseUrl: env.app_route_url,
   credentials: "include",
 
   prepareHeaders: (headers, { getState }) => {
@@ -24,7 +24,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
   if (result?.error?.status === 403) {
     // send the refresh token to get new access token
     const refreshResult = await baseQuery(
-      { url: "/auth/admin/refresh/token", method: "POST", body: { token } },
+      { url: "/auth/refresh/token", method: "POST", body: { token } },
       api,
       extraOptions
     );
