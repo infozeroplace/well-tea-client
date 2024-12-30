@@ -21,6 +21,7 @@ export const productList = [
     type: "ginger-tea",
     title: "White Tera Rose Melange",
     rating: "4.8",
+  },
   {
     id: "3",
     designation: "best seller",
@@ -71,6 +72,7 @@ export const productList = [
     price: "42",
     weight: ["5", "10", "20", "30"],
   },
+  {
     image: "/products/product_05.jpg",
     hoverImage: "/products/product_02.jpg",
     type: "organic-tea",
@@ -88,6 +90,7 @@ export const productList = [
     hoverImage: "/products/product_04.jpg",
     type: "green-tea",
     title: "White Tera Rose Melange",
+  },
   {
     id: "9",
     designation: "best seller",
@@ -285,7 +288,6 @@ export const productList = [
   },
 ];
 
-
 export const teaList = [
   {
     id: "assam-breakfast-tea",
@@ -338,7 +340,5 @@ export const teaList = [
       { time: 3, off: 5, price: 1.5 },
     ],
   },
-  {
-    
-  }
-]
+  {},
+];
