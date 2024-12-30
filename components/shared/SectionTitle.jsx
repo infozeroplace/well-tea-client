@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
 
-const SectionTitle = ({title}) => {
+const SectionTitle = ({ title, exteraClasses = "" }) => {
   return (
-    <h1 className="uppercase text-center text-2xl md:text-4xl text-teagreen-800 mb-8 md:mb-10">
-          {title}
-        </h1>
-  )
-}
+    <h1
+      className={`uppercase text-center text-2xl md:text-4xl text-teagreen-800 mb-8 md:mb-10 ${exteraClasses}`}
+    >
+      {title}
+    </h1>
+  );
+};
 
-export default SectionTitle
+export default SectionTitle;
