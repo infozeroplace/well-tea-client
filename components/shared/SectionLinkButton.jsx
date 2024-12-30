@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const SectionLinkButton = ({ title, textClass, buttonClass, hoverClass,url=""}) => {
+const SectionLinkButton = ({ title, textClass, buttonClass, hoverClass, url=""}) => {
   return (
     <Link href={url}
       className={

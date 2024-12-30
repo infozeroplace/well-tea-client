@@ -21,10 +21,6 @@ export const productList = [
     type: "ginger-tea",
     title: "White Tera Rose Melange",
     rating: "4.8",
-    price: "50",
-    discountPrice: "20",
-    weight: ["5", "10", "20", "30"],
-  },
   {
     id: "3",
     designation: "best seller",
@@ -73,13 +69,8 @@ export const productList = [
     title: "White Tera Rose Melange",
     rating: "4.3",
     price: "42",
-    discountPrice: "37",
     weight: ["5", "10", "20", "30"],
   },
-  {
-    id: "7",
-    designation: "best seller",
-    discount: "40",
     image: "/products/product_05.jpg",
     hoverImage: "/products/product_02.jpg",
     type: "organic-tea",
@@ -97,11 +88,6 @@ export const productList = [
     hoverImage: "/products/product_04.jpg",
     type: "green-tea",
     title: "White Tera Rose Melange",
-    rating: "4.8",
-    price: "54",
-    discountPrice: "40",
-    weight: ["5", "10", "20", "30"],
-  },
   {
     id: "9",
     designation: "best seller",
@@ -298,3 +284,61 @@ export const productList = [
     weight: ["5", "10", "20", "30"],
   },
 ];
+
+
+export const teaList = [
+  {
+    id: "assam-breakfast-tea",
+    title: "Assam Breakfast Tea",
+    description:
+      "Rich and well-rounded in flavor yet beautifully delicate, our Supreme Earl Grey has evenly graded, rolled wiry leaves and deep golden-amber color. It's bright and floral qualities invite you to slow down and take a breath, making it the perfect mid-morning or afternoon brew that can be enjoyed with or without milk",
+    shortDescription:
+      "Our award-winning Earl Grey Supreme combines premium Ceylon leaves with delightfully fragrant bergamot oil in this exquisite best-selling tea.",
+    thumbnails: [
+      {
+        url: "/products/product_01.jpg",
+      },
+      {
+        url: "/products/product_02.jpg",
+      },
+    ],
+    slideImages: [
+      {
+        url: "/products/product_01.jpg",
+      },
+      {
+        url: "/products/product_02.jpg",
+      },
+      {
+        url: "/products/product_03.jpg",
+      },
+      {
+        url: "/products/product_04.jpg",
+      },
+    ],
+    type: "black-tea", // white-tea, pureh-tea, oolong-tea
+    format: "loose-leaf", // loose-leaf, tea-caddy
+    flavour: "floral",
+    ingredients: ["cacao", "cardamom", "carob", "ginger"],
+    healthBenefits: ["energy", "gut-health", "immunity"],
+    timeOfTheDay: ["morning", "afternoon", "evening"],
+    originName: "china",
+    originAddress: "From Baotian Garden, Hunan",
+    offerPricePercentage: 10,
+    reviews: [],
+    ratings: 5,
+    addOnProducts: [],
+    oneTimeOptions: [
+      { unit: "50gm", price: 10 },
+      { unit: "100gm", price: 20 },
+    ],
+    subscriptionOptions: [
+      { time: 1, off: 10, price: 3.5 },
+      { time: 2, off: 7.5, price: 2.5 },
+      { time: 3, off: 5, price: 1.5 },
+    ],
+  },
+  {
+    
+  }
+]

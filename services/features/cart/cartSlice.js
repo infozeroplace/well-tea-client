@@ -29,7 +29,7 @@ const cartSlice = createSlice({
       );
 
       if (existingItem) {
-        // existingItem.quantity += quantity;
+        existingItem.quantity += quantity;
         existingItem.addOns = [...existingItem.addOns, ...addOns];
         existingItem.itemTotal =
           existingItem.quantity * existingItem.product.price;
@@ -59,8 +59,8 @@ const cartSlice = createSlice({
       state.totalQuantity = calculateTotalQuantity(state.items);
     },
     removeFromCart: (state, action) => {
-      const productId = action.payload;
-      state.items = state.items.filter((item) => item.product.id !== productId);
+      const { productId, weight } = action.payload;
+      state.items = state.items.filter((item) => !(item.product.id === productId && item.weight === weight));
       state.totalCost = calculateTotalCost(state.items);
       state.totalQuantity = calculateTotalQuantity(state.items);
     },

@@ -8,13 +8,13 @@ function Product({ params }) {
 
   return (
     <div className="">
-      <div className="my-10">
-        <div className="mb-10 flex justify-evenly items-center">
+      <div className="container px-20 my-10">
+        <div className="mb-10 flex justify-between items-center gap-10">
           <div className="basis-1/2">
             <ProductSlider />
           </div>
           <div className="basis-1/2">
-            <ProductDetails product={product}/>
+            <ProductDetails product={product} />
           </div>
         </div>
         <div>

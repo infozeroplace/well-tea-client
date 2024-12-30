@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
-import { SectionButton } from "../shared";
+import { SectionLinkButton } from "../shared";
 import { PiTrashSimpleLight } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "@/services/features/cart/cartSlice";
+
+const toNumber = (value) => {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") return parseFloat(value);
+  return 0;
+};
 
 const Cart = ({ buttonClass }) => {
   // const cartItems = [
@@ -93,7 +99,7 @@ const Cart = ({ buttonClass }) => {
 
   console.log(cartItems);
 
-  const shippingCost = 20.0;
+  const shippingCost = totalQuantity > 0 ? 20.00 : 0;
 
   const handleIncreaseQuantity = (productId, weight, currentQuantity) => {
     dispatch(
@@ -116,14 +122,14 @@ const Cart = ({ buttonClass }) => {
       )
     } else {
       dispatch(
-        removeFromCart(productId)
+        removeFromCart({ productId, weight })
       )
     }
   }
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (productId, weight) => {
     dispatch(
-      removeFromCart(productId)
+      removeFromCart({ productId, weight })
     )
   }
 
@@ -170,9 +176,9 @@ const Cart = ({ buttonClass }) => {
                 <h3>Your cart is empty!</h3>
               </div>
             ) : (
-              cartItems.map((item) => (
+              cartItems.map((item, index) => (
                 <div
-                  key={item.product.id}
+                  key={index}
                   className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
                   <img
@@ -194,7 +200,7 @@ const Cart = ({ buttonClass }) => {
                   </div>
                   <div className="flex items-center border text-base font-light">
                     <button
-                      onClick={() => handleRemoveItem(item.product.id)}
+                      onClick={() => handleRemoveItem(item.product.id, item.weight)}
                       className="px-2 py-2 bg-gray-50 hover:bg-gray-100"
                     >
                       <PiTrashSimpleLight className="" />
@@ -233,21 +239,23 @@ const Cart = ({ buttonClass }) => {
           <div className="p-4 border-t text-sm mt-auto">
             <div className="flex justify-between text-sm">
               <span>Items ({totalQuantity})</span>
-              <span>${totalCost} AUD</span>
+              <span>${toNumber(totalCost).toFixed(2)} AUD</span>
             </div>
             <div className="flex justify-between mb-4">
               <span>Shipping</span>
               {/* <span>${shippingCost.toFixed(2)} AUD</span> */}
-              <span>${shippingCost} AUD</span>
+              <span>${toNumber(shippingCost).toFixed(2)} AUD</span>
             </div>
             <div className="flex justify-between font-semibold mb-5">
               <span>Total</span>
               {/* <span>${total.toFixed(2)} AUD</span> */}
-              <span>${totalCost + shippingCost} AUD</span>
+              <span>${toNumber(totalCost + shippingCost).toFixed(2)} AUD</span>
             </div>
-            <SectionButton
+            <SectionLinkButton
+              url={`/cart`}
               title="View basket and checkout"
-              buttonClass="!w-full px-10"
+              buttonClass="!block !w-full px-10"
+              textClass="!block !w-full"
             />
           </div>
         </div>
