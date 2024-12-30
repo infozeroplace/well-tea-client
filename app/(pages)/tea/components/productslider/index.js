@@ -15,14 +15,14 @@ function ProductSlider() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <div className="">
+    <div className="w-full">
       <div className="flex flex-col items-center">
         <Swiper
           spaceBetween={10}
           modules={[Thumbs, EffectFade]}
           effect="fade"
           thumbs={{ swiper: thumbsSwiper }}
-          className="w-full max-w-lg mb-4"
+          className="w-full max-w-xl mb-4"
         >
           {sliderImages.map((image, index) => (
             <SwiperSlide key={index}>
@@ -32,11 +32,11 @@ function ProductSlider() {
         </Swiper>
         <Swiper
           onSwiper={setThumbsSwiper}
-          spaceBetween={10}
+          spaceBetween={30}
           slidesPerView={4}
           modules={[Thumbs]}
           watchSlidesProgress={true}
-          className="w-full max-w-lg"
+          className="w-full max-w-xl"
         >
           {sliderImages.map((image, index) => (
             <SwiperSlide key={index}>

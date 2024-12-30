@@ -3,11 +3,11 @@ import { SectionButton } from "@/components";
 import React, { useState } from "react";
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([
+  const cartItems =[
     {
       id: 1,
       name: "White Tera Rose Melange",
-      image: "/products/product_01.jpg", // Replace with actual URLs
+      image: "/products/product_01.jpg",
       category: "Green Tea",
       weight: 42,
       price: 20.5,
@@ -16,7 +16,7 @@ const CartPage = () => {
     {
       id: 2,
       name: "White Tera Rose Melange",
-      image: "/products/product_03.jpg", // Replace with actual URLs
+      image: "/products/product_03.jpg",
       category: "Black Tea",
       weight: 42,
       price: 30.5,
@@ -25,7 +25,7 @@ const CartPage = () => {
     {
       id: 3,
       name: "White Tera Rose Melange",
-      image: "/products/product_01.jpg", // Replace with actual URLs
+      image: "/products/product_01.jpg",
       category: "Black Tea",
       weight: 42,
       price: 30.5,
@@ -34,7 +34,7 @@ const CartPage = () => {
     {
       id: 4,
       name: "White Tera Rose Melange",
-      image: "/products/product_03.jpg", // Replace with actual URLs
+      image: "/products/product_03.jpg",
       category: "Black Tea",
       weight: 42,
       price: 30.5,
@@ -43,7 +43,7 @@ const CartPage = () => {
     {
       id: 5,
       name: "White Tera Rose Melange",
-      image: "/products/product_01.jpg", // Replace with actual URLs
+      image: "/products/product_01.jpg",
       category: "Black Tea",
       weight: 42,
       price: 30.5,
@@ -52,37 +52,42 @@ const CartPage = () => {
     {
       id: 6,
       name: "White Tera Rose Melange",
-      image: "/products/product_03.jpg", // Replace with actual URLs
+      image: "/products/product_03.jpg",
       category: "Black Tea",
       weight: 42,
       price: 30.5,
       quantity: 1,
     },
-  ]);
+  ];
 
   return (
     <div className="bg-gray-50 min-h-screen p-10">
       <div className="flex gap-10">
         {/* Cart Section */}
-        <div className="w-4/6 bg-white rounded-lg shadow-md">
+        <div className="w-4/6 bg-white rounded-lg shadow-md overflow-y-auto">
           <div className="p-5">
             <h2 className="text-2xl font-normal mb-4">Cart</h2>
             <p className="mb-6">{cartItems.length} items in your cart.</p>
           </div>
-          <div className="px-5">
+          <div className="">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b border-gray-200 text-left text-base">
-                  <th className="py-3 font-medium">Product</th>
+                  <th className="py-3 font-medium pl-5">Product</th>
                   <th className="py-3 font-medium">Price</th>
                   <th className="py-3 font-medium text-center">Quantity</th>
-                  <th className="py-3 font-medium text-right">Total Price</th>
+                  <th className="py-3 font-medium text-right pr-5">
+                    Total Price
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {cartItems.map((item) => (
-                  <tr key={item.id} className="border-b border-gray-200">
-                    <td className="py-4 flex items-center gap-4">
+                  <tr
+                    key={item.id}
+                    className="border-b border-gray-200 hover:bg-teagreen-100"
+                  >
+                    <td className="py-4 flex items-center gap-4 pl-5">
                       <img
                         src={item.image}
                         alt={item.name}
@@ -109,7 +114,7 @@ const CartPage = () => {
                         </button>
                       </div>
                     </td>
-                    <td className="py-4 text-right font-light">
+                    <td className="py-4 text-right font-light pr-5">
                       ${(item.price * item.quantity).toFixed(2)}
                     </td>
                   </tr>
@@ -120,7 +125,7 @@ const CartPage = () => {
         </div>
 
         {/* Summary Section */}
-        <div className="w-2/6">
+        <div className="w-2/6 sticky top-0 h-screen">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-light mb-4">Coupon Code</h3>
             <p className="text-sm mb-4">

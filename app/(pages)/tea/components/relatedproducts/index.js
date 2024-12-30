@@ -24,7 +24,7 @@ function RelatedProducts() {
 
   return (
     <div className="my-10">
-      <div className="mx-20">
+      <div className="">
         <h3 className="text-4xl text-teagreen-800 mb-10">Related Products</h3>
         <div className="relative">
           <Swiper
