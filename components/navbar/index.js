@@ -22,10 +22,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white sticky top-0 z-50 shadow">
-      <div className="container px-20">
+      <div className="container px-4 lg:px-20">
         <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-28 md:w-36">
             <Link href="/">
               <Image
                 src="/logo/welltea_logo_color.png"
@@ -33,11 +33,12 @@ const Navbar = () => {
                 width={150}
                 height={100}
                 quality={100}
+                className="w-full"
               />
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-5">
+          <div className="hidden lg:flex items-center gap-5">
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/tea" name="Tea" />
@@ -73,7 +74,7 @@ const Navbar = () => {
             size="lg"
           /> */}
 
-          <div className="hidden md:flex space-x-4">
+          <div className="flex">
             {/* Nav Icons */}
             {/* <NavbarIcon /> */}
 
@@ -113,10 +114,9 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-400 hover:text-white focus:outline-none"
+                className="lg:hidden ml-4 text-gray-600 hover:text-white focus:outline-none"
               >
                 {isOpen ? (
                   <svg
@@ -150,31 +150,30 @@ const Navbar = () => {
                   </svg>
                 )}
               </button>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-700">
-          <Link href="/">
-            <p className="block px-4 py-2 hover:bg-gray-600 cursor-pointer">
+        <div className="lg:hidden bg-teagreen-700">
+          <Link href="/ border-2 border-white">
+            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
               Home
             </p>
           </Link>
           <Link href="/about">
-            <p className="block px-4 py-2 hover:bg-gray-600 cursor-pointer">
+            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
               About
             </p>
           </Link>
           <Link href="/services">
-            <p className="block px-4 py-2 hover:bg-gray-600 cursor-pointer">
+            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
               Services
             </p>
           </Link>
           <Link href="/contact">
-            <p className="block px-4 py-2 hover:bg-gray-600 cursor-pointer">
+            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
               Contact
             </p>
           </Link>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const NewItemCard = ({ item }) => {
@@ -18,14 +19,14 @@ const NewItemCard = ({ item }) => {
           </div>
         )}
       </div>
-      <div className="bg-white flex flex-col text-center items-center relative mb-12 cursor-pointer group mx-auto overflow-hidden">
+      <div className="bg-white flex flex-col text-center items-center relative mb-12 group mx-auto overflow-hidden">
         {/* Background Image */}
-        <div
+        <Link href={`/tea/${item?.type}/${item?.id}`}
           className="absolute inset-0 z-0 bg-cover bg-center h-full transition-transform duration-500 ease-out transform scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100"
           style={{ backgroundImage: `url(${item?.hoverImage})` }}
-        ></div>
+        ></Link>
         {/* Product Image */}
-        <div className="aspect-square">
+        <Link href={`/tea/${item?.type}/${item?.id}`} className="aspect-square">
           <Image
           width={220}
           height={220}
@@ -33,7 +34,7 @@ const NewItemCard = ({ item }) => {
             alt="New Product"
             className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
           />
-        </div>
+        </Link>
         {/* Product Details */}
         <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto xl:w-[85%] 2xl:mt-10">
           <div className="px-4">
