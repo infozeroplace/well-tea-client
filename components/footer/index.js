@@ -10,7 +10,7 @@ function Footer() {
     return <div className="w-full h-[1px] bg-teagreen-100"></div>;
   };
   const FooterTitle = ({ name }) => {
-    return <h4 className="mb-5 text-white uppercase">{name}</h4>;
+    return <h4 className="mb-2 md:mb-5 text-white uppercase">{name}</h4>;
   };
   const FooterListItem = ({ name, href }) => {
     return (
@@ -22,29 +22,29 @@ function Footer() {
 
   return (
     <div className="bg-[#194A34]">
-      <div className="px-20 container py-10">
-        <div className=" mx-auto grid grid-cols-7 gap-5 justify-around py-10">
-          <div className="text-white flex flex-col gap-2">
+      <div className="container px-4 lg:px-20 py-10">
+        <div className=" mx-auto grid grid-cols-6 lg:grid-cols-7 gap-5 justify-around py-10">
+          <div className="col-span-2 lg:col-span-1 text-white flex flex-col gap-2content-gap lg:mb-0">
             <FooterTitle name="About" />
             <FooterListItem name="Company Info" href="/about" />
             <FooterListItem name="Goal" href="/" />
             <FooterListItem name="Location" href="/" />
           </div>
-          <div className="text-white flex flex-col gap-2">
+          <div className="col-span-2 lg:col-span-1 text-center lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
             <FooterTitle name="Shop" />
             <FooterListItem name="Shop" href="/" />
             <FooterListItem name="Shop" href="/" />
             <FooterListItem name="Shop" href="/" />
           </div>
-          <div className="text-white flex flex-col gap-2">
+          <div className="col-span-2 lg:col-span-1 text-right lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
             <FooterTitle name="Help Center" />
             <FooterListItem name="Customer Care" href="/" />
             <FooterListItem name="Shop" href="/" />
           </div>
-          <div className="col-span-2 mr-10">
+          <div className="col-span-6 md:col-span-3 lg:col-span-2 text-center md:text-left md:mr-10 content-gap md:mb-0">
             <div className="text-white flex flex-col gap-2 mb-5">
               <FooterTitle name="Get in touch" />
-              <p className="text-justify">
+              <p>
                 Dolor eiusmod velit occaecat in adipisicing proident aliqua
                 deserunt eu enim pariatur.
               </p>
@@ -58,8 +58,8 @@ function Footer() {
               </p>
             </div>
           </div>
-          <div className="col-span-1 lg:col-span-2 text-white flex flex-col gap-2 mb-5">
-            <h4 className="mb-5 text-white uppercase">Newsletter</h4>
+          <div className="col-span-6 md:col-span-3 lg:col-span-2 text-white flex flex-col gap-2 mb-5">
+            <FooterTitle name="Newsletter" />
             <p className="text-justify">
               Dolor eiusmod velit occaecat in adipisicing proident aliqua
               deserunt eu enim pariatur.
@@ -67,7 +67,7 @@ function Footer() {
             <div className="flex mt-3">
               <input
                 type="text"
-                className="w-full px-5 py-3"
+                className="w-full px-5 py-3 max-w-96 text-black"
                 placeholder="Your Email"
               />
               <button className="bg-teagreen-600 text-white px-4 uppercase">
@@ -92,7 +92,7 @@ function Footer() {
             </div>
             <FooterBar />
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col-reverse md:flex-row gap-10 md:gap-2 justify-between items-center">
             <p className="text-white">
               Copyright © {new Date().getFullYear()}{" "}
               <span className="text-teagreen-500">Welltea.</span> All rights

@@ -43,11 +43,11 @@ const WhyChooseUs = () => {
     setSelected(title);
   };
   return (
-    <div className=" container section-gap pl-20">
+    <div className=" container section-gap px-4 md:px-20 lg:px-0 lg:pl-20">
       <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-1 border-r border-slate-200 font-light flex flex-col justify-between pr-2">
+        <div className="col-span-3 lg:col-span-1 lg:border-r border-slate-200 font-light flex flex-col justify-between items-center lg:items-start pr-2">
           <div>
-            <p className="text-center md:text-left uppercase text-xs mb-2">
+            <p className="text-center lg:text-left uppercase text-2xl lg:text-base xl:text-base mb-3">
               why choose us
             </p>
             <div className="text-teagreen-300">
@@ -55,7 +55,7 @@ const WhyChooseUs = () => {
                 <button
                   key={item?.title}
                   type="button"
-                  className={`text-xl lg:text-4xl xl:text-5xl 2xl:text-6xl w-full text-left py-3 hover:text-teagreen-600 duration-400 ${
+                  className={`text-xl md:text-3xl xl:text-5xl 2xl:text-6xl w-full text-center lg:text-left py-1 lg:py-2 xl:py-3 hover:text-teagreen-600 duration-400 ${
                     selected === item?.title ? "text-teagreen-600" : ""
                   }`}
                   onClick={() => handleClick(item)}
@@ -65,9 +65,9 @@ const WhyChooseUs = () => {
               ))}
             </div>
           </div>
-          <div>
-            <div className="mb-5">{choosOption?.icon}</div>
-            <div className="text-sm 2xl:text-base mb-5">
+          <div className="mt-3">
+            <div className="mb-2 xl:mb-5 text-center lg:text-left">{choosOption?.icon}</div>
+            <div className="text-xs 2xl:text-base text-center lg:text-left lg:text-base mb-2 lg:mb-5">
               {choosOption?.description}
             </div>
             <div className="flex justify-center md:justify-center text-lg">
@@ -76,12 +76,13 @@ const WhyChooseUs = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-2 border max-w-[1180px] aspect-[1180/730]">
+        <div className="col-span-3 lg:col-span-2 aspect-[1000/500] lg:aspect-[1180/730] w-full overflow-hidden lg:overflow-visible">
           <Image
             src={choosOption?.image}
             alt="Why Choose Us"
             width={1180}
             height={730}
+            className="w-full h-full object-cover"
           />
           {/* <img src={choosOption?.image} alt="" /> */}
         </div>
