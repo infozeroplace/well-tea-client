@@ -1,5 +1,10 @@
-
-import { AmazingPeople, CompanyServices, OurStory, Subscription } from "@/components";
+import {
+  AmazingPeople,
+  CompanyServices,
+  DiscoverUs,
+  OurStory,
+  Subscription,
+} from "@/components";
 import Image from "next/image";
 import React from "react";
 
@@ -25,7 +30,8 @@ const About = () => {
       </div>
 
       {/* Second Section */}
-      <OurStory />
+      {/* <OurStory /> */}
+      <DiscoverUs />
 
       {/* Third Section */}
       <div className="section-gap bg-[#F9F6EE] pb-10">
