@@ -6,7 +6,7 @@ export const discoverItems = [
       image: "/images/about-image-2.jpg",
       description: (
         <div className="text-xs text-justify">
-          <p className="font-medium text-gray-500">
+          <p>
             The concept of WellTea started life in late 2010 from our flat in
             London – inspired by our recent travels, we wanted to create a brand
             and space that felt like a second home, where people could come
@@ -18,7 +18,7 @@ export const discoverItems = [
             whether it’s domestic or international.
           </p>
           <br />
-          <p className="font-medium text-gray-500">
+          <p>
             We wanted to capture the essence of these spaces and what they
             represented for us and the people that used them. Initially we had
             ambitions of starting our very own boutique space that focused on
@@ -32,7 +32,7 @@ export const discoverItems = [
             kitchen, we didn’t know what we had yet, but WellTea was born.
           </p>
           <br />
-          <p className="font-medium text-gray-500">
+          <p>
             At the time we started selling just a handful of blends to our
             friends, before setting up online and attending local events during
             the small windows we were given throughout lockdowns. The realisation
@@ -51,7 +51,7 @@ export const discoverItems = [
       description: (
         <div className="text-xs text-justify">
           <h5 className="font-semibold">Quality and Sourcing</h5> <br />
-          <p className="font-medium text-gray-500">
+          <p>
             Detail, quality and sourcing fundamentally underline everything we
             create. We work hard to source the best tasting, organically
             cultivated and fairly traded ingredients. All of our products are hand
@@ -65,7 +65,7 @@ export const discoverItems = [
           </p>
           <br />
           <h5 className="font-semibold">Intention and Kindness</h5> <br />
-          <p className="font-medium text-gray-500">
+          <p>
             The warmth and comfort that a shared cup of tea brings to meaningful
             moments is something that we have fostered into the way in which we
             talk about and run our business. We firmly believe in putting people
@@ -80,7 +80,7 @@ export const discoverItems = [
           </p>
           <br />
           <h5 className="font-semibold">Mindfulness and Process</h5> <br />
-          <p className="font-medium text-gray-500">
+          <p>
             If you choose for it to be, we’ve found that drinking tea can be such
             a mindful experience. We like to talk about the ritual around making
             yourself a cup of tea, this is about how you choose to spend this
@@ -98,9 +98,9 @@ export const discoverItems = [
       title: "Our Teas",
       image: "/whychooseus/slide_banner_09.jpg",
       description: (
-        <Accordion className="w-full ourteas">
+        <Accordion className="w-full ourteas font-medium">
           <AccordionItem key="1" aria-label="Black Tea" title="Black Tea">
-            <p className="text-xs font-medium text-justify text-gray-500">
+            <p className="text-xs text-justify">
               In a Black Tea, the harvested leaves undergo complete oxidation,
               resulting in leaves with a near black appearance and a rich, robust
               flavour, and dark tea. This type of tea has a strong taste and is
@@ -108,8 +108,7 @@ export const discoverItems = [
             </p>
           </AccordionItem>
           <AccordionItem key="2" aria-label="Green Tea" title="Green Tea">
-            <p className="text-xs font-medium text-justify text-gray-500">
-              {" "}
+            <p className="text-xs text-justify">
               Green Teas undergo minimal oxidation, preserving the natural green
               colour and delicate taste of the newly harvested leaves. This
               process helps retain more antioxidants and results in a light,
@@ -117,8 +116,7 @@ export const discoverItems = [
             </p>
           </AccordionItem>
           <AccordionItem key="3" aria-label="Oolong Tea" title="Oolong Tea">
-            <p className="text-xs font-medium text-justify text-gray-500">
-              {" "}
+            <p className="text-xs text-justify">
               An Oolong Tea is the name given to a tea that has been allowed to
               partially oxidise, while falling between a Green and Black Tea on
               the oxidation scale. For this reason, there are a vast number of
@@ -126,32 +124,29 @@ export const discoverItems = [
               Green Tea and have a light subtle flavour, to others that closer
               resemble a Black Tea and have flavours that range from floral and
               fruity to creamy and toasty.
-            </p>{" "}
+            </p>
           </AccordionItem>
           <AccordionItem key="4" aria-label="Herbal Tea" title="Herbal Tea">
-            <p className="text-xs font-medium text-justify text-gray-500">
-              {" "}
+            <p className="text-xs text-justify">
               A Herbal Tea, or Tisane are most often naturally caffeine free and
               are blends that are made purely from herbs, flowers, fruits, or
               other botanicals. Infusions do not include any leaves from the
               Camellia Sinensis plant and have a diverse array of flavours and
               aromas based on the specific ingredients used in the blend.
-            </p>{" "}
+            </p>
           </AccordionItem>
           <AccordionItem key="5" aria-label="White Tea" title="White Tea">
-            <p className="text-xs font-medium text-justify text-gray-500">
-              {" "}
+            <p className="text-xs text-justify">
               White Tea is the least oxidised tea of all. It involves minimal
               processing, with leaves often selected as buds of very young and
               early leaves, that are left to wither and dry in natural sunlight,
               without any rolling. These teas are rich in antioxidants, near
               negligible in caffeine and have a subtle and delicate flavour, with
               a light colour and often sweet, floral aroma.
-            </p>{" "}
+            </p>
           </AccordionItem>
           <AccordionItem key="6" aria-label="Pu-erh Tea" title="Pu-erh Tea">
-            <p className="text-xs font-medium text-justify text-gray-500">
-              {" "}
+            <p className="text-xs text-justify">
               Pu-erh Tea is a unique and traditional fermented tea originating
               from Yunnan, China. Known for its rich, earthy flavor and smooth,
               full-bodied taste, Pu-erh undergoes a special fermentation and aging
@@ -161,7 +156,7 @@ export const discoverItems = [
               for its potential health benefits, including aiding digestion and
               promoting overall wellness, and is a favorite among tea connoisseurs
               for its complex and evolving taste profile.
-            </p>{" "}
+            </p>
           </AccordionItem>
         </Accordion>
       ),
