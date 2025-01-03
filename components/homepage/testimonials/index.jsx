@@ -8,7 +8,7 @@ import { SectionTitle } from "@/components/shared";
 const Testimonials = () => {
   return (
     <div className="section-gap bg-teagreen-100 py-10">
-      <div className="container px-20">
+      <div className="container px-4 lg:px-20">
         <div className="max-w-[638px] mx-auto content-gap">
           <SectionTitle title="Reviews & Testimonials" />
         </div>

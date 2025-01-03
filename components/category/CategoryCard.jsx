@@ -87,7 +87,7 @@ const CategoryCard = ({ item, url }) => {
                 </div>
               )}
               {!item?.discount && (
-                <div className="text-teagreen-800">£{item?.price}</div>
+                <div className="text-xs lg:text-sm font-semibold text-teagreen-800">£{item?.price}</div>
               )}
             </div>
           </div>

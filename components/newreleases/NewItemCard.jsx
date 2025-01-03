@@ -6,7 +6,7 @@ const NewItemCard = ({ item }) => {
   if (!item) return null;
 
   return (
-    <div className="relative aspect-[298/384] max-w-[380px] mx-auto md:mx-0">
+    <div className="relative max-w-[380px] mx-auto">
       <div className="z-10 absolute flex text-white text-sm gap-2 -top-2 left-1/2 transform -translate-x-1/2">
         {item?.designation && (
           <div className="uppercase bg-teagreen-600 px-2 whitespace-nowrap">
@@ -19,14 +19,14 @@ const NewItemCard = ({ item }) => {
           </div>
         )}
       </div>
-      <div className="bg-white flex flex-col text-center items-center relative mb-12 group mx-auto overflow-hidden">
+      <div className="bg-white flex flex-col text-center items-center relative mb-12 group px-6 overflow-hidden">
         {/* Background Image */}
         <Link href={`/tea/${item?.type}/${item?.id}`}
           className="absolute inset-0 z-0 bg-cover bg-center h-full transition-transform duration-500 ease-out transform scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100"
           style={{ backgroundImage: `url(${item?.hoverImage})` }}
         ></Link>
         {/* Product Image */}
-        <Link href={`/tea/${item?.type}/${item?.id}`} className="aspect-square">
+        <Link href={`/tea/${item?.type}/${item?.id}`} className="aspect-square lg:mt-5 xl:mt-6">
           <Image
           width={220}
           height={220}
@@ -36,12 +36,12 @@ const NewItemCard = ({ item }) => {
           />
         </Link>
         {/* Product Details */}
-        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 mx-auto xl:w-[85%] 2xl:mt-10">
-          <div className="px-4">
-            <h5 className="text-xs lg:text-sm xl:text-base text-teagreen-500">
+        <div className="group-hover:bg-white group-hover:-translate-y-6 duration-400 w-full">
+          <div className="px-1">
+            <h5 className="text-[10px] lg:text-xs xl:text-base text-teagreen-500">
               {item?.type}
             </h5>
-            <h4 className="text-sm lg:text-md 2xl:text-lg">{item?.title}</h4>
+            <h4 className="text-xs lg:text-sm 2xl:text-lg">{item?.title}</h4>
             <h5 className="text-xs">{item?.rating}</h5>
             {item?.discount ? (
               <div className="flex justify-center gap-2 mb-1 text-xs lg:text-sm font-semibold">

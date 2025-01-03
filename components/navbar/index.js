@@ -11,6 +11,7 @@ import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
 import Cart from "./Cart";
+import ExploreDropdown from "./ExploreDropdown";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,6 +39,7 @@ const Navbar = () => {
             </Link>
           </div>
 
+          {/* Categories */}
           <div className="hidden lg:flex items-center gap-5">
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
@@ -64,7 +66,15 @@ const Navbar = () => {
             </div>
 
             <NavItem href="/sales" name="Sales" />
-            <NavItem href="/explore" name="Explore" />
+            {/* <NavItem href="/explore" name="Explore" /> */}
+
+            {/* ------ Explore Dropdown Menu ------ */}
+            <div className="group">
+              <NavItem href="/explore" name="Explore" />
+              <NavDropdown extraClass="group-hover:h-[300px] shadow">
+                <ExploreDropdown />
+              </NavDropdown>
+            </div>
             {/* <NavItem href="/about" name="About" /> */}
           </div>
 
@@ -114,42 +124,42 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden ml-4 text-gray-600 hover:text-white focus:outline-none"
-              >
-                {isOpen ? (
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                )}
-              </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden ml-4 text-gray-600 hover:text-white focus:outline-none"
+            >
+              {isOpen ? (
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </div>

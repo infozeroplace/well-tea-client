@@ -111,7 +111,7 @@ function Hero() {
 
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-              <div className="absolute px-4 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
+              <div className="container absolute px-4 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
                 <div
                 // key={`content-${index}`}
                 // className="bg-teagren-600 opacity-40"
@@ -144,9 +144,9 @@ function Hero() {
                     variants={textAnimation}
                     href="#"
                     // className="space-y-4 inline-block mt-4 bg-teagreen-600 hover:bg-teagreen-500 px-16 py-3 rounded-lg text-white font-medium duration-300"
-                    className="mt-5 ml-[17%] md:ml-0"
+                    className="mt-5 flex justify-center md:justify-start"
                   >
-                    <SectionButton title="Shop Now" textClass="!mx-auto !text-white" buttonClass="!bg-teagreen-500" />
+                    <SectionButton title="Shop Now" textClass="!mx-auto !text-white" buttonClass="!bg-teagreen-500" />``
                   </motion.div>
                 </div>
               </div>

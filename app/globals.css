@@ -189,3 +189,6 @@ a {
 				transform: translateX( -100% );
 			}
     } */
+.ourteas button span{
+font-size: 1.25rem !important;
+}

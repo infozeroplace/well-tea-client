@@ -26,14 +26,14 @@ function Category() {
     <div className="section-gap">
       <div className="container px-4 lg:px-20">
         <SectionTitle title="Explore our single teas" />
-        <div className="flex gap-1 md:gap-5 w-full mx-auto items-center justify-center mb-8 md:mb-10">
+        <div className="flex flex-wrap gap-2 md:gap-5 w-full mx-auto items-center justify-center mb-8 md:mb-10">
           {/* <CategoryList categoryList={categoryList} /> */}
           {categoryList.map((item) => (
             <button
               key={item}
               onClick={() => dispatch(setCategory(item))}
               className={
-                "rounded-full py-1 md:py-2 px-1 md:px-5 text-[12px] md:text-base " +
+                "rounded-full p-2 md:px-5 text-sm md:text-base " +
                 (selectedCategory === item
                   ? activeClass
                   : "bg-teagreen-100 text-teagreen-600")

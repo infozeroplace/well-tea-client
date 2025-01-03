@@ -15,7 +15,7 @@ const AmazingPeople = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="flex flex-col justify-center px-10 lg:border-l border-slate-200">
+      <div className="flex flex-col justify-center px-8 lg:border-l border-slate-200">
         <div>
           <div className="text-center content-gap">
             <div className="text-sm lg:text-base tracking-wide uppercase font-semibold mb-2">

@@ -32,11 +32,11 @@ function ChooseTea() {
 
 
   return (
-    <div className="container px-20 section-gap">
+    <div className="container px-4 md:px-20 section-gap">
       <div className="flex flex-col items-center">
         {/* <h1 className="uppercase text-center text-4xl text-teagreen-800 content-gap">The Welltea Range</h1> */}
         <SectionTitle title="The Welltea Range" />
-        <div className="flex items-center justify-center flex-wrap gap-32">
+        <div className="flex flex-col md:flex-row items-center md:justify-evenly w-full flex-wrap gap-6">
           {teaTypes.map((item, index) => (
             <Link
               key={index}

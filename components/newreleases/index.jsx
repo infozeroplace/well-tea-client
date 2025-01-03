@@ -58,16 +58,15 @@ const newitems = [
 const NewReleases = () => {
   return (
     <div className="section-gap bg-teagreen-100 py-10">
-      <div className="container px-20">
+      <div className="container px-4 md:px-20">
         <div className="">
-          <div className=" md:ml-[80px] mb-10 ">
+          <div className="lg:ml-20 mb-10">
             <p className="text-center md:text-left uppercase text-xs md:text-base mb-2">
               shop our tea
             </p>
-            {/* <h4 className="text-center md:text-left text-4xl">New Releases</h4> */}
-            <SectionTitle title="New Releases" />
+            <SectionTitle title="New Releases" exteraClasses="md:text-left" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-2 lg:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-5 lg:gap-4 mx-auto">
             {newitems.map((item, idx) => (
               <NewItemCard key={item?.id} item={item} />
             ))}

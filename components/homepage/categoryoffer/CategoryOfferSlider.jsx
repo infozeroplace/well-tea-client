@@ -77,7 +77,7 @@ function CategoryOfferSlider({ }) {
     <div className="relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, A11y]}
-        spaceBetween={25}
+        spaceBetween={30}
         speed={500}
         loop={true}
         autoplay={{

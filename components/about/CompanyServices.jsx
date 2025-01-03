@@ -39,7 +39,7 @@ const CompanyServices = () => {
           </div>
           <div className="tracking-tight">Quick responses and solution</div>
         </div>
-        <div className="text-center p-6 xl:p-8 group lg:border-b">
+        <div className="text-center p-6 xl:p-8 mb-6 lg:mb-0 group lg:border-b">
           <div className="mb-5 flex text-3xl font-thin group-hover:text-teagreen-500 justify-center">
             <PiTeaBag />
           </div>

@@ -1,8 +1,6 @@
-
 import React from "react";
 import { SectionLinkButton } from "../shared";
 import Image from "next/image";
-
 
 const OurStory = () => {
   return (
@@ -32,7 +30,7 @@ const OurStory = () => {
                 Deserunt ab voluptate beatae unde pariatur.
               </p>
             </div>
-            <div className="group content-gap w-fit mx-auto">
+            <div className="flex justify-center md:justify-center text-lg">
               <SectionLinkButton title="Contact" url="/contact" />
             </div>
           </div>
