@@ -26,7 +26,7 @@ export default function Home() {
       {/* <TeaRange /> */}
       {/* <SelectedTeas /> */}
       <WhyChooseUs />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <div className="px-10 2xl:px-0">
         <CompanyServices />
       </div>

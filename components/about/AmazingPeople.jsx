@@ -1,4 +1,3 @@
-
 import React from "react";
 import { SectionLinkButton } from "../shared";
 import Image from "next/image";
@@ -25,19 +24,19 @@ const AmazingPeople = () => {
               Selected by a Master Tea Taster
             </h2>
           </div>
-          <div className="text-center text-gray-500 content-gap">
-            <p className="content-gap font-medium">
+          <div className="text-center content-gap">
+            <p className="content-gap">
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
               amet sint. Velit officia consequat duis enim velit mollit.
               Exercitation veniam consequat sunt nostrud amet.
             </p>
-            <p className="font-medium">
+            <p className="">
               Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis
               ullamco cillum dolor. Voluptate exercitation incididunt aliquip
               deserunt reprehenderit elit laborum.
             </p>
           </div>
-          <div className="group w-fit mx-auto">
+          <div className="flex justify-center md:justify-center text-lg">
             <SectionLinkButton title="Our Team" url="/ourteam" />
           </div>
         </div>
