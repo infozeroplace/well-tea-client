@@ -4,7 +4,9 @@ import {
   DiscoverUs,
   OurStory,
   Subscription,
+  MarqueeText
 } from "@/components";
+
 import Image from "next/image";
 import React from "react";
 
@@ -149,7 +151,7 @@ const About = () => {
 
       {/* Fifth Section */}
       <div className="section-gap">
-        <div>text slider</div>
+        <MarqueeText />
         {/* Company Services */}
         <CompanyServices />
       </div>

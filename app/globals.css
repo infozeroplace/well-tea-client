@@ -169,26 +169,48 @@ a {
 			display: flex ;
 			overflow: hidden ;
 			white-space: nowrap ;
-		}
+		} */
 
-.marquee__item {
-			animation-duration: 4s ;
-			animation-iteration-count: infinite ;
-			animation-name: marquee-content ;
-			animation-timing-function: linear ;
+/* .marquee-text {
+      animation: marquee-content 5s linear infinite;
 		}
-		.marquee:hover .marquee__item {
+		.marquee:hover .marquee-text {
 			animation-play-state: paused ;
 		}
 
 		@keyframes marquee-content {
 			from {
-				transform: translateX( 100% );
+				transform: translateX( 0% );
 			}
 			to {
-				transform: translateX( -100% );
+				transform: translateX( -50% );
 			}
     } */
 .ourteas button span{
 font-size: 1.25rem !important;
+}
+
+/* .marquee {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 200px;
+  overflow-x: hidden;
+} */
+
+.track {
+  animation: marquee 15s linear infinite;
+}
+
+.marquee:hover .track {
+			animation-play-state: paused ;
+		}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-22.5%);
+  }
 }

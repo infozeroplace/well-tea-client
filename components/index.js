@@ -7,6 +7,7 @@ export { default as Banner } from "./banner";
 export { default as NewReleases } from "./newreleases";
 export { default as ChooseType } from "./choosetype";
 export { default as SelectedTeas } from "./selectedteas";
+export { default as SocialImages } from "./socialimages";
 export * from "./homepage";
 export * from "./shared";
 export * from "./auth";
