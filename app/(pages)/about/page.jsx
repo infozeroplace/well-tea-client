@@ -153,13 +153,10 @@ const About = () => {
       <div className="section-gap">
         <MarqueeText />
         {/* Company Services */}
-        <CompanyServices />
+        {/* <CompanyServices /> */}
       </div>
 
       {/* Sixth Section */}
-      <div className="section-gap container">slider</div>
-
-      {/* Seventh Section */}
       <Subscription />
     </div>
   );

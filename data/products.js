@@ -290,7 +290,7 @@ export const productList = [
 
 export const teaList = [
   {
-    id: "assam-breakfast-tea",
+    productId: "assam-breakfast-tea",
     title: "Assam Breakfast Tea",
     description:
       "Rich and well-rounded in flavor yet beautifully delicate, our Supreme Earl Grey has evenly graded, rolled wiry leaves and deep golden-amber color. It's bright and floral qualities invite you to slow down and take a breath, making it the perfect mid-morning or afternoon brew that can be enjoyed with or without milk",
@@ -298,47 +298,38 @@ export const teaList = [
       "Our award-winning Earl Grey Supreme combines premium Ceylon leaves with delightfully fragrant bergamot oil in this exquisite best-selling tea.",
     thumbnails: [
       {
-        url: "/products/product_01.jpg",
-      },
-      {
-        url: "/products/product_02.jpg",
+        url: "https://something1",
       },
     ],
     slideImages: [
       {
-        url: "/products/product_01.jpg",
-      },
-      {
-        url: "/products/product_02.jpg",
-      },
-      {
-        url: "/products/product_03.jpg",
-      },
-      {
-        url: "/products/product_04.jpg",
+        url: "https://something1",
       },
     ],
-    type: "black-tea", // white-tea, pureh-tea, oolong-tea
-    format: "loose-leaf", // loose-leaf, tea-caddy
-    flavour: "floral",
-    ingredients: ["cacao", "cardamom", "carob", "ginger"],
-    healthBenefits: ["energy", "gut-health", "immunity"],
-    timeOfTheDay: ["morning", "afternoon", "evening"],
+    type: ["black-tea"],
+    format: ["loose-leaf"],
+    flavour: ["floral"],
+    ingredient: ["cacao", "cardamom", "carob", "ginger"],
+    benefit: ["energy", "gut-health", "immunity"],
     originName: "china",
     originAddress: "From Baotian Garden, Hunan",
-    offerPricePercentage: 10,
+    isSale: false,
+    isSubscription: true,
+    sale: 10,
+    subscriptionSale: 10,
     reviews: [],
     ratings: 5,
-    addOnProducts: [],
-    oneTimeOptions: [
-      { unit: "50gm", price: 10 },
-      { unit: "100gm", price: 20 },
+    unitPrices: [
+      { unit: "50gm", price: 4 },
+      { unit: "125gm", price: 8.45 },
+      { unit: "250gm", price: 15.5 },
+      { unit: "1kg", price: 42.75 },
     ],
-    subscriptionOptions: [
-      { time: 1, off: 10, price: 3.5 },
-      { time: 2, off: 7.5, price: 2.5 },
-      { time: 3, off: 5, price: 1.5 },
+    subscriptions: [
+      { weeks: "2 week", days: 14 },
+      { weeks: "4 week", days: 28 },
+      { weeks: "6 week", days: 42 },
+      { weeks: "8 week", days: 56 },
     ],
   },
-  {},
 ];

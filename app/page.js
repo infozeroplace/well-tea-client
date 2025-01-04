@@ -27,9 +27,9 @@ export default function Home() {
       {/* <SelectedTeas /> */}
       <WhyChooseUs />
       {/* <Testimonials /> */}
-      <div className="px-10 2xl:px-0">
+      {/* <div className="px-10 2xl:px-0">
         <CompanyServices />
-      </div>
+      </div> */}
     </div>
   );
 }
