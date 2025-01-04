@@ -1,5 +1,5 @@
 import { UIProvider } from "@/app/UIProvider";
-import { Footer, Header, Navbar } from "@/components";
+import { Footer, Header, Navbar, SocialImages } from "@/components";
 import PersistLogin from "@/components/PersistLogin";
 import ReduxProvider from "@/services/ReduxProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -41,6 +41,7 @@ export default function RootLayout({ children }) {
                 <Header />
                 <Navbar />
                 {children}
+                <SocialImages />
                 <Footer />
                 <Toaster position="bottom-right" />
               </UIProvider>
