@@ -1,135 +1,153 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { IoCloseOutline } from "react-icons/io5";
 
-function Filters({onFilter}) {
-  const subCategory = ["Earl Grey Tea", "English Breakfast Tea"];
+const filterData = [
+  {
+    category: "Tea Format",
+    options: [
+      { title: "loose leaf", param: "loose-leaf" },
+      { title: "tea caddy", param: "tea-caddy" },
+      { title: "tea bag", param: "tea-bag" },
+    ],
+    key: "format",
+  },
+  {
+    category: "Price",
+    options: [
+      { title: "$0-$25", param: "0-25" },
+      { title: "$26-$40", param: "26-40" },
+      { title: "$41-$65", param: "41-65" },
+    ],
+    key: "price",
+  },
+  {
+    category: "Health Benefit",
+    options: [
+      { title: "energy", param: "energy" },
+      { title: "gut health", param: "gut-health" },
+      { title: "immunity", param: "immunity" },
+    ],
+    key: "benefit",
+  },
+  {
+    category: "Flavour",
+    options: [
+      { title: "citrus", param: "citrus" },
+      { title: "flavoured", param: "flavoured" },
+      { title: "floral", param: "floral" },
+      { title: "fruity", param: "fruity" },
+      { title: "smoke", param: "smoke" },
+      { title: "spice", param: "spice" },
+      { title: "sweet", param: "sweet" },
+    ],
+    key: "flavour",
+  },
+  {
+    category: "Types",
+    options: [
+      { title: "green tea", param: "green-tea" },
+      { title: "white tea", param: "white-tea" },
+      { title: "black tea", param: "black-tea" },
+      { title: "oolong tea", param: "oolong-tea" },
+      { title: "herbal tea", param: "herbal-tea" },
+      { title: "flowering tea", param: "flowering-tea" },
+      { title: "jasmine tea", param: "jasmine-tea" },
+      { title: "yellow tea", param: "yellow-tea" },
+      { title: "matcha", param: "matcha" },
+    ],
+    key: "type",
+  },
+];
 
-  const filterData = [
-    {
-      category: "Tea Format",
-      options: ["Loose Leaf", "Tea Bag"],
-      key: "teaFormat",
-    },
-    {
-      category: "Price",
-      options: ["$0-$25", "$26-$40", "$41-$65"],
-      key: "price",
-    },
-    {
-      category: "Health Benefit",
-      options: ["Energy", "Gut Health", "Immunity"],
-      key: "healthBenefit",
-    },
-    {
-      category: "Time of the Day",
-      options: ["Morning", "Afternoon", "Evening"],
-      key: "timeOfDay",
-    },
-    {
-      category: "Flavour",
-      options: [
-        "Citrus",
-        "Flavoured",
-        "Floral",
-        "Fruity",
-        "Pure",
-        "Smoke",
-        "Spice",
-        "Sweet",
-        "Unflavoured",
-      ],
-      key: "flavour",
-    },
-    {
-      category: "Ingredients",
-      options: [
-        "Cacao",
-        "Cardamom",
-        "Carob",
-        "Chocolate",
-        "Cinnamon",
-        "Cloves",
-        "Cocoa",
-        "Coconut",
-        "Cornflower Petals",
-        "Dates",
-        "Ginger",
-        "Hazelnut",
-      ],
-      key: "ingredients",
-    },
-  ];
-
-  const [filters, setFilters] = useState({});
-
-  const handleCheckboxChange = (key, option) => {
-    setFilters((prevFilters) => {
-      const isChecked = prevFilters[key]?.includes(option);
-      const updatedCategory = isChecked
-        ? prevFilters[key].filter((item) => item !== option)
-        : [...(prevFilters[key] || []), option];
-
-      const updatedFilters = {
-        ...prevFilters,
-        [key]: updatedCategory,
-      };
-      return updatedFilters;
-    });
-    console.log(filters);
-  };
-
-  const resetFilters = () => {
-    setFilters({});
-  };
-
+function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleTest = () => {
+  const handleCheckboxChange = (key, param) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("id", "1");
 
-   return router.push(`?${params.toString()}`);
-  }
+    if (key === "price") {
+      // For price, set a single value
+      if (params.get(key) === param) {
+        params.delete(key); // Remove the key if the value is already set
+      } else {
+        params.set(key, param); // Set the new value
+      }
+    } else {
+      // For other filters, allow multiple values
+      const currentValues = params.get(key)?.split(",") || []; // Get existing values
+      const isChecked = currentValues.includes(param); // Check if param is already selected
+
+      const updatedValues = isChecked
+        ? currentValues.filter((item) => item !== param) // Remove the parameter
+        : [...currentValues, param]; // Add the parameter
+
+      if (updatedValues.length) {
+        params.set(key, updatedValues.join(",")); // Join with plain commas
+      } else {
+        params.delete(key); // Remove the key if no values
+      }
+    }
+
+    router.push(`?${params.toString()}`); // Push updated query to the router
+  };
+
+  const resetFilters = () => {
+    router.push("?");
+  };
+
+  const isChecked = (key, param) => {
+    const params = searchParams.get(key); // Get the raw query string for the key
+    if (!params) return false;
+
+    // Match the whole parameter as a single entity
+    return params.split(",").some((item) => item === param);
+  };
+
+  const hasFilters = Array.from(searchParams.entries()).length > 0;
 
   return (
-    <aside className="w-64 p-4 border-r border-gray-200 ml-5">
-      <button
-        onClick={handleTest}
-        className="text-red-500 font-medium text-sm underline"
-      >
-        Reset
-      </button>
-      <div className="mb-4">
-        <h3 className="font-semibold text-lg mb-2">Sub Category</h3>
-        {subCategory.map((item) => (
-          <Link href="" key={item} className="block">
-            {item}
-          </Link>
-        ))}
+    <>
+      <div className="mb-4 pb-4 border-b flex flex-col">
+        <span className="font-semibold">Filters</span>
+        {hasFilters && (
+          <button
+            onClick={resetFilters}
+            className="mt-4 py-1 px-3 border border-gray-200 hover:border-gray-500 duration-150 flex justify-between items-center"
+          >
+            <span className="inline-block basis-[10%]">
+              <IoCloseOutline />
+            </span>{" "}
+            <span className="inline-block basis-[90%]">Clear all</span>
+          </button>
+        )}
       </div>
-      {filterData.map(({ category, options, key }) => (
-        <div key={key} className="mb-4">
-          <h3 className="font-semibold text-lg mb-2">{category}</h3>
+      {filterData.map(({ category, options, key }, index) => (
+        <div
+          key={key}
+          className={`mb-4 pb-4 ${
+            index !== filterData.length - 1 ? "border-b border-gray-200" : ""
+          }`}
+        >
+          <h3 className="font-semibold mb-2">{category}</h3>
           <div>
             {options.map((option) => (
-              <label key={option} className="block">
+              <label key={option.param} className="block">
                 <input
                   type="checkbox"
-                  checked={filters[key]?.includes(option) || false}
-                  value={option}
-                  onChange={() => handleCheckboxChange(key, option)}
+                  checked={isChecked(key, option.param)}
+                  value={option.param}
+                  onChange={() => handleCheckboxChange(key, option.param)}
                 />
-                <span className="ml-2">{option}</span>
+                <span className="ml-2 text-sm capitalize">{option.title}</span>
               </label>
             ))}
           </div>
         </div>
       ))}
-    </aside>
+    </>
   );
 }
 

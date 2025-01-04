@@ -22,8 +22,8 @@ const Navbar = () => {
     "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
   return (
-    <nav className="bg-white sticky top-0 z-50 shadow">
-      <div className="container px-4 lg:px-20">
+    <nav className="bg-white sticky top-0 z-50 shadow-sm">
+      <div className="container px-4 lg:px-10">
         <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
           <div className="flex-shrink-0 w-28 md:w-36">
@@ -88,7 +88,7 @@ const Navbar = () => {
             {/* Nav Icons */}
             {/* <NavbarIcon /> */}
 
-            <div className="hidden md:flex items-center space-x-4 text-2xl">
+            <div className="hidden md:flex items-center text-2xl">
               <button className={`nav-button ${navIconsClasses}`}>
                 <CiSearch />
                 <svg className="circle" viewBox="0 0 50 50">
