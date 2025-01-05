@@ -1,7 +1,7 @@
-"use client"
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
@@ -12,40 +12,48 @@ import {
 } from "swiper/modules";
 
 function SocialImages() {
-    const socialImages = [
-      {
-        image: "/products/product_01.jpg",
-        title: "Tea 1",
-      },
-      {
-        image: "/products/product_02.jpg",
-        title: "Tea 2",
-      },
-      {
-        image: "/products/product_03.jpg",
-        title: "Tea 3",
-      },
-      {
-        image: "/products/product_04.jpg",
-        title: "Tea 4",
-      },
-      {
-        image: "/products/product_05.jpg",
-        title: "Tea 5",
-      },
-      {
-        image: "/products/product_06.jpg",
-        title: "Tea 6",
-      },
-      {
-        image: "/products/product_07.jpg",
-        title: "Tea 7",
-      },
-      {
-        image: "/products/product_08.jpg",
-        title: "Tea 8",
-      },
-    ];
+  const socialImages = [
+    {
+      image: "/products/product_01.jpg",
+      url: "https://facebook.com",
+      title: "Tea 1",
+    },
+    {
+      image: "/products/product_02.jpg",
+      url: "https://linkedin.com",
+      title: "Tea 2",
+    },
+    {
+      image: "/products/product_03.jpg",
+      url: "https://x.com",
+      title: "Tea 3",
+    },
+    {
+      image: "/products/product_04.jpg",
+      url: "https://instagram.com",
+      title: "Tea 4",
+    },
+    {
+      image: "/products/product_05.jpg",
+      url: "https://facebook.com",
+      title: "Tea 5",
+    },
+    {
+      image: "/products/product_06.jpg",
+      url: "https://facebook.com",
+      title: "Tea 6",
+    },
+    {
+      image: "/products/product_07.jpg",
+      url: "https://facebook.com",
+      title: "Tea 7",
+    },
+    {
+      image: "/products/product_08.jpg",
+      url: "https://facebook.com",
+      title: "Tea 8",
+    },
+  ];
   return (
     <div className="section-gap">
       <div className="container px-20">
@@ -57,12 +65,12 @@ function SocialImages() {
           speed={1000}
           loop={true}
           autoplay
-        //   slidesPerGroup={2}
+          //   slidesPerGroup={2}
           // onSlideChange={handleSlideChange}
-        //   navigation={{
-        //     prevEl: ".category-swiper-prev",
-        //     nextEl: ".category-swiper-next",
-        //   }}
+          //   navigation={{
+          //     prevEl: ".category-swiper-prev",
+          //     nextEl: ".category-swiper-next",
+          //   }}
           breakpoints={{
             320: {
               slidesPerView: 1,
@@ -88,7 +96,11 @@ function SocialImages() {
         >
           {socialImages.map((item, index) => (
             <SwiperSlide key={index}>
-              <Link href="">
+              <Link
+                href={item?.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -96,6 +108,11 @@ function SocialImages() {
                   height={500}
                 />
               </Link>
+              {/* <Link href="https://x.com" passHref>
+                <a target="_blank" rel="noopener noreferrer">
+                  Go to X.com
+                </a>
+              </Link> */}
             </SwiperSlide>
           ))}
         </Swiper>

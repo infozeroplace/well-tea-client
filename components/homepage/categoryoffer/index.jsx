@@ -1,19 +1,19 @@
 import React from "react";
-import CategoryOfferSlider from "./CategoryOfferSlider";
 import { SectionTitle } from "@/components/shared";
+import CategoryOfferCard from "./CategoryOfferCard";
 
 const CategoryOffer = () => {
   return (
     <div className="container px-4 lg:px-20 section-gap">
       <div className="max-w-[638px] mx-auto content-gap">
-        {/* <h1 className="uppercase text-center text-4xl text-teagreen-800">
-          The Well Tea
-        </h1> */}
         <SectionTitle title="The Well Tea" />
-        <h5 className="text-center text-xs md:text-base">Sharing our heritage</h5>
       </div>
-
-      <CategoryOfferSlider />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-20 md:mx-5 lg:mx-2 gap-5">
+        <CategoryOfferCard title="tea" />
+        <CategoryOfferCard title="teawares" />
+        <CategoryOfferCard title="gifts" />
+        <CategoryOfferCard title="sales" />
+      </div>
     </div>
   );
 };
