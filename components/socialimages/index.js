@@ -108,11 +108,6 @@ function SocialImages() {
                   height={500}
                 />
               </Link>
-              {/* <Link href="https://x.com" passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  Go to X.com
-                </a>
-              </Link> */}
             </SwiperSlide>
           ))}
         </Swiper>
