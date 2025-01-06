@@ -12,6 +12,7 @@ import {
   Autoplay,
 } from "swiper/modules";
 import { useSwiper } from "swiper/react";
+import { ProductCard } from "../shared";
 
 function CategorySlider({ visibleProducts }) {
   const [isLastSlide, setIsLastSlide] = useState(false);
@@ -60,7 +61,8 @@ function CategorySlider({ visibleProducts }) {
       >
         {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>
-            <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} />
+            {/* <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} /> */}
+            <ProductCard item={item} url={`tea/${item.type}/${item.id}`} />
           </SwiperSlide>
         ))}
       </Swiper>

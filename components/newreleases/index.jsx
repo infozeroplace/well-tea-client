@@ -1,9 +1,6 @@
-"use client";
 
-import React, { useState } from "react";
-import NewItemCard from "./NewItemCard";
-import { SectionButton, SectionLinkButton, SectionTitle } from "../shared";
-import { productList } from "@/data/products";
+import React from "react";
+import { ProductCard, SectionLinkButton } from "../shared";
 
 const newitems = [
   {
@@ -17,6 +14,9 @@ const newitems = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    isNew:false,
+    isFavorite:true,
+    weight: ["5","20"]
   },
   {
     id: "2",
@@ -29,6 +29,9 @@ const newitems = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    isNew:true,
+    isFavorite:false,
+    weight: ["5","10","20","30"]
   },
   {
     id: "3",
@@ -41,6 +44,9 @@ const newitems = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    isNew:false,
+    isFavorite:true,
+    weight: ["5","10","20"]
   },
   {
     id: "4",
@@ -53,6 +59,9 @@ const newitems = [
     rating: "4",
     price: "50",
     discountPrice: "20",
+    isNew:true,
+    isFavorite:false,
+    weight: ["5","10"]
   },
 ];
 const NewReleases = () => {
@@ -60,19 +69,18 @@ const NewReleases = () => {
     <div className="section-gap py-10">
       <div className="container px-4 md:px-20">
         <div className="">
-          <div className="lg:ml-10 mb-10">
-            <p className="text-center md:text-left uppercase text-xs md:text-base mb-2">
+          <div className="lg:ml-10 content-gap">
+            <p className="text-center md:text-left uppercase text-xs md:text-base">
             New Releases
             </p>
-            {/* <SectionTitle title="New Releases" exteraClasses="md:text-left" /> */}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-5 lg:gap-4 mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-5 lg:gap-4 mx-auto content-gap">
             {newitems.map((item, idx) => (
-              <NewItemCard key={item?.id} item={item} />
+              // <NewItemCard key={item?.id} item={item} />
+              <ProductCard key={item?.id} item={item} url={`tea/${item.type}/${item.id}`} />
             ))}
           </div>
           <div className="flex justify-center md:justify-center text-lg">
-            {/* <SectionButton title="See More" /> */}
             <SectionLinkButton title="See More" url="/tea" />
           </div>
         </div>
