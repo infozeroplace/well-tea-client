@@ -32,7 +32,7 @@ const DiscoverUs = () => {
                 <button
                   key={item?.title}
                   type="button"
-                  className={`text-lg md:text-2xl font-semibold text-center lg:text-left py-1 lg:py-2 xl:py-3 hover:text-teagreen-600 duration-400 ${
+                  className={`text-lg md:text-2xl font-light text-center lg:text-left py-1 lg:py-2 xl:py-3 hover:text-teagreen-600 duration-400 ${
                     selected === item?.title ? "text-teagreen-600" : ""
                   }`}
                   onClick={() => handleClick(item)}

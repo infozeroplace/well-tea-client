@@ -33,13 +33,13 @@ function Category() {
               key={item}
               onClick={() => dispatch(setCategory(item))}
               className={
-                "rounded-full p-2 md:px-5 text-sm md:text-base " +
+                "rounded-full p-2 md:px-5 text-sm md:text-base capitalize " +
                 (selectedCategory === item
                   ? activeClass
                   : "bg-teagreen-100 text-teagreen-600")
               }
             >
-              {item}
+              {item.replace("-", " ")}
             </button>
           ))}
         </div>

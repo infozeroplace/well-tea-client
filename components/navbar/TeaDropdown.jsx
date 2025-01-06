@@ -6,19 +6,19 @@ function TeaDropdown() {
   const productTypes = [
     {
       image: "/images/Teanav_Organic_Tea.webp",
-      type: "black tea",
-    },
-    {
-      image: "/images/Teanav_Flowering_tea.webp",
       type: "green tea",
     },
     {
-      image: "/images/Teanav_Herbal_tea.webp",
+      image: "/images/Teanav_Flowering_tea.webp",
       type: "white tea",
     },
     {
+      image: "/images/Teanav_Herbal_tea.webp",
+      type: "flowering tea",
+    },
+    {
       image: "/images/Teanav_Flowering_tea.webp",
-      type: "oolong tea",
+      type: "black tea",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
@@ -30,15 +30,15 @@ function TeaDropdown() {
     },
     {
       image: "/images/product_one.jpg",
-      type: "black tea",
+      type: "fruit tea",
     },
     {
       image: "/images/product_two.jpg",
-      type: "green tea",
+      type: "oolong tea",
     },
     {
       image: "/images/product_three.jpg",
-      type: "white tea",
+      type: "jasmine tea",
     },
     {
       image: "/images/product_one.jpg",
@@ -174,7 +174,7 @@ function TeaDropdown() {
                     width={50}
                     height={50}
                   />
-                  <p>{type.type}</p>
+                  <p className="capitalize">{type.type}</p>
                 </Link>
               ))}
             </div>

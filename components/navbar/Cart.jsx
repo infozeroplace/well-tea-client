@@ -97,8 +97,6 @@ const Cart = ({ buttonClass }) => {
 
   const cartItemsCount = cartItems.length;
 
-  // console.log(cartItems);
-
   const shippingCost = totalQuantity > 0 ? 20.00 : 0;
 
   const handleIncreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
@@ -132,14 +130,6 @@ const Cart = ({ buttonClass }) => {
   const handleRemoveItem = (productId, unit, purchaseType) => {
     dispatch(
       removeFromCart({ productId, unit, purchaseType })
-    )
-  }
-
-  const handleEmptyCart = () => {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <h3>Your cart is empty!</h3>
-      </div>
     )
   }
 
@@ -183,7 +173,8 @@ const Cart = ({ buttonClass }) => {
                   className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
                   <img
-                    src={item.product.thumbnails[0].path}
+                    // src={item.product?.thumbnails[0]?.path}
+                    src="/products/product_01.jpg"
                     alt={item.product.title}
                     className="w-20 h-20 object-cover mr-3"
                   />
@@ -192,17 +183,17 @@ const Cart = ({ buttonClass }) => {
                     <p className="text-sm capitalize">{item.product.type}</p>
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
-                        {item.unitObj.unit}
+                        {item.unitObj?.unit}
                       </p>
                       <p className="text-sm font-normal">
                         £{toNumber(item.itemTotal).toFixed(2)}
                       </p>
+                    </div>
                       {item.purchaseType === "subscribe" && (
                         <p className="text-sm font-normal">
-                          Subscribed for {item.selectedSubObj.weeks}
+                          Subscribtion: {item.subObj.weeks}
                         </p>
                       )}
-                    </div>
                   </div>
                   <div className="flex items-center border text-base font-light">
                     <button
@@ -253,17 +244,15 @@ const Cart = ({ buttonClass }) => {
           <div className="p-4 border-t text-sm mt-auto">
             <div className="flex justify-between text-sm">
               <span>Items ({totalQuantity})</span>
-              <span>${toNumber(totalCost).toFixed(2)} AUD</span>
+              <span>£{toNumber(totalCost).toFixed(2)}</span>
             </div>
             <div className="flex justify-between mb-4">
               <span>Shipping</span>
-              {/* <span>${shippingCost.toFixed(2)} AUD</span> */}
-              <span>${toNumber(shippingCost).toFixed(2)} AUD</span>
+              <span>£{toNumber(shippingCost).toFixed(2)}</span>
             </div>
             <div className="flex justify-between font-semibold mb-5">
               <span>Total</span>
-              {/* <span>${total.toFixed(2)} AUD</span> */}
-              <span>${toNumber(totalCost + shippingCost).toFixed(2)} AUD</span>
+              <span>£{toNumber(totalCost + shippingCost).toFixed(2)}</span>
             </div>
             <SectionLinkButton
               url={`/cart`}

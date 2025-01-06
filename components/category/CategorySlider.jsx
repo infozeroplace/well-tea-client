@@ -62,7 +62,7 @@ function CategorySlider({ visibleProducts }) {
         {visibleProducts.map((item, index) => (
           <SwiperSlide key={index}>
             {/* <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} /> */}
-            <ProductCard item={item} url={`tea/${item.type}/${item.id}`} />
+            <ProductCard item={item} url={`tea/${item.id}`} />
           </SwiperSlide>
         ))}
       </Swiper>

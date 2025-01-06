@@ -8,14 +8,16 @@ const ProductDetails = ({ product }) => {
 
   const availableOptions = ["Loose Leaf", "Tea Bags", "Tea Caddy"];
 
+  console.log(product.type[0].toLowerCase());
+
   return (
     <div className="py-8">
       <div className="">
         <div className="mb-6">
-          <h4 className="text-green-800 font-semibold capitalize">
+          <h4 className="text-teagreen-600 font-semibold capitalize">
             {product.type}
           </h4>
-          <h1 className="text-2xl font-bold">{product.title}</h1>
+          <h1 className="text-2xl font-normal">{product.title}</h1>
           <p className="mt-2 capitalize">{product.flavour}</p>
           <p className="capitalize">
             {product.originAddress}, {product.originName}
@@ -34,14 +36,18 @@ const ProductDetails = ({ product }) => {
               <Link
                 href="/"
                 key={item}
-                className="py-2 px-5 text-teagreen-800 bg-teagreen-100 rounded-full"
+                className={
+                  "py-2 px-5 text-teagreen-800 bg-teagreen-100 rounded-full " +
+                  (item.toLowerCase() === product.format[0].toLowerCase() &&
+                    "border-1 border-teagreen-600 bg-inherit")
+                }
               >
                 {item}
               </Link>
             ))}
           </div>
         </div>
-        <ManageProduct product={product}/>
+        <ManageProduct product={product} />
         <SocialShare />
       </div>
     </div>

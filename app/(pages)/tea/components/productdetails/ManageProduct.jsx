@@ -134,7 +134,7 @@ function ManageProduct({ product }) {
           product,
           unitObj: selectedUnitObj,
           purchaseType,
-          selectedSubObj: purchaseType === "subscribe" && selectedSubObj,
+          subObj: purchaseType === "subscribe" && selectedSubObj,
           quantity,
           productPrice: totalPrice / quantity,
           addOns: [],
@@ -154,7 +154,7 @@ function ManageProduct({ product }) {
               className={`py-2 px-10 rounded-full ${
                 selectedUnitObj === item
                   ? "bg-teagreen-600 text-white"
-                  : "text-teagreen-800 bg-teagreen-100"
+                  : "text-teagreen-600 bg-teagreen-100"
               }`}
             >
               {item.unit}
