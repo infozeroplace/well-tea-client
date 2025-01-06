@@ -146,7 +146,7 @@ function Hero() {
                     // className="space-y-4 inline-block mt-4 bg-teagreen-600 hover:bg-teagreen-500 px-16 py-3 rounded-lg text-white font-medium duration-300"
                     className="mt-5 flex justify-center md:justify-start"
                   >
-                    <SectionButton title="Shop Now" textClass="!mx-auto !text-white" buttonClass="!bg-teagreen-500" />``
+                    <SectionButton title="Shop Now" textClass="!mx-auto !text-white" buttonClass="!bg-teagreen-500" />
                   </motion.div>
                 </div>
               </div>

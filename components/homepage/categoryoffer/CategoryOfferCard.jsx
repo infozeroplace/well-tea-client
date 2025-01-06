@@ -1,19 +1,13 @@
-import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const CategoryOfferCard = ({ item }) => {
+const CategoryOfferCard = ({ title }) => {
   return (
-    <div className="relative bg-cover aspect-square bg-teagreen-600 rounded-lg backdrop-opacity-10">
-      <div className="z-20 text-white flex flex-col justify-center items-center text-center h-full">
-        <div className="text-3xl font-semibold">{item.discount} off for <br />{item.name}</div>
-        <p className="text-xs">T&Cs Aapply.</p>
+    <Link href={`/${title}`} className="bg-cover aspect-square bg-teagreen-600 rounded-lg group">
+      <div className="text-white flex flex-col justify-center items-center text-center h-full">
+        <div className="text-4xl lg:text-3xl group-hover:text-5xl lg:group-hover:text-4xl xl:group-hover:text-5xl duration-300 font-semibold capitalize">{title}</div>
       </div>
-      <div
-        style={{ backgroundImage: `url("/products/product_07_square.jpg")` }}
-        // style={{ backgroundImage: `url("/images/about-image-8.jpg")` }}
-        className="absolute inset-0 bg-cover opacity-20 -z-10"
-      ></div>
-    </div>
+    </Link>
   );
 };
 

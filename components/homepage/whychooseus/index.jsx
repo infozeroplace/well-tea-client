@@ -66,11 +66,10 @@ const WhyChooseUs = () => {
             </div>
           </div>
           <div className="mt-3">
-            <div className="mb-2 xl:mb-5 text-center lg:text-left">{choosOption?.icon}</div>
             <div className="text-xs 2xl:text-base text-center lg:text-left lg:text-base mb-2 lg:mb-5">
               {choosOption?.description}
             </div>
-            <div className="flex justify-center md:justify-center text-lg">
+            <div className="flex justify-center md:justify-start text-lg">
               {/* <SectionLinkButton title="See More" url="/tea" /> */}
               <SectionLinkButton title="Learn more" url="/tea" />
             </div>

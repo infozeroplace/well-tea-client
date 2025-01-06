@@ -56,15 +56,15 @@ function ExploreDropdown() {
   const giftInspirationList = [
     {
       name: "How to make tea",
-      url: "/",
+      url: "/explore/how-to-brew/how-to-make-tea",
     },
     {
       name: "How to make iced tea",
-      url: "/",
+      url: "/explore/how-to-brew/how-to-make-iced-tea",
     },
     {
       name: "How to make Matcha",
-      url: "/",
+      url: "/explore/how-to-brew/how-to-make-matcha",
     },
   ];
 

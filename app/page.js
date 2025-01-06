@@ -22,7 +22,7 @@ export default function Home() {
       <NewReleases />
       <Banner />
       <GiftItems />
-      <ChooseType />
+      {/* <ChooseType /> */}
       {/* <TeaRange /> */}
       {/* <SelectedTeas /> */}
       <WhyChooseUs />
