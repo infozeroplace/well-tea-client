@@ -97,39 +97,41 @@ const Cart = ({ buttonClass }) => {
 
   const cartItemsCount = cartItems.length;
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   const shippingCost = totalQuantity > 0 ? 20.00 : 0;
 
-  const handleIncreaseQuantity = (productId, weight, currentQuantity) => {
+  const handleIncreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
     dispatch(
       updateQuantity({
         productId,
-        weight,
+        unit,
         quantity: currentQuantity + 1,
+        purchaseType,
       })
     )
   }
 
-  const handleDecreaseQuantity = (productId, weight, currentQuantity) => {
+  const handleDecreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
     if(currentQuantity > 1){
       dispatch(
         updateQuantity({
           productId,
-          weight,
+          unit,
           quantity: currentQuantity - 1,
+          purchaseType,
         })
       )
     } else {
       dispatch(
-        removeFromCart({ productId, weight })
+        removeFromCart({ productId, unit, purchaseType })
       )
     }
   }
 
-  const handleRemoveItem = (productId, weight) => {
+  const handleRemoveItem = (productId, unit, purchaseType) => {
     dispatch(
-      removeFromCart({ productId, weight })
+      removeFromCart({ productId, unit, purchaseType })
     )
   }
 
@@ -170,8 +172,7 @@ const Cart = ({ buttonClass }) => {
         {/* ------ Cart Items ------ */}
         <div className="flex flex-col">
           <div className="overflow-y-auto h-[calc(100vh-15rem)]">
-            {
-            totalQuantity < 1 ? (
+            {totalQuantity < 1 ? (
               <div className="flex items-center justify-center h-96">
                 <h3>Your cart is empty!</h3>
               </div>
@@ -182,25 +183,36 @@ const Cart = ({ buttonClass }) => {
                   className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
                   <img
-                    src={item.product.image}
-                    alt={item.product.name}
+                    src={item.product.thumbnails[0].path}
+                    alt={item.product.title}
                     className="w-20 h-20 object-cover mr-3"
                   />
                   <div className="flex-1 flex flex-col gap-2">
                     <h3 className="text-sm font-light">{item.product.title}</h3>
-                    <p className="text-sm">{item.product.type}</p>
+                    <p className="text-sm capitalize">{item.product.type}</p>
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
-                        {item.weight}g
+                        {item.unitObj.unit}
                       </p>
                       <p className="text-sm font-normal">
-                        ${item.itemTotal} AUD
+                        £{toNumber(item.itemTotal).toFixed(2)}
                       </p>
+                      {item.purchaseType === "subscribe" && (
+                        <p className="text-sm font-normal">
+                          Subscribed for {item.selectedSubObj.weeks}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center border text-base font-light">
                     <button
-                      onClick={() => handleRemoveItem(item.product.id, item.weight)}
+                      onClick={() =>
+                        handleRemoveItem(
+                          item.product._id,
+                          item.unitObj.unit,
+                          item.purchaseType
+                        )
+                      }
                       className="px-2 py-2 bg-gray-50 hover:bg-gray-100"
                     >
                       <PiTrashSimpleLight className="" />
@@ -208,9 +220,10 @@ const Cart = ({ buttonClass }) => {
                     <button
                       onClick={() =>
                         handleDecreaseQuantity(
-                          item.product.id,
-                          item.weight,
-                          item.quantity
+                          item.product._id,
+                          item.unitObj.unit,
+                          item.quantity,
+                          item.purchaseType
                         )
                       }
                       className="px-2 py-1 bg-gray-50 hover:bg-gray-100"
@@ -221,9 +234,10 @@ const Cart = ({ buttonClass }) => {
                     <button
                       onClick={() =>
                         handleIncreaseQuantity(
-                          item.product.id,
-                          item.weight,
-                          item.quantity
+                          item.product._id,
+                          item.unitObj.unit,
+                          item.quantity,
+                          item.purchaseType
                         )
                       }
                       className="px-2 py-1 bg-gray-50 hover:bg-gray-100"
@@ -232,8 +246,8 @@ const Cart = ({ buttonClass }) => {
                     </button>
                   </div>
                 </div>
-              )))
-            }
+              ))
+            )}
           </div>
           {/* --------- Cart Bottom --------- */}
           <div className="p-4 border-t text-sm mt-auto">

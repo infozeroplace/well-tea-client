@@ -23,8 +23,8 @@ function TeawareDropdown() {
 
   return (
     <div>
-      <div className="w-full mx-auto flex justify-between">
-        <div className="basis-[50%] flex justify-evenly w-full border-r p-5">
+      <div className="">
+        <div className="flex justify-center gap-10 w-full p-5">
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">All Teaware</h3>
             {allTeawares.map((item, index) => (
@@ -37,21 +37,6 @@ function TeawareDropdown() {
               </Link>
             ))}
           </div>
-          {/* <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Gift Inspirations</h3>
-            {giftInspirationList.map((item, index) => (
-              <Link
-                key={index}
-                href={item.url}
-                className="hover:text-teagreen-600"
-              >
-                <p>{item.name}</p>
-              </Link>
-            ))}
-          </div> */}
-        </div>
-
-        <div className="basis-[50%] w-full flex justify-evenly pt-5">
           <Link href="/" className="group flex flex-col items-center gap-5">
             <Image
               src="/whychooseus/slide_banner_09.jpg"

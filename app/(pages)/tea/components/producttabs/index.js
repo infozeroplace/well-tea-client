@@ -8,7 +8,7 @@ import ReturnsAndDelivery from './ReturnsAndDelivery';
 import Ingredients from './Ingredients';
 import HowToMake from './HowToMake';
 
-function ProductTabs() {
+function ProductTabs({ product }) {
   return (
     <div className="my-10">
       <div className="flex flex-col">
@@ -16,14 +16,14 @@ function ProductTabs() {
           <Tab key="description" title="Description">
             <div className="mt-5">
               <Card>
-                <Description />
+                <Description description={product.description} />
               </Card>
             </div>
           </Tab>
           <Tab key="ingredients" title="Ingredients">
             <div className="mt-5">
               <Card>
-                <Ingredients />
+                <Ingredients ingredient={product.ingredient} />
               </Card>
             </div>
           </Tab>

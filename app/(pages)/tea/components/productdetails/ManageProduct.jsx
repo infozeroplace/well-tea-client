@@ -54,32 +54,21 @@ function ManageProduct({ product }) {
       },
     ];
 
-    const discountRates = {
-      1: 10,
-      3: 7.5,
-      5: 5,
-    };
-
     const [purchaseType, setPurchaseType] = useState("one-time");
-    const [discountKey, setdiscountKey] = useState("1");
-
-
+    // const [discountKey, setdiscountKey] = useState("1");
     const [quantity, setQuantity] = useState(1);
-    const [selectedAddOns, setSelectedAddOns] = useState([]);
-    const [selectedWeight, setSelectedWeight] = useState(product.weight[0]);
-    const [totalPrice, setTotalPrice] = useState(toNumber(product.price));
+    // const [selectedAddOns, setSelectedAddOns] = useState([]);
+    // const [selectedUnit, setSelectedUnit] = useState(product.unitPrices[0].unit);
     const dispatch = useDispatch();
-
-
-    const calculatePrice = () => {
-      if (purchaseType === "one-time") {
-        return toNumber(product.price).toFixed(2);
-      }
-      const discount = discountRates[discountKey] || 0;
-      const priceDiscounted =
-        (toNumber(product.price).toFixed(2) * discount).toFixed(2) / 100;
-      return toNumber(product.price - priceDiscounted).toFixed(2);
-    };
+    const [selectedUnitObj, setSelectedUnitObj] = useState(product?.unitPrices?.[0]);
+    const [selectedSubObj, setSelectedSubObj] = useState(
+      product?.subscriptions?.[0]
+    );
+    const [totalPrice, setTotalPrice] = useState(
+      product.isSale
+        ? toNumber(selectedUnitObj?.salePrice)
+        : selectedUnitObj?.price
+    );
 
     // ---------- Handle Quantity Change ---------- //
     const handleQuantityChange = (type) => {
@@ -88,66 +77,87 @@ function ManageProduct({ product }) {
       );
     };
 
-    // ---------- Handle Weight Selection ---------- //
-    const handleWeightSelect = (weight) => {
-      setSelectedWeight(weight);
+    // ---------- Handle Unit Selection ---------- //
+    const handleUnitSelect = (unitObj) => {
+      setSelectedUnitObj(unitObj);
     };
 
+    const handleSubscriptionChange = (e) => {
+      const selectedSubscription = product.subscriptions.find(
+        (sub) => sub._id === e.target.value
+      );
+      setSelectedSubObj(selectedSubscription);
+    }
+
     // ---------- Handle Add-On Selection ---------- //
-    const handleAddOnSelect = (addOn) => {
-      setSelectedAddOns((prevAddOns) => {
-        if (prevAddOns.some((a) => a.id === addOn.id)) {
-          return prevAddOns.filter((a) => a.id !== addOn.id);
-        } else {
-          return [...prevAddOns, addOn];
-        }
-      });
-    };
+    // const handleAddOnSelect = (addOn) => {
+    //   setSelectedAddOns((prevAddOns) => {
+    //     if (prevAddOns.some((a) => a.id === addOn.id)) {
+    //       return prevAddOns.filter((a) => a.id !== addOn.id);
+    //     } else {
+    //       return [...prevAddOns, addOn];
+    //     }
+    //   });
+    // };
 
 
     // ---------- Calculate Total Price ---------- //
     useEffect(() => {
-      const addOnPrice = selectedAddOns.reduce(
-        (sum, addOn) => sum + toNumber(addOn.price),
-        0
-      );
-      const pricePerWeight = toNumber(product.price / product.weight[0]);
-      const calculatedTotal =
-        pricePerWeight * quantity * selectedWeight + addOnPrice;
+      // const addOnPrice = selectedAddOns.reduce(
+      //   (sum, addOn) => sum + toNumber(addOn.price),
+      //   0
+      // );
 
-      setTotalPrice(calculatedTotal);
-    }, [quantity, selectedAddOns, selectedWeight, product.price]);
+      const productPrice =
+        product?.isSubscription && purchaseType === "subscribe"
+          ? selectedUnitObj.subscriptionPrice
+          : product.isSale
+          ? selectedUnitObj.salePrice
+          : selectedUnitObj.price;
+
+      setTotalPrice(productPrice * quantity);
+    }, [quantity, selectedUnitObj, purchaseType]);
 
     // ---------- Handle Add To Cart ---------- //
     const handleAddToCart = () => {
-      const itemsToAdd = [
-        { product, weight: selectedWeight, quantity, addOns: [] },
-        ...selectedAddOns.map((addOn) => ({
-          product: addOn,
-          weight: addOn.weight ? addOn.weight[0] : null,
-          quantity: 1,
+      // const itemsToAdd = [
+      //   { product, unitObj: selectedUnitObj, purchaseType, quantity, addOns: [] },
+      //   ...selectedAddOns.map((addOn) => ({
+      //     product: addOn,
+      //     quantity: 1,
+      //     addOns: [],
+      //   })),
+      // ];
+      // itemsToAdd.forEach((item) => dispatch(addToCart(item)));
+      dispatch(
+        addToCart({
+          product,
+          unitObj: selectedUnitObj,
+          purchaseType,
+          selectedSubObj: purchaseType === "subscribe" && selectedSubObj,
+          quantity,
+          productPrice: totalPrice / quantity,
           addOns: [],
-        })),
-      ];
-      itemsToAdd.forEach((item) => dispatch(addToCart(item)));
+        })
+      );
     };
 
   return (
     <div>
       <div className="my-5">
-        <h3 className="mb-4 font-normal">Product Weight</h3>
+        <h3 className="mb-4 font-normal">Product Unit</h3>
         <div className="flex gap-4">
-          {product.weight.map((item, index) => (
+          {product.unitPrices.map((item, index) => (
             <button
-              key={index}
-              onClick={() => handleWeightSelect(item)}
+              key={item.unit}
+              onClick={() => handleUnitSelect(item)}
               className={`py-2 px-10 rounded-full ${
-                selectedWeight === item
+                selectedUnitObj === item
                   ? "bg-teagreen-600 text-white"
                   : "text-teagreen-800 bg-teagreen-100"
               }`}
             >
-              {item}
+              {item.unit}
             </button>
           ))}
         </div>
@@ -168,7 +178,10 @@ function ManageProduct({ product }) {
               />
               <span className="">One-Time Purchase</span>
               <span className="ml-auto font-normal">
-                £{toNumber(product.price).toFixed(2)}
+                £
+                {product.isSale
+                  ? toNumber(selectedUnitObj.salePrice).toFixed(2)
+                  : toNumber(selectedUnitObj.price).toFixed(2)}
               </span>
             </label>
 
@@ -184,35 +197,36 @@ function ManageProduct({ product }) {
                   className="form-radio h-5 w-5 text-green-600 mr-3"
                 />
                 <span className="">Subscribe and Save</span>
-                <span className="ml-auto">£{calculatePrice()}</span>
+                <span className="ml-auto">
+                  £{toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
+                </span>
               </label>
 
               {/* -------------- Subscription Frequency Options ------------- */}
               {purchaseType === "subscribe" && (
                 <div className="mt-4 space-y-2">
-                  {Object.entries(discountRates).map(([key, discount]) => (
-                    <label key={key} className="flex items-center space-x-3">
-                      <input
-                        type="radio"
-                        name="frequency"
-                        value={key}
-                        checked={discountKey === key}
-                        onChange={() => setdiscountKey(key)}
-                        className="form-radio h-4 w-4 text-green-600 ml-8"
-                      />
-                      <span>
-                        Every {key} month{key > 1 ? "s" : ""} (
-                        {discount}% off)
-                      </span>
-                    </label>
-                  ))}
+                  <select
+                    value={selectedSubObj._id}
+                    onChange={handleSubscriptionChange}
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-teagreen-600"
+                  >
+                    {product.subscriptions.map((item) => (
+                      <option
+                        key={item._id}
+                        value={item._id}
+                        className="p-2 bg-white "
+                      >
+                        {item.weeks}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               )}
             </div>
           </div>
 
           {/* --------------- Subscribe and Save Description -------------- */}
-          {purchaseType === "subscribe" && (
+          {/* {purchaseType === "subscribe" && (
             <div className="mt-5">
               <h3 className="font-normal">Subscribe and Save</h3>
               <p className="mt-4 text-sm text-gray-600">
@@ -222,12 +236,12 @@ function ManageProduct({ product }) {
                 subscription at any time.
               </p>
             </div>
-          )}
+          )} */}
         </div>
       </div>
 
       {/* --------------- Helpful Addons --------------- */}
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Helpful Add-Ons</h3>
         {addOns.map((addOn) => (
           <div
@@ -253,7 +267,7 @@ function ManageProduct({ product }) {
             />
           </div>
         ))}
-      </div>
+      </div> */}
       {/* ------------ Add to cart Button ----------- */}
       <div className="flex mb-6">
         <div className="flex items-center bg-teagreen-600 text-white py-1">

@@ -289,47 +289,289 @@ export const productList = [
 ];
 
 export const teaList = [
-  {
-    productId: "assam-breakfast-tea",
-    title: "Assam Breakfast Tea",
-    description:
-      "Rich and well-rounded in flavor yet beautifully delicate, our Supreme Earl Grey has evenly graded, rolled wiry leaves and deep golden-amber color. It's bright and floral qualities invite you to slow down and take a breath, making it the perfect mid-morning or afternoon brew that can be enjoyed with or without milk",
-    shortDescription:
-      "Our award-winning Earl Grey Supreme combines premium Ceylon leaves with delightfully fragrant bergamot oil in this exquisite best-selling tea.",
-    thumbnails: [
-      {
-        url: "https://something1",
-      },
-    ],
-    slideImages: [
-      {
-        url: "https://something1",
-      },
-    ],
-    type: ["black-tea"],
-    format: ["loose-leaf"],
-    flavour: ["floral"],
-    ingredient: ["cacao", "cardamom", "carob", "ginger"],
-    benefit: ["energy", "gut-health", "immunity"],
-    originName: "china",
-    originAddress: "From Baotian Garden, Hunan",
-    isSale: false,
-    isSubscription: true,
-    sale: 10,
-    subscriptionSale: 10,
-    reviews: [],
-    ratings: 5,
-    unitPrices: [
-      { unit: "50gm", price: 4 },
-      { unit: "125gm", price: 8.45 },
-      { unit: "250gm", price: 15.5 },
-      { unit: "1kg", price: 42.75 },
-    ],
-    subscriptions: [
-      { weeks: "2 week", days: 14 },
-      { weeks: "4 week", days: 28 },
-      { weeks: "6 week", days: 42 },
-      { weeks: "8 week", days: 56 },
-    ],
-  },
-];
+        {
+            "_id": "677997c91f208bbbe5ee9ee2",
+            "productId": "organic-jade-sword-tea-bags",
+            "title": "Jade Sword™ Green Tea, Tea Bags",
+            "description": "Grown among misty mountains in a remote part of Hunan province, our Organic Jade Sword™️ is spring-picked at an altitude of 800m, from a garden rich with biodiversity. The garden had been abandoned in the early '90s and was revived in 2007 by tea master Zhou Wei, when he saw an opportunity to help the local minority ethnic people. He has been producing organic tea ever since, providing locals with the chance to build a community and a home. Please dispose of your used tea bags in your council food waste bin.",
+            "shortDescription": "Bursting with sweet spring flavour, and selected for its succulent fresh taste, this is our introduction to exceptional green tea in biodegradable tea bags. A refreshing infusion with sappy top notes.",
+            "thumbnails": [
+                {
+                    "alt": "product_03",
+                    "uid": "product_03__1736021927304_c13d94d15baee7a9.jpg",
+                    "path": "/public/image/upload/product_03__1736021927304_c13d94d15baee7a9.jpg",
+                    "_id": "677997c91f208bbbe5ee9ee3"
+                },
+                {
+                    "alt": "product_04",
+                    "uid": "product_04__1736021942633_5441fcfeae82710d.jpg",
+                    "path": "/public/image/upload/product_04__1736021942633_5441fcfeae82710d.jpg",
+                    "_id": "677997c91f208bbbe5ee9ee4"
+                }
+            ],
+            "slideImages": [
+                {
+                    "alt": "product_03",
+                    "uid": "product_03__1736021927304_c13d94d15baee7a9.jpg",
+                    "path": "/public/image/upload/product_03__1736021927304_c13d94d15baee7a9.jpg",
+                    "_id": "677997c91f208bbbe5ee9ee5"
+                },
+                {
+                    "alt": "product_04",
+                    "uid": "product_04__1736021942633_5441fcfeae82710d.jpg",
+                    "path": "/public/image/upload/product_04__1736021942633_5441fcfeae82710d.jpg",
+                    "_id": "677997c91f208bbbe5ee9ee6"
+                }
+            ],
+            "type": [
+                "green tea"
+            ],
+            "format": [
+                "loose leaf"
+            ],
+            "flavour": [
+                "floral"
+            ],
+            "ingredient": [
+                "cacao",
+                "cardamom",
+                "carob",
+                "ginger"
+            ],
+            "benefit": [
+                "energy",
+                "gut health",
+                "immunity"
+            ],
+            "originName": "japan",
+            "originAddress": "from baotian garden, hunan",
+            "isSale": false,
+            "isSubscription": true,
+            "sale": 10,
+            "subscriptionSale": 10,
+            "ratings": 2,
+            "reviews": [],
+            "howToMakeTea": [
+                {
+                    "title": "A hot cup",
+                    "requirements": [
+                        "Tea leaves",
+                        "Hot water"
+                    ],
+                    "steps": [
+                        "Boil water",
+                        "Add tea leaves",
+                        "Steep for 5 minutes"
+                    ],
+                    "_id": "677997c91f208bbbe5ee9ee7"
+                },
+                {
+                    "title": "An iced cup",
+                    "requirements": [
+                        "Tea leaves",
+                        "Hot water"
+                    ],
+                    "steps": [
+                        "Boil water",
+                        "Add tea leaves",
+                        "Steep for 5 minutes"
+                    ],
+                    "_id": "677997c91f208bbbe5ee9ee8"
+                }
+            ],
+            "unitPrices": [
+                {
+                    "unit": "50gm",
+                    "price": 4,
+                    "salePrice": 0,
+                    "subscriptionPrice": 3.6
+                },
+                {
+                    "unit": "125gm",
+                    "price": 8.45,
+                    "salePrice": 0,
+                    "subscriptionPrice": 7.6
+                },
+                {
+                    "unit": "250gm",
+                    "price": 15.5,
+                    "salePrice": 0,
+                    "subscriptionPrice": 13.95
+                },
+                {
+                    "unit": "1kg",
+                    "price": 42.75,
+                    "salePrice": 0,
+                    "subscriptionPrice": 38.48
+                }
+            ],
+            "subscriptions": [
+                {
+                    "weeks": "2 week",
+                    "days": 14,
+                    "_id": "677997c91f208bbbe5ee9eed"
+                },
+                {
+                    "weeks": "4 week",
+                    "days": 28,
+                    "_id": "677997c91f208bbbe5ee9eee"
+                },
+                {
+                    "weeks": "6 week",
+                    "days": 42,
+                    "_id": "677997c91f208bbbe5ee9eef"
+                },
+                {
+                    "weeks": "8 week",
+                    "days": 56,
+                    "_id": "677997c91f208bbbe5ee9ef0"
+                }
+            ],
+            "createdAt": "2025-01-04T20:19:21.525Z",
+            "updatedAt": "2025-01-04T20:19:21.525Z",
+            "__v": 0
+        },
+        {
+            "_id": "6779976d1f208bbbe5ee9ecf",
+            "productId": "rooibos-tea-bags",
+            "title": "Rooibos Tea Bags",
+            "description": "Rooibos, meaning 'red bush', is only grown in Cederberg, a small, mountainous region of South Africa's Western Cape province. Similar to a traditional black tea, our specially selected, long cut rooibos leaves are fully oxidised for a sweet, honeyed herbal infusion. Naturally caffeine-free, Rooibos has a soft, gently tangy flavour with a distinctive hint of bitter Seville orange richness. Did you know, ‘herbal infusion’ is a preferable term to ‘herbal tea’, as tea is an infusion of leaves only from the Camellia sinensis. Please dispose of your used tea bags in your council food waste bin.",
+            "shortDescription": "Tangy and mellow with a subtle richness of Seville oranges. Our Rooibos presents the purest clarity of flavour from its deep red, long cut leaves, with a rich infusion that is full of authentic character.",
+            "thumbnails": [
+                {
+                    "alt": "product_01",
+                    "uid": "product_01__1736021827277_4ca9a3d55643ab81.jpg",
+                    "path": "/public/image/upload/product_01__1736021827277_4ca9a3d55643ab81.jpg",
+                    "_id": "6779976d1f208bbbe5ee9ed0"
+                },
+                {
+                    "alt": "product_02",
+                    "uid": "product_02__1736021845364_24cda6f186ba3104.jpg",
+                    "path": "/public/image/upload/product_02__1736021845364_24cda6f186ba3104.jpg",
+                    "_id": "6779976d1f208bbbe5ee9ed1"
+                }
+            ],
+            "slideImages": [
+                {
+                    "alt": "product_01",
+                    "uid": "product_01__1736021827277_4ca9a3d55643ab81.jpg",
+                    "path": "/public/image/upload/product_01__1736021827277_4ca9a3d55643ab81.jpg",
+                    "_id": "6779976d1f208bbbe5ee9ed2"
+                },
+                {
+                    "alt": "product_02",
+                    "uid": "product_02__1736021845364_24cda6f186ba3104.jpg",
+                    "path": "/public/image/upload/product_02__1736021845364_24cda6f186ba3104.jpg",
+                    "_id": "6779976d1f208bbbe5ee9ed3"
+                }
+            ],
+            "type": [
+                "herbal tea"
+            ],
+            "format": [
+                "tea bag"
+            ],
+            "flavour": [
+                "citrus",
+                "fruity"
+            ],
+            "ingredient": [
+                "ginger",
+                "watermelon",
+                "mango",
+                "cucumber"
+            ],
+            "benefit": [
+                "energy",
+                "gut health",
+                "immunity"
+            ],
+            "originName": "china",
+            "originAddress": "from park street, bejing",
+            "isSale": true,
+            "isSubscription": true,
+            "sale": 10,
+            "subscriptionSale": 20,
+            "ratings": 0,
+            "reviews": [],
+            "howToMakeTea": [
+                {
+                    "title": "A hot cup",
+                    "requirements": [
+                        "Tea leaves",
+                        "Hot water"
+                    ],
+                    "steps": [
+                        "Boil water",
+                        "Add tea leaves",
+                        "Steep for 5 minutes"
+                    ],
+                    "_id": "6779976d1f208bbbe5ee9ed4"
+                },
+                {
+                    "title": "An iced cup",
+                    "requirements": [
+                        "Tea leaves",
+                        "Hot water"
+                    ],
+                    "steps": [
+                        "Boil water",
+                        "Add tea leaves",
+                        "Steep for 5 minutes"
+                    ],
+                    "_id": "6779976d1f208bbbe5ee9ed5"
+                }
+            ],
+            "unitPrices": [
+                {
+                    "unit": "50gm",
+                    "price": 3,
+                    "salePrice": 2.7,
+                    "subscriptionPrice": 2.4
+                },
+                {
+                    "unit": "125gm",
+                    "price": 8.45,
+                    "salePrice": 7.6,
+                    "subscriptionPrice": 6.76
+                },
+                {
+                    "unit": "250gm",
+                    "price": 15.5,
+                    "salePrice": 13.95,
+                    "subscriptionPrice": 12.4
+                },
+                {
+                    "unit": "1kg",
+                    "price": 42.75,
+                    "salePrice": 38.48,
+                    "subscriptionPrice": 34.2
+                }
+            ],
+            "subscriptions": [
+                {
+                    "weeks": "2 week",
+                    "days": 14,
+                    "_id": "6779976d1f208bbbe5ee9eda"
+                },
+                {
+                    "weeks": "4 week",
+                    "days": 28,
+                    "_id": "6779976d1f208bbbe5ee9edb"
+                },
+                {
+                    "weeks": "6 week",
+                    "days": 42,
+                    "_id": "6779976d1f208bbbe5ee9edc"
+                },
+                {
+                    "weeks": "8 week",
+                    "days": 56,
+                    "_id": "6779976d1f208bbbe5ee9edd"
+                }
+            ],
+            "createdAt": "2025-01-04T20:17:49.063Z",
+            "updatedAt": "2025-01-04T20:17:49.063Z",
+            "__v": 0
+        },
+    ]
