@@ -6,7 +6,7 @@ const TeaType = async ({ searchParams: rawSearchParams }) => {
   const searchParams = await Promise.resolve(rawSearchParams);
 
   const queryParams = new URLSearchParams(searchParams).toString();
-  const url = `/public/product/list?${queryParams}`;
+  const url = `/public/product/tea/list?${queryParams}`;
 
   const {
     data: { data },
@@ -25,7 +25,7 @@ const TeaType = async ({ searchParams: rawSearchParams }) => {
             </div>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {data.map((item) => (
-                <CategoryCard key={item.id} item={item} />
+                <CategoryCard key={item._id} item={item} />
               ))}
             </div>
           </div>

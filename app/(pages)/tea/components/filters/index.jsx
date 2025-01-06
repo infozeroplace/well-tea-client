@@ -1,69 +1,74 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-
-const filterData = [
-  {
-    category: "Tea Format",
-    options: [
-      { title: "loose leaf", param: "loose-leaf" },
-      { title: "tea caddy", param: "tea-caddy" },
-      { title: "tea bag", param: "tea-bag" },
-    ],
-    key: "format",
-  },
-  {
-    category: "Price",
-    options: [
-      { title: "$0-$25", param: "0-25" },
-      { title: "$26-$40", param: "26-40" },
-      { title: "$41-$65", param: "41-65" },
-    ],
-    key: "price",
-  },
-  {
-    category: "Health Benefit",
-    options: [
-      { title: "energy", param: "energy" },
-      { title: "gut health", param: "gut-health" },
-      { title: "immunity", param: "immunity" },
-    ],
-    key: "benefit",
-  },
-  {
-    category: "Flavour",
-    options: [
-      { title: "citrus", param: "citrus" },
-      { title: "flavoured", param: "flavoured" },
-      { title: "floral", param: "floral" },
-      { title: "fruity", param: "fruity" },
-      { title: "smoke", param: "smoke" },
-      { title: "spice", param: "spice" },
-      { title: "sweet", param: "sweet" },
-    ],
-    key: "flavour",
-  },
-  {
-    category: "Types",
-    options: [
-      { title: "green tea", param: "green-tea" },
-      { title: "white tea", param: "white-tea" },
-      { title: "black tea", param: "black-tea" },
-      { title: "oolong tea", param: "oolong-tea" },
-      { title: "herbal tea", param: "herbal-tea" },
-      { title: "flowering tea", param: "flowering-tea" },
-      { title: "jasmine tea", param: "jasmine-tea" },
-      { title: "yellow tea", param: "yellow-tea" },
-      { title: "matcha", param: "matcha" },
-    ],
-    key: "type",
-  },
-];
 
 function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  
+  const [showMore, setShowMore] = useState({
+    type: false,
+    format: false,
+    price: false,
+    benefit: false,
+    flavour: false,
+  });
+
+  const [filtersData, setFiltersData] = useState([
+    {
+      category: "Types",
+      options: [
+        { param: "green tea" },
+        { param: "white tea" },
+        { param: "black tea" },
+        { param: "oolong tea" },
+        { param: "herbal tea" },
+        { param: "flowering tea" },
+        { param: "jasmine tea" },
+        { param: "yellow tea" },
+        { param: "matcha" },
+      ],
+      key: "type",
+    },
+    {
+      category: "Tea Format",
+      options: [
+        { param: "loose leaf" },
+        { param: "tea caddy" },
+        { param: "tea bag" },
+      ],
+      key: "format",
+    },
+    {
+      category: "Price",
+      options: [{ param: "0-25" }, { param: "26-40" }, { param: "41-65" }],
+      key: "price",
+    },
+    {
+      category: "Health Benefit",
+      options: [
+        { param: "energy" },
+        { param: "gut health" },
+        { param: "immunity" },
+      ],
+      key: "benefit",
+    },
+    {
+      category: "Flavour",
+      options: [
+        { param: "citrus" },
+        { param: "flavoured" },
+        { param: "floral" },
+        { param: "fruity" },
+        { param: "smoke" },
+        { param: "spice" },
+        { param: "sweet" },
+      ],
+      key: "flavour",
+    },
+  ]);
 
   const handleCheckboxChange = (key, param) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -92,6 +97,10 @@ function Filters() {
     }
 
     router.push(`?${params.toString()}`); // Push updated query to the router
+  };
+
+  const handleShowMore = (key) => {
+    setShowMore((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const resetFilters = () => {
@@ -124,26 +133,36 @@ function Filters() {
           </button>
         )}
       </div>
-      {filterData.map(({ category, options, key }, index) => (
+      {filtersData.map(({ category, options, key }, index) => (
         <div
           key={key}
           className={`mb-4 pb-4 ${
-            index !== filterData.length - 1 ? "border-b border-gray-200" : ""
+            index !== filtersData.length - 1 ? "border-b border-gray-200" : ""
           }`}
         >
           <h3 className="font-semibold mb-2">{category}</h3>
           <div>
-            {options.map((option) => (
-              <label key={option.param} className="block">
-                <input
-                  type="checkbox"
-                  checked={isChecked(key, option.param)}
-                  value={option.param}
-                  onChange={() => handleCheckboxChange(key, option.param)}
-                />
-                <span className="ml-2 text-sm capitalize">{option.title}</span>
-              </label>
-            ))}
+            {options
+              .slice(0, showMore[key] ? options.length : 10)
+              .map((option) => (
+                <label key={option.param} className="block">
+                  <input
+                    type="checkbox"
+                    checked={isChecked(key, option.param)}
+                    value={option.param}
+                    onChange={() => handleCheckboxChange(key, option.param)}
+                  />
+                  <span className="ml-2 text-sm capitalize">
+                    {option.param}
+                  </span>
+                </label>
+              ))}
+
+            {options.length > 10 && (
+              <button onClick={() => handleShowMore(key)} className="text-sm">
+                {showMore[key] ? "Show less" : "Show more"}
+              </button>
+            )}
           </div>
         </div>
       ))}

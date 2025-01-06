@@ -6,53 +6,43 @@ function TeaDropdown() {
   const productTypes = [
     {
       image: "/images/Teanav_Organic_Tea.webp",
-      name: "Black Teas",
-      type: "black-tea",
+      type: "black tea",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
-      name: "Green Teas",
-      type: "green-tea",
+      type: "green tea",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
-      name: "White Teas",
-      type: "white-tea",
+      type: "white tea",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
-      name: "Oolong Teas",
-      type: "oolong-tea",
+      type: "oolong tea",
     },
     {
       image: "/images/Teanav_Herbal_tea.webp",
-      name: "Herbal Teas",
-      type: "herbal-tea",
+      type: "herbal tea",
     },
     {
       image: "/images/Teanav_Flowering_tea.webp",
-      name: "Pu-erh Teas",
-      type: "pureh-tea",
+      type: "pureh tea",
     },
     {
       image: "/images/product_one.jpg",
-      name: "Black Teas",
-      type: "black-tea",
+      type: "black tea",
     },
     {
       image: "/images/product_two.jpg",
-      name: "Green Teas",
-      type: "green-tea",
+      type: "green tea",
     },
     {
       image: "/images/product_three.jpg",
-      name: "White Teas",
-      type: "white-tea",
+      type: "white tea",
     },
     {
       image: "/images/product_one.jpg",
-      name: "Black Teas",
-      type: "black-tea",
+      type: "black tea",
     },
   ];
 
@@ -180,11 +170,11 @@ function TeaDropdown() {
                 >
                   <Image
                     src={type.image}
-                    alt={type.name}
+                    alt={type.type}
                     width={50}
                     height={50}
                   />
-                  <p>{type.name}</p>
+                  <p>{type.type}</p>
                 </Link>
               ))}
             </div>
