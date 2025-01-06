@@ -7,12 +7,11 @@ import { addToCart } from "@/services/features/cart/cartSlice";
 import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-const CategoryCard = ({ item, url }) => {
+const ProductCard = ({ item, url }) => {
   if (!item) return null;
 
   const CardUrl = decodeURIComponent(url);
   const dispatch = useDispatch();
-  const isFavorite = false;
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
@@ -36,25 +35,33 @@ const CategoryCard = ({ item, url }) => {
       onMouseLeave={() => {
         setAddButtonClicked(false);
       }}
-      className=" max-w-[380px] bg-teagreen-100 p-4 mx-auto overflow-hidden"
+      className=" max-w-[380px] bg-teagreen-100 px-4 pb-1 mx-auto overflow-hidden"
     >
       {/* Sell and Favorite Section */}
-      <div className="flex justify-between text-sm px-3">
-        <div className="w-8">
-          <img src="/products/label-sale.png" alt="Sale" />
+      <div className="flex justify-between text-sm pt-2">
+        <div>
+          {item?.isNew ? (
+            <div className="uppercase text-sm bg-teagreen-500 text-white px-1 mt-2 mb-[2px]">
+              new
+            </div>
+          ) : (
+            <div className="w-8">
+              <img src="/products/label-sale.png" alt="Sale" />
+            </div>
+          )}
         </div>
-        {isFavorite ? (
-          <div className="relative text-3xl cursor-pointer mr-3">
+        {item?.isFavorite ? (
+          <div className="relative text-3xl cursor-pointer mr-7">
             <MdFavorite className="absolute" />
           </div>
         ) : (
-          <div className="relative text-3xl cursor-pointer mr-3">
+          <div className="relative text-3xl cursor-pointer mr-7">
             <MdFavoriteBorder className="absolute transition-opacity duration-300 hover:opacity-0" />
             <MdFavorite className="absolute opacity-0 transition-opacity duration-300 hover:opacity-100" />
           </div>
         )}
       </div>
-     
+
       <div className="">
         {/* Product image and descriptions */}
         <Link href={CardUrl}>
@@ -75,7 +82,7 @@ const CategoryCard = ({ item, url }) => {
               alt="Product Back"
             />
           </div>
-          
+
           {/* Product Content */}
           <div
             style={{ display: addButtonClicked ? "none" : "block" }}
@@ -110,7 +117,7 @@ const CategoryCard = ({ item, url }) => {
         >
           <button
             onClick={handleWeight}
-            className="uppercase text-xs py-4 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400"
+            className="uppercase text-xs py-3 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400"
           >
             add to cart
           </button>
@@ -120,7 +127,7 @@ const CategoryCard = ({ item, url }) => {
         <div
           className={` ${
             addButtonClicked
-              ? "block bg-teagreen-100 transition-transform duration-400 -mt-[18px] py-1"
+              ? "block bg-teagreen-100 transition-transform duration-400 -mt-[24px] py-1"
               : "hidden transition-transform duration-400"
           }`}
         >
@@ -135,7 +142,7 @@ const CategoryCard = ({ item, url }) => {
                   handleAddToCart(singleWeight);
                 }}
                 className={`flex flex-col items-center ${
-                  index <= singleWeight.length ? "border-r" : ""
+                  index !== item?.weight.length-1 ? "border-r" : ""
                 } w-full py-1 text-teagreen-400 hover:text-teagreen-600`}
               >
                 <div>{singleWeight}</div>
@@ -150,4 +157,4 @@ const CategoryCard = ({ item, url }) => {
   );
 };
 
-export default CategoryCard;
+export default ProductCard;
