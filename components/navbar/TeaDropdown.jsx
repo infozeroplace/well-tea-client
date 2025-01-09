@@ -150,94 +150,106 @@ function TeaDropdown() {
   ];
 
   return (
-    <div>
-      <div className="w-full mx-auto flex justify-between">
-        <div className="basis-[35%] w-full border-r p-5">
-          <div className="flex justify-between">
-            <h3>Type</h3>
-            <Link href="/tea" className="flex items-center gap-1">
-              All Teas
+    <div className="container-narrow px-4 w-full mx-auto flex justify-between capitalize">
+      <div className="flex flex-col gap-5 p-5 basis-[30%] w-full border-r">
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <h3 className="font-extralight text-xl w-full">Type</h3>
+            <Link
+              href="/tea"
+              className="flex items-center justify-end gap-1 max-w-[150px] w-full"
+            >
+              <span>All Teas</span>
               <BsArrowRight />
             </Link>
           </div>
-          <div className="mx-10 mt-5">
-            <div className="grid grid-cols-2 gap-5">
-              {productTypes.map((type, index) => (
-                <Link
-                  href={`/tea?type=${type.type}`}
-                  key={index}
-                  className="flex items-center gap-3 hover:brightness-125"
-                >
-                  <Image
-                    src={type.image}
-                    alt={type.type}
-                    width={50}
-                    height={50}
-                  />
-                  <p>{type.type}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-5 p-5 basis-[15%] w-full border-r">
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Flavour</h3>
-            {flavourList.map((item, index) => (
+          <div className="grid grid-cols-2 gap-5 py-5">
+            {productTypes.map((type, index) => (
               <Link
+                href={`/tea?type=${type.type}`}
                 key={index}
-                href={item.url}
                 className="hover:text-teagreen-600"
               >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          <hr />
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Discover</h3>
-            {discoverList.map((item, index) => (
-              <Link
-                key={index}
-                href={item.url}
-                className="hover:text-teagreen-600"
-              >
-                {item.name}
+                {type.type}
               </Link>
             ))}
           </div>
         </div>
-
-        <div className="flex flex-col gap-5 p-5 basis-[15%] w-full border-r">
-          <h3 className="font-extralight text-xl">Format</h3>
-          <div className="flex flex-col gap-5">
-            {formatItems.map((item, index) => (
+        {/* <div className="flex flex-col gap-2">
+          <h3>Type</h3>
+          <Link href="/tea" className="flex items-center gap-1">
+            All Teas
+            <BsArrowRight />
+          </Link>
+        </div>
+        <div className="mx-10 mt-5">
+          <div className="grid grid-cols-2 gap-5">
+            {productTypes.map((type, index) => (
               <Link
-                href="#"
+                href={`/tea?type=${type.type}`}
                 key={index}
-                className="flex items-center gap-5 bg-teagreen-100 hover:bg-teagreen-200 px-3 py-1 rounded-full"
+                className="flex items-center gap-3 hover:brightness-125"
               >
                 <Image
-                  src={item.image}
-                  alt={item.name}
-                  width={30}
-                  height={30}
+                  src={type.image}
+                  alt={type.type}
+                  width={50}
+                  height={50}
                 />
-                <p>{item.name}</p>
+                <p>{type.type}</p>
               </Link>
             ))}
           </div>
-          <hr />
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Origin</h3>
-            {originList.map((item, index) => (
-              <Link key={index} href="/" className="hover:text-teagreen-600">
-                {item}
-              </Link>
-            ))}
-          </div>
-          {/* <Link
+        </div> */}
+      </div>
+
+      <div className="flex flex-col gap-5 p-5 basis-[25%] w-full border-r">
+        <div className="flex flex-col gap-2">
+          <h3 className="font-extralight text-xl">Flavour</h3>
+          {flavourList.map((item, index) => (
+            <Link
+              key={index}
+              href={item.url}
+              className="hover:text-teagreen-600"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <h3 className="font-extralight text-xl">Discover</h3>
+          {discoverList.map((item, index) => (
+            <Link
+              key={index}
+              href={item.url}
+              className="hover:text-teagreen-600"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-5 p-5 basis-[25%] w-full border-r">
+        <h3 className="font-extralight text-xl">Format</h3>
+        <div className="flex flex-col gap-5">
+          {formatItems.map((item, index) => (
+            <Link href="#" key={index} className="hover:text-teagreen-600">
+              {item.name}
+            </Link>
+          ))}
+        </div>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <h3 className="font-extralight text-xl">Origin</h3>
+          {originList.map((item, index) => (
+            <Link key={index} href="/" className="hover:text-teagreen-600">
+              {item}
+            </Link>
+          ))}
+        </div>
+        {/* <Link
             href="/tea"
             className="text-xl text-teagreen-800 hover:text-teagreen-600 mx-2"
           >
@@ -246,54 +258,30 @@ function TeaDropdown() {
             <p>organic tea culture?</p>
             <BsArrowRight />
           </Link> */}
-        </div>
+      </div>
 
-        <div className="p-5 basis-[17.5%] w-full border-r">
-          <div className="flex flex-col gap-5">
-            <div className="basis-1/2">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-extralight text-xl">Health</h3>
-                {healthList.map((item, index) => (
-                  <Link
-                    key={index}
-                    href="/"
-                    className="hover:text-teagreen-600"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <hr />
-            <div className="flex basis-1/2 gap-5">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-extralight text-xl">Caffeine free Tea</h3>
-                {caffeineFreeTea.map((item, index) => (
-                  <Link
-                    key={index}
-                    href="/"
-                    className="hover:text-teagreen-600"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
+      <div className="p-5 basis-[25%] w-full">
+        <div className="flex flex-col gap-5">
+          <div className="basis-1/2">
+            <div className="flex flex-col gap-2">
+              <h3 className="font-extralight text-xl">Health</h3>
+              {healthList.map((item, index) => (
+                <Link key={index} href="/" className="hover:text-teagreen-600">
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
-        </div>
+          <hr />
 
-        {/* Right Image Section */}
-        <div className="p-5 basis-[17.5%] w-full">
-          <div className="">
-            <div className="my-auto">
-              <Image
-                src="/images/teatypesidebar.jpg"
-                alt="Tea Types"
-                width={457}
-                height={1000}
-                className="w-full max-w-[190px]"
-              />
-            </div>
+          <div className="my-auto border">
+            <Image
+              src="/images/teatypesidebar.jpg"
+              alt="Tea Types"
+              width={100}
+              height={100}
+              className="w-full max-h-[230px] h-full object-cover"
+            />
           </div>
         </div>
       </div>
