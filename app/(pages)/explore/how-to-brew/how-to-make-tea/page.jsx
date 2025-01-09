@@ -1,4 +1,4 @@
-import { TeaRecipe } from "@/components";
+import { BrewingGuide, TeaRecipe, TipsAndTricks } from "@/components";
 import React from "react";
 
 const MakeTea = () => {
@@ -26,9 +26,14 @@ const MakeTea = () => {
       <div className="">
         <TeaRecipe />
       </div>
-      <div>Brewing guide</div>
-      <div>Tea tips & tricks</div>
-      <div>Tea types</div>
+
+      {/* Categorywise Brewing Guide  Section */}
+      <BrewingGuide />
+
+      {/* Tips $ Tricks Section */}
+      <TipsAndTricks />
+      
+      {/* <div>Tea types</div> */}
     </div>
   );
 };
