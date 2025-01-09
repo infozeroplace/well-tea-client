@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import StarRating from '@/components/shared/StarRating'
+import { useState } from 'react';
+import Link from 'next/link';
+import { useSelector } from "react-redux";
+import StarRating from '@/components/shared/StarRating';
 
 function Reviews({ }) {
   const productReviews = [
@@ -25,8 +27,9 @@ function Reviews({ }) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [review, setReview] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  const user = useSelector((state) => state.auth.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,60 +60,69 @@ function Reviews({ }) {
             </div>
           ))}
         </div>
-        <div className="my-10">
-          <h3 className="mb-10 font-normal">Add Your Review</h3>
-          <div className="">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div className="flex items-center gap-5">
-                <span className="font-extralight">Your Rating:</span>
-                <div className="flex items-center space-x-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
-                      className={`text-2xl ${
-                        star <= (hoverRating || rating)
-                          ? "text-orange-500"
-                          : "text-gray-300"
-                      } focus:outline-none`}
-                    >
-                      ★
-                    </button>
-                  ))}
+        {user ? (
+          <div className="my-10">
+            <h3 className="mb-10 font-normal">Add Your Review</h3>
+            <div className="">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <div className="flex items-center gap-5">
+                  <span className="font-extralight">Your Rating:</span>
+                  <div className="flex items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setRating(star)}
+                        onMouseEnter={() => setHoverRating(star)}
+                        onMouseLeave={() => setHoverRating(0)}
+                        className={`text-2xl ${
+                          star <= (hoverRating || rating)
+                            ? "text-orange-500"
+                            : "text-gray-300"
+                        } focus:outline-none`}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <input
-                type="text"
-                placeholder="Name"
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-2 border"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border"
-                required
-              />
-              <textarea
-                placeholder="Your Review"
-                onChange={(e) => setReview(e.target.value)}
-                className="w-full p-2 border"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full bg-teagreen-500 text-white p-2"
-              >
-                Submit
-              </button>
-            </form>
+                {/* <input
+                  type="text"
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-2 border"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border"
+                  required
+                /> */}
+                <textarea
+                  placeholder="Your Review"
+                  onChange={(e) => setReview(e.target.value)}
+                  className="w-full p-2 border"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-teagreen-500 text-white p-2"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex gap-1 my-10">
+            <Link href="/login" className="text-teagreen-500 font-light">
+              Sign In
+            </Link>
+            <span className="font-light">To Write A Review</span>
+          </div>
+        )}
       </div>
     </div>
   );

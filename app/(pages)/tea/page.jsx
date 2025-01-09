@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import CategoryCard from "@/components/category/CategoryCard";
+import { ProductCard } from "@/components";
 import { Filters, Sort } from "./components";
 
 const TeaType = async ({ searchParams: rawSearchParams }) => {
@@ -25,7 +26,7 @@ const TeaType = async ({ searchParams: rawSearchParams }) => {
             </div>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {data.map((item) => (
-                <CategoryCard key={item._id} item={item} />
+                <ProductCard key={item._id} item={item} />
               ))}
             </div>
           </div>

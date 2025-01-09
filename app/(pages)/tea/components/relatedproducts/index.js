@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { productList } from '@/data/products';
 import CategoryCard from '@/components/category/CategoryCard';
+import { ProductCard } from '@/components';
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
@@ -35,8 +36,8 @@ function RelatedProducts() {
             slidesPerGroup={2}
             onSlideChange={handleSlideChange}
             navigation={{
-              prevEl: ".swiper-button-prev",
-              nextEl: ".swiper-button-next",
+              prevEl: ".related-swiper-prev",
+              nextEl: ".related-swiper-next",
             }}
             // breakpoints={{
             //   320: {
@@ -63,14 +64,27 @@ function RelatedProducts() {
           >
             {relatedProducts.map((item, index) => (
               <SwiperSlide key={index}>
-                <CategoryCard item={item} url={`/tea/${item.type}/${item.id}`} />
+                <ProductCard
+                  item={item}
+                  url={`/tea/${item.id}`}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
           <button
-            className={"swiper-button-prev " + (isFirstSlide ? "!hidden" : "")}
-          ></button>
-          <button className="swiper-button-next"></button>
+            className={`related-swiper-prev z-10 absolute top-1/2 left-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+              isFirstSlide ? "!hidden" : ""
+            }`}
+          >
+            &#x276E;
+          </button>
+          <button
+            className={`related-swiper-next z-10 absolute top-1/2 right-5 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+              isLastSlide ? "!hidden" : ""
+            }`}
+          >
+            &#x276F;
+          </button>
         </div>
       </div>
     </div>

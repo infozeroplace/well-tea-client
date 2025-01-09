@@ -7,28 +7,21 @@ import { addToCart } from "@/services/features/cart/cartSlice";
 import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-const CategoryCard = ({ item, url }) => {
+const AccessoriesCard = ({ item, url }) => {
   if (!item) return null;
 
   const CardUrl = decodeURIComponent(url);
   const dispatch = useDispatch();
-  const isFavorite = false;
-
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  const handleAddToCart = (weight) => {
+  const handleAddToCart = () => {
     dispatch(
       addToCart({
         product: item,
-        weight: weight,
         quantity: 1,
         addOns: [],
       })
     );
-  };
-
-  const handleWeight = () => {
-    setAddButtonClicked(true);
   };
 
   return (
@@ -40,10 +33,18 @@ const CategoryCard = ({ item, url }) => {
     >
       {/* Sell and Favorite Section */}
       <div className="flex justify-between text-sm px-3">
-        <div className="w-8">
-          <img src="/products/label-sale.png" alt="Sale" />
+        <div>
+          {item?.isNew ? (
+            <div className="uppercase text-sm bg-teagreen-500 text-white px-1 mt-[8px]">
+              new
+            </div>
+          ) : (
+            <div className="w-8">
+              <img src="/products/label-sale.png" alt="Sale" />
+            </div>
+          )}
         </div>
-        {isFavorite ? (
+        {item?.isFavorite ? (
           <div className="relative text-3xl cursor-pointer mr-3">
             <MdFavorite className="absolute" />
           </div>
@@ -54,7 +55,7 @@ const CategoryCard = ({ item, url }) => {
           </div>
         )}
       </div>
-     
+
       <div className="">
         {/* Product image and descriptions */}
         <Link href={CardUrl}>
@@ -75,7 +76,7 @@ const CategoryCard = ({ item, url }) => {
               alt="Product Back"
             />
           </div>
-          
+
           {/* Product Content */}
           <div
             style={{ display: addButtonClicked ? "none" : "block" }}
@@ -104,50 +105,18 @@ const CategoryCard = ({ item, url }) => {
         </Link>
         {/* Add to card */}
         <div
-          className={`border-t transform bg-teagreen-100 w-full mx-auto transition-all duration-400 ${
-            addButtonClicked ? "hidden" : "block"
-          }`}
+          className={`border-t transform bg-teagreen-100 w-full mx-auto transition-all duration-400`}
         >
           <button
-            onClick={handleWeight}
+            onClick={handleAddToCart}
             className="uppercase text-xs py-4 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400"
           >
             add to cart
           </button>
-        </div>
-
-        {/* Weight Selection*/}
-        <div
-          className={` ${
-            addButtonClicked
-              ? "block bg-teagreen-100 transition-transform duration-400 -mt-[18px] py-1"
-              : "hidden transition-transform duration-400"
-          }`}
-        >
-          <p className="uppercase text-center py-1 text-sm border-b">
-            Choose weight for cart
-          </p>
-          <div className="flex justify-between px-4 py-1">
-            {item?.weight?.map((singleWeight, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  handleAddToCart(singleWeight);
-                }}
-                className={`flex flex-col items-center ${
-                  index <= singleWeight.length ? "border-r" : ""
-                } w-full py-1 text-teagreen-400 hover:text-teagreen-600`}
-              >
-                <div>{singleWeight}</div>
-                <div>|</div>
-                <div>£{item?.discount ? item?.discountPrice : item?.price}</div>
-              </button>
-            ))}
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default CategoryCard;
+export default AccessoriesCard;

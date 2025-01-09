@@ -5,7 +5,7 @@ export const discoverItems = [
       title: "Our Story",
       image: "/images/about-image-2.jpg",
       description: (
-        <div className="text-xs text-justify">
+        <div className="text-sm text-justify">
           <p>
             The concept of WellTea started life in late 2010 from our flat in
             London – inspired by our recent travels, we wanted to create a brand
@@ -49,7 +49,7 @@ export const discoverItems = [
       title: "Our Values",
       image: "/whychooseus/slide_banner_08.jpg",
       description: (
-        <div className="text-xs text-justify">
+        <div className="text-sm text-justify">
           <h5 className="font-semibold">Quality and Sourcing</h5> <br />
           <p>
             Detail, quality and sourcing fundamentally underline everything we
