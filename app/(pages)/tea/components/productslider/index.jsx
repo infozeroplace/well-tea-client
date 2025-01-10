@@ -1,21 +1,15 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
+import { env } from "@/config/env";
+import { useState } from "react";
+import { EffectFade, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs, EffectFade } from "swiper/modules";
 
-function ProductSlider() {
-  const sliderImages = [
-    "/products/product_01.jpg",
-    "/products/product_02.jpg",
-    "/products/product_03.jpg",
-    "/products/product_04.jpg",
-  ];
-
+function ProductSlider({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <div className="w-full">
+    <div className="lg:max-w-[400px] xl:max-w-[600px] 2xl:max-w-[800px] w-full">
       <div className="flex flex-col items-center">
         <Swiper
           spaceBetween={10}
@@ -24,9 +18,13 @@ function ProductSlider() {
           thumbs={{ swiper: thumbsSwiper }}
           className="w-full max-w-xl mb-4"
         >
-          {sliderImages.map((image, index) => (
-            <SwiperSlide key={index}>
-              <img src={image} alt={`Main Image ${index}`} className="w-full" />
+          {images.map((image) => (
+            <SwiperSlide key={image.uid}>
+              <img
+                src={`${env.app_url}${image.path}`}
+                alt={image.alt}
+                className="w-full"
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -38,11 +36,11 @@ function ProductSlider() {
           watchSlidesProgress={true}
           className="w-full max-w-xl"
         >
-          {sliderImages.map((image, index) => (
-            <SwiperSlide key={index}>
+          {images.map((image) => (
+            <SwiperSlide key={image.uid}>
               <img
-                src={image}
-                alt={`Thumbnail ${index}`}
+                src={`${env.app_url}${image.path}`}
+                alt={image.alt}
                 className="cursor-pointer"
               />
             </SwiperSlide>

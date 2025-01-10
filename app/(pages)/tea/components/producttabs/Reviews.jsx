@@ -33,7 +33,7 @@ function Reviews({ }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ rating, review, name, email });
+    // console.log({ rating, review, name, email });
     alert("Review submitted!");
   };
 

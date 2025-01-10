@@ -144,7 +144,7 @@ function Product({ params }) {
             "updatedAt": "2025-01-04T20:19:21.525Z",
             "__v": 0
         }
-
+console.log(params)
   const productId = decodeURIComponent(params.product);
 
   const product = productList.find((product) => product.id === productId);

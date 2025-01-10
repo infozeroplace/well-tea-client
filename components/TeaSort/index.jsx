@@ -10,7 +10,7 @@ const TeaSort = () => {
   ];
 
   const onSort = (sortValue) => {
-    console.log(sortValue);
+    // console.log(sortValue);
   };
 
   return (

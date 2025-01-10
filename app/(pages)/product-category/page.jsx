@@ -14,7 +14,7 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
   } = await axios.get(url);
 
   return (
-    <div className="flex container px-4 lg:px-10 gap-5">
+    <div className="flex container px-4 lg:px-10 gap-5 mb-10">
       <aside className="max-w-[200px] w-full py-5 text-teagreen-600">
         <TeaFilters />
       </aside>

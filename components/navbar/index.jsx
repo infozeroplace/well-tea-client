@@ -1,22 +1,38 @@
 "use client";
 
+import axios from "@/api/axios";
+import { env } from "@/config/env";
+import extractAlterText from "@/utils/extractAlterText";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
-import { PiUser, PiShoppingCartThin } from "react-icons/pi";
+import { useEffect, useState } from "react";
+import { CiHeart, CiSearch } from "react-icons/ci";
+import { PiUser } from "react-icons/pi";
+import Cart from "./Cart";
+import ExploreDropdown from "./ExploreDropdown";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
-import Cart from "./Cart";
-import ExploreDropdown from "./ExploreDropdown";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [logo, setLogo] = useState("");
+
+  useEffect(() => {
+    const loadData = async () => {
+      const {
+        data: { data },
+      } = await axios.get("/public/system");
+
+      setLogo(data.logo);
+    };
+
+    loadData();
+  }, []);
 
   const navIconsClasses =
     "flex items-center border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
@@ -29,8 +45,11 @@ const Navbar = () => {
           <div className="flex-shrink-0 w-28 md:w-36">
             <Link href="/">
               <Image
-                src="/logo/welltea_logo_color.png"
-                alt="Brand Logo"
+                src={
+                  `${env.app_url}/public/image/upload/${logo}` ||
+                  "/logo/welltea_logo_color.png"
+                }
+                alt={extractAlterText(logo)}
                 width={150}
                 height={100}
                 quality={100}
@@ -43,7 +62,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-5">
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
-              <NavItem href="/tea" name="Tea" />
+              <NavItem href="/product-category?category=tea" name="Tea" />
               <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeaDropdown />
               </NavDropdown>
@@ -51,7 +70,10 @@ const Navbar = () => {
 
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
-              <NavItem href="/teawares" name="Teawares" />
+              <NavItem
+                href="/product-category?category=teaware"
+                name="Teawares"
+              />
               <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
@@ -59,7 +81,7 @@ const Navbar = () => {
 
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
-              <NavItem href="/gifts" name="Gifts" />
+              <NavItem href="/product-category?category=gift" name="Gifts" />
               <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <GiftDropdown />
               </NavDropdown>

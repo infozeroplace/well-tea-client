@@ -6,47 +6,40 @@ import {
   CategoryOffer,
   Hero,
   VariableCategoryProducts,
-  WhyChooseUs,
 } from "@/components";
 
-export default async function Home() {
-  // const category = "tea" || "teaware" || "gift";
-  const category = "gift";
+export const revalidate = 0;
 
-  const urlForCategory = `/public/product/list?page=1&limit=10&category=tea&type=green tea`;
-
-  const urlForBestSeller = `/public/product/list?page=1&limit=10&isBestSeller=true`;
-
-  const urlForVariableCategory = `/public/product/list?page=1&limit=10&category=${category}`;
-
-  const urlForSystemData = "/public/system";
-
+const Home = async () => {
   const {
     data: { data: categoryData },
-  } = await axios.get(urlForCategory);
+  } = await axios.get(
+    `/public/product/list?page=1&limit=10&category=tea&type=green tea`
+  );
 
   const {
     data: { data: bestSellerData },
-  } = await axios.get(urlForBestSeller);
+  } = await axios.get(`/public/product/list?page=1&limit=10&isBestSeller=true`);
 
   const {
-    data: { data: variableCategoryData },
-  } = await axios.get(urlForVariableCategory);
+    data: { data: featuredProducts },
+  } = await axios.get(`/public/product/list?page=1&limit=10&isFeatured=true`);
 
   const {
     data: { data: systemData },
-  } = await axios.get(urlForSystemData);
-
+  } = await axios.get("/public/system");
 
   return (
     <>
       <Hero data={systemData?.hero || []} />
-      <CategoryOffer data={systemData?.offer || {}}/>
+      <CategoryOffer data={systemData?.offer || {}} />
       <Category initialProducts={categoryData || []} />
       <BestSellers initialProducts={bestSellerData || []} />
-      <Banner />
-      <VariableCategoryProducts initialProducts={variableCategoryData || []} />
-      <WhyChooseUs />
+      <Banner data={systemData?.featured || []} />
+      <VariableCategoryProducts initialProducts={featuredProducts || []} />
+      {/* <WhyChooseUs /> */}
     </>
   );
-}
+};
+
+export default Home;

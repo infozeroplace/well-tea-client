@@ -1,14 +1,10 @@
-import Link from "next/link";
 import { StarRatingDisplay } from "@/components/shared/";
+import Link from "next/link";
 import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
 
-
 const ProductDetails = ({ product }) => {
-
   const availableOptions = ["Loose Leaf", "Tea Bags", "Tea Caddy"];
-
-  console.log(product.type[0].toLowerCase());
 
   return (
     <div className="py-8">
@@ -18,7 +14,11 @@ const ProductDetails = ({ product }) => {
             {product.type}
           </h4>
           <h1 className="text-2xl font-normal">{product.title}</h1>
-          <p className="mt-2 capitalize">{product.flavour}</p>
+          <p className="mt-2">
+            {product.flavour
+              .map((flavor) => flavor.charAt(0).toUpperCase() + flavor.slice(1))
+              .join(", ")}
+          </p>
           <p className="capitalize">
             {product.originAddress}, {product.originName}
           </p>
@@ -31,15 +31,15 @@ const ProductDetails = ({ product }) => {
 
         <div className="my-5">
           <h3 className="mb-4 font-normal">Available As</h3>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-2">
             {availableOptions.map((item) => (
               <Link
                 href="/"
                 key={item}
                 className={
-                  "py-2 px-5 text-teagreen-800 bg-teagreen-100 rounded-full " +
+                  "py-2 px-5 text-teagreen-800 bg-teagreen-100 rounded-full text-sm " +
                   (item.toLowerCase() === product.format[0].toLowerCase() &&
-                    "border-1 border-teagreen-600 bg-inherit")
+                    "border border-teagreen-600 bg-inherit")
                 }
               >
                 {item}
@@ -47,7 +47,9 @@ const ProductDetails = ({ product }) => {
             ))}
           </div>
         </div>
+
         <ManageProduct product={product} />
+        
         <SocialShare />
       </div>
     </div>

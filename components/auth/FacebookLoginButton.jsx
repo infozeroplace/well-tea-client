@@ -5,11 +5,11 @@ export default function FacebookLoginButton({ onLogin }) {
     <LoginSocialFacebook
       appId="1298376301208578"
       onResolve={({ provider, data }) => {
-       console.log(provider)
-       console.log(data)
+      //  console.log(provider)
+      //  console.log(data)
       }}
       onReject={(err) => {
-        console.log(err);
+        // console.log(err);
       }}
     >
       Login

@@ -10,7 +10,7 @@ function Sort() {
   ];
 
   const onSort = (sortValue) => {
-    console.log(sortValue);
+    // console.log(sortValue);
   };
 
   return (
