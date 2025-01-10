@@ -1,136 +1,145 @@
 "use client";
 
+import { env } from "@/config/env";
+import { addToCart } from "@/services/features/cart/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/services/features/cart/cartSlice";
 import { useState } from "react";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { CiShoppingCart } from "react-icons/ci";
+import { MdFavoriteBorder } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
-const ProductCard = ({ url }) => {
-  const product = {
-    _id: "677997c91f208bbbe5ee9ee2",
-    productId: "organic-jade-sword-tea-bags",
-    title: "Jade Sword™ Green Tea, Tea Bags",
-    description:
-      "Grown among misty mountains in a remote part of Hunan province, our Organic Jade Sword™️ is spring-picked at an altitude of 800m, from a garden rich with biodiversity. The garden had been abandoned in the early '90s and was revived in 2007 by tea master Zhou Wei, when he saw an opportunity to help the local minority ethnic people. He has been producing organic tea ever since, providing locals with the chance to build a community and a home. Please dispose of your used tea bags in your council food waste bin.",
-    shortDescription:
-      "Bursting with sweet spring flavour, and selected for its succulent fresh taste, this is our introduction to exceptional green tea in biodegradable tea bags. A refreshing infusion with sappy top notes.",
-    thumbnails: [
-      {
-        alt: "product_03",
-        uid: "product_03__1736021927304_c13d94d15baee7a9.jpg",
-        path: "/public/image/upload/product_03__1736021927304_c13d94d15baee7a9.jpg",
-        _id: "677997c91f208bbbe5ee9ee3",
-      },
-      {
-        alt: "product_04",
-        uid: "product_04__1736021942633_5441fcfeae82710d.jpg",
-        path: "/public/image/upload/product_04__1736021942633_5441fcfeae82710d.jpg",
-        _id: "677997c91f208bbbe5ee9ee4",
-      },
-    ],
-    slideImages: [
-      {
-        alt: "product_03",
-        uid: "product_03__1736021927304_c13d94d15baee7a9.jpg",
-        path: "/public/image/upload/product_03__1736021927304_c13d94d15baee7a9.jpg",
-        _id: "677997c91f208bbbe5ee9ee5",
-      },
-      {
-        alt: "product_04",
-        uid: "product_04__1736021942633_5441fcfeae82710d.jpg",
-        path: "/public/image/upload/product_04__1736021942633_5441fcfeae82710d.jpg",
-        _id: "677997c91f208bbbe5ee9ee6",
-      },
-    ],
-    type: ["green tea"],
-    format: ["loose leaf"],
-    flavour: ["floral"],
-    ingredient: ["cacao", "cardamom", "carob", "ginger"],
-    benefit: ["energy", "gut health", "immunity"],
-    originName: "japan",
-    originAddress: "from baotian garden, hunan",
-    isSale: true,
-    isNew: true,
-    isSubscription: true,
-    sale: 5,
-    subscriptionSale: 10,
-    ratings: 2,
-    reviews: [],
-    howToMakeTea: [
-      {
-        title: "A hot cup",
-        requirements: ["Tea leaves", "Hot water"],
-        steps: ["Boil water", "Add tea leaves", "Steep for 5 minutes"],
-        _id: "677997c91f208bbbe5ee9ee7",
-      },
-      {
-        title: "An iced cup",
-        requirements: ["Tea leaves", "Hot water"],
-        steps: ["Boil water", "Add tea leaves", "Steep for 5 minutes"],
-        _id: "677997c91f208bbbe5ee9ee8",
-      },
-    ],
-    unitPrices: [
-      {
-        unit: "50gm",
-        price: 4,
-        salePrice: 3.8,
-        subscriptionPrice: 3.6,
-      },
-      {
-        unit: "125gm",
-        price: 8.45,
-        salePrice: 8.2,
-        subscriptionPrice: 7.6,
-      },
-      {
-        unit: "250gm",
-        price: 15.5,
-        salePrice: 14.9,
-        subscriptionPrice: 13.95,
-      },
-      {
-        unit: "1kg",
-        price: 42.75,
-        salePrice: 40.6,
-        subscriptionPrice: 38.48,
-      },
-    ],
-    subscriptions: [
-      {
-        weeks: "2 week",
-        days: 14,
-        _id: "677997c91f208bbbe5ee9eed",
-      },
-      {
-        weeks: "4 week",
-        days: 28,
-        _id: "677997c91f208bbbe5ee9eee",
-      },
-      {
-        weeks: "6 week",
-        days: 42,
-        _id: "677997c91f208bbbe5ee9eef",
-      },
-      {
-        weeks: "8 week",
-        days: 56,
-        _id: "677997c91f208bbbe5ee9ef0",
-      },
-    ],
-    createdAt: "2025-01-04T20:19:21.525Z",
-    updatedAt: "2025-01-04T20:19:21.525Z",
-    __v: 0,
-  };
-  if (!product) return null;
+const ProductCard = ({ product }) => {
+  // const product = {
+  //   _id: "677997c91f208bbbe5ee9ee2",
+  //   productId: "organic-jade-sword-tea-bags",
+  //   title: "Jade Sword™ Green Tea, Tea Bags",
+  //   description:
+  //     "Grown among misty mountains in a remote part of Hunan province, our Organic Jade Sword™️ is spring-picked at an altitude of 800m, from a garden rich with biodiversity. The garden had been abandoned in the early '90s and was revived in 2007 by tea master Zhou Wei, when he saw an opportunity to help the local minority ethnic people. He has been producing organic tea ever since, providing locals with the chance to build a community and a home. Please dispose of your used tea bags in your council food waste bin.",
+  //   shortDescription:
+  //     "Bursting with sweet spring flavour, and selected for its succulent fresh taste, this is our introduction to exceptional green tea in biodegradable tea bags. A refreshing infusion with sappy top notes.",
+  //   thumbnails: [
+  //     {
+  //       alt: "product_03",
+  //       uid: "product_03__1736021927304_c13d94d15baee7a9.jpg",
+  //       path: "/public/image/upload/product_03__1736021927304_c13d94d15baee7a9.jpg",
+  //       _id: "677997c91f208bbbe5ee9ee3",
+  //     },
+  //     {
+  //       alt: "product_04",
+  //       uid: "product_04__1736021942633_5441fcfeae82710d.jpg",
+  //       path: "/public/image/upload/product_04__1736021942633_5441fcfeae82710d.jpg",
+  //       _id: "677997c91f208bbbe5ee9ee4",
+  //     },
+  //   ],
+  //   slideImages: [
+  //     {
+  //       alt: "product_03",
+  //       uid: "product_03__1736021927304_c13d94d15baee7a9.jpg",
+  //       path: "/public/image/upload/product_03__1736021927304_c13d94d15baee7a9.jpg",
+  //       _id: "677997c91f208bbbe5ee9ee5",
+  //     },
+  //     {
+  //       alt: "product_04",
+  //       uid: "product_04__1736021942633_5441fcfeae82710d.jpg",
+  //       path: "/public/image/upload/product_04__1736021942633_5441fcfeae82710d.jpg",
+  //       _id: "677997c91f208bbbe5ee9ee6",
+  //     },
+  //   ],
+  //   type: ["green tea"],
+  //   format: ["loose leaf"],
+  //   flavour: ["floral"],
+  //   ingredient: ["cacao", "cardamom", "carob", "ginger"],
+  //   benefit: ["energy", "gut health", "immunity"],
+  //   originName: "japan",
+  //   originAddress: "from baotian garden, hunan",
+  //   isSale: true,
+  //   isNew: true,
+  //   isSubscription: true,
+  //   sale: 5,
+  //   subscriptionSale: 10,
+  //   ratings: 2,
+  //   reviews: [],
+  //   howToMakeTea: [
+  //     {
+  //       title: "A hot cup",
+  //       requirements: ["Tea leaves", "Hot water"],
+  //       steps: ["Boil water", "Add tea leaves", "Steep for 5 minutes"],
+  //       _id: "677997c91f208bbbe5ee9ee7",
+  //     },
+  //     {
+  //       title: "An iced cup",
+  //       requirements: ["Tea leaves", "Hot water"],
+  //       steps: ["Boil water", "Add tea leaves", "Steep for 5 minutes"],
+  //       _id: "677997c91f208bbbe5ee9ee8",
+  //     },
+  //   ],
+  //   unitPrices: [
+  //     {
+  //       unit: "50gm",
+  //       price: 4,
+  //       salePrice: 3.8,
+  //       subscriptionPrice: 3.6,
+  //     },
+  //     {
+  //       unit: "125gm",
+  //       price: 8.45,
+  //       salePrice: 8.2,
+  //       subscriptionPrice: 7.6,
+  //     },
+  //     {
+  //       unit: "250gm",
+  //       price: 15.5,
+  //       salePrice: 14.9,
+  //       subscriptionPrice: 13.95,
+  //     },
+  //     {
+  //       unit: "1kg",
+  //       price: 42.75,
+  //       salePrice: 40.6,
+  //       subscriptionPrice: 38.48,
+  //     },
+  //   ],
+  //   subscriptions: [
+  //     {
+  //       weeks: "2 week",
+  //       days: 14,
+  //       _id: "677997c91f208bbbe5ee9eed",
+  //     },
+  //     {
+  //       weeks: "4 week",
+  //       days: 28,
+  //       _id: "677997c91f208bbbe5ee9eee",
+  //     },
+  //     {
+  //       weeks: "6 week",
+  //       days: 42,
+  //       _id: "677997c91f208bbbe5ee9eef",
+  //     },
+  //     {
+  //       weeks: "8 week",
+  //       days: 56,
+  //       _id: "677997c91f208bbbe5ee9ef0",
+  //     },
+  //   ],
+  //   createdAt: "2025-01-04T20:19:21.525Z",
+  //   updatedAt: "2025-01-04T20:19:21.525Z",
+  //   __v: 0,
+  // };
 
-  const CardUrl = decodeURIComponent(url);
+  // if (!product) return null;
+
   const dispatch = useDispatch();
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
-  // const [selectedUnitObj, setSelectedObj] = useState(item.unitPrices[0]);
+
+  const thumbnail1 = product?.thumbnails[0]?.path
+    ? `${env.app_url}${product?.thumbnails[0]?.path}`
+    : "/products/product-back2.png";
+
+  const thumbnail2 = product?.thumbnails[1]?.path
+    ? `${env.app_url}${product?.thumbnails[1]?.path}`
+    : "/products/product-back2.png";
 
   const handleAddToCart = (unitObj) => {
     dispatch(
@@ -153,49 +162,40 @@ const ProductCard = ({ url }) => {
       onMouseLeave={() => {
         setAddButtonClicked(false);
       }}
-      className=" max-w-[380px] bg-[#F8F8F8] px-4 pb-1 mx-auto overflow-hidden"
+      className="max-w-[380px] w-full h-full bg-[#F8F8F8]"
     >
       {/* Sell and Favorite Section */}
-      <div className="flex justify-between text-sm pt-2">
-        <div className="h-12">
+      <div className="h-16 flex justify-between items-center text-sm px-3">
+        <div>
           {product?.isSale ? (
             <div className="w-8">
               <img src="/products/label-sale.png" alt="Sale" />
             </div>
           ) : product?.isNew ? (
-            <div className="uppercase text-sm bg-teagreen-500 text-white px-1 mt-2 mb-[2px]">
+            <div className="uppercase text-sm bg-teagreen-500 text-white px-2 py-1">
               new
             </div>
-          ) : (
-            <div className=""></div>
-          )}
+          ) : null}
         </div>
-        {product?.isWishListed ? (
-          <div className="relative text-3xl cursor-pointer mr-7">
-            <MdFavorite className="absolute" />
-          </div>
-        ) : (
-          <div className="relative text-3xl cursor-pointer mr-7">
-            <MdFavoriteBorder className="absolute transition-opacity duration-300 hover:opacity-0" />
-            <MdFavorite className="absolute opacity-0 transition-opacity duration-300 hover:opacity-100" />
-          </div>
-        )}
+        <div className="text-3xl cursor-pointer">
+          <MdFavoriteBorder />
+        </div>
       </div>
 
-      <div className="">
+      <>
         {/* Product image and descriptions */}
-        <Link href={CardUrl}>
+        <Link href="#" className="px-3 flex flex-col justify-between w-full">
           {/* Product Image */}
-          <div className="relative group">
+          <div className="relative group w-full">
             <Image
-              src="/products/product-front.png"
+              src={thumbnail1}
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
               height={316}
               width={316}
               alt="Product Front"
             />
             <Image
-              src="/products/product-back2.png"
+              src={thumbnail2}
               className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
               height={316}
               width={316}
@@ -206,22 +206,22 @@ const ProductCard = ({ url }) => {
           {/* Product Content */}
           <div
             style={{ display: addButtonClicked ? "none" : "block" }}
-            className="text-center w-full duration-400 mx-auto"
+            className="text-center w-full duration-400 mx-auto px-3"
           >
             <div className="pb-3">
-              <h4 className="md:text-sm lg:text-base font-normal text-teagreen-800">
+              <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 h-10 overflow-hidden text-ellipsis whitespace-nowrap">
                 {product?.title}
               </h4>
-              <div className="flex justify-between">
-                <p className="capitalize">{product?.format}</p>
+              <div className="flex justify-between items-center py-1">
+                <p className="capitalize text-sm">{product?.format}</p>
 
                 {product?.isSale ? (
-                  <div className="flex justify-center gap-2 text-xs lg:text-sm font-semibold text-teagreen-800">
-                    <div>£{product?.unitPrices[0]?.salePrice}</div>{" "}
+                  <div className="flex justify-center gap-2 font-semibold text-teagreen-800">
+                    <div>£{product?.unitPrices[0]?.salePrice}</div>
                     <del>£{product?.unitPrices[0]?.price}</del>
                   </div>
                 ) : (
-                  <div className="text-xs lg:text-sm font-semibold text-teagreen-800">
+                  <div className="font-semibold text-teagreen-800">
                     £{product?.unitPrices[0]?.price}
                   </div>
                 )}
@@ -237,9 +237,10 @@ const ProductCard = ({ url }) => {
         >
           <button
             onClick={handleWeight}
-            className="uppercase text-xs py-3 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400"
+            className="uppercase text-xs py-3 text-center w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
           >
-            add to cart
+            <CiShoppingCart size={20} />
+            <span>add to cart</span>
           </button>
         </div>
 
@@ -272,7 +273,7 @@ const ProductCard = ({ url }) => {
             ))}
           </div>
         </div>
-      </div>
+      </>
     </div>
   );
 };

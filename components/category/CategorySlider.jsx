@@ -1,20 +1,10 @@
-"use client"
-import React, { useState } from "react";
-import Link from "next/link";
-import Slider from "react-slick";
-import CategoryCard from "./CategoryCard";
+"use client";
+import { useState } from "react";
+import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-} from "swiper/modules";
-import { useSwiper } from "swiper/react";
 import { ProductCard } from "../shared";
 
-function CategorySlider({ visibleProducts }) {
+function CategorySlider({ products }) {
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
 
@@ -27,7 +17,7 @@ function CategorySlider({ visibleProducts }) {
     <div className="relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, A11y]}
-        slidesPerView={3.5}
+        slidesPerView={4.5}
         spaceBetween={25}
         speed={1000}
         slidesPerGroup={2}
@@ -38,31 +28,27 @@ function CategorySlider({ visibleProducts }) {
         }}
         breakpoints={{
           320: {
-            slidesPerView: 1,
-            spaceBetween: 5,
-          },
-          640: {
             slidesPerView: 1.5,
-            spaceBetween: 10,
+            spaceBetween: 20,
           },
           768: {
-            slidesPerView: 1.5,
-            spaceBetween: 10,
+            slidesPerView: 2.5,
+            spaceBetween: 20,
           },
           1024: {
-            slidesPerView: 2.5,
-            spaceBetween: 15,
+            slidesPerView: 3.5,
+            spaceBetween: 20,
           },
           1280: {
-            slidesPerView: 3.5,
-            spaceBetween: 25,
+            slidesPerView: 4.5,
+            spaceBetween: 20,
           },
         }}
       >
-        {visibleProducts.map((item, index) => (
+        {products.map((product, index) => (
           <SwiperSlide key={index}>
             {/* <CategoryCard item={item} url={`tea/${item.type}/${item.id}`} /> */}
-            <ProductCard item={item} url={`tea/${item.id}`} />
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

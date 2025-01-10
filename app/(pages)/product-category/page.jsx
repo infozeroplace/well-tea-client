@@ -1,8 +1,9 @@
 import axios from "@/api/axios";
 import { ProductCard } from "@/components";
-import { Filters, Sort } from "./components";
+import TeaFilters from "@/components/TeaFilters";
+import TeaSort from "@/components/TeaSort";
 
-const TeaCategory = async ({ searchParams: rawSearchParams }) => {
+const ProductCategory = async ({ searchParams: rawSearchParams }) => {
   const searchParams = await Promise.resolve(rawSearchParams);
 
   const queryParams = new URLSearchParams(searchParams).toString();
@@ -15,13 +16,13 @@ const TeaCategory = async ({ searchParams: rawSearchParams }) => {
   return (
     <div className="flex container px-4 lg:px-10 gap-5">
       <aside className="max-w-[200px] w-full py-5 text-teagreen-600">
-        <Filters />
+        <TeaFilters />
       </aside>
       <div className="flex-1">
         {data.length > 0 ? (
           <div>
             <div className="py-3 flex justify-end items-center">
-              <Sort />
+              <TeaSort />
             </div>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {data.map((product) => (
@@ -39,4 +40,4 @@ const TeaCategory = async ({ searchParams: rawSearchParams }) => {
   );
 };
 
-export default TeaCategory;
+export default ProductCategory;

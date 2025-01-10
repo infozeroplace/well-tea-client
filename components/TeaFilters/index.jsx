@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-function Filters() {
+const TeaFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -73,9 +73,6 @@ function Filters() {
   const handleCheckboxChange = (key, param) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    // Always enforce category=tea
-    params.set("category", "tea");
-
     if (key === "price") {
       // For price, set a single value
       if (params.get(key) === param) {
@@ -93,7 +90,7 @@ function Filters() {
         : [...currentValues, param]; // Add the parameter
 
       if (updatedValues.length) {
-        params.set(key, updatedValues.join(",")); // Join with commas
+        params.set(key, updatedValues.join(",")); // Join with plain commas
       } else {
         params.delete(key); // Remove the key if no values
       }
@@ -107,8 +104,7 @@ function Filters() {
   };
 
   const resetFilters = () => {
-    // Reset to only category=tea
-    router.push("?category=tea");
+    router.push("?");
   };
 
   const isChecked = (key, param) => {
@@ -119,9 +115,7 @@ function Filters() {
     return params.split(",").some((item) => item === param);
   };
 
-  const hasFilters = Array.from(searchParams.entries()).some(
-    ([key]) => key !== "category"
-  );
+  const hasFilters = Array.from(searchParams.entries()).length > 0;
 
   return (
     <>
@@ -174,6 +168,6 @@ function Filters() {
       ))}
     </>
   );
-}
+};
 
-export default Filters;
+export default TeaFilters;

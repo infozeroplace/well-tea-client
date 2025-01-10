@@ -1,8 +1,12 @@
-"use client"
+"use client";
 
-import React from "react";
-
-const SectionButton = ({ title, textClass, buttonClass, hoverClass, onClick = () => {}, }) => {
+const SectionButton = ({
+  title,
+  textClass,
+  buttonClass,
+  hoverClass,
+  onClick,
+}) => {
   return (
     <button
       onClick={onClick}
