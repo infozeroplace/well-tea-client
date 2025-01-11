@@ -1,12 +1,10 @@
 "use client";
 
-import React from 'react';
-import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
-import Description from './Description';
-import Reviews from './Reviews';
-import ReturnsAndDelivery from './ReturnsAndDelivery';
-import Ingredients from './Ingredients';
-import HowToMake from './HowToMake';
+import { Card, Tab, Tabs } from "@nextui-org/react";
+import Description from "./Description";
+import HowToMake from "./HowToMake";
+import Ingredients from "./Ingredients";
+import Reviews from "./Reviews";
 
 function ProductTabs({ product }) {
   return (
@@ -16,7 +14,7 @@ function ProductTabs({ product }) {
           <Tab key="description" title="Description">
             <div className="mt-5">
               <Card>
-                <Description description={product.description} />
+                <Description description={product.longDescription} />
               </Card>
             </div>
           </Tab>

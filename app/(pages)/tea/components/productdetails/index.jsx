@@ -4,14 +4,32 @@ import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
 
 const ProductDetails = ({ product }) => {
-  const availableOptions = ["Loose Leaf", "Tea Bags", "Tea Caddy"];
+  // Serialize available options
+  const availableOptions = product.availableAs.map((item) => ({
+    format: item.format[0], // Assuming one format per item
+    urlParameter: item.urlParameter,
+  }));
+
+  // Ensure the current product format is included in the options
+  const currentFormat = {
+    format: product.format[0],
+    urlParameter: product.urlParameter,
+  };
+
+  const isCurrentFormatIncluded = availableOptions.some(
+    (item) => item.format.toLowerCase() === currentFormat.format.toLowerCase()
+  );
+
+  if (!isCurrentFormatIncluded) {
+    availableOptions.unshift(currentFormat);
+  }
 
   return (
     <div className="py-8">
       <div className="">
         <div className="mb-6">
           <h4 className="text-teagreen-600 font-semibold capitalize">
-            {product.type}
+            {product.type.join(", ")}
           </h4>
           <h1 className="text-2xl font-normal">{product.title}</h1>
           <p className="mt-2">
@@ -20,7 +38,7 @@ const ProductDetails = ({ product }) => {
               .join(", ")}
           </p>
           <p className="capitalize">
-            {product.originAddress}, {product.originName}
+            {product.originAddress}, {product.originName.join(", ")}
           </p>
           <div className="flex items-center gap-2">
             <span>{product.ratings}</span>
@@ -32,24 +50,30 @@ const ProductDetails = ({ product }) => {
         <div className="my-5">
           <h3 className="mb-4 font-normal">Available As</h3>
           <div className="flex flex-wrap gap-2">
-            {availableOptions.map((item) => (
-              <Link
-                href="/"
-                key={item}
-                className={
-                  "py-2 px-5 text-teagreen-800 bg-teagreen-100 rounded-full text-sm " +
-                  (item.toLowerCase() === product.format[0].toLowerCase() &&
-                    "border border-teagreen-600 bg-inherit")
-                }
-              >
-                {item}
-              </Link>
-            ))}
+            {availableOptions.map(({ format, urlParameter }) => {
+              const isSelected =
+                format.toLowerCase() === product.format[0].toLowerCase();
+
+              return (
+                <Link
+                  href={isSelected ? "#" : `/${urlParameter}`}
+                  key={format}
+                  className={`py-2 px-5 text-teagreen-800 bg-teagreen-100 rounded-full text-sm ${
+                    isSelected
+                      ? "border border-teagreen-600 bg-inherit cursor-not-allowed pointer-events-none"
+                      : ""
+                  }`}
+                  aria-disabled={isSelected ? "true" : "false"} // Accessibility support
+                >
+                  {format.charAt(0).toUpperCase() + format.slice(1)}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         <ManageProduct product={product} />
-        
+
         <SocialShare />
       </div>
     </div>

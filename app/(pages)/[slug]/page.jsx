@@ -8,7 +8,9 @@ import {
 } from "../tea/components";
 
 const ProductDetail = async ({ params }) => {
-  const slug = decodeURIComponent(params.slug);
+  // Ensure params is awaited
+  const { slug } = await params; // Await the params object
+  const decodedSlug = decodeURIComponent(slug);
 
   try {
     const {

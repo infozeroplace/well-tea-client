@@ -1,9 +1,8 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
 import { addToCart } from "@/services/features/cart/cartSlice";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -12,135 +11,136 @@ const toNumber = (value) => {
 };
 
 function ManageProduct({ product }) {
-    const addOns = [
-      {
-        id: "1",
-        designation: "best sellar",
-        discount: "40",
-        image: "/products/product_05.jpg",
-        hoverImage: "/products/product_02.jpg",
-        type: "Green Teas",
-        title: "Rose Melange",
-        rating: "4.5",
-        price: "52.4",
-        discountPrice: "41",
-        weight: ["5", "10", "20", "30"],
-      },
-      {
-        id: "2",
-        designation: "best sellar",
-        discount: "40",
-        image: "/products/product_05.jpg",
-        hoverImage: "/products/product_04.jpg",
-        type: "Ginger Teas",
-        title: "Tera Ooolong",
-        rating: "4.8",
-        price: "40.7",
-        discountPrice: "32",
-        weight: ["5", "10", "20", "30"],
-      },
-      {
-        id: "3",
-        designation: "best sellar",
-        discount: "40",
-        image: "/products/product_05.jpg",
-        hoverImage: "/products/product_02.jpg",
-        type: "Organic Teas",
-        title: "White Melange",
-        rating: "4.9",
-        price: "34.37",
-        discountPrice: "26",
-        weight: ["5", "10", "20", "30"],
-      },
-    ];
+  const addOns = [
+    {
+      id: "1",
+      designation: "best sellar",
+      discount: "40",
+      image: "/products/product_05.jpg",
+      hoverImage: "/products/product_02.jpg",
+      type: "Green Teas",
+      title: "Rose Melange",
+      rating: "4.5",
+      price: "52.4",
+      discountPrice: "41",
+      weight: ["5", "10", "20", "30"],
+    },
+    {
+      id: "2",
+      designation: "best sellar",
+      discount: "40",
+      image: "/products/product_05.jpg",
+      hoverImage: "/products/product_04.jpg",
+      type: "Ginger Teas",
+      title: "Tera Ooolong",
+      rating: "4.8",
+      price: "40.7",
+      discountPrice: "32",
+      weight: ["5", "10", "20", "30"],
+    },
+    {
+      id: "3",
+      designation: "best sellar",
+      discount: "40",
+      image: "/products/product_05.jpg",
+      hoverImage: "/products/product_02.jpg",
+      type: "Organic Teas",
+      title: "White Melange",
+      rating: "4.9",
+      price: "34.37",
+      discountPrice: "26",
+      weight: ["5", "10", "20", "30"],
+    },
+  ];
 
-    const [purchaseType, setPurchaseType] = useState("one-time");
-    // const [discountKey, setdiscountKey] = useState("1");
-    const [quantity, setQuantity] = useState(1);
-    // const [selectedAddOns, setSelectedAddOns] = useState([]);
-    // const [selectedUnit, setSelectedUnit] = useState(product.unitPrices[0].unit);
-    const dispatch = useDispatch();
-    const [selectedUnitObj, setSelectedUnitObj] = useState(product?.unitPrices?.[0]);
-    const [selectedSubObj, setSelectedSubObj] = useState(
-      product?.subscriptions?.[0]
+  const [purchaseType, setPurchaseType] = useState("one-time");
+  // const [discountKey, setdiscountKey] = useState("1");
+  const [quantity, setQuantity] = useState(1);
+  const [selectedAddOns, setSelectedAddOns] = useState([]);
+  // const [selectedUnit, setSelectedUnit] = useState(product.unitPrices[0].unit);
+  const dispatch = useDispatch();
+  const [selectedUnitObj, setSelectedUnitObj] = useState(
+    product?.unitPrices?.[0]
+  );
+  const [selectedSubObj, setSelectedSubObj] = useState(
+    product?.subscriptions?.[0]
+  );
+  const [totalPrice, setTotalPrice] = useState(
+    product.isSale
+      ? toNumber(selectedUnitObj?.salePrice)
+      : selectedUnitObj?.price
+  );
+
+  // ---------- Handle Quantity Change ---------- //
+  const handleQuantityChange = (type) => {
+    setQuantity((prevQuantity) =>
+      type === "increment" ? prevQuantity + 1 : Math.max(prevQuantity - 1, 1)
     );
-    const [totalPrice, setTotalPrice] = useState(
-      product.isSale
-        ? toNumber(selectedUnitObj?.salePrice)
-        : selectedUnitObj?.price
+  };
+
+  // ---------- Handle Unit Selection ---------- //
+  const handleUnitSelect = (unitObj) => {
+    setSelectedUnitObj(unitObj);
+  };
+
+  const handleSubscriptionChange = (e) => {
+    const selectedSubscription = product.subscriptions.find(
+      (sub) => sub._id === e.target.value
     );
+    setSelectedSubObj(selectedSubscription);
+  };
 
-    // ---------- Handle Quantity Change ---------- //
-    const handleQuantityChange = (type) => {
-      setQuantity((prevQuantity) =>
-        type === "increment" ? prevQuantity + 1 : Math.max(prevQuantity - 1, 1)
-      );
-    };
+  // ---------- Handle Add-On Selection ---------- //
+  // const handleAddOnSelect = (addOn) => {
+  //   setSelectedAddOns((prevAddOns) => {
+  //     if (prevAddOns.some((a) => a.id === addOn.id)) {
+  //       return prevAddOns.filter((a) => a.id !== addOn.id);
+  //     } else {
+  //       return [...prevAddOns, addOn];
+  //     }
+  //   });
+  // };
 
-    // ---------- Handle Unit Selection ---------- //
-    const handleUnitSelect = (unitObj) => {
-      setSelectedUnitObj(unitObj);
-    };
+  // ---------- Calculate Total Price ---------- //
+  useEffect(() => {
+    // const addOnPrice = selectedAddOns.reduce(
+    //   (sum, addOn) => sum + toNumber(addOn.price),
+    //   0
+    // );
 
-    const handleSubscriptionChange = (e) => {
-      const selectedSubscription = product.subscriptions.find(
-        (sub) => sub._id === e.target.value
-      );
-      setSelectedSubObj(selectedSubscription);
-    }
+    const productPrice =
+      product?.isSubscription && purchaseType === "subscribe"
+        ? selectedUnitObj.subscriptionPrice
+        : product.isSale
+        ? selectedUnitObj.salePrice
+        : selectedUnitObj.price;
 
-    // ---------- Handle Add-On Selection ---------- //
-    // const handleAddOnSelect = (addOn) => {
-    //   setSelectedAddOns((prevAddOns) => {
-    //     if (prevAddOns.some((a) => a.id === addOn.id)) {
-    //       return prevAddOns.filter((a) => a.id !== addOn.id);
-    //     } else {
-    //       return [...prevAddOns, addOn];
-    //     }
-    //   });
-    // };
+    setTotalPrice(productPrice * quantity);
+  }, [quantity, selectedUnitObj, purchaseType]);
 
-
-    // ---------- Calculate Total Price ---------- //
-    useEffect(() => {
-      // const addOnPrice = selectedAddOns.reduce(
-      //   (sum, addOn) => sum + toNumber(addOn.price),
-      //   0
-      // );
-
-      const productPrice =
-        product?.isSubscription && purchaseType === "subscribe"
-          ? selectedUnitObj.subscriptionPrice
-          : product.isSale
-          ? selectedUnitObj.salePrice
-          : selectedUnitObj.price;
-
-      setTotalPrice(productPrice * quantity);
-    }, [quantity, selectedUnitObj, purchaseType]);
-
-    // ---------- Handle Add To Cart ---------- //
-    const handleAddToCart = () => {
-      // const itemsToAdd = [
-      //   { product, unitObj: selectedUnitObj, purchaseType, quantity, addOns: [] },
-      //   ...selectedAddOns.map((addOn) => ({
-      //     product: addOn,
-      //     quantity: 1,
-      //     addOns: [],
-      //   })),
-      // ];
-      // itemsToAdd.forEach((item) => dispatch(addToCart(item)));
-      dispatch(
-        addToCart({
-          product,
-          unitObj: selectedUnitObj,
-          purchaseType,
-          subObj: purchaseType === "subscribe" && selectedSubObj,
-          quantity,
-          productPrice: totalPrice / quantity,
-          addOns: [],
-        })
-      );
-    };
+  // ---------- Handle Add To Cart ---------- //
+  const handleAddToCart = () => {
+    // const itemsToAdd = [
+    //   { product, unitObj: selectedUnitObj, purchaseType, quantity, addOns: [] },
+    //   ...selectedAddOns.map((addOn) => ({
+    //     product: addOn,
+    //     quantity: 1,
+    //     addOns: [],
+    //   })),
+    // ];
+    // itemsToAdd.forEach((item) => dispatch(addToCart(item)));
+    dispatch(
+      addToCart({
+        product,
+        unitObj: selectedUnitObj,
+        purchaseType,
+        subObj: purchaseType === "subscribe" && selectedSubObj,
+        quantity,
+        productPrice: totalPrice / quantity,
+        addOns: [],
+      })
+    );
+  };
 
   return (
     <div>
@@ -186,47 +186,48 @@ function ManageProduct({ product }) {
             </label>
 
             {/* ------------ Subscribe and Save Option ------------- */}
-            <div className="border rounded-md p-4 bg-teagreen-100 text-lg text-teagreen-600">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="purchaseType"
-                  value="subscribe"
-                  checked={purchaseType === "subscribe"}
-                  onChange={() => setPurchaseType("subscribe")}
-                  className="form-radio h-5 w-5 text-green-600 mr-3"
-                />
-                <span className="">Subscribe and Save</span>
-                <span className="ml-auto">
-                  £{toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
-                </span>
-              </label>
+            {product.isSubscription && (
+              <div className="border rounded-md p-4 bg-teagreen-100 text-lg text-teagreen-600">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="purchaseType"
+                    value="subscribe"
+                    checked={purchaseType === "subscribe"}
+                    onChange={() => setPurchaseType("subscribe")}
+                    className="form-radio h-5 w-5 text-green-600 mr-3"
+                  />
+                  <span className="">Subscribe and Save</span>
+                  <span className="ml-auto">
+                    £{toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
+                  </span>
+                </label>
 
-              {/* -------------- Subscription Frequency Options ------------- */}
-              {purchaseType === "subscribe" && (
-                <div className="mt-4 space-y-2">
-                  <select
-                    value={selectedSubObj._id}
-                    onChange={handleSubscriptionChange}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-teagreen-600"
-                  >
-                    {product.subscriptions.map((item) => (
-                      <option
-                        key={item._id}
-                        value={item._id}
-                        className="p-2 bg-white "
-                      >
-                        {item.weeks}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
+                {/* -------------- Subscription Frequency Options ------------- */}
+                {purchaseType === "subscribe" && (
+                  <div className="mt-4 space-y-2">
+                    <select
+                      value={selectedSubObj._id}
+                      onChange={handleSubscriptionChange}
+                      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-teagreen-600"
+                    >
+                      {product.subscriptions.map((item) => (
+                        <option
+                          key={item._id}
+                          value={item._id}
+                          className="p-2 bg-white "
+                        >
+                          {item.weeks}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-
           {/* --------------- Subscribe and Save Description -------------- */}
-          {/* {purchaseType === "subscribe" && (
+          {purchaseType === "subscribe" && (
             <div className="mt-5">
               <h3 className="font-normal">Subscribe and Save</h3>
               <p className="mt-4 text-sm text-gray-600">
@@ -236,7 +237,7 @@ function ManageProduct({ product }) {
                 subscription at any time.
               </p>
             </div>
-          )} */}
+          )}
         </div>
       </div>
 
@@ -289,7 +290,12 @@ function ManageProduct({ product }) {
           className="bg-teagreen-700 text-white py-2 px-6 text-lg"
           onClick={handleAddToCart}
         >
-          Add to Cart - £{toNumber(totalPrice).toFixed(2)}
+          Add to Cart - £
+          {toNumber(
+            product.isMultiDiscount && quantity >= product.multiDiscountQuantity
+              ? totalPrice - product.multiDiscountAmount
+              : totalPrice
+          ).toFixed(2)}
         </button>
       </div>
     </div>
