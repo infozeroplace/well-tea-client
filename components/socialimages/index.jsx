@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { FaInstagram } from "react-icons/fa";
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 function SocialImages() {
   const socialImages = [
     {
@@ -58,7 +58,12 @@ function SocialImages() {
   return (
     <div className="section-gap">
       <div className="container px-20">
-        <h1 className="text-4xl mb-5 font-semibold">@wellteauk</h1>
+        <div className="flex items-center justify-between">
+          <p className="text-4xl mb-5 font-semibold flex items-center gap-2">
+            <FaInstagram /> <span>@wellteauk</span>
+          </p>
+          <p className="uppercase font-semibold">Follow us</p>
+        </div>
         <Swiper
           modules={[Navigation, Pagination, Autoplay, A11y]}
           slidesPerView={5}

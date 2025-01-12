@@ -6,6 +6,7 @@ import {
   CategoryOffer,
   Hero,
   VariableCategoryProducts,
+  WhyChooseUs,
 } from "@/components";
 
 export const revalidate = 0;
@@ -34,10 +35,10 @@ const Home = async () => {
       <Hero data={systemData?.hero || []} />
       <CategoryOffer data={systemData?.offer || {}} />
       <Category initialProducts={categoryData || []} />
-      <BestSellers initialProducts={bestSellerData || []} />
       <Banner data={systemData?.featured || []} />
       <VariableCategoryProducts initialProducts={featuredProducts || []} />
-      {/* <WhyChooseUs /> */}
+      <WhyChooseUs />
+      <BestSellers initialProducts={bestSellerData || []} />
     </>
   );
 };

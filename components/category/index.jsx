@@ -1,8 +1,9 @@
 "use client";
 
 import { useGetProductListQuery } from "@/services/features/product/productApi";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SectionTitle } from "../shared";
+import { SectionButton, SectionTitle } from "../shared";
 import CategorySlider from "./CategorySlider";
 
 const types = [
@@ -15,6 +16,7 @@ const types = [
 ];
 
 const Category = ({ initialProducts }) => {
+  const router = useRouter();
   const [queryParams, setQueryParams] = useState({
     page: 1,
     limit: 10,
@@ -32,6 +34,10 @@ const Category = ({ initialProducts }) => {
       setProducts(data.data);
     }
   }, [data]);
+
+  const handleRoute = () => {
+    router.push("/product-category?type=tea");
+  };
 
   const activeClass = "border-[0.5px] border-teagreen-600";
 
@@ -58,7 +64,13 @@ const Category = ({ initialProducts }) => {
           ))}
         </div>
 
-        <CategorySlider products={products} />
+        <div className="pb-10">
+          <CategorySlider products={products} />
+        </div>
+
+        <div className="flex justify-center mx-auto">
+          <SectionButton title="Shop All Teas" />
+        </div>
       </div>
     </div>
   );
