@@ -10,7 +10,6 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
-
   const dispatch = useDispatch();
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
@@ -53,7 +52,7 @@ const ProductCard = ({ product }) => {
             <div className="w-8">
               <img src="/products/label-sale.png" alt="Sale" />
             </div>
-          ) : product?.isNew ? (
+          ) : product?.isNewProduct ? (
             <div className="uppercase text-sm bg-teagreen-500 text-white px-2 py-1">
               new
             </div>
@@ -66,7 +65,10 @@ const ProductCard = ({ product }) => {
 
       <>
         {/* Product image and descriptions */}
-        <Link href={`/${product?.urlParameter}`} className="px-3 flex flex-col justify-between w-full">
+        <Link
+          href={`/${product?.urlParameter}`}
+          className="px-3 flex flex-col justify-between w-full"
+        >
           {/* Product Image */}
           <div className="relative group w-full">
             <Image

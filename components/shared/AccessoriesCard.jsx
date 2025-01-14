@@ -1,11 +1,11 @@
 "use client";
 
+import { addToCart } from "@/services/features/cart/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/services/features/cart/cartSlice";
 import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 const AccessoriesCard = ({ item, url }) => {
   if (!item) return null;
@@ -34,7 +34,7 @@ const AccessoriesCard = ({ item, url }) => {
       {/* Sell and Favorite Section */}
       <div className="flex justify-between text-sm px-3">
         <div>
-          {item?.isNew ? (
+          {item?.isNewProduct ? (
             <div className="uppercase text-sm bg-teagreen-500 text-white px-1 mt-[8px]">
               new
             </div>
