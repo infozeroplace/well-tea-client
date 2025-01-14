@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { env } from "@/config/env";
 import "swiper/css/bundle";
+import axios from "@/api/axios";
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
@@ -30,7 +31,11 @@ export const metadata = {
   keywords: "tea, organic tea, well tea, premium tea",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const {
+      data: { data: systemData },
+    } = await axios.get("/public/system");
+
   return (
     <html lang="en">
       <body className={fonts}>
@@ -42,7 +47,7 @@ export default function RootLayout({ children }) {
                 <Navbar />
                 {children}
                 <SocialImages />
-                <CompanyServices />
+                <CompanyServices data={systemData?.companyService || []}/>
                 <Footer />
                 <Toaster position="bottom-right" />
               </UIProvider>

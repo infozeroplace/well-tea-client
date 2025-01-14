@@ -3,45 +3,48 @@
 import { SectionButton, SectionLinkButton } from "@/components/shared";
 import Image from "next/image";
 import React, { useState } from "react";
+import { env } from "@/config/env";
 
-const discoverItems = [
-  {
-    title: "Handmade",
-    icon: "icon 1",
-    image: "/whychooseus/slide_banner_07.jpg",
-    description:
-      "We source the finest quality speciality teas, herbs, spices and flowers from around the world. Are you ready to be inspired?",
-  },
-  {
-    title: "Freshness",
-    icon: "icon 2",
-    image: "/whychooseus/slide_banner_08.jpg",
-    description:
-      "We are dedicated to creating fresh, small-batch blends that embody the essence of their ingredients, offering vibrant flavors and natural therapeutic benefits.",
-  },
-  {
-    title: "Sustainability",
-    icon: "icon 3",
-    image: "/whychooseus/slide_banner_09.jpg",
-    description:
-      "We carefully source all our premium ingredients directly from sustainably certified gardens, ensuring the highest quality and ethical standards.",
-  },
-];
+// const discoverItems = [
+//   {
+//     title: "Handmade",
+//     icon: "icon 1",
+//     image: "/whychooseus/slide_banner_07.jpg",
+//     description:
+//       "We source the finest quality speciality teas, herbs, spices and flowers from around the world. Are you ready to be inspired?",
+//   },
+//   {
+//     title: "Freshness",
+//     icon: "icon 2",
+//     image: "/whychooseus/slide_banner_08.jpg",
+//     description:
+//       "We are dedicated to creating fresh, small-batch blends that embody the essence of their ingredients, offering vibrant flavors and natural therapeutic benefits.",
+//   },
+//   {
+//     title: "Sustainability",
+//     icon: "icon 3",
+//     image: "/whychooseus/slide_banner_09.jpg",
+//     description:
+//       "We carefully source all our premium ingredients directly from sustainably certified gardens, ensuring the highest quality and ethical standards.",
+//   },
+// ];
 
-const WhyChooseUs = () => {
+const WhyChooseUs = ({ data }) => {
+  const discoverItems = data;
   const [choosOption, setChoosOption] = useState({
-    icon: discoverItems[0].icon,
-    image: discoverItems[0].image,
+    iconPath: discoverItems[0].iconPath,
+    imagePath: discoverItems[0].imagePath,
     description: discoverItems[0].description,
   });
 
   const [selected, setSelected] = useState(discoverItems[0].title);
 
   const handleClick = (item) => {
-    const { title, icon, image, description } = item;
-    setChoosOption({ ...choosOption, icon, image, description });
+    const { title, iconPath, imagePath, description } = item;
+    setChoosOption({ ...choosOption, iconPath, imagePath, description });
     setSelected(title);
   };
+
   return (
     <div className=" container section-gap px-4 md:px-20 lg:px-0 lg:pl-20">
       <div className="grid grid-cols-3 gap-6">
@@ -51,7 +54,7 @@ const WhyChooseUs = () => {
               why choose us
             </p>
             <div className="text-teagreen-300">
-              {discoverItems.map((item) => (
+              {discoverItems?.map((item) => (
                 <button
                   key={item?.title}
                   type="button"
@@ -66,24 +69,30 @@ const WhyChooseUs = () => {
             </div>
           </div>
           <div className="mt-3">
+            <div className="mb-3">
+              <Image
+                src={`${env.app_url}${choosOption?.iconPath}`}
+                alt={selected}
+                width={30}
+                height={30}
+              />
+            </div>
             <div className="text-xs 2xl:text-base text-center lg:text-left lg:text-base mb-2 lg:mb-5">
               {choosOption?.description}
             </div>
             <div className="flex justify-center md:justify-start text-lg">
-              {/* <SectionLinkButton title="See More" url="/tea" /> */}
               <SectionLinkButton title="Learn more" url="/tea" />
             </div>
           </div>
         </div>
         <div className="col-span-3 lg:col-span-2 aspect-[1000/500] lg:aspect-[1180/730] w-full overflow-hidden lg:overflow-visible">
           <Image
-            src={choosOption?.image}
-            alt="Why Choose Us"
+            src={`${env.app_url}${choosOption?.imagePath}`}
+            alt={selected}
             width={1180}
             height={730}
             className="w-full h-full object-cover"
           />
-          {/* <img src={choosOption?.image} alt="" /> */}
         </div>
       </div>
     </div>

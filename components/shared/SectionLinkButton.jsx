@@ -11,7 +11,7 @@ const SectionLinkButton = ({
     <Link
       href={url}
       className={
-        "inline-block relative h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full py- text-center transition-all duration-300 " +
+        "inline-block relative w-60 h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full text-center transition-all duration-300 " +
         buttonClass
       }
     >

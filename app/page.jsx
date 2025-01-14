@@ -37,7 +37,7 @@ const Home = async () => {
       <Category initialProducts={categoryData || []} />
       <Banner data={systemData?.featured || []} />
       <VariableCategoryProducts initialProducts={featuredProducts || []} />
-      <WhyChooseUs />
+      <WhyChooseUs data = {systemData?.whyChooseUs || []}/>
       <BestSellers initialProducts={bestSellerData || []} />
     </>
   );
