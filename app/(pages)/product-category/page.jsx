@@ -15,15 +15,16 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
 
   return (
     <div className="flex container px-4 lg:px-10 gap-5 mb-10">
-      <aside className="max-w-[200px] w-full py-5 text-teagreen-600">
+      {/* <aside className="max-w-[200px] w-full py-5 text-teagreen-600">
         <TeaFilters />
-      </aside>
+      </aside> */}
       <div className="flex-1">
-        {data.length > 0 ? (
-          <div>
-            <div className="py-3 flex justify-end items-center">
+            <div className="py-3 flex justify-end items-center gap-5">
+              <TeaFilters />
               <TeaSort />
             </div>
+        {data.length > 0 ? (
+          <div>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
               {data.map((product) => (
                 <ProductCard key={product._id} product={product} />

@@ -1,16 +1,26 @@
 "use client";
 import { TbArrowsSort } from "react-icons/tb";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const TeaSort = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const options = [
-    { id: 1, label: "Sort A-Z", value: "name-asc" },
-    { id: 2, label: "Price Ascending", value: "price-asc" },
-    { id: 3, label: "Price Descending", value: "price-desc" },
-    { id: 4, label: "Top Rated", value: "rating-desc" },
+    { id: 1, label: "Sort A-Z", value: "title 1" },
+    { id: 2, label: "Price Ascending", value: "price 1" },
+    { id: 3, label: "Price Descending", value: "price -1" },
+    { id: 4, label: "Top Rated", value: "ratings -1" },
   ];
 
   const onSort = (sortValue) => {
-    // console.log(sortValue);
+    const params = new URLSearchParams(searchParams.toString());
+    const [sortBy, sortOrder] = sortValue.split(" ");
+
+    params.set("sortBy", sortBy);
+    params.set("sortOrder", sortOrder);
+
+    router.push(`?${params.toString()}`);
   };
 
   return (

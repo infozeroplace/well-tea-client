@@ -43,7 +43,7 @@ const ProductCard = ({ product }) => {
       onMouseLeave={() => {
         setAddButtonClicked(false);
       }}
-      className="max-w-[380px] w-full h-full bg-[#F8F8F8]"
+      className="max-w-[380px] w-full h-full bg-[#F8F8F8] relative"
     >
       {/* Sell and Favorite Section */}
       <div className="h-16 flex justify-between items-center text-sm px-3">
@@ -92,7 +92,7 @@ const ProductCard = ({ product }) => {
             style={{ display: addButtonClicked ? "none" : "block" }}
             className="text-center w-full duration-400 mx-auto px-3"
           >
-            <div className="pb-3">
+            <div className="">
               <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 h-10 overflow-hidden text-ellipsis whitespace-nowrap">
                 {product?.title}
               </h4>
@@ -130,10 +130,8 @@ const ProductCard = ({ product }) => {
 
         {/* Weight Selection*/}
         <div
-          className={` ${
-            addButtonClicked
-              ? "block transition-transform duration-400 -mt-[24px] py-1"
-              : "hidden transition-transform duration-400"
+          className={`absolute botton-0 left-0 w-full bg-inherit overflow-hidden transition-height duration-500 ${
+            addButtonClicked ? "h-fit" : "h-0"
           }`}
         >
           <p className="uppercase text-center py-1 text-sm border-b">

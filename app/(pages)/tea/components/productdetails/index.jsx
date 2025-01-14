@@ -40,6 +40,7 @@ const ProductDetails = ({ product }) => {
           <p className="capitalize">
             {product.originAddress}, {product.originName.join(", ")}
           </p>
+          <span>£{product?.unitPrices[0]?.price}</span>
           <div className="flex items-center gap-2">
             <span>{product.ratings}</span>
             <StarRatingDisplay rating={product.ratings} />

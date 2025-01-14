@@ -214,3 +214,11 @@ font-size: 1.25rem !important;
     transform: translateX(-22.5%);
   }
 }
+
+.product-tab ul{
+  list-style: inside;
+}
+
+.product-tab ol{
+  list-style-type: inside;
+}

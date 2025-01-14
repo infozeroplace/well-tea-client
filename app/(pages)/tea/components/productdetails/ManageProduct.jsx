@@ -179,9 +179,14 @@ function ManageProduct({ product }) {
               <span className="">One-Time Purchase</span>
               <span className="ml-auto font-normal">
                 £
-                {product.isSale
-                  ? toNumber(selectedUnitObj.salePrice).toFixed(2)
-                  : toNumber(selectedUnitObj.price).toFixed(2)}
+                {product.isSale ? (
+                  <span>
+                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del>{" "}
+                    £{toNumber(selectedUnitObj.salePrice).toFixed(2)}
+                  </span>
+                ) : (
+                  toNumber(selectedUnitObj.price).toFixed(2)
+                )}
               </span>
             </label>
 
@@ -199,6 +204,7 @@ function ManageProduct({ product }) {
                   />
                   <span className="">Subscribe and Save</span>
                   <span className="ml-auto">
+                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del>{" "}
                     £{toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
