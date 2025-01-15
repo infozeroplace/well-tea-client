@@ -1,12 +1,6 @@
 "use client";
-<<<<<<< HEAD
-=======
-import { useState } from "react"
-import { TbArrowsSort } from "react-icons/tb";
-import { CiCircleCheck } from "react-icons/ci";
-import { FaRegCircleCheck } from "react-icons/fa6";
->>>>>>> 8537e0a7bd4328b1d1636fb8b11e2678302004f9
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { IoFilter } from "react-icons/io5";
 import { TbArrowsSort } from "react-icons/tb";
 
