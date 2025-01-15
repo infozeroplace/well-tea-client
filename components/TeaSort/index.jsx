@@ -1,5 +1,8 @@
 "use client";
+import { useState } from "react"
 import { TbArrowsSort } from "react-icons/tb";
+import { CiCircleCheck } from "react-icons/ci";
+import { FaRegCircleCheck } from "react-icons/fa6";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const TeaSort = () => {
@@ -13,14 +16,24 @@ const TeaSort = () => {
     { id: 4, label: "Top Rated", value: "ratings -1" },
   ];
 
+  const [activeSort, setActiveSort] = useState(null);
+
   const onSort = (sortValue) => {
-    const params = new URLSearchParams(searchParams.toString());
     const [sortBy, sortOrder] = sortValue.split(" ");
 
-    params.set("sortBy", sortBy);
-    params.set("sortOrder", sortOrder);
-
-    router.push(`?${params.toString()}`);
+    if (activeSort === sortValue) {
+      setActiveSort(null);
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("sortBy");
+      params.delete("sortOrder");
+      router.push(`?${params.toString()}`);
+    } else {
+      setActiveSort(sortValue);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("sortBy", sortBy);
+      params.set("sortOrder", sortOrder);
+      router.push(`?${params.toString()}`);
+    }
   };
 
   return (
@@ -33,11 +46,12 @@ const TeaSort = () => {
           {options.map((option) => (
             <button
               key={option.id}
-              className="block w-full px-4 py-2 text-sm text-teagreen-700 hover:bg-gray-100"
+              className="flex justify-center items-center gap-2 w-full px-4 py-2 text-sm text-teagreen-700 hover:bg-gray-100"
               onClick={() => onSort(option.value)}
               role="menuitem"
             >
               {option.label}
+              {activeSort === option.value && <FaRegCircleCheck size={14} />}
             </button>
           ))}
         </div>

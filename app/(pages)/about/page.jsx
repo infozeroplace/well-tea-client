@@ -10,6 +10,12 @@ import {
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "About Welltea",
+  description: "",
+  keywords: "",
+};
+
 const About = () => {
   return (
     <div>

@@ -1,6 +1,11 @@
 import { BrewingGuide, TeaRecipe, TipsAndTricks } from "@/components";
 import React from "react";
 
+export const metadata = {
+  title: "How to make tea",
+  description: "",
+};
+
 const MakeTea = () => {
   return (
     <div className="container px-4 lg:px-20">
