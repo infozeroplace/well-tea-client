@@ -58,7 +58,7 @@ const ProductCard = ({ product }) => {
       //   setAddButtonClicked(false);
       // }}
       ref={cardRef}
-      className="max-w-[380px] w-full h-full bg-[#F8F8F8] relative"
+      className="max-w-[380px] w-full h-full bg-[#F8F8F8] relative overflow-hidden"
     >
       {/* Sell and Favorite Section */}
       <div className="h-16 flex justify-between items-center text-sm px-3">
@@ -109,24 +109,11 @@ const ProductCard = ({ product }) => {
               addButtonClicked ? "opacity-0" : "opacity-1"
             }`}
           >
-            <div className="">
-              <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 h-10 overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="mb-3">
+              <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 overflow-hidden text-ellipsis whitespace-nowrap">
                 {product?.title}
               </h4>
-              {/* <div className="flex justify-between items-center py-1"> */}
-              <p className="capitalize text-sm">{product?.format}</p>
-
-              {/* {product?.isSale ? (
-                  <div className="flex justify-center gap-2 font-semibold text-teagreen-800">
-                    <div>£{product?.unitPrices[0]?.salePrice}</div>
-                    <del>£{product?.unitPrices[0]?.price}</del>
-                  </div>
-                ) : (
-                  <div className="font-semibold text-teagreen-800">
-                    £{product?.unitPrices[0]?.price}
-                  </div>
-                )} */}
-              {/* </div> */}
+              <p className="capitalize text-sm mt-2">{product?.format}</p>
             </div>
           </div>
         </Link>
@@ -140,9 +127,10 @@ const ProductCard = ({ product }) => {
             onClick={handleWeight}
             className="uppercase text-xs py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
           >
-            {/* <CiShoppingCart size={20} className="" /> */}
-            <CiShoppingCart size={20} className="absolute top-1/2 left-[22px] -translate-y-1/2" />
-            {/* <span>add to cart</span> */}
+            <CiShoppingCart
+              size={20}
+              className="absolute top-1/2 left-[22px] -translate-y-1/2"
+            />
             <div className="">
               {product?.isSale ? (
                 <div className="flex justify-center text-center gap-2 font-semibold text-teagreen-800">
@@ -161,7 +149,9 @@ const ProductCard = ({ product }) => {
         {/* Weight Selection*/}
         <div
           className={`absolute botton-0 h-fit left-0 z-10 w-full transform transition-all duration-300 ${
-            addButtonClicked ? "-translate-y-full opacity-1" : "translate-y-0 opacity-0"
+            addButtonClicked
+              ? "-translate-y-full opacity-1"
+              : "translate-y-0 opacity-0"
           }`}
         >
           <p className="uppercase text-center py-1 text-sm border-b">

@@ -7,6 +7,23 @@ import {
   RelatedProducts,
 } from "../tea/components";
 
+export async function generateMetadata({ params }) {
+
+  const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
+
+  const {
+    data: { data: product },
+  } = await axios.get(`/public/product/${slug}`);
+
+  // console.log(product);
+
+  return {
+    title: product.metaTitle,
+    description: product.metaDescription,
+  };
+}
+
 const ProductDetail = async ({ params }) => {
   // Ensure params is awaited
   const { slug } = await params; // Await the params object

@@ -14,10 +14,8 @@ import axios from "@/api/axios";
 const CompanyServices = async () => {
 
   const {
-      data: { data },
-    } = await axios.get("/public/system");
-  
-  console.log(data.companyService);
+    data: { data },
+  } = await axios.get("/public/system");
 
   return (
     <div className="container">

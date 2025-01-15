@@ -1,4 +1,11 @@
 "use client";
+<<<<<<< HEAD
+=======
+import { useState } from "react"
+import { TbArrowsSort } from "react-icons/tb";
+import { CiCircleCheck } from "react-icons/ci";
+import { FaRegCircleCheck } from "react-icons/fa6";
+>>>>>>> 8537e0a7bd4328b1d1636fb8b11e2678302004f9
 import { useRouter, useSearchParams } from "next/navigation";
 import { IoFilter } from "react-icons/io5";
 import { TbArrowsSort } from "react-icons/tb";
@@ -14,14 +21,24 @@ const TeaSort = ({ onToggleFilter }) => {
     { id: 4, label: "Top Rated", value: "ratings -1" },
   ];
 
+  const [activeSort, setActiveSort] = useState(null);
+
   const onSort = (sortValue) => {
-    const params = new URLSearchParams(searchParams.toString());
     const [sortBy, sortOrder] = sortValue.split(" ");
 
-    params.set("sortBy", sortBy);
-    params.set("sortOrder", sortOrder);
-
-    router.push(`?${params.toString()}`);
+    if (activeSort === sortValue) {
+      setActiveSort(null);
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("sortBy");
+      params.delete("sortOrder");
+      router.push(`?${params.toString()}`);
+    } else {
+      setActiveSort(sortValue);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("sortBy", sortBy);
+      params.set("sortOrder", sortOrder);
+      router.push(`?${params.toString()}`);
+    }
   };
 
   return (

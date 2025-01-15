@@ -9,6 +9,12 @@ import {
   WhyChooseUs,
 } from "@/components";
 
+// export const metadata = {
+//   title: "Well Tea",
+//   description: "Well Tea - Fresh and Organic Tea Products",
+//   keywords: "tea, organic tea, well tea, premium tea",
+// };
+
 export const revalidate = 0;
 
 const Home = async () => {
