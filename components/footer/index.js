@@ -10,11 +10,11 @@ function Footer() {
     return <div className="w-full h-[1px] bg-teagreen-100"></div>;
   };
   const FooterTitle = ({ name }) => {
-    return <h4 className="mb-2 md:mb-5 text-white uppercase">{name}</h4>;
+    return <h4 className="mb-2 md:mb-5 text-white uppercase text-lg">{name}</h4>;
   };
   const FooterListItem = ({ name, href }) => {
     return (
-      <Link href={href} className="text-teagreen-100 hover:text-teagreen-200">
+      <Link href={href} className="text-teagreen-100 hover:text-teagreen-200 text-sm">
         {name}
       </Link>
     );
@@ -39,6 +39,8 @@ function Footer() {
           <div className="col-span-2 lg:col-span-1 text-right lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
             <FooterTitle name="Help Center" />
             <FooterListItem name="Customer Care" href="/" />
+            <FooterListItem name="Terms & Conditions" href="/terms-conditions" />
+            <FooterListItem name="Privacy Policy" href="/privacy-policy" />
             <FooterListItem name="Shop" href="/" />
           </div>
           <div className="col-span-6 md:col-span-3 lg:col-span-2 text-center md:text-left md:mr-10 content-gap md:mb-0">
