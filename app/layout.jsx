@@ -1,16 +1,22 @@
+import axios from "@/api/axios";
 import { UIProvider } from "@/app/UIProvider";
-import { Footer, Header, Navbar, SocialImages, CompanyServices } from "@/components";
+import {
+  CompanyServices,
+  Footer,
+  Header,
+  Navbar,
+  SocialImages,
+} from "@/components";
 import PersistLogin from "@/components/PersistLogin";
+import { env } from "@/config/env";
 import ReduxProvider from "@/services/ReduxProvider";
+import "@/styles/quillstyle.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "boxicons/css/boxicons.min.css";
 import { Prompt, SUSE } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import "./globals.css";
-import { env } from "@/config/env";
 import "swiper/css/bundle";
-import "@/styles/quillstyle.css"
-
+import "./globals.css";
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
@@ -34,8 +40,8 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const {
-      data: { data: systemData },
-    } = await axios.get("/public/system");
+    data: { data: systemData },
+  } = await axios.get("/public/system");
 
   return (
     <html lang="en">
@@ -48,7 +54,7 @@ export default async function RootLayout({ children }) {
                 <Navbar />
                 {children}
                 <SocialImages />
-                <CompanyServices data={systemData?.companyService || []}/>
+                <CompanyServices data={systemData?.companyService || []} />
                 <Footer />
                 <Toaster position="bottom-right" />
               </UIProvider>
