@@ -1,4 +1,3 @@
-import axios from "@/api/axios";
 import { UIProvider } from "@/app/UIProvider";
 import {
   CompanyServices,
@@ -39,9 +38,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const {
-    data: { data: systemData },
-  } = await axios.get("/public/system");
 
   return (
     <html lang="en">
@@ -54,7 +50,7 @@ export default async function RootLayout({ children }) {
                 <Navbar />
                 {children}
                 <SocialImages />
-                <CompanyServices data={systemData?.companyService || []} />
+                <CompanyServices />
                 <Footer />
                 <Toaster position="bottom-right" />
               </UIProvider>

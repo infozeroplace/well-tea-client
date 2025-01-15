@@ -70,12 +70,14 @@ const WhyChooseUs = ({ data }) => {
           </div>
           <div className="mt-3">
             <div className="mb-3">
-              <Image
-                src={`${env.app_url}${choosOption?.iconPath}`}
-                alt={selected}
-                width={30}
-                height={30}
-              />
+              {choosOption?.iconPath &&
+                <Image
+                  src={`${env.app_url}${choosOption?.iconPath}`}
+                  alt={selected}
+                  width={30}
+                  height={30}
+                />
+              }
             </div>
             <div className="text-xs 2xl:text-base text-center lg:text-left lg:text-base mb-2 lg:mb-5">
               {choosOption?.description}

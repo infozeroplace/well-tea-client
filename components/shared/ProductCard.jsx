@@ -4,13 +4,14 @@ import { env } from "@/config/env";
 import { addToCart } from "@/services/features/cart/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const cardRef = useRef(null);
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
@@ -38,11 +39,27 @@ const ProductCard = ({ product }) => {
     setAddButtonClicked(true);
   };
 
+  const handleClickOutside = (event) => {
+    if (cardRef.current && !cardRef.current.contains(event.target)) {
+      setAddButtonClicked(false);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  },[])
+
+  console.log(cardRef);
+
   return (
     <div
-      onMouseLeave={() => {
-        setAddButtonClicked(false);
-      }}
+      // onMouseLeave={() => {
+      //   setAddButtonClicked(false);
+      // }}
+      ref={cardRef}
       className="max-w-[380px] w-full h-full bg-[#F8F8F8] relative"
     >
       {/* Sell and Favorite Section */}

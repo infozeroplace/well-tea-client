@@ -14,28 +14,32 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
   } = await axios.get(url);
 
   return (
-    <div className="flex container px-4 lg:px-10 gap-5 mb-10">
-      {/* <aside className="max-w-[200px] w-full py-5 text-teagreen-600">
-        <TeaFilters />
-      </aside> */}
-      <div className="flex-1">
-            <div className="py-3 flex justify-end items-center gap-5">
+    <div className="container px-4 lg:px-10 mb-10">
+      <div className="flex gap-5">
+        <aside className="max-w-[200px] w-full py-5 text-teagreen-600 hidden md:block">
+          <TeaFilters />
+        </aside>
+        <div className="flex-1 w-full">
+          <div className="py-3 flex justify-end items-center gap-5">
+            <div className="md:hidden">
               <TeaFilters />
-              <TeaSort />
             </div>
-        {data.length > 0 ? (
-          <div>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-              {data.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
+            <TeaSort />
+          </div>
+          {data.length > 0 ? (
+            <div>
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+                {data.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="h-full flex flex-col justify-center items-center">
-            <h1>No Products Found</h1>
-          </div>
-        )}
+          ) : (
+            <div className="h-full flex flex-col justify-center items-center">
+              <h1>No Products Found</h1>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
