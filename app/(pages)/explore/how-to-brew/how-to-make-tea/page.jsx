@@ -1,4 +1,4 @@
-import { BrewingGuide, TeaRecipe, TipsAndTricks } from "@/components";
+import { BrewingGuide, TeaRecipe, TeaTypes, TipsAndTricks } from "@/components";
 import React from "react";
 
 const MakeTea = () => {
@@ -15,7 +15,7 @@ const MakeTea = () => {
       </div>
 
       {/* Heading Section */}
-      <div className="section-gap text-2xl text-center lg:text-left tracking-tight font-medium container-narrow lg:pr-[25%]">
+      <div className="section-gap text-2xl text-center lg:text-left tracking-tight font-medium lg:pr-[25%]">
         Making a cup of tea shouldn’t be rocket science, but there are a few
         things you can do to guarantee a perfect cup of tea every time. Read on
         and discover all the insider knowledge on the different tea types, our
@@ -33,7 +33,8 @@ const MakeTea = () => {
       {/* Tips $ Tricks Section */}
       <TipsAndTricks />
       
-      {/* <div>Tea types</div> */}
+      {/* Tea Types Section */}
+      <TeaTypes />
     </div>
   );
 };

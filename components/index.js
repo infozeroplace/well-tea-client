@@ -14,3 +14,5 @@ export { default as Navbar } from "./navbar";
 export { default as SelectedTeas } from "./selectedteas";
 export * from "./shared";
 export { default as SocialImages } from "./socialimages";
+export { default as PrivacyPolicyContents } from "./privacypolicy";
+export { default as TermsConditionsContents } from "./termsconditions";

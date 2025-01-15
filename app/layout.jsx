@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { env } from "@/config/env";
 import "swiper/css/bundle";
-import "@/styles/quillstyle.css"
+import axios from "@/api/axios";
 
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
