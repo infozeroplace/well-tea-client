@@ -8,7 +8,6 @@ import {
 } from "../tea/components";
 
 export async function generateMetadata({ params }) {
-
   const { slug } = await params;
   const decodedSlug = decodeURIComponent(slug);
 
@@ -35,22 +34,20 @@ const ProductDetail = async ({ params }) => {
     } = await axios.get(`/public/product/${slug}`);
 
     return (
-      <div className="">
-        <div className="container px-20 my-10">
-          <div className="mb-10 flex flex-col lg:flex-row justify-between items-center gap-5">
-            <div className="w-full">
-              <ProductSlider images={product.slideImages} />
-            </div>
-            <div className="w-full">
-              <ProductDetails product={product} />
-            </div>
+      <div className="container px-20 my-10">
+        <div className="mb-10 flex flex-col lg:flex-row justify-center items-center gap-5">
+          <div className="max-w-[650px] w-full">
+            <ProductSlider images={product.slideImages} />
           </div>
-          <div>
-            <ProductTabs product={product} />
+          <div className="max-w-[650px] w-full">
+            <ProductDetails product={product} />
           </div>
-          <div>
-            <RelatedProducts category={product.category} />
-          </div>
+        </div>
+        <div>
+          <ProductTabs product={product} />
+        </div>
+        <div>
+          <RelatedProducts category={product.category} />
         </div>
       </div>
     );

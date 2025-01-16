@@ -31,7 +31,9 @@ const ProductDetails = ({ product }) => {
           <h4 className="text-teagreen-600 font-semibold capitalize">
             {product.type.join(", ")}
           </h4>
-          <h1 className="text-2xl font-normal">{product.title}</h1>
+          <h1 className="text-brand__font__size__lg2 font-brand__font__200">
+            {product.title}
+          </h1>
           <p className="mt-2">
             {product.flavour
               .map((flavor) => flavor.charAt(0).toUpperCase() + flavor.slice(1))

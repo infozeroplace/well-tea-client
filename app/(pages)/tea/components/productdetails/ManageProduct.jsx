@@ -144,7 +144,7 @@ function ManageProduct({ product }) {
 
   return (
     <div>
-      <div className="my-5">
+      <div className="my-5 text-brand__font__size__base">
         <h3 className="mb-4 font-normal">Product Unit</h3>
         <div className="flex gap-4">
           {product.unitPrices.map((item, index) => (
@@ -165,9 +165,9 @@ function ManageProduct({ product }) {
       {/* --------------- Subscription Options -------------- */}
       <div className="my-10">
         <div className="">
-          <div className="space-y-2 text-md">
+          <div className="space-y-2">
             {/* ----------- One-Time Purchase Option ------------- */}
-            <label className="flex items-center p-4 rounded-md bg-teagreen-100 text-lg text-teagreen-600">
+            <label className="flex items-center p-4 rounded-md bg-teagreen-100 text-teagreen-600">
               <input
                 type="radio"
                 name="purchaseType"
@@ -181,8 +181,8 @@ function ManageProduct({ product }) {
                 £
                 {product.isSale ? (
                   <span>
-                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del>{" "}
-                    £{toNumber(selectedUnitObj.salePrice).toFixed(2)}
+                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del> £
+                    {toNumber(selectedUnitObj.salePrice).toFixed(2)}
                   </span>
                 ) : (
                   toNumber(selectedUnitObj.price).toFixed(2)
@@ -192,7 +192,7 @@ function ManageProduct({ product }) {
 
             {/* ------------ Subscribe and Save Option ------------- */}
             {product.isSubscription && (
-              <div className="border rounded-md p-4 bg-teagreen-100 text-lg text-teagreen-600">
+              <div className="border rounded-md px-4 py-3 bg-teagreen-100 text-teagreen-600">
                 <label className="flex items-center">
                   <input
                     type="radio"
@@ -204,8 +204,8 @@ function ManageProduct({ product }) {
                   />
                   <span className="">Subscribe and Save</span>
                   <span className="ml-auto">
-                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del>{" "}
-                    £{toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
+                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del> £
+                    {toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
 
@@ -236,7 +236,7 @@ function ManageProduct({ product }) {
           {purchaseType === "subscribe" && (
             <div className="mt-5">
               <h3 className="font-normal">Subscribe and Save</h3>
-              <p className="mt-4 text-sm text-gray-600">
+              <p className="mt-4 text-brand__font__size__sm text-gray-600">
                 You're subscribing to receive this item multiple times, on a
                 recurring basis (according to the frequency you select) with a
                 discount on every recurring order. You may cancel or change your
@@ -276,24 +276,24 @@ function ManageProduct({ product }) {
         ))}
       </div> */}
       {/* ------------ Add to cart Button ----------- */}
-      <div className="flex mb-6">
-        <div className="flex items-center bg-teagreen-600 text-white py-1">
+      <div className="flex mb-6 border text-brand__font__size__base">
+        <div className="max-w-[100px] w-full flex items-center justify-center bg-teagreen-600 text-white py-2.5">
           <button
-            className="w-10 h-10 text-xl flex items-center justify-center"
+            className=" text-xl flex items-center justify-center"
             onClick={() => handleQuantityChange("decrement")}
           >
             -
           </button>
-          <span className="px-4 text-lg">{quantity}</span>
+          <span className="px-4">{quantity}</span>
           <button
-            className="w-10 h-10 text-xl flex items-center justify-center"
+            className="text-xl flex items-center justify-center"
             onClick={() => handleQuantityChange("increment")}
           >
             +
           </button>
         </div>
         <button
-          className="bg-teagreen-700 text-white py-2 px-6 text-lg"
+          className="w-full bg-teagreen-700 text-white py-2 px-6"
           onClick={handleAddToCart}
         >
           Add to Cart - £

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import Link from 'next/link';
+import StarRating from "@/components/shared/StarRating";
+import Link from "next/link";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import StarRating from '@/components/shared/StarRating';
 
-function Reviews({ }) {
+function Reviews({}) {
   const productReviews = [
     {
       id: 1,
@@ -38,55 +38,54 @@ function Reviews({ }) {
   };
 
   return (
-    <div className="p-10">
-      <div className="">
-        <h3 className="mb-5">2 Review for OOlong Tea</h3>
-        <div>
-          {productReviews.map((review) => (
-            <div key={review.id} className="border-b py-5">
-              <div className="flex gap-5">
-                <img
-                  src={review.avatar}
-                  alt={review.name}
-                  className="w-14 h-14 rounded-full"
-                />
-                <div className="flex flex-col gap-1 font-thin">
-                  <span className="font-extralight">{review.name}</span>
-                  <span>{review.date}</span>
-                  <StarRating rating={review.rating} />
-                  <p>{review.review}</p>
-                </div>
+    <div className="p-5">
+      <h3 className="mb-5">2 Review for OOlong Tea</h3>
+      <div>
+        {productReviews.map((review) => (
+          <div key={review.id} className="border-b py-5">
+            <div className="flex gap-5">
+              <img
+                src={review.avatar}
+                alt={review.name}
+                className="w-14 h-14 rounded-full"
+              />
+              <div className="flex flex-col gap-1 font-thin">
+                <span className="font-extralight">{review.name}</span>
+                <span>{review.date}</span>
+                <StarRating rating={review.rating} />
+                <p>{review.review}</p>
               </div>
             </div>
-          ))}
-        </div>
-        {user ? (
-          <div className="my-10">
-            <h3 className="mb-10 font-normal">Add Your Review</h3>
-            <div className="">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="flex items-center gap-5">
-                  <span className="font-extralight">Your Rating:</span>
-                  <div className="flex items-center space-x-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        onClick={() => setRating(star)}
-                        onMouseEnter={() => setHoverRating(star)}
-                        onMouseLeave={() => setHoverRating(0)}
-                        className={`text-2xl ${
-                          star <= (hoverRating || rating)
-                            ? "text-orange-500"
-                            : "text-gray-300"
-                        } focus:outline-none`}
-                      >
-                        ★
-                      </button>
-                    ))}
-                  </div>
+          </div>
+        ))}
+      </div>
+      {user ? (
+        <div className="my-10">
+          <h3 className="mb-10 font-normal">Add Your Review</h3>
+          <div className="">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <div className="flex items-center gap-5">
+                <span className="font-extralight">Your Rating:</span>
+                <div className="flex items-center space-x-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setRating(star)}
+                      onMouseEnter={() => setHoverRating(star)}
+                      onMouseLeave={() => setHoverRating(0)}
+                      className={`text-2xl ${
+                        star <= (hoverRating || rating)
+                          ? "text-orange-500"
+                          : "text-gray-300"
+                      } focus:outline-none`}
+                    >
+                      ★
+                    </button>
+                  ))}
                 </div>
-                {/* <input
+              </div>
+              {/* <input
                   type="text"
                   placeholder="Name"
                   onChange={(e) => setName(e.target.value)}
@@ -100,32 +99,31 @@ function Reviews({ }) {
                   className="w-full p-2 border"
                   required
                 /> */}
-                <textarea
-                  placeholder="Your Review"
-                  onChange={(e) => setReview(e.target.value)}
-                  className="w-full p-2 border"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-teagreen-500 text-white p-2"
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
+              <textarea
+                placeholder="Your Review"
+                onChange={(e) => setReview(e.target.value)}
+                className="w-full p-2 border"
+                required
+              />
+              <button
+                type="submit"
+                className="w-full bg-teagreen-500 text-white p-2"
+              >
+                Submit
+              </button>
+            </form>
           </div>
-        ) : (
-          <div className="flex gap-1 my-10">
-            <Link href="/login" className="text-teagreen-500 font-light">
-              Sign In
-            </Link>
-            <span className="font-light">To Write A Review</span>
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="flex gap-1 my-10">
+          <Link href="/login" className="text-teagreen-500 font-light">
+            Sign In
+          </Link>
+          <span className="font-light">To Write A Review</span>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Reviews
+export default Reviews;
