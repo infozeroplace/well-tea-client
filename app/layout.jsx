@@ -17,7 +17,6 @@ import { Toaster } from "react-hot-toast";
 import "swiper/css/bundle";
 import "./globals.css";
 
-const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
 const prompt = Prompt({
   variable: "--prompt",
@@ -30,6 +29,8 @@ const suse = SUSE({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
 });
+
+const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
 export const metadata = {
   title: "Well Tea",

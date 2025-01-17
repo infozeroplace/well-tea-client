@@ -2,21 +2,8 @@
 
 import axios from "@/api/axios";
 import { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
-
-const settings = {
-  dots: false,
-  infinite: true,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  speed: 1000,
-  autoplaySpeed: 4000,
-  cssEase: "linear",
-  arrows: false,
-};
+import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 function Header() {
   const [notifications, setNotifications] = useState([]);
@@ -35,13 +22,20 @@ function Header() {
 
   return (
     <div className="w-full bg-teagreen-800 text-white p-3 text-center">
-      <Slider {...settings}>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay, A11y]}
+        slidesPerView={1}
+        autoplay
+        loop
+        speed={2000}
+        slidesPerGroup={1}
+      >
         {notifications.map((item) => (
-          <div key={item}>
+          <SwiperSlide key={item}>
             <h3>{item}</h3>
-          </div>
+          </SwiperSlide>
         ))}
-      </Slider>
+      </Swiper>
     </div>
   );
 }
