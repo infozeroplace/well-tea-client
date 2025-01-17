@@ -39,14 +39,14 @@ const ProductCard = ({ product }) => {
     if (cardRef.current && !cardRef.current.contains(event.target)) {
       setAddButtonClicked(false);
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  },[])
+  }, []);
 
   return (
     <div
@@ -98,16 +98,14 @@ const ProductCard = ({ product }) => {
           {/* Product Content */}
           <div
             // style={{ display: addButtonClicked ? "none" : "block" }}
-            className={`w-full transition-all duration-300 mx-auto px-3 ${
+            className={`flex flex-col justify-center w-full h-[60px] transition-all duration-300 mx-auto px-3 ${
               addButtonClicked ? "opacity-0" : "opacity-1"
             }`}
           >
-            <div className="mb-3">
-              <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 overflow-hidden text-ellipsis whitespace-nowrap">
-                {product?.title}
-              </h4>
-              <p className="capitalize text-sm mt-2">{product?.format}</p>
-            </div>
+            <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 overflow-hidden text-ellipsis whitespace-nowrap">
+              {product?.title}
+            </h4>
+            <p className="capitalize text-sm">{product?.format}</p>
           </div>
         </Link>
         {/* Add to card */}
