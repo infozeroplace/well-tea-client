@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from "@/api/axios";
 import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
@@ -29,26 +29,42 @@ const SearchProduct = ({ buttonClass }) => {
 //         console.log(data);
 //       }
 //   };
-    const handleSearch = async () => {
-        const queryParams = new URLSearchParams({
-        searchTerm: searchTerm,
-        }).toString();
-        const url = `/public/product/list?${queryParams}`;
-        const response = await axios.get(url);
-        const { data: responseData } = response.data || {};
-        // console.log(responseData);
-        data = responseData;
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+      const fetchProducts = async () => {
+        if (searchTerm.length > 2) {
+          setIsLoading(true);
+          try {
+            const queryParams = new URLSearchParams({
+              search: searchTerm,
+            }).toString();
+            const url = `/public/product/list?${queryParams}`;
+            const response = await axios.get(url);
+            const { data: responseData } = response.data || {};
+            setProducts(responseData || []);
+          } catch (error) {
+            console.error("Error fetching products:", error);
+          } finally {
+            setIsLoading(false);
+          }
+        } else {
+          setProducts([]);
+        }
+      };
+
+      const debounceTimeout = setTimeout(fetchProducts, 300);
+      return () => clearTimeout(debounceTimeout);
+    }, [searchTerm]);
+
+    const handleClose = () => {
+      setIsClicked(false);
+      setSearchTerm("");
+      setProducts([]);
     };
 
-  if(searchTerm.length > 2) {
-    handleSearch();
-  }
-
-  const handleClose = () => {
-    setIsClicked(false);
-    setSearchTerm("");
-  }
-  console.log(data);
+    // console.log(products);
 
   return (
     <div className="">
@@ -91,27 +107,34 @@ const SearchProduct = ({ buttonClass }) => {
         }`}
       >
         <h3>Product Search</h3>
-        <div className="">
-          {data.length > 0 &&
-            data.map((item) => (
-              <Link
-                key={item._id}
-                href={`/${item?.urlParameter}`}
-                className="flex gap-3"
-              >
-                <Image
-                  src={`${env.app_url}${item?.thumbnails[0]?.path}`}
-                  alt={item.thumbnails[0].alt}
-                  width={100}
-                  height={100}
-                />
-                <div className="flex flex-col">
-                  <p>{item.title}</p>
-                  <p>{item.format[0]}</p>
-                </div>
-              </Link>
-            ))}
-        </div>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="">
+            {products.length > 0 ? (
+              products.map((item) => (
+                <Link
+                  key={item._id}
+                  href={`/${item?.urlParameter}`}
+                  className="flex gap-3"
+                >
+                  <Image
+                    src={`${env.app_url}${item?.thumbnails[0]?.path}`}
+                    alt={item.thumbnails[0].alt}
+                    width={100}
+                    height={100}
+                  />
+                  <div className="flex flex-col">
+                    <p>{item.title}</p>
+                    <p>{item.format[0]}</p>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p>No products found</p>
+            )}
+          </div>
+        )}
       </div>
       {/* {isClicked && (
         <div
