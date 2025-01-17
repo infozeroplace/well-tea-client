@@ -10,11 +10,16 @@ function Footer() {
     return <div className="w-full h-[1px] bg-teagreen-100"></div>;
   };
   const FooterTitle = ({ name }) => {
-    return <h4 className="mb-2 md:mb-5 text-white uppercase text-lg">{name}</h4>;
+    return (
+      <h4 className="mb-2 md:mb-5 text-white uppercase text-lg">{name}</h4>
+    );
   };
   const FooterListItem = ({ name, href }) => {
     return (
-      <Link href={href} className="text-teagreen-100 hover:text-teagreen-200 text-sm">
+      <Link
+        href={href}
+        className="text-teagreen-100 hover:text-teagreen-200 text-sm"
+      >
         {name}
       </Link>
     );
@@ -39,7 +44,10 @@ function Footer() {
           <div className="col-span-2 lg:col-span-1 text-right lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
             <FooterTitle name="Help Center" />
             <FooterListItem name="Customer Care" href="/" />
-            <FooterListItem name="Terms & Conditions" href="/terms-conditions" />
+            <FooterListItem
+              name="Terms & Conditions"
+              href="/terms-conditions"
+            />
             <FooterListItem name="Privacy Policy" href="/privacy-policy" />
             <FooterListItem name="Shop" href="/" />
           </div>
@@ -94,20 +102,23 @@ function Footer() {
             </div>
             <FooterBar />
           </div>
+
+          <div className="content-gap">
+            <Image
+              src="/images/payment_methods.png"
+              alt="Payment Methods"
+              width={350}
+              height={50}
+              className="mx-auto"
+            />
+          </div>
+
           <div className="flex flex-col-reverse md:flex-row gap-10 md:gap-2 justify-between items-center">
-            <p className="text-white">
+            <p className="text-white text-center">
               Copyright © {new Date().getFullYear()}{" "}
               <span className="text-teagreen-500">Welltea.</span> All rights
               reserved
             </p>
-            <div>
-              <Image
-                src="/images/payment_methods.png"
-                alt="Payment Methods"
-                width={350}
-                height={50}
-              />
-            </div>
             <div className="text-white flex items-center gap-2">
               <i
                 className={"bx bxl-facebook-circle " + socialIconsExtraClasses}
@@ -119,6 +130,7 @@ function Footer() {
               <i className={"bx bxl-twitter " + socialIconsExtraClasses}></i>
               <i className={"bx bxl-tiktok " + socialIconsExtraClasses}></i>
             </div>
+
             <BackToTopButton />
           </div>
         </div>
