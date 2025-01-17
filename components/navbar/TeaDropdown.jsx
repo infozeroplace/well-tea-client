@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
-function TeaDropdown() {
+function TeaDropdown({ dropdownItem }) {
   const productTypes = [
     "green tea",
     "white tea",
@@ -68,6 +68,8 @@ function TeaDropdown() {
       url: "/",
     },
   ];
+
+  // console.log(dropdownItem);
 
   return (
     <div className="container-narrow px-4 w-full mx-auto flex justify-between capitalize">

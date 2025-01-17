@@ -5,6 +5,7 @@ import { SectionLinkButton } from "../shared";
 import { PiTrashSimpleLight } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "@/services/features/cart/cartSlice";
+import { env } from "@/config/env";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -13,80 +14,6 @@ const toNumber = (value) => {
 };
 
 const Cart = ({ buttonClass }) => {
-  // const cartItems = [
-  //   {
-  //     id: 1,
-  //     name: "Palazzo Tea",
-  //     category: "Green Tea",
-  //     price: 21.82,
-  //     originalPrice: 40.0,
-  //     quantity: 1,
-  //     image: "/products/product_01.jpg",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 34.30,
-  //     originalPrice: 23.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 15.0,
-  //     originalPrice: 21.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 22.08,
-  //     originalPrice: 28.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 35.76,
-  //     originalPrice: 43.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 15.0,
-  //     originalPrice: 24.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 12.30,
-  //     originalPrice: 18.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Breakfast Tea Bag",
-  //     category: "Black Tea",
-  //     price: 15.0,
-  //     originalPrice: 23.0,
-  //     quantity: 2,
-  //     image: "/products/product_03.jpg",
-  //   },
-  // ];
 
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
@@ -136,8 +63,7 @@ const Cart = ({ buttonClass }) => {
   return (
     <div>
       <button onClick={() => setIsOpen(true)} className={buttonClass}>
-        {/* <PiShoppingCartThin /> */}
-        <img src="/icons/shopping-bag.svg" className="w-5"/>
+        <PiShoppingCartThin />
         {totalQuantity > 0 && (
           <span className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
             {totalQuantity}
@@ -174,8 +100,8 @@ const Cart = ({ buttonClass }) => {
                   className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
                   <img
-                    // src={item.product?.thumbnails[0]?.path}
-                    src="/products/product_01.jpg"
+                    src={`${env.app_url}${item.product?.thumbnails[0]?.path}`}
+                    // src="/products/product_01.jpg"
                     alt={item.product.title}
                     className="w-20 h-20 object-cover mr-3"
                   />

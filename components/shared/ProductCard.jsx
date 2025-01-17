@@ -120,9 +120,9 @@ const ProductCard = ({ product }) => {
             onClick={() => setAddButtonClicked(true)}
             className="text-xs py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
           >
-            <CiShoppingCart
-              size={20}
-              className="absolute top-1/2 left-[22px] -translate-y-1/2"
+            <img
+              src="/icons/shopping-bag.svg"
+              className="absolute top-1/2 left-[22px] -translate-y-1/2 w-5"
             />
             <div className="text-sm">
               {product?.isSale ? (
