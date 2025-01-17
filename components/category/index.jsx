@@ -29,7 +29,7 @@ const Category = ({ initialProducts, teaTypes }) => {
   }, [data]);
 
   const handleRoute = () => {
-    router.push("/product-category?type=tea");
+    router.push("/collection?category=tea");
   };
 
   const activeClass = "border-[0.5px] border-teagreen-600";
@@ -38,7 +38,7 @@ const Category = ({ initialProducts, teaTypes }) => {
     <div className="section-gap">
       <div className="container px-4 lg:px-20">
         <SectionTitle title="Explore our single teas" />
-        <div className="max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10">
+        <div className="max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 border p-4">
           <Swiper
             modules={[Navigation, Pagination, A11y]}
             slidesPerView={6.5}
