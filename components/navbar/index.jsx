@@ -17,6 +17,127 @@ import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
 import SearchProduct from "./SearchProduct";
 
+const dropdownData = [
+  {
+    name: "tea",
+    sections: [
+      {
+        title: "all teas",
+        items: [
+          { name: "green tea" },
+          { name: "white tea" },
+          { name: "flowering tea" },
+          { name: "black tea" },
+          { name: "herbal tea" },
+          { name: "pureh tea" },
+          { name: "fruit tea" },
+          { name: "oolong tea" },
+          { name: "jasmine tea" },
+        ],
+      },
+      {
+        title: "flavour",
+        items: [
+          { name: "citrus" },
+          { name: "fruity" },
+          { name: "malty" },
+          { name: "roasted" },
+          { name: "floral" },
+        ],
+      },
+      {
+        title: "format",
+        items: [
+          { name: "loose leaf" },
+          { name: "tea bag" },
+          { name: "tea caddy" },
+        ],
+      },
+      {
+        title: "discover",
+        items: [
+          { name: "caffeine free" },
+          { name: "organic" },
+          { name: "gluten free" },
+          { name: "vegan" },
+          { name: "sustainable" },
+        ],
+      },
+      {
+        title: "health",
+        items: [
+          { name: "immune system" },
+          { name: "digestion & inflammation" },
+          { name: "sleep & relaxation" },
+          { name: "energy & focus" },
+          { name: "metabolism & weight loss" },
+        ],
+      },
+      {
+        title: "origin",
+        items: [
+          { name: "china" },
+          { name: "bangladesh" },
+          { name: "japan" },
+          { name: "sri lanka" },
+        ],
+      },
+    ],
+    featured: [
+      {
+        image: "/images/teapot.jpg",
+        title: "Special Tea Blends",
+        url: "/special-tea-blends",
+      },
+    ],
+  },
+  {
+    name: "teaware",
+    sections: [
+      {
+        title: "all teaware",
+        items: [
+          { name: "teapots" },
+          { name: "cups & mugs" },
+          { name: "tea strainers" },
+          { name: "loose leaf tea essentials" },
+        ],
+      },
+    ],
+    featured: [
+      {
+        image: "/images/teaware.jpg",
+        title: "Exclusive Teaware",
+        url: "/exclusive-teaware",
+      },
+    ],
+  },
+  {
+    name: "gift",
+    sections: [
+      {
+        title: "all gifts",
+        items: [
+          { name: "tea gifts" },
+          { name: "gift boxes" },
+          { name: "tea scented candles" },
+        ],
+      },
+      {
+        title: "gift inspirations",
+        items: [{ name: "gifts under £30" }, { name: "gifts under £50" }],
+      },
+    ],
+    featured: [
+      {
+        image: "/images/gift.jpg",
+        title: "Holiday Gift Shop",
+        url: "/holiday-gift-shop",
+      },
+    ],
+  },
+];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,7 +184,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-5">
             {/* ------ Tea Dropdown Menu ------ */}
             <div className="group">
-              <NavItem href="/product-category?category=tea" name="Tea" />
+              <NavItem href="/collection/tea" name="Tea" />
               <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeaDropdown />
               </NavDropdown>
@@ -71,10 +192,7 @@ const Navbar = () => {
 
             {/* ------ Teaware Dropdown Menu ------ */}
             <div className="group">
-              <NavItem
-                href="/product-category?category=teaware"
-                name="Teawares"
-              />
+              <NavItem href="/collection/teaware" name="Teawares" />
               <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
@@ -82,13 +200,13 @@ const Navbar = () => {
 
             {/* ------ Gift Dropdown Menu ------ */}
             <div className="group">
-              <NavItem href="/product-category?category=gift" name="Gifts" />
+              <NavItem href="/collection/gift" name="Gifts" />
               <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <GiftDropdown />
               </NavDropdown>
             </div>
 
-            <NavItem href="/sales" name="Sales" />
+            <NavItem href="/collection/sale" name="Sales" />
             {/* <NavItem href="/explore" name="Explore" /> */}
 
             {/* ------ Explore Dropdown Menu ------ */}

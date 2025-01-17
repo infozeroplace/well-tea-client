@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@nextui-org/react";
 import Description from "./Description";
 import HowToMake from "./HowToMake";
 import Ingredients from "./Ingredients";
@@ -8,36 +8,25 @@ import Reviews from "./Reviews";
 
 function ProductTabs({ product }) {
   return (
-    <div className="my-10 product-tab">
+    <div className="my-10 product-tab container-narrow">
       <div className="flex flex-col">
-        <Tabs aria-label="Options">
-          <Tab key="description" title="Description">
-            <div className="mt-5">
-              <Card>
-                <Description description={product.longDescription} />
-              </Card>
-            </div>
+        <Tabs
+          aria-label="Options"
+          variant="underlined"
+          color="default"
+          radius="full"
+        >
+          <Tab key="1" title="Description">
+            <Description description={product.longDescription} />
           </Tab>
-          <Tab key="ingredients" title="Ingredients">
-            <div className="mt-5">
-              <Card>
-                <Ingredients ingredient={product.ingredient} />
-              </Card>
-            </div>
+          <Tab key="2" title="Ingredients">
+            <Ingredients ingredient={product.ingredient} />
           </Tab>
-          <Tab key="howtomake" title="How To Make">
-            <div className="max-w-[1024px] mx-auto w-full mt-5">
-              <Card>
-                <HowToMake />
-              </Card>
-            </div>
+          <Tab key="3" title="How to brew">
+            <HowToMake />
           </Tab>
-          <Tab key="review" title="Review">
-            <div className="mt-5">
-              <Card>
-                <Reviews />
-              </Card>
-            </div>
+          <Tab key="4" title="Review">
+            <Reviews />
           </Tab>
         </Tabs>
       </div>

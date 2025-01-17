@@ -24,6 +24,7 @@ export default {
       },
       fontWeight: {
         brand__font__thin: "100",
+        brand__font__200: "200",
         brand__font__light: "300",
         brand__font__regular: "400",
         brand__font__500: "500",
