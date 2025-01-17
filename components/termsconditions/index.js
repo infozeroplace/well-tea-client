@@ -1,5 +1,5 @@
 import React from "react";
-import "@/styles/quillstyle.css" 
+// import "@/styles/quillstyle.css" 
 
 const TermsConditionsContents = ({systemData}) => {
   return (

@@ -15,6 +15,7 @@ import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
+import SearchProduct from "./SearchProduct";
 
 const dropdownData = [
   {
@@ -218,23 +219,18 @@ const Navbar = () => {
             {/* <NavItem href="/about" name="About" /> */}
           </div>
 
-          {/* <CircularProgress
-            aria-label="Loading..."
-            color="warning"
-            size="lg"
-          /> */}
-
           <div className="flex">
             {/* Nav Icons */}
             {/* <NavbarIcon /> */}
 
             <div className="hidden md:flex items-center text-2xl">
-              <button className={`nav-button ${navIconsClasses}`}>
+              {/* <button className={`nav-button ${navIconsClasses}`}>
                 <CiSearch />
                 <svg className="circle" viewBox="0 0 50 50">
                   <circle cx="25" cy="25" r="24" />
                 </svg>
-              </button>
+              </button> */}
+              <SearchProduct buttonClass={`nav-button ${navIconsClasses}`} />
               <button className={`nav-button ${navIconsClasses}`}>
                 <CiHeart />
                 <svg className="circle" viewBox="0 0 50 50">
@@ -249,16 +245,6 @@ const Navbar = () => {
                   </svg>
                 </button>
               </Link>
-
-              {/* <button
-                onClick={() => setIsCartOpen(true)}
-                className={`nav-button ${navIconsClasses}`}
-              >
-                <PiShoppingCartThin />
-                <svg className="circle" viewBox="0 0 50 50">
-                  <circle cx="25" cy="25" r="24" />
-                </svg>
-              </button> */}
 
               <Cart buttonClass={`nav-button ${navIconsClasses}`} />
             </div>

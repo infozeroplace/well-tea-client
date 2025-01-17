@@ -1,0 +1,126 @@
+import {useState} from 'react';
+import axios from "@/api/axios";
+import { CiSearch } from "react-icons/ci";
+import { RxCross1 } from "react-icons/rx";
+import NavDropdown from './NavDropdown';
+import { env } from '@/config/env';
+import Image from 'next/image';
+import Link from 'next/link';
+
+let data = [];
+
+const SearchProduct = ({ buttonClass }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isClicked, setIsClicked] = useState(false);
+
+
+//   console.log(searchTerm);
+
+//   const handleSearch = async (searchValue) => {
+//       setSearchTerm(searchValue);
+//       if (searchValue.length > 2) {
+//         const queryParams = new URLSearchParams({
+//           search: searchTerm,
+//         }).toString();
+//         const url = `/public/product/list?${queryParams}`;
+//         const response = await axios.get(url);
+//         const { data } = response.data || {};
+
+//         console.log(data);
+//       }
+//   };
+    const handleSearch = async () => {
+        const queryParams = new URLSearchParams({
+        searchTerm: searchTerm,
+        }).toString();
+        const url = `/public/product/list?${queryParams}`;
+        const response = await axios.get(url);
+        const { data: responseData } = response.data || {};
+        // console.log(responseData);
+        data = responseData;
+    };
+
+  if(searchTerm.length > 2) {
+    handleSearch();
+  }
+
+  const handleClose = () => {
+    setIsClicked(false);
+    setSearchTerm("");
+  }
+  console.log(data);
+
+  return (
+    <div className="">
+      <div
+        className={`relative flex rounded transition-all duration-300 ${
+          isClicked ? "border-2 border-gray-300 bg-gray-100" : ""
+        }`}
+      >
+        <div
+          className={`w-full flex items-center space-x-2 origin-right transition-all duration-300 ${
+            isClicked ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+          }`}
+        >
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            // onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search products..."
+            className="p-2 w-full outline-none text-base font-light bg-gray-100"
+          />
+          <button onClick={handleClose} className={buttonClass}>
+            <RxCross1 size={16} />
+          </button>
+        </div>
+        <button onClick={() => setIsClicked(true)} className={buttonClass}>
+          <CiSearch />
+          {!isClicked && (
+            <svg className="circle" viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="24" />
+            </svg>
+          )}
+        </button>
+      </div>
+      <div
+        className={`absolute left-0 top-[70px] z-10 w-full origin-top border-t-1 overflow-hidden bg-white transition-all duration-300 ${
+          isClicked && searchTerm.length > 2
+            ? "scale-y-100 opacity-100"
+            : "scale-y-0 opacity-0"
+        }`}
+      >
+        <h3>Product Search</h3>
+        <div className="">
+          {data.length > 0 &&
+            data.map((item) => (
+              <Link
+                key={item._id}
+                href={`/${item?.urlParameter}`}
+                className="flex gap-3"
+              >
+                <Image
+                  src={`${env.app_url}${item?.thumbnails[0]?.path}`}
+                  alt={item.thumbnails[0].alt}
+                  width={100}
+                  height={100}
+                />
+                <div className="flex flex-col">
+                  <p>{item.title}</p>
+                  <p>{item.format[0]}</p>
+                </div>
+              </Link>
+            ))}
+        </div>
+      </div>
+      {/* {isClicked && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setIsClicked(false)}
+        ></div>
+      )} */}
+    </div>
+  );
+};
+
+export default SearchProduct;

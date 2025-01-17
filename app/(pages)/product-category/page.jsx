@@ -12,13 +12,6 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
 
   const searchParams = await Promise.resolve(rawSearchParams);
 
-  // const queryParams = new URLSearchParams(searchParams).toString();
-  // const url = `/public/product/list?${queryParams}`;
-
-  // const {
-  //   data: { data },
-  // } = await axios.get(url);
-
   const metaTitle = searchParams.type && searchParams.type.split(",").join(" | ");
 
   return {

@@ -136,7 +136,8 @@ const Cart = ({ buttonClass }) => {
   return (
     <div>
       <button onClick={() => setIsOpen(true)} className={buttonClass}>
-        <PiShoppingCartThin />
+        {/* <PiShoppingCartThin /> */}
+        <img src="/icons/shopping-bag.svg" className="w-5"/>
         {totalQuantity > 0 && (
           <span className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
             {totalQuantity}
@@ -189,11 +190,11 @@ const Cart = ({ buttonClass }) => {
                         £{toNumber(item.itemTotal).toFixed(2)}
                       </p>
                     </div>
-                      {item.purchaseType === "subscribe" && (
-                        <p className="text-sm font-normal">
-                          Subscribtion: {item.subObj.weeks}
-                        </p>
-                      )}
+                    {item.purchaseType === "subscribe" && (
+                      <p className="text-sm font-normal">
+                        Subscribtion: {item.subObj.weeks}
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center border text-base font-light">
                     <button
