@@ -7,8 +7,6 @@ import { env } from '@/config/env';
 import Image from 'next/image';
 import Link from 'next/link';
 
-let data = [];
-
 const SearchProduct = ({ buttonClass }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isClicked, setIsClicked] = useState(false);
@@ -70,11 +68,11 @@ const SearchProduct = ({ buttonClass }) => {
     <div className="">
       <div
         className={`relative flex rounded transition-all duration-300 ${
-          isClicked ? "border-2 border-gray-300 bg-gray-100" : ""
+          isClicked ? " bg-gray-100" : ""
         }`}
       >
         <div
-          className={`w-full flex items-center space-x-2 origin-right transition-all duration-300 ${
+          className={`absolute w-[1200px] right-0 top-0 z-20 border-2 border-gray-300 flex items-center origin-right transition-all duration-300 ${
             isClicked ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
           }`}
         >
@@ -90,17 +88,22 @@ const SearchProduct = ({ buttonClass }) => {
             <RxCross1 size={16} />
           </button>
         </div>
-        <button onClick={() => setIsClicked(true)} className={buttonClass}>
-          <CiSearch />
-          {!isClicked && (
+        <button
+          onClick={() => setIsClicked(true)}
+          className={`${buttonClass} ${
+            isClicked ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <>
+            <CiSearch />
             <svg className="circle" viewBox="0 0 50 50">
               <circle cx="25" cy="25" r="24" />
             </svg>
-          )}
+          </>
         </button>
       </div>
       <div
-        className={`absolute left-0 top-[70px] z-10 w-full origin-top border-t-1 overflow-hidden bg-white transition-all duration-300 ${
+        className={`absolute left-0 top-[70px] z-30 w-full origin-top border-t-1 overflow-hidden bg-white transition-all duration-300 ${
           isClicked && searchTerm.length > 2
             ? "scale-y-100 opacity-100"
             : "scale-y-0 opacity-0"
@@ -112,7 +115,7 @@ const SearchProduct = ({ buttonClass }) => {
         ) : (
           <div className="">
             {products.length > 0 ? (
-              products.map((item) => (
+              products.slice(0, 5).map((item) => (
                 <Link
                   key={item._id}
                   href={`/${item?.urlParameter}`}
@@ -136,12 +139,12 @@ const SearchProduct = ({ buttonClass }) => {
           </div>
         )}
       </div>
-      {/* {isClicked && (
+      {isClicked && searchTerm.length > 2 && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsClicked(false)}
+          className="fixed inset-0 top-[120px] bg-black bg-opacity-50 z-10"
+          onClick={handleClose}
         ></div>
-      )} */}
+      )}
     </div>
   );
 };
