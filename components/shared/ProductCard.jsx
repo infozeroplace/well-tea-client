@@ -35,10 +35,6 @@ const ProductCard = ({ product }) => {
     );
   };
 
-  const handleWeight = () => {
-    setAddButtonClicked(true);
-  };
-
   const handleClickOutside = (event) => {
     if (cardRef.current && !cardRef.current.contains(event.target)) {
       setAddButtonClicked(false);
@@ -54,9 +50,6 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      // onMouseLeave={() => {
-      //   setAddButtonClicked(false);
-      // }}
       ref={cardRef}
       className="max-w-[380px] w-full h-full bg-[#F8F8F8] relative overflow-hidden"
     >
@@ -124,23 +117,27 @@ const ProductCard = ({ product }) => {
           }`}
         >
           <button
-            onClick={handleWeight}
-            className="uppercase text-xs py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
+            onClick={() => setAddButtonClicked(true)}
+            className="text-xs py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
           >
             <CiShoppingCart
               size={20}
               className="absolute top-1/2 left-[22px] -translate-y-1/2"
             />
-            <div className="">
+            <div className="text-sm">
               {product?.isSale ? (
-                <div className="flex justify-center text-center gap-2 font-semibold text-teagreen-800">
-                  <div>£{product?.unitPrices[0]?.salePrice}</div>
-                  <del>£{product?.unitPrices[0]?.price}</del>
+                <div className="flex justify-center text-center gap-2 text-teagreen-800">
+                  <span className="font-brand__font__500">
+                    £{product?.unitPrices[0]?.salePrice} GBP
+                  </span>
+                  <span className="font-light">
+                    was £{product?.unitPrices[0]?.price}
+                  </span>
                 </div>
               ) : (
-                <div className="font-semibold text-teagreen-800">
-                  £{product?.unitPrices[0]?.price}
-                </div>
+                <span className="font-brand__font__500 text-teagreen-800">
+                  £{product?.unitPrices[0]?.price} GBP
+                </span>
               )}
             </div>
           </button>
@@ -166,7 +163,7 @@ const ProductCard = ({ product }) => {
                 }}
                 className={`flex flex-col items-center ${
                   index !== product.unitPrices?.length - 1 ? "border-r" : ""
-                } w-full py-1 text-teagreen-400 hover:text-teagreen-600`}
+                } w-full py-1 text-teagreen-500 hover:text-teagreen-700`}
               >
                 <div>{item?.unit}</div>
                 <div>|</div>

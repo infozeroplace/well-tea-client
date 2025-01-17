@@ -15,7 +15,20 @@ function TeaDropdown() {
     "jasmine tea",
   ];
 
-  const formatItems = ["loose leaf", "tea bag", "tea caddy"];
+  const formatItems = [
+    {
+      title: "loose leaf",
+      image: "/icons/leaf.svg",
+    },
+    {
+      title: "tea bag",
+      image: "/icons/tea-bage.svg",
+    },
+    {
+      title: "tea caddy",
+      image: "/icons/tea-caddies.svg",
+    },
+  ];
 
   const originList = ["china", "bangldesh", "japan", "sri lanka"];
 
@@ -118,10 +131,11 @@ function TeaDropdown() {
           {formatItems.map((item) => (
             <Link
               href={`/product-category?format=${item}`}
-              key={item}
-              className="hover:text-teagreen-600"
+              key={item.title}
+              className="hover:text-teagreen-600 flex items-center gap-3"
             >
-              {item}
+              <img src={item.image} className="w-5 text-teagreen-400 hover:text-teagreen-600"/>
+              {item.title}
             </Link>
           ))}
         </div>

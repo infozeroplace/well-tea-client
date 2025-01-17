@@ -223,3 +223,13 @@ font-size: 1.25rem !important;
 .product-tab ol{
   list-style-type: inside;
 }
+
+.liststyle ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.liststyle ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
