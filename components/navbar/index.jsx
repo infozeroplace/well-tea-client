@@ -182,29 +182,43 @@ const Navbar = () => {
 
           {/* Categories */}
           <div className="hidden lg:flex items-center gap-5">
+            {dropdownData.map((item) => (
+              <div key={item.name} className="group">
+                <NavItem href="/collection/tea" name={item.name} />
+                <NavDropdown extraClass="shadow">
+                  {item.name === "tea" ? (
+                    <TeaDropdown dropdownItem={item} />
+                  ) : item.name === "teaware" ? (
+                    <TeawareDropdown dropdownItem={item} />
+                  ) : (
+                    <GiftDropdown dropdownItem={item} />
+                  )}
+                </NavDropdown>
+              </div>
+            ))}
             {/* ------ Tea Dropdown Menu ------ */}
-            <div className="group">
+            {/* <div className="group">
               <NavItem href="/collection/tea" name="Tea" />
               <NavDropdown extraClass="group-hover:h-[520px] shadow">
                 <TeaDropdown />
               </NavDropdown>
-            </div>
+            </div> */}
 
             {/* ------ Teaware Dropdown Menu ------ */}
-            <div className="group">
+            {/* <div className="group">
               <NavItem href="/collection/teaware" name="Teawares" />
               <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <TeawareDropdown />
               </NavDropdown>
-            </div>
+            </div> */}
 
             {/* ------ Gift Dropdown Menu ------ */}
-            <div className="group">
+            {/* <div className="group">
               <NavItem href="/collection/gift" name="Gifts" />
               <NavDropdown extraClass="group-hover:h-[300px] shadow">
                 <GiftDropdown />
               </NavDropdown>
-            </div>
+            </div> */}
 
             <NavItem href="/collection/sale" name="Sales" />
             {/* <NavItem href="/explore" name="Explore" /> */}

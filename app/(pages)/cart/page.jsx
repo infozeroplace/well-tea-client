@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SectionButton } from "@/components";
 import { updateQuantity, removeFromCart } from "@/services/features/cart/cartSlice";
+import { env } from "@/config/env";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -11,63 +12,6 @@ const toNumber = (value) => {
 };
 
 const CartPage = () => {
-  // const cartItems =[
-  //   {
-  //     id: 1,
-  //     name: "White Tera Rose Melange",
-  //     image: "/products/product_01.jpg",
-  //     category: "Green Tea",
-  //     weight: 42,
-  //     price: 20.5,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "White Tera Rose Melange",
-  //     image: "/products/product_03.jpg",
-  //     category: "Black Tea",
-  //     weight: 42,
-  //     price: 30.5,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "White Tera Rose Melange",
-  //     image: "/products/product_01.jpg",
-  //     category: "Black Tea",
-  //     weight: 42,
-  //     price: 30.5,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "White Tera Rose Melange",
-  //     image: "/products/product_03.jpg",
-  //     category: "Black Tea",
-  //     weight: 42,
-  //     price: 30.5,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "White Tera Rose Melange",
-  //     image: "/products/product_01.jpg",
-  //     category: "Black Tea",
-  //     weight: 42,
-  //     price: 30.5,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "White Tera Rose Melange",
-  //     image: "/products/product_03.jpg",
-  //     category: "Black Tea",
-  //     weight: 42,
-  //     price: 30.5,
-  //     quantity: 1,
-  //   },
-  // ];
-  
   const cartItems = useSelector((state) => state.cart.items);
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const totalCost = useSelector((state) => state.cart.totalCost);
@@ -146,8 +90,8 @@ const CartPage = () => {
                   >
                     <td className="py-4 flex items-center gap-4 pl-5">
                       <img
-                        // src={item.thumbnails[0].path}
-                        src="/products/product_01.jpg"
+                        src={`${env.app_url}${item.product?.thumbnails[0]?.path}`}
+                        // src="/products/product_01.jpg"
                         alt={item.product.title}
                         className="w-20 h-20 object-cover"
                       />

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
-function TeawareDropdown() {
+function TeawareDropdown({ dropdownItem }) {
   const allTeawares = [
     {
       name: "Teapots",
@@ -21,20 +21,26 @@ function TeawareDropdown() {
     },
   ];
 
+  // console.log(dropdownItem);
+
   return (
     <div>
       <div className="">
         <div className="flex justify-center gap-10 w-full p-5">
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">All Teaware</h3>
-            {allTeawares.map((item, index) => (
-              <Link
-                key={index}
-                href={item.url}
-                className="hover:text-teagreen-600"
-              >
-                <p>{item.name}</p>
-              </Link>
+          <div className="flex capitalize">
+            {dropdownItem.sections.map((section, index) => (
+              <div key={section.title} className="flex flex-col gap-2">
+                <h3 className="font-extralight text-xl">{section.title}</h3>
+                {section.items.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={``}
+                    className="hover:text-teagreen-600"
+                  >
+                    <p>{item.name}</p>
+                  </Link>
+                ))}
+              </div>
             ))}
           </div>
           <Link href="/" className="group flex flex-col items-center gap-5">

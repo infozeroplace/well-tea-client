@@ -10,6 +10,8 @@ const ProductDetails = ({ product }) => {
     urlParameter: item.urlParameter,
   }));
 
+  console.log(availableOptions);
+
   // Ensure the current product format is included in the options
   const currentFormat = {
     format: product.format[0],
@@ -17,12 +19,14 @@ const ProductDetails = ({ product }) => {
   };
 
   const isCurrentFormatIncluded = availableOptions.some(
-    (item) => item.format.toLowerCase() === currentFormat.format.toLowerCase()
+    (item) => item.format?.toLowerCase() === currentFormat.format?.toLowerCase()
   );
 
-  if (!isCurrentFormatIncluded) {
+  if (!isCurrentFormatIncluded && currentFormat.format && currentFormat.urlParameter) {
     availableOptions.unshift(currentFormat);
   }
+
+  console.log(product);
 
   return (
     <div className="py-8">
@@ -55,7 +59,9 @@ const ProductDetails = ({ product }) => {
           <div className="flex flex-wrap gap-2">
             {availableOptions.map(({ format, urlParameter }) => {
               const isSelected =
-                format.toLowerCase() === product.format[0].toLowerCase();
+                format?.toLowerCase() === product.format?.[0]?.toLowerCase();
+
+                console.log(format);
 
               return (
                 <Link
@@ -68,7 +74,7 @@ const ProductDetails = ({ product }) => {
                   }`}
                   aria-disabled={isSelected ? "true" : "false"} // Accessibility support
                 >
-                  {format.charAt(0).toUpperCase() + format.slice(1)}
+                  {format?.charAt(0).toUpperCase() + format?.slice(1)}
                 </Link>
               );
             })}
