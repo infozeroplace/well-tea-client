@@ -77,7 +77,7 @@ const ProductCard = ({ product }) => {
           className="px-3 flex flex-col justify-between w-full"
         >
           {/* Product Image */}
-          <div className="relative group w-full">
+          <div className="relative z-0 group w-full">
             <Image
               src={thumbnail1}
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
@@ -142,7 +142,7 @@ const ProductCard = ({ product }) => {
 
         {/* Weight Selection*/}
         <div
-          className={`absolute botton-0 h-fit left-0 z-10 w-full transform transition-all duration-300 ${
+          className={`absolute botton-0 h-fit left-0 z-20 w-full transform transition-all duration-300 mt-1 ${
             addButtonClicked
               ? "-translate-y-full opacity-1"
               : "translate-y-0 opacity-0"
