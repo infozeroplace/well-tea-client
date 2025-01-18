@@ -19,9 +19,15 @@ export const revalidate = 0;
 
 const Home = async () => {
   const {
+    data: { data: teaTypes },
+  } = await axios.get("/public/system/get-tea-types");
+
+  const {
     data: { data: categoryData },
   } = await axios.get(
-    `/public/product/list?page=1&limit=10&category=tea&type=green tea`
+    `/public/product/list?page=1&limit=10&category=tea&type=${
+      teaTypes[0] || "green tea"
+    }`
   );
 
   const {
@@ -40,10 +46,10 @@ const Home = async () => {
     <>
       <Hero data={systemData?.hero || []} />
       <CategoryOffer data={systemData?.offer || {}} />
-      <Category initialProducts={categoryData || []} />
+      <Category initialProducts={categoryData || []} teaTypes={teaTypes} />
       <Banner data={systemData?.featured || []} />
       <VariableCategoryProducts initialProducts={featuredProducts || []} />
-      <WhyChooseUs data = {systemData?.whyChooseUs || []}/>
+      <WhyChooseUs data={systemData?.whyChooseUs || []} />
       <BestSellers initialProducts={bestSellerData || []} />
     </>
   );

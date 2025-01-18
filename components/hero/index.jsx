@@ -70,7 +70,7 @@ function Hero({ data }) {
                     initial={activeSlide === index ? "hidden" : null}
                     animate={activeSlide === index ? "visible" : "exit"}
                     variants={textAnimation}
-                    className="space-y-4 text-center md:text-left text-2xl md:text-4xl lg:text-6xl font-extralight mb-1 md:mb-2 max-w-[400px] w-full"
+                    className="space-y-4 text-center md:text-left text-2xl md:text-4xl lg:text-6xl font-extralight mb-1 md:mb-2 max-w-[550px] w-full"
                   >
                     {item.bannerImageTitle || ""}
                   </motion.h1>

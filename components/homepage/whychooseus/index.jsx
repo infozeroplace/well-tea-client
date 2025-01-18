@@ -5,43 +5,20 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { env } from "@/config/env";
 
-// const discoverItems = [
-//   {
-//     title: "Handmade",
-//     icon: "icon 1",
-//     image: "/whychooseus/slide_banner_07.jpg",
-//     description:
-//       "We source the finest quality speciality teas, herbs, spices and flowers from around the world. Are you ready to be inspired?",
-//   },
-//   {
-//     title: "Freshness",
-//     icon: "icon 2",
-//     image: "/whychooseus/slide_banner_08.jpg",
-//     description:
-//       "We are dedicated to creating fresh, small-batch blends that embody the essence of their ingredients, offering vibrant flavors and natural therapeutic benefits.",
-//   },
-//   {
-//     title: "Sustainability",
-//     icon: "icon 3",
-//     image: "/whychooseus/slide_banner_09.jpg",
-//     description:
-//       "We carefully source all our premium ingredients directly from sustainably certified gardens, ensuring the highest quality and ethical standards.",
-//   },
-// ];
-
 const WhyChooseUs = ({ data }) => {
   const discoverItems = data;
-  const [choosOption, setChoosOption] = useState({
-    iconPath: discoverItems[0].iconPath,
-    imagePath: discoverItems[0].imagePath,
-    description: discoverItems[0].description,
+
+  const [chooseOption, setChooseOption] = useState({
+    iconPath: discoverItems[0]?.iconPath || "",
+    imagePath: discoverItems[0]?.imagePath || "",
+    description: discoverItems[0]?.description || "",
   });
 
-  const [selected, setSelected] = useState(discoverItems[0].title);
+  const [selected, setSelected] = useState(discoverItems[0]?.title || "");
 
   const handleClick = (item) => {
     const { title, iconPath, imagePath, description } = item;
-    setChoosOption({ ...choosOption, iconPath, imagePath, description });
+    setChooseOption({ ...chooseOption, iconPath, imagePath, description });
     setSelected(title);
   };
 
@@ -70,9 +47,9 @@ const WhyChooseUs = ({ data }) => {
           </div>
           <div className="mt-3">
             <div className="mb-3">
-              {choosOption?.iconPath &&
+              {chooseOption?.iconPath &&
                 <Image
-                  src={`${env.app_url}${choosOption?.iconPath}`}
+                  src={`${env.app_url}${chooseOption?.iconPath}`}
                   alt={selected}
                   width={30}
                   height={30}
@@ -80,7 +57,7 @@ const WhyChooseUs = ({ data }) => {
               }
             </div>
             <div className="text-xs 2xl:text-base text-center lg:text-left lg:text-base mb-2 lg:mb-5">
-              {choosOption?.description}
+              {chooseOption?.description}
             </div>
             <div className="flex justify-center md:justify-start text-lg">
               <SectionLinkButton title="Learn more" url="/tea" />
@@ -89,7 +66,7 @@ const WhyChooseUs = ({ data }) => {
         </div>
         <div className="col-span-3 lg:col-span-2 aspect-[1000/500] lg:aspect-[1180/730] w-full overflow-hidden lg:overflow-visible">
           <Image
-            src={`${env.app_url}${choosOption?.imagePath}`}
+            src={`${env.app_url}${chooseOption?.imagePath}`}
             alt={selected}
             width={1180}
             height={730}

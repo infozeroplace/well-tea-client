@@ -1,8 +1,8 @@
 "use client";
 
 import { Tab, Tabs } from "@nextui-org/react";
+import BrewInstructions from "./BrewInstructions";
 import Description from "./Description";
-import HowToMake from "./HowToMake";
 import Ingredients from "./Ingredients";
 import Reviews from "./Reviews";
 
@@ -23,7 +23,7 @@ function ProductTabs({ product }) {
             <Ingredients ingredient={product.ingredient} />
           </Tab>
           <Tab key="3" title="How to brew">
-            <HowToMake />
+            <BrewInstructions brewInstruction={product.brewInstruction} />
           </Tab>
           <Tab key="4" title="Review">
             <Reviews />
