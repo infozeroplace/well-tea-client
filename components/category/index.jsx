@@ -17,6 +17,8 @@ const Category = ({ initialProducts, teaTypes }) => {
   });
 
   const [products, setProducts] = useState(initialProducts);
+  const [isLastSlide, setIsLastSlide] = useState(false);
+  const [isFirstSlide, setIsFirstSlide] = useState(true);
 
   const { data } = useGetProductListQuery(queryParams, {
     refetchOnMountOrArgChange: true,
@@ -34,19 +36,33 @@ const Category = ({ initialProducts, teaTypes }) => {
 
   const activeClass = "border-[0.5px] border-teagreen-600";
 
+  const handleSlideChange = (swiper) => {
+    setIsFirstSlide(swiper.isBeginning);
+    setIsLastSlide(swiper.isEnd);
+  };
+
   return (
     <div className="section-gap">
       <div className="container px-4 lg:px-20">
         <SectionTitle title="Explore our single teas" />
-        <div className="max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 border p-4">
+        <div className="relative group max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 p-4">
           <Swiper
             modules={[Navigation, Pagination, A11y]}
             slidesPerView={6.5}
             loop
-            speed={2000}
+            speed={500}
             slidesPerGroup={1}
             spaceBetween={25}
+            onSlideChange={handleSlideChange}
+            navigation={{
+              prevEl: ".category-btn-prev",
+              nextEl: ".category-btn-next",
+            }}
             breakpoints={{
+              320: {
+                slidesPerView: 1.5,
+                spaceBetween: 20,
+              },
               768: {
                 slidesPerView: 3.5,
                 spaceBetween: 5,
@@ -79,6 +95,20 @@ const Category = ({ initialProducts, teaTypes }) => {
               </SwiperSlide>
             ))}
           </Swiper>
+          <button
+            className={`category-btn-prev z-10 absolute top-1/2 -left-3 transform -translate-y-1/2 duration-300 py-2 px-3 text-2xl ${
+              isFirstSlide ? "!hidden" : "opacity-0 group-hover:opacity-100"
+            }`}
+          >
+            &#x276E;
+          </button>
+          <button
+            className={`category-btn-next z-10 absolute top-1/2 -right-3 transform -translate-y-1/2 duration-300 py-2 px-3 text-2xl ${
+              isLastSlide ? "!hidden" : "opacity-0 group-hover:opacity-100"
+            }`}
+          >
+            &#x276F;
+          </button>
         </div>
 
         <div className="pb-10">
