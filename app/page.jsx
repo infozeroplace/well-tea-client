@@ -18,29 +18,27 @@ import {
 export const revalidate = 0;
 
 const Home = async () => {
-  const {
-    data: { data: teaTypes },
-  } = await axios.get("/public/system/get-tea-types");
+  const { data: { data: teaTypes = {} } = {} } = await axios.get(
+    "/public/system/get-tea-types"
+  );
 
-  const {
-    data: { data: categoryData },
-  } = await axios.get(
+  const { data: { data: categoryData = {} } = {} } = await axios.get(
     `/public/product/list?page=1&limit=10&category=tea&type=${
       teaTypes[0] || "green tea"
     }`
   );
 
-  const {
-    data: { data: bestSellerData },
-  } = await axios.get(`/public/product/list?page=1&limit=10&isBestSeller=true`);
+  const { data: { data: bestSellerData = {} } = {} } = await axios.get(
+    `/public/product/list?page=1&limit=10&isBestSeller=true`
+  );
 
-  const {
-    data: { data: featuredProducts },
-  } = await axios.get(`/public/product/list?page=1&limit=10&isFeatured=true`);
+  const { data: { data: featuredProducts = {} } = {} } = await axios.get(
+    `/public/product/list?page=1&limit=10&isFeatured=true`
+  );
 
-  const {
-    data: { data: systemData },
-  } = await axios.get("/public/system");
+  const { data: { data: systemData = {} } = {} } = await axios.get(
+    "/public/system"
+  );
 
   return (
     <>

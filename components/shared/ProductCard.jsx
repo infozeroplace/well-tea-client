@@ -5,7 +5,6 @@ import { addToCart } from "@/services/features/cart/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { CiShoppingCart } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
