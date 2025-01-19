@@ -11,16 +11,16 @@ import { SectionLinkButton } from '../shared';
 const SearchProduct = ({ buttonClass }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isClicked, setIsClicked] = useState(false);
-    const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
       const fetchProducts = async () => {
-        if (searchTerm.length > 2) {
+        if (searchTerm.length > 0) {
           setIsLoading(true);
           try {
             const queryParams = new URLSearchParams({
-              search: searchTerm,
+              searchTerm,
             }).toString();
             const url = `/public/product/list?${queryParams}`;
             const response = await axios.get(url);
@@ -46,7 +46,7 @@ const SearchProduct = ({ buttonClass }) => {
       setProducts([]);
     };
 
-    console.log(products);
+    // console.log(products);
 
   return (
     <div className="">
@@ -128,7 +128,7 @@ const SearchProduct = ({ buttonClass }) => {
           </div>
           <div className="p-4 border-t mt-auto">
             <SectionLinkButton
-              url={`/search`}
+              url={`/search?searchTerm=${searchTerm}`}
               title="View All Results"
               buttonClass="!block !w-full px-10"
               textClass="!block !w-full"

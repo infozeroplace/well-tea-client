@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import ProductList from "@/components/ProductList";
+import SearchQuery from "@/components/searchQuery";
 
 const capitalizeEachWord = (sentence) => {
   return sentence
@@ -9,13 +10,13 @@ const capitalizeEachWord = (sentence) => {
 };
 
 export async function generateMetadata({ searchParams: rawSearchParams }) {
-  const searchParams = await Promise.resolve(rawSearchParams);
+  // const searchParams = await Promise.resolve(rawSearchParams);
 
-  const metaTitle =
-    searchParams.type && searchParams.type.split(",").join(" | ");
+  // const metaTitle =
+  //   searchParams.type && searchParams.type.split(",").join(" | ");
 
   return {
-    title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
+    title: "Search",
     description: "",
   };
 }
@@ -30,10 +31,10 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
 
   return (
     <div>
-        <div>
-            Search
-        </div>
-      <ProductList products={data} />
+      <SearchQuery initialSearchTerm={searchParams.searchTerm}/>
+      {data.length > 0 && 
+        <ProductList products={data} />
+      }
     </div>
   );
 };
