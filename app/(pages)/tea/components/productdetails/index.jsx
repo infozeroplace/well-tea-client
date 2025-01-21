@@ -6,16 +6,16 @@ import SocialShare from "./SocialShare";
 const ProductDetails = ({ product }) => {
   // Serialize available options
   const availableOptions = product.availableAs.map((item) => ({
-    format: item.format[0], // Assuming one format per item
-    urlParameter: item.urlParameter,
+    format: item?.format[0] || "", // Assuming one format per item
+    urlParameter: item?.urlParameter,
   }));
 
   console.log(availableOptions);
 
   // Ensure the current product format is included in the options
   const currentFormat = {
-    format: product.format[0],
-    urlParameter: product.urlParameter,
+    format: product?.format[0] || "",
+    urlParameter: product?.urlParameter,
   };
 
   const isCurrentFormatIncluded = availableOptions.some(

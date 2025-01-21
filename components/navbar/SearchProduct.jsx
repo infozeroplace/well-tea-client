@@ -35,9 +35,9 @@ const SearchProduct = ({ buttonClass }) => {
           setProducts([]);
         }
       };
-
-      const debounceTimeout = setTimeout(fetchProducts, 1000);
-      return () => clearTimeout(debounceTimeout);
+      fetchProducts();
+      // const debounceTimeout = setTimeout(fetchProducts, 1000);
+      // return () => clearTimeout(debounceTimeout);
     }, [searchTerm]);
 
     const handleClose = () => {
@@ -46,7 +46,7 @@ const SearchProduct = ({ buttonClass }) => {
       setProducts([]);
     };
 
-    // console.log(products);
+    console.log(products);
 
   return (
     <div className="">
@@ -81,51 +81,53 @@ const SearchProduct = ({ buttonClass }) => {
               <div className="flex items-center justify-center h-96">
                 <h3>Loading...</h3>
               </div>
-            ) : (
+            ) : !searchTerm ? (
+              <div className="flex items-center justify-center h-96"></div>
+            ) : products.length > 0 ? (
               <div className="space-y-3">
                 <h3 className="mb-2">Products</h3>
-                {products.length > 0 ? (
-                  products.slice(0, 5).map((item) => (
-                    <Link
-                      key={item._id}
-                      href={`/${item?.urlParameter}`}
-                      className="flex gap-3"
-                    >
-                      <Image
-                        src={`${env.app_url}${item?.thumbnails[0]?.path}`}
-                        alt={item.thumbnails[0].alt}
-                        width={100}
-                        height={100}
-                      />
-                      <div className="flex flex-col">
-                        <p>{item.title}</p>
-                        <p>{item.format[0]}</p>
-                        <div className="text-sm">
-                          {item?.isSale ? (
-                            <div className="flex gap-2 text-teagreen-800">
-                              <span className="font-brand__font__500">
-                                £{item?.unitPrices[0]?.salePrice} GBP
-                              </span>
-                              <span className="font-light">
-                                was £{item?.unitPrices[0]?.price}
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="font-brand__font__500 text-teagreen-800">
-                              £{item?.unitPrices[0]?.price} GBP
+                {products.slice(0, 5).map((item) => (
+                  <Link
+                    key={item._id}
+                    href={`/${item?.urlParameter}`}
+                    className="flex gap-3"
+                  >
+                    <Image
+                      src={`${env.app_url}${item?.thumbnails[0]?.path}`}
+                      alt={item.thumbnails[0]?.alt}
+                      width={100}
+                      height={100}
+                    />
+                    <div className="flex flex-col">
+                      <p>{item.title}</p>
+                      <p>{item.format[0]}</p>
+                      <div className="text-sm">
+                        {item?.isSale ? (
+                          <div className="flex gap-2 text-teagreen-800">
+                            <span className="font-brand__font__500">
+                              £{item?.unitPrices[0]?.salePrice} GBP
                             </span>
-                          )}
-                        </div>
+                            <span className="font-light">
+                              was £{item?.unitPrices[0]?.price}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="font-brand__font__500 text-teagreen-800">
+                            £{item?.unitPrices[0]?.price} GBP
+                          </span>
+                        )}
                       </div>
-                    </Link>
-                  ))
-                )
-                 : (
-                  <p>No products found</p>
-                )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-96">
+                <p className="text-gray-500">No products found</p>
               </div>
             )}
           </div>
+
           <div className="p-4 border-t mt-auto">
             <SectionLinkButton
               url={`/search?searchTerm=${searchTerm}`}
