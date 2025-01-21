@@ -13,7 +13,7 @@ const Category = ({ initialProducts, teaTypes }) => {
   const [queryParams, setQueryParams] = useState({
     page: 1,
     limit: 10,
-    type: "green tea",
+    productType: teaTypes[0],
   });
 
   const [products, setProducts] = useState(initialProducts);
@@ -38,7 +38,7 @@ const Category = ({ initialProducts, teaTypes }) => {
     <div className="section-gap">
       <div className="container px-4 lg:px-20">
         <SectionTitle title="Explore our single teas" />
-        <div className="max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 border p-4">
+        <div className="max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 p-4">
           <Swiper
             modules={[Navigation, Pagination, A11y]}
             slidesPerView={6.5}
@@ -61,15 +61,15 @@ const Category = ({ initialProducts, teaTypes }) => {
               },
             }}
           >
-            {teaTypes.map((item) => (
-              <SwiperSlide key={item} className="w-full">
+            {teaTypes.map((item, idx) => (
+              <SwiperSlide key={idx} className="w-full">
                 <button
                   onClick={() =>
-                    setQueryParams((prev) => ({ ...prev, type: item }))
+                    setQueryParams((prev) => ({ ...prev, productType: item }))
                   }
                   className={
                     "rounded-full p-2 md:px-5 text-sm md:text-base capitalize w-full " +
-                    (queryParams.type === item
+                    (queryParams.productType === item
                       ? activeClass
                       : "bg-teagreen-100 text-teagreen-600")
                   }

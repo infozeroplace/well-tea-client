@@ -30,8 +30,8 @@ function Header() {
         speed={2000}
         slidesPerGroup={1}
       >
-        {notifications.map((item) => (
-          <SwiperSlide key={item}>
+        {notifications.map((item, idx) => (
+          <SwiperSlide key={idx}>
             <h3>{item}</h3>
           </SwiperSlide>
         ))}

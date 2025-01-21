@@ -8,11 +8,6 @@ const nextConfig = {
         pathname: "**",
       },
       {
-        protocol: "https",
-        hostname: "instagram.fdac19-1.fna.fbcdn.net",
-        pathname: "**",
-      },
-      {
         protocol: "http",
         hostname: "localhost",
         pathname: "**",

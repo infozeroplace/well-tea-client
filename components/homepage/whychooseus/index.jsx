@@ -31,9 +31,9 @@ const WhyChooseUs = ({ data }) => {
               why choose us
             </p>
             <div className="text-teagreen-300">
-              {discoverItems?.map((item) => (
+              {discoverItems?.map((item, idx) => (
                 <button
-                  key={item?.title}
+                  key={idx}
                   type="button"
                   className={`text-xl md:text-3xl xl:text-5xl 2xl:text-6xl w-full text-center lg:text-left py-1 lg:py-2 xl:py-3 hover:text-teagreen-600 duration-400 ${
                     selected === item?.title ? "text-teagreen-600" : ""
