@@ -10,7 +10,7 @@ import {
   TwitterShareButton,
   FacebookIcon,
   TwitterIcon,
-} from "react-share";
+} from "next-share";
 
 function SocialShare({ productUrl}) {
     const socialSites = [
@@ -40,7 +40,7 @@ function SocialShare({ productUrl}) {
     <div>
       <div className="flex gap-5">
         <h3>Share</h3>
-        <div className="flex gap-5">
+        {/* <div className="flex gap-5">
           {socialSites.map((site, index) => (
             <Link key={index} href={site.url} target="_blank" rel="noopener noreferrer">
               <div className="flex items-center space-x-2">
@@ -48,15 +48,15 @@ function SocialShare({ productUrl}) {
               </div>
             </Link>
           ))}
-        </div>
-        {/* <div className="flex gap-5">
+        </div> */}
+        <div className="flex gap-5">
           <FacebookShareButton url={productUrl}>
             <FacebookIcon size={16} />
           </FacebookShareButton>
           <TwitterShareButton url={productUrl}>
             <TwitterIcon size={16} />
           </TwitterShareButton>
-        </div> */}
+        </div>
       </div>
     </div>
   );
