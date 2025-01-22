@@ -12,9 +12,9 @@ const CompanyServices = async () => {
   return (
     <div className="container">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {data?.companyService?.map((item) => (
+        {data?.companyService?.map((item, idx) => (
           <div
-            key={item?.title}
+            key={idx}
             className="text-center md:border-r border-gray-200 p-6 xl:p-8 group"
           >
             <div className="mb-5 flex text-3xl font-thin group-hover:text-teagreen-600 justify-center">

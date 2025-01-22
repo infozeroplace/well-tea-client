@@ -1,6 +1,7 @@
 import axios from "@/api/axios";
 import ProductList from "@/components/ProductList";
 import SearchQuery from "@/components/searchQuery";
+import { CommonBanner } from "@/components";
 
 const capitalizeEachWord = (sentence) => {
   return sentence
@@ -18,6 +19,7 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
   return {
     title: "Search",
     description: "",
+    keywords: "",
   };
 }
 
@@ -31,6 +33,7 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
 
   return (
     <div>
+      <CommonBanner bannerTitle="Search" />
       <SearchQuery initialSearchTerm={searchParams.searchTerm}/>
       {data.length > 0 && 
         <ProductList products={data} />

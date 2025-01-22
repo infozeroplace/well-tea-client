@@ -1,7 +1,7 @@
-function Ingredients({ ingredient }) {
+function Ingredients({ teaIngredient }) {
   return (
     <div className="p-5">
-      {ingredient.map((item, index) => (
+      {teaIngredient?.map((item, index) => (
         <p key={index}>
           <span className="mr-2">{index + 1}.</span>
           {item}

@@ -49,7 +49,7 @@ export default async function RootLayout({ children }) {
                 <Header />
                 <Navbar />
                 {children}
-                <SocialImages />
+                {/* <SocialImages /> */}
                 <CompanyServices />
                 <Footer />
                 <Toaster position="bottom-right" />

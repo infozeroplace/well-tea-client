@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import ProductList from "@/components/ProductList";
+import { CommonBanner } from "@/components";
 
 const capitalizeEachWord = (sentence) => {
   return sentence
@@ -15,6 +16,7 @@ export async function generateMetadata({ searchParams, params }) {
   return {
     title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
     description: `Explore products under ${params.category}.`,
+    keywords: `${params.category}, ${searchParams.type}`,
   };
 }
 
@@ -31,7 +33,19 @@ const ProductCategoryScreen = async ({
 
   const { data: { data = [] } = {} } = await axios.get(url);
 
-  return <ProductList products={data} />;
+  const metaTitle =
+    searchParams.type && searchParams.type.split(",").join(" | ");
+
+  return (
+    <div className="">
+      <CommonBanner
+        bannerTitle={
+          searchParams.type ? capitalizeEachWord(metaTitle) : "All Products"
+        }
+      />
+      <ProductList products={data} />
+    </div>
+  );
 };
 
 export default ProductCategoryScreen;

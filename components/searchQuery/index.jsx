@@ -30,8 +30,6 @@ function SearchQuery({ initialSearchTerm }) {
     }
   };
 
-  console.log(initialSearchTerm);
-
   return (
     <div className="max-w-[400px] w-full mx-auto mt-10 space-y-5">
       <h3 className="text-center font-brand__font__regular text-brand__font__size__lg2 text-teagreen-700">

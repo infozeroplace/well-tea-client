@@ -1,23 +1,26 @@
 import axios from "@/api/axios";
-import { TermsConditionsContents } from "@/components";
+import { TermsConditionsContents, CommonBanner } from "@/components";
 
+export const metadata = {
+  title: "Terms & Conditions",
+  description: "",
+  keywords: "",
+};
 
 const TermsConditions = async () => {
   const {
-    data: { data: systemData },
+    data: { data: systemData = {} } = {},
   } = await axios.get("/public/system");
 
   return (
-    <div className="container px-4 lg:px-20 section-gap mt-4">
-      <div className="content-gap text-center text-4xl font-medium">
+    <div>
+      <CommonBanner bannerTitle="Terms & Conditions" />
+      <div className="container px-4 lg:px-20 section-gap mt-4">
+        {/* <div className="content-gap text-center text-4xl font-medium">
         Terms & Conditions
-      </div>
-      {/* <div className="">
-        <div
-          dangerouslySetInnerHTML={{ __html: systemData?.termsAndConditions }}
-        />
       </div> */}
         <TermsConditionsContents systemData={systemData} />
+      </div>
     </div>
   );
 };

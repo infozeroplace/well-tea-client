@@ -84,7 +84,7 @@ function ManageProduct({ product }) {
   };
 
   const handleSubscriptionChange = (e) => {
-    const selectedSubscription = product.subscriptions.find(
+    const selectedSubscription = product?.subscriptions?.find(
       (sub) => sub._id === e.target.value
     );
     setSelectedSubObj(selectedSubscription);
@@ -110,10 +110,10 @@ function ManageProduct({ product }) {
 
     const productPrice =
       product?.isSubscription && purchaseType === "subscribe"
-        ? selectedUnitObj.subscriptionPrice
+        ? selectedUnitObj?.subscriptionPrice
         : product.isSale
-        ? selectedUnitObj.salePrice
-        : selectedUnitObj.price;
+        ? selectedUnitObj?.salePrice
+        : selectedUnitObj?.price;
 
     setTotalPrice(productPrice * quantity);
   }, [quantity, selectedUnitObj, purchaseType]);
@@ -142,14 +142,16 @@ function ManageProduct({ product }) {
     );
   };
 
+  // console.log(product);
+
   return (
     <div>
       <div className="my-5 text-brand__font__size__base">
         <h3 className="mb-4 font-normal">Product Unit</h3>
         <div className="flex gap-4">
-          {product.unitPrices.map((item, index) => (
+          {product?.unitPrices?.map((item, index) => (
             <button
-              key={item.unit}
+              key={item?.unit}
               onClick={() => handleUnitSelect(item)}
               className={`py-2 px-10 rounded-full ${
                 selectedUnitObj === item
@@ -157,7 +159,7 @@ function ManageProduct({ product }) {
                   : "text-teagreen-600 bg-teagreen-100"
               }`}
             >
-              {item.unit}
+              {item?.unit}
             </button>
           ))}
         </div>
@@ -179,19 +181,19 @@ function ManageProduct({ product }) {
               <span className="">One-Time Purchase</span>
               <span className="ml-auto font-normal">
                 £
-                {product.isSale ? (
+                {product?.isSale ? (
                   <span>
-                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del> £
-                    {toNumber(selectedUnitObj.salePrice).toFixed(2)}
+                    <del>{toNumber(selectedUnitObj?.price).toFixed(2)}</del> £
+                    {toNumber(selectedUnitObj?.salePrice).toFixed(2)}
                   </span>
                 ) : (
-                  toNumber(selectedUnitObj.price).toFixed(2)
+                  toNumber(selectedUnitObj?.price).toFixed(2)
                 )}
               </span>
             </label>
 
             {/* ------------ Subscribe and Save Option ------------- */}
-            {product.isSubscription && (
+            {product?.isSubscription && (
               <div className="border rounded-md px-4 py-3 bg-teagreen-100 text-teagreen-600">
                 <label className="flex items-center">
                   <input
@@ -204,8 +206,8 @@ function ManageProduct({ product }) {
                   />
                   <span className="">Subscribe and Save</span>
                   <span className="ml-auto">
-                    <del>{toNumber(selectedUnitObj.price).toFixed(2)}</del> £
-                    {toNumber(selectedUnitObj.subscriptionPrice).toFixed(2)}
+                    <del>{toNumber(selectedUnitObj?.price).toFixed(2)}</del> £
+                    {toNumber(selectedUnitObj?.subscriptionPrice).toFixed(2)}
                   </span>
                 </label>
 
@@ -213,17 +215,17 @@ function ManageProduct({ product }) {
                 {purchaseType === "subscribe" && (
                   <div className="mt-4 space-y-2">
                     <select
-                      value={selectedSubObj._id}
+                      value={selectedSubObj?._id}
                       onChange={handleSubscriptionChange}
                       className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-teagreen-600"
                     >
-                      {product.subscriptions.map((item) => (
+                      {product?.subscriptions?.map((item) => (
                         <option
-                          key={item._id}
-                          value={item._id}
+                          key={item?._id}
+                          value={item?._id}
                           className="p-2 bg-white "
                         >
-                          {item.weeks}
+                          {item?.weeks}
                         </option>
                       ))}
                     </select>
@@ -298,8 +300,8 @@ function ManageProduct({ product }) {
         >
           Add to Cart - £
           {toNumber(
-            product.isMultiDiscount && quantity >= product.multiDiscountQuantity
-              ? totalPrice - product.multiDiscountAmount
+            product?.isMultiDiscount && quantity >= product?.multiDiscountQuantity
+              ? totalPrice - product?.multiDiscountAmount
               : totalPrice
           ).toFixed(2)}
         </button>

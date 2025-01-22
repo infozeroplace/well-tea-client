@@ -35,7 +35,6 @@ function Hero({ data }) {
           modules={[Autoplay, EffectFade]}
           effect={"fade"}
           speed={1000}
-          // mousewheel={true}
           grabCursor={true}
           autoplay={{
             delay: 5000,
@@ -43,12 +42,11 @@ function Hero({ data }) {
             pauseOnMouseEnter: true,
           }}
           onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
-          // spaceBetween={50}
           slidesPerView={1}
           loop={true}
         >
-          {data.map((item, index) => (
-            <SwiperSlide key={index} className="relative">
+          {data.map((item, idx) => (
+            <SwiperSlide key={idx} className="relative">
               <div className=" w-full h-[30vh] md:h-full">
                 <Image
                   src={`${env.app_url}${item?.bannerImagePath}`}
@@ -66,27 +64,27 @@ function Hero({ data }) {
               <div className="container absolute px-4 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
                 <div>
                   <motion.h1
-                    key={`title-${index}`}
-                    initial={activeSlide === index ? "hidden" : null}
-                    animate={activeSlide === index ? "visible" : "exit"}
+                    key={`title-${idx}`}
+                    initial={activeSlide === idx ? "hidden" : null}
+                    animate={activeSlide === idx ? "visible" : "exit"}
                     variants={textAnimation}
                     className="space-y-4 text-center md:text-left text-2xl md:text-4xl lg:text-6xl font-extralight mb-1 md:mb-2 max-w-[550px] w-full"
                   >
                     {item.bannerImageTitle || ""}
                   </motion.h1>
                   <motion.p
-                    key={`description-${index}`}
-                    initial={activeSlide === index ? "hidden" : null}
-                    animate={activeSlide === index ? "visible" : "exit"}
+                    key={`description-${idx}`}
+                    initial={activeSlide === idx ? "hidden" : null}
+                    animate={activeSlide === idx ? "visible" : "exit"}
                     variants={textAnimation}
                     className="space-y-4 text-center md:text-left text-sm md:text-base lg:text-lg max-w-[650px] w-full"
                   >
                     {item.bannerImageDescription || ""}
                   </motion.p>
                   <motion.div
-                    key={`content-${index}`}
-                    initial={activeSlide === index ? "hidden" : null}
-                    animate={activeSlide === index ? "visible" : "exit"}
+                    key={`content-${idx}`}
+                    initial={activeSlide === idx ? "hidden" : null}
+                    animate={activeSlide === idx ? "visible" : "exit"}
                     variants={textAnimation}
                     className="mt-5 flex justify-center md:justify-start"
                   >
