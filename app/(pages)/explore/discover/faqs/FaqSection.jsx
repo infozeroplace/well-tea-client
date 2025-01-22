@@ -23,7 +23,7 @@ function FaqSection({ faqContents}) {
             {faqContent.question}
             <span
               className={`text-2xl origin-center transition-all duration-300 ${
-                activeIndexes.length > 0 ? "rotate-45" : "rotate-0"
+                activeIndexes.includes(index) ? "rotate-45" : "rotate-0"
               }`}
             >
               +
