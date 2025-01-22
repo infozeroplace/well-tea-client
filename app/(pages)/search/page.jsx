@@ -20,6 +20,15 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
     title: "Search",
     description: "",
     keywords: "",
+    openGraph: {
+      title: "Search",
+      description: "",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Search",
+      description: "",
+    }
   };
 }
 

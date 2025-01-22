@@ -9,6 +9,15 @@ export const metadata = {
   title: "How To Make Iced Tea",
   description: "",
   keywords: "",
+  openGraph: {
+    title: "How To Make Iced Tea",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How To Make Iced Tea",
+    description: "",
+  }
 };
 
 const MakeIcedTea = () => {

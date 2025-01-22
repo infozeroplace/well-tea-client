@@ -6,6 +6,15 @@ export const metadata = {
   title: "How To Make Traditional Matcha",
   description: "",
   keywords: "",
+  openGraph: {
+    title: "How To Make Traditional Matcha",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How To Make Traditional Matcha",
+    description: "",
+  },
 };
 
 const MakeMatcha = () => {

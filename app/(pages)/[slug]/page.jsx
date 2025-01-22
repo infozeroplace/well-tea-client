@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import { notFound } from "next/navigation";
+import Head from "next/head";
 import {
   ProductDetails,
   ProductSlider,
@@ -7,6 +8,13 @@ import {
   RelatedProducts,
 } from "../tea/components";
 import { CommonBanner } from "@/components";
+
+const capitalizeEachWord = (sentence) => {
+  return sentence
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+};
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -16,11 +24,34 @@ export async function generateMetadata({ params }) {
     data: { data: product },
   } = await axios.get(`/public/product/${slug}`);
 
+  const siteUrl = "welltea.zeroplace.co/"
+
   // console.log(product);
 
   return {
-    title: product?.metaTitle,
-    description: product?.metaDescription,
+    title: `${capitalizeEachWord(product?.title)} | Well Tea`,
+    description: product?.shorDescription,
+    openGraph: {
+      title: `${capitalizeEachWord(product?.title)} | Well Tea`,
+      description: product?.shorDescription,
+      url: `${siteUrl}${product?.urlParameter}`,
+      images: [
+        {
+          url: product?.thumbnails[0]?.path,
+          width: 1200,
+          height: 630,
+          alt: product?.title,
+        },
+      ],
+      siteName: "Well Tea",
+      // type: "product",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product?.title} | Well Tea`,
+      description: product?.shorDescription,
+      images: product?.thumbnails[0]?.path,
+    },
   };
 }
 
@@ -34,11 +65,23 @@ const ProductDetail = async ({ params }) => {
       data: { data: product },
     } = await axios.get(`/public/product/${slug}`);
 
-    console.log(product);
+    // const jsonLd = {
+    //   "@context": "https://schema.org",
+    //   "@type": "Product",
+    //   name: product?.title,
+    //   image: product?.thumbnails[0]?.path,
+    //   description: product?.shortDescription,
+    // };
 
     return (
       <div className="">
-        <CommonBanner bannerTitle={product.title}/>
+        {/* <Head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+        </Head> */}
+        <CommonBanner bannerTitle={product?.title} />
         <div className="container px-20 my-10">
           <div className="mb-10 flex flex-col lg:flex-row justify-center items-center gap-5">
             <div className="max-w-[650px] w-full">

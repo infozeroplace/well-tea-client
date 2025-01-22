@@ -14,9 +14,6 @@ import {
 
 function SocialShare({ productUrl}) {
 
-  console.log(productUrl)
-  console.log(encodeURIComponent(productUrl));
-
   const siteUrl = "https://welltea.zeroplace.com/";
   // const socialSites = [
   //   {

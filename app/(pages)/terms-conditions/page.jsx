@@ -5,6 +5,15 @@ export const metadata = {
   title: "Terms & Conditions",
   description: "",
   keywords: "",
+  openGraph: {
+    title: "Terms & Conditions",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions",
+    description: "",
+  }
 };
 
 const TermsConditions = async () => {

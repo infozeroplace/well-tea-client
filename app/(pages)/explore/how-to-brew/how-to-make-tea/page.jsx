@@ -4,6 +4,15 @@ import React from "react";
 export const metadata = {
   title: "How To Make Tea",
   description: "",
+  openGraph: {
+    title: "How To Make Tea",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How To Make Tea",
+    description: "",
+  }
 };
 
 const MakeTea = () => {

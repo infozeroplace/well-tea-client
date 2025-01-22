@@ -5,6 +5,15 @@ export const metadata = {
   title: "Privacy Policy",
   description: "",
   keywords: "",
+  openGraph: {
+    title: "Privacy Policy",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy",
+    description: "",
+  }
 };
 
 const PrivacyPolicy = async () => {
