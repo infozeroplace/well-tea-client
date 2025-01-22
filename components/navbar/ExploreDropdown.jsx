@@ -74,8 +74,16 @@ function ExploreDropdown() {
       url: "/about",
     },
     {
+      name: "Subscriptions",
+      url: "/explore/discover/subscriptions",
+    },
+    {
+      name: "Well Tea Rewards",
+      url: "/explore/discover/welltea-rewards",
+    },
+    {
       name: "FAQs",
-      url: "/",
+      url: "/explore/discover/faqs",
     },
   ];
 

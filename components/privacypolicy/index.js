@@ -4,7 +4,7 @@ import "@/styles/quillstyle.css"
 const PrivacyPolicyContents = ({systemData}) => {
   return (
     <div className="liststyle">
-      <div dangerouslySetInnerHTML={{ __html: systemData?.privacyPolicy }} />
+      <div dangerouslySetInnerHTML={{ __html: systemData?.privacyPolicy || "" }} />
     </div>
   );
 };

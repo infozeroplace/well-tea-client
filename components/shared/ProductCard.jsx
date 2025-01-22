@@ -5,7 +5,6 @@ import { addToCart } from "@/services/features/cart/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { CiShoppingCart } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
@@ -39,14 +38,14 @@ const ProductCard = ({ product }) => {
     if (cardRef.current && !cardRef.current.contains(event.target)) {
       setAddButtonClicked(false);
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  },[])
+  }, []);
 
   return (
     <div
@@ -78,7 +77,7 @@ const ProductCard = ({ product }) => {
           className="px-3 flex flex-col justify-between w-full"
         >
           {/* Product Image */}
-          <div className="relative group w-full">
+          <div className="relative z-0 group w-full">
             <Image
               src={thumbnail1}
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
@@ -98,16 +97,14 @@ const ProductCard = ({ product }) => {
           {/* Product Content */}
           <div
             // style={{ display: addButtonClicked ? "none" : "block" }}
-            className={`w-full transition-all duration-300 mx-auto px-3 ${
+            className={`flex flex-col justify-center w-full h-[60px] transition-all duration-300 mx-auto px-3 ${
               addButtonClicked ? "opacity-0" : "opacity-1"
             }`}
           >
-            <div className="mb-3">
-              <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 overflow-hidden text-ellipsis whitespace-nowrap">
-                {product?.title}
-              </h4>
-              <p className="capitalize text-sm mt-2">{product?.format}</p>
-            </div>
+            <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 overflow-hidden text-ellipsis whitespace-nowrap">
+              {product?.title}
+            </h4>
+            <p className="capitalize text-sm">{product?.format}</p>
           </div>
         </Link>
         {/* Add to card */}
@@ -145,7 +142,7 @@ const ProductCard = ({ product }) => {
 
         {/* Weight Selection*/}
         <div
-          className={`absolute botton-0 h-fit left-0 z-10 w-full transform transition-all duration-300 ${
+          className={`absolute botton-0 h-fit left-0 z-20 w-full transform transition-all duration-300 mt-1 ${
             addButtonClicked
               ? "-translate-y-full opacity-1"
               : "translate-y-0 opacity-0"

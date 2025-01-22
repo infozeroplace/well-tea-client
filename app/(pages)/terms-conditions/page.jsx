@@ -4,7 +4,7 @@ import { TermsConditionsContents } from "@/components";
 
 const TermsConditions = async () => {
   const {
-    data: { data: systemData },
+    data: { data: systemData = {} } = {},
   } = await axios.get("/public/system");
 
   return (
@@ -12,11 +12,6 @@ const TermsConditions = async () => {
       <div className="content-gap text-center text-4xl font-medium">
         Terms & Conditions
       </div>
-      {/* <div className="">
-        <div
-          dangerouslySetInnerHTML={{ __html: systemData?.termsAndConditions }}
-        />
-      </div> */}
         <TermsConditionsContents systemData={systemData} />
     </div>
   );

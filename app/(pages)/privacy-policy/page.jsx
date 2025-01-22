@@ -4,8 +4,9 @@ import { PrivacyPolicyContents } from "@/components";
 
 const PrivacyPolicy = async () => {
   const {
-    data: { data: systemData },
+    data: { data: systemData = {} } = {},
   } = await axios.get("/public/system");
+console.log("systemdata", systemData);
 
   return (
     <div className="container px-4 lg:px-20 section-gap mt-4">
