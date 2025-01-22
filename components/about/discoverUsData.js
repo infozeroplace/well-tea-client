@@ -98,7 +98,7 @@ export const discoverItems = [
       title: "Our Teas",
       image: "/whychooseus/slide_banner_09.jpg",
       description: (
-        <Accordion className="w-full ourteas font-medium">
+        <Accordion className="w-full accordiontitle font-medium">
           <AccordionItem key="1" aria-label="Black Tea" title="Black Tea">
             <p className="text-xs text-justify">
               In a Black Tea, the harvested leaves undergo complete oxidation,
