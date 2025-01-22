@@ -9,6 +9,9 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
+
+  // console.log(product);
+
   const dispatch = useDispatch();
   const cardRef = useRef(null);
 

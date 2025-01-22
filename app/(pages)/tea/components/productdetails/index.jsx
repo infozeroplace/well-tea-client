@@ -4,16 +4,19 @@ import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
 
 const ProductDetails = ({ product }) => {
+
+  // console.log(product);
+
   // Serialize available options
-  const availableOptions = product.availableAs.map((item) => ({
-    teaFormat: item.teaFormat[0], // Assuming one format per item
-    urlParameter: item.urlParameter,
+  const availableOptions = product?.availableAs?.map((item) => ({
+    teaFormat: item?.teaFormat[0], // Assuming one format per item
+    urlParameter: item?.urlParameter,
   }));
 
   // Ensure the current product format is included in the options
   const currentFormat = {
-    teaFormat: product.teaFormat[0],
-    urlParameter: product.urlParameter,
+    teaFormat: product?.teaFormat[0],
+    urlParameter: product?.urlParameter,
   };
 
   const isCurrentFormatIncluded = availableOptions.some(
@@ -34,25 +37,25 @@ const ProductDetails = ({ product }) => {
       <div className="">
         <div className="mb-6">
           <h4 className="text-teagreen-600 font-semibold capitalize">
-            {product.productType.join(", ")}
+            {product?.productType?.join(", ")}
           </h4>
           <h1 className="text-brand__font__size__lg2 font-brand__font__200">
-            {product.title}
+            {product?.title}
           </h1>
           <p className="mt-2">
-            {product.teaFlavor
-              .map((flavor) => flavor.charAt(0).toUpperCase() + flavor.slice(1))
+            {product?.teaFlavor
+              .map((flavor) => flavor?.charAt(0).toUpperCase() + flavor?.slice(1))
               .join(", ")}
           </p>
           <p className="capitalize">
-            {product.originLocation}, {product.origin.join(", ")}
+            {product?.originLocation}, {product?.origin.join(", ")}
           </p>
 
           <div className="flex items-center gap-2">
-            <span>{product.ratings}</span>
-            <StarRatingDisplay rating={product.ratings} />
+            <span>{product?.ratings}</span>
+            <StarRatingDisplay rating={product?.ratings} />
           </div>
-          <p className="mt-4">{product.shortDescription}</p>
+          <p className="mt-4">{product?.shortDescription}</p>
         </div>
 
         <div className="my-5">
@@ -83,7 +86,7 @@ const ProductDetails = ({ product }) => {
 
         <ManageProduct product={product} />
 
-        <SocialShare />
+        <SocialShare productUrl={product?.urlParameter}/>
       </div>
     </div>
   );

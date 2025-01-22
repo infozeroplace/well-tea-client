@@ -7,7 +7,7 @@ const  BrewInstructions = ({ brewInstruction }) => {
   return (
     <div className="bg-teagreen-1000 py-10 px-5">
       <div className="flex bg-teagreen-100 text-brand__font__size__base text-teagreen-600">
-        {brewInstruction.map((item, index) => (
+        {brewInstruction?.map((item, index) => (
           <button
             key={index}
             className={
@@ -16,20 +16,20 @@ const  BrewInstructions = ({ brewInstruction }) => {
             }
             onClick={() => setCurrentIndex(index)}
           >
-            {item.title}
+            {item?.title}
           </button>
         ))}
       </div>
       <div className="flex py-5 text-teagreen-700 text-lg">
         <div className="w-1/2 space-y-2 pl-5">
-          {brewInstruction[currentIndex].requirements.map((requirement, index) => (
+          {brewInstruction[currentIndex]?.requirements?.map((requirement, index) => (
             <p key={index} className="font-light">
               {requirement}
             </p>
           ))}
         </div>
         <div className="w-1/2 space-y-2 pl-5">
-          {brewInstruction[currentIndex].steps.map((step, index) => (
+          {brewInstruction[currentIndex]?.steps?.map((step, index) => (
             <p key={index} className="">
               <span className="font-light mr-3">{index + 1}.</span> {step}
             </p>

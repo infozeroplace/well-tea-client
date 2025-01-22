@@ -1,6 +1,20 @@
 import axios from "@/api/axios";
-import { TermsConditionsContents } from "@/components";
+import { TermsConditionsContents, CommonBanner } from "@/components";
 
+export const metadata = {
+  title: "Terms & Conditions",
+  description: "",
+  keywords: "",
+  openGraph: {
+    title: "Terms & Conditions",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions",
+    description: "",
+  }
+};
 
 const TermsConditions = async () => {
   const {
@@ -8,11 +22,14 @@ const TermsConditions = async () => {
   } = await axios.get("/public/system");
 
   return (
-    <div className="container px-4 lg:px-20 section-gap mt-4">
-      <div className="content-gap text-center text-4xl font-medium">
+    <div>
+      <CommonBanner bannerTitle="Terms & Conditions" />
+      <div className="container px-4 lg:px-20 section-gap mt-4">
+        {/* <div className="content-gap text-center text-4xl font-medium">
         Terms & Conditions
-      </div>
+      </div> */}
         <TermsConditionsContents systemData={systemData} />
+      </div>
     </div>
   );
 };

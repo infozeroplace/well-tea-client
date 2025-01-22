@@ -14,6 +14,15 @@ export const metadata = {
   title: "About Welltea",
   description: "",
   keywords: "",
+  openGraph: {
+    title: "About Welltea",
+    description: "",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Welltea",
+    description: "",
+  }
 };
 
 const About = () => {

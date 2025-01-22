@@ -17,13 +17,13 @@ function ProductTabs({ product }) {
           radius="full"
         >
           <Tab key="1" title="Description">
-            <Description description={product.longDescription} />
+            <Description description={product?.longDescription} />
           </Tab>
           <Tab key="2" title="Ingredients">
-            <Ingredients ingredient={product.ingredient} />
+            <Ingredients teaIngredient={product?.teaIngredient} />
           </Tab>
           <Tab key="3" title="How to brew">
-            <BrewInstructions brewInstruction={product.brewInstruction} />
+            <BrewInstructions brewInstruction={product?.brewInstruction} />
           </Tab>
           <Tab key="4" title="Review">
             <Reviews />
