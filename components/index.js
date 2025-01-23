@@ -16,3 +16,7 @@ export * from "./shared";
 export { default as SocialImages } from "./socialimages";
 export { default as PrivacyPolicyContents } from "./privacypolicy";
 export { default as TermsConditionsContents } from "./termsconditions";
+export { default as CookiePolicyContents } from "./cookie-policy";
+export { default as ReturnRefundContents } from "./returnrefund";
+export { default as DeliveryContents } from "./delivery";
+export { default as BlogContents } from "./blog";

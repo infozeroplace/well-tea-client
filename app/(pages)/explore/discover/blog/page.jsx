@@ -1,34 +1,36 @@
 import axios from "@/api/axios";
-import { CommonBanner, ReturnRefundContents } from "@/components";
+import { BlogContents, CommonBanner } from "@/components";
 
 export const metadata = {
-  title: "Return & Refund",
+  title: "Blog",
   description: "",
   keywords: "",
   openGraph: {
-    title: "Return & Refund",
+    title: "Blog",
     description: "",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Return & Refund",
+    title: "Blog",
     description: "",
   }
 };
 
-const ReturnRefund = async () => {
+
+const Blog = async () => {
   const {
     data: { data: systemData = {} } = {},
   } = await axios.get("/public/system");
 
+  console.log("SystemData", systemData);
   return (
     <div>
-      <CommonBanner bannerTitle="Return & Refund" />
+      <CommonBanner bannerTitle="Blog" />
       <div className="container px-4 lg:px-20 section-gap mt-4">
-        <ReturnRefundContents systemData={systemData} />
+        <BlogContents systemData={systemData} />
       </div>
     </div>
   );
 };
 
-export default ReturnRefund;
+export default Blog;
