@@ -1,19 +1,21 @@
-"use client"
-import { useState } from 'react'
+"use client";
 
-function FaqSection({ faqContents}) {
-    const [activeIndexes, setActiveIndexes] = useState([]);
+import { useState } from "react";
 
-    const handleOnClick = (index) => {
-        setActiveIndexes(
-          !activeIndexes.includes(index)
-            ? [...activeIndexes, index]
-            : activeIndexes.filter((i) => i !== index)
-        );
-    }
+function FAQsCollapse({ faqTitle, faqContents }) {
+  const [activeIndexes, setActiveIndexes] = useState([]);
+
+  const handleOnClick = (index) => {
+    setActiveIndexes(
+      !activeIndexes.includes(index)
+        ? [...activeIndexes, index]
+        : activeIndexes.filter((i) => i !== index)
+    );
+  };
 
   return (
-    <div className="w-[500px] my-24 space-y-2">
+    <div className="w-[500px] section-gap space-y-2">
+      <h2 className="!text-2xl font-medium mb-5">{faqTitle}</h2>
       {faqContents.map((faqContent, index) => (
         <div key={index} className="w-full">
           <button
@@ -44,4 +46,4 @@ function FaqSection({ faqContents}) {
   );
 }
 
-export default FaqSection
+export default FAQsCollapse;

@@ -1,216 +1,234 @@
-import { FindoutMore } from "@/components";
+import { CommonBanner, FindoutMore, SectionLinkButton } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const WellteaRewards = () => {
   return (
-    <div className="container px-4 lg:px-20 mt-10">
-      <div className="section-gap">
-        <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
-          Sign up. <br />
-          Earn points. <br />
-          Get rewards.
-        </h2>
-        <div className="text-center lg:text-left text-2xl">
-          <p className="content-gap">
-            Join WellTea Rewards to earn points every time you shop and enjoy
-            exclusive offers, gifts and much more!
-          </p>
-          <p className="font-normal content-gap">
-            To sign up, simply create or log into your WellTea account, then
-            join as a Rewards member from your main account page.
-          </p>
-        </div>
-
-        <div className="content-gap text-xl flex justify-center gap-8">
-          <Link
-            href="/login"
-            className="border-2 px-4 py-2 font-normal bg-teagreen-500 hover:scale-105 duration-300"
-          >
-            Sign up for free
-          </Link>
-          <Link
-            href="#"
-            className="capitalize border-2 px-4 py-2 font-normal hover:scale-105 duration-300"
-          >
-            Learn More
-          </Link>
-        </div>
-        <p className="font-normal text-center text-2xl content-gap">
-          Already a Rewards member?{" "}
-          <Link
-            href="/login"
-            className="hover:scale-105 duration-300 underline inline-block"
-          >
-            Sign in
-          </Link>
-        </p>
-
-        <Image
-          src={"/images/about-image-1.jpg"}
-          alt="Rewards Image"
-          height={1730}
-          width={750}
-          className="w-full"
-        />
-      </div>
-
-      <div className="section-gap">
-        <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
-          The Benefits Of WellTea Rewards
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 content-gap">
-          <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:mr-0 md:ml-auto">
-            <div>Icon 1</div>
-            <div>Earn Points</div>
-            <p className="text-center">
-              Earn points every time you shop to cash in on your future
-              purchases.
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:ml-0 md:mr-auto">
-            <div>Icon 2</div>
-            <div>Free Gift</div>
-            <p className="text-center">
-              Get a free gift with your second purchase after signing up.
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:mr-0 md:ml-auto">
-            <div>Icon 3</div>
-            <div>Anniversary Voucher</div>
-            <p className="text-center">
-              We’ll treat you to a £5 voucher on your membership anniversary.
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:ml-0 md:mr-auto">
-            <div>Icon 4</div>
-            <div>Exclusive Benefits</div>
-            <p className="text-center">
-              Get members-only offers, early access to new products, and more.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex justify-center">
-          <Link href={"/login"}>Join WellTea Rewards</Link>
-        </div>
-      </div>
-
-      <div className="section-gap border-2 rounded-3xl p-8">
-        <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
-          How It Works
-        </h2>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 content-gap gap-10">
-          <div className="flex flex-col items-center justify-center mx-auto">
-            <div>Icon 4</div>
-            <div>Exclusive Benefits</div>
-            <p className="text-center">
-              Get members-only offers, early access to new products, and more.
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center mx-auto">
-            <div>Icon 4</div>
-            <div>Exclusive Benefits</div>
-            <p className="text-center">
-              Get members-only offers, early access to new products, and more.
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center mx-auto">
-            <div>Icon 4</div>
-            <div>Exclusive Benefits</div>
-            <p className="text-center">
-              Get members-only offers, early access to new products, and more.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex justify-center">
-          <Link
-            href={"/login"}
-            className="capitalize border-2 rounded-lg px-5 py-1"
-          >
-            Sign Up Now
-          </Link>
-        </div>
-      </div>
-
-      <div className="section-gap rounded-3xl p-8">
-        <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
-          How To Earn Points
-        </h2>
-        <p className="text-center content-gap">
-          From exploring new flavours, to purchasing your favourites, giving us
-          feedback, and pointing friends and family toward the finest teas,
-          coffees, and hot chocolates, there are a variety of ways to fill your
-          points balance.
-        </p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 content-gap">
-          <div className="flex flex-col items-center">
-            <div>
-              <Image
-                src={"/images/about-image-1.jpg"}
-                alt="Rewards Image"
-                height={1730}
-                width={750}
-                className="w-full content-gap"
-              />
+    <>
+      <CommonBanner bannerTitle="Well Tea Rewards" />
+      <div className="mt-10">
+        <div className="section-gap bg-teagreen-100">
+          <div className="container px-4 lg:px-20 py-8">
+            <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
+              Sign up. <br />
+              Earn points. <br />
+              Get rewards.
+            </h2>
+            <div className="text-center">
+              <p className="content-gap">
+                Join WellTea Rewards to earn points every time you shop and
+                enjoy exclusive offers, gifts and much more!
+              </p>
+              <p className="font-normal content-gap">
+                To sign up, simply create or log into your WellTea account, then
+                join as a Rewards member from your main account page.
+              </p>
             </div>
-            <div className="content-gap">Shop Online & In-store</div>
-            <p className="text-center px-8">
-              Get points for every purchase. Simply log in to your account when
-              you shop online, or show your digital rewards pass to a member of
-              staff in store.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div>
-              <Image
-                src={"/images/about-image-1.jpg"}
-                alt="Rewards Image"
-                height={1730}
-                width={750}
-                className="w-full content-gap"
-              />
+
+            <div className="content-gap text-xl flex justify-center gap-8">
+              <div className="flex justify-center md:justify-center">
+                <SectionLinkButton
+                  title="Sign up for free"
+                  url="/login"
+                  buttonClass="text-sm"
+                />
+              </div>
+              <div className="flex justify-center md:justify-center">
+                <SectionLinkButton
+                  title="Learn More"
+                  url="/#"
+                  buttonClass="text-sm"
+                />
+              </div>
             </div>
-            <div className="content-gap">Get Bonus Rewards</div>
-            <p className="text-center px-8">
-              Occasionally, we’ll offer ways to earn bonuses to boost your
-              points balance, from leaving reviews, to referring your friends,
-              to helping us improve our products via surveys, and more.
+            <p className="font-normal text-center text-2xl content-gap">
+              Already a Rewards member?{" "}
+              <Link
+                href="/login"
+                className="hover:scale-105 duration-300 underline inline-block"
+              >
+                Sign in
+              </Link>
             </p>
+
+            {/* <Image
+              src={"/images/about-image-1.jpg"}
+              alt="Rewards Image"
+              height={1730}
+              width={750}
+              className="w-full"
+            /> */}
           </div>
         </div>
-        <div className="flex justify-center">
-          <Link
-            href={"/login"}
-            className="capitalize bg-teagreen-500 border-2 rounded-lg px-5 py-1"
-          >
-            Sign Up Now
-          </Link>
+
+        <div className="section-gap container px-4 lg:px-20">
+          <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
+            The Benefits Of WellTea Rewards
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 content-gap">
+            <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:mr-0 md:ml-auto">
+              <div className="mb-2">Icon 1</div>
+              <div className="text-xl w-1/2 text-center mb-2">Earn Points</div>
+              <p className="text-center">
+                Earn points every time you shop to cash in on your future
+                purchases.
+              </p>
+            </div>
+            <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:ml-0 md:mr-auto">
+              <div className="mb-2">Icon 2</div>
+              <div className="text-xl w-1/2 text-center mb-2">Free Gift</div>
+              <p className="text-center">
+                Get a free gift with your second purchase after signing up.
+              </p>
+            </div>
+            <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:mr-0 md:ml-auto">
+              <div className="mb-2">Icon 3</div>
+              <div className="text-xl w-1/2 text-center mb-2">
+                Anniversary Voucher
+              </div>
+              <p className="text-center">
+                We’ll treat you to a £5 voucher on your membership anniversary.
+              </p>
+            </div>
+            <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:ml-0 md:mr-auto">
+              <div className="mb-2">Icon 4</div>
+              <div className="text-xl w-1/2 text-center mb-2">
+                Exclusive Benefits
+              </div>
+              <p className="text-center">
+                Get members-only offers, early access to new products, and more.
+              </p>
+            </div>
+          </div>
+
+          {/* <div className="flex justify-center">
+            <Link href={"/login"}>Join WellTea Rewards</Link>
+          </div> */}
+          <div className="flex justify-center md:justify-center">
+            <SectionLinkButton
+              title="Join WellTea Rewards"
+              url="/#"
+              buttonClass="text-sm"
+            />
+          </div>
+        </div>
+
+        <div className="section-gap container px-4 lg:px-20">
+          <div className="border-2 rounded-3xl p-8">
+            <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
+              How It Works
+            </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 content-gap gap-10">
+              <div className="flex flex-col items-center justify-center mx-auto">
+                <div className="mb-2">Icon 4</div>
+                <div className="mb-2 text-xl w-1/2 text-center">
+                  Exclusive Benefits
+                </div>
+                <p className="text-center">
+                  Get members-only offers, early access to new products, and
+                  more.
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center mx-auto">
+                <div className="mb-2">Icon 4</div>
+                <div className="mb-2 text-xl w-1/2 text-center">
+                  Exclusive Benefits
+                </div>
+                <p className="text-center">
+                  Get members-only offers, early access to new products, and
+                  more.
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center mx-auto">
+                <div className="mb-2">Icon 4</div>
+                <div className="mb-2 text-xl w-1/2 text-center">
+                  Exclusive Benefits
+                </div>
+                <p className="text-center">
+                  Get members-only offers, early access to new products, and
+                  more.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-center md:justify-center">
+              <SectionLinkButton title="Sign Up Now" url="/#" />
+            </div>
+          </div>
+        </div>
+
+        <div className="section-gap container px-4 lg:px-20 rounded-3xl p-8">
+          <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
+            How To Earn Points
+          </h2>
+          <p className="text-center content-gap">
+            From exploring new flavours, to purchasing your favourites, giving
+            us feedback, and pointing friends and family toward the finest teas,
+            coffees, and hot chocolates, there are a variety of ways to fill
+            your points balance.
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 content-gap">
+            <div className="flex flex-col items-center">
+              <div>
+                <Image
+                  src={"/images/about-image-1.jpg"}
+                  alt="Rewards Image"
+                  height={1730}
+                  width={750}
+                  className="w-full content-gap"
+                />
+              </div>
+              <div className="content-gap">Shop Online & In-store</div>
+              <p className="text-center px-8">
+                Get points for every purchase. Simply log in to your account
+                when you shop online, or show your digital rewards pass to a
+                member of staff in store.
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div>
+                <Image
+                  src={"/images/about-image-1.jpg"}
+                  alt="Rewards Image"
+                  height={1730}
+                  width={750}
+                  className="w-full content-gap"
+                />
+              </div>
+              <div className="content-gap">Get Bonus Rewards</div>
+              <p className="text-center px-8">
+                Occasionally, we’ll offer ways to earn bonuses to boost your
+                points balance, from leaving reviews, to referring your friends,
+                to helping us improve our products via surveys, and more.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-center md:justify-center">
+            <SectionLinkButton title="Join Now" url="/#" />
+          </div>
+        </div>
+
+        <div className="section-gap container px-4 lg:px-20 p-8 bg-teagreen-100">
+          <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
+            Find out more
+          </h2>
+          <FindoutMore />
+        </div>
+
+        <div className="section-gap">
+          <div className="content-gap text-center text-2xl">
+            Already a member?
+          </div>
+
+          <div className="flex justify-center md:justify-center">
+            <SectionLinkButton title="Sign In" url="/login" />
+          </div>
         </div>
       </div>
-
-      <div className="section-gap p-8 bg-teagreen-100">
-        <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
-          Find out more
-        </h2>
-        <FindoutMore />
-      </div>
-
-      <div className="section-gap">
-        <div className="content-gap text-center text-2xl">Already a member?</div>
-        <div className="flex justify-center">
-          <Link
-            href={"/login"}
-            className="capitalize bg-teagreen-500 border-2 rounded-lg px-5 py-1"
-          >
-            Sign In
-          </Link>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -14,4 +14,6 @@ export {default as MatchaTeaRecipe} from './howtobrew/makematcha/MatchaTeaRecipe
 //Discover Section
 // Welltea Rewards Components
 export {default as FindoutMore} from './discover/welltea-rewards/FindoutMore.jsx';
+// FAQs Components
+export {default as FAQsCollapse} from './discover/faqs/FAQsCollapse.jsx';
 

@@ -17,7 +17,7 @@ const SectionLinkButton = ({
     >
       <span
         className={
-          "absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-20 text-teagreen-700 group-hover:text-white transition-all duration-300 " +
+          "absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-20 text-teagreen-700 group-hover:text-white transition-all duration-300 py-1 " +
           textClass
         }
       >

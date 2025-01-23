@@ -49,7 +49,8 @@ function Footer() {
               href="/terms-conditions"
             />
             <FooterListItem name="Privacy Policy" href="/privacy-policy" />
-            <FooterListItem name="Shop" href="/" />
+            <FooterListItem name="Return & Refund" href="/return-refund" />
+            <FooterListItem name="Cookie Policy" href="/cookie-policy" />
           </div>
           <div className="col-span-6 md:col-span-3 lg:col-span-2 text-center md:text-left md:mr-10 content-gap md:mb-0">
             <div className="text-white flex flex-col gap-2 mb-5">
