@@ -9,3 +9,9 @@ export {default as IcedTeaRecipe} from './howtobrew/makeicedtea/IcedTeaRecipe.js
 
 // Iced tea components
 export {default as MatchaTeaRecipe} from './howtobrew/makematcha/MatchaTeaRecipe.jsx';
+
+
+//Discover Section
+// Welltea Rewards Components
+export {default as FindoutMore} from './discover/welltea-rewards/FindoutMore.jsx';
+

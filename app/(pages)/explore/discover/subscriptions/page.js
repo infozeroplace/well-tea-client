@@ -26,7 +26,7 @@ const Subcriptions = () => {
         </p>
       </div>
 
-      <div className="container-narrow bg-[#F4F0F0] px-4 py-8 text-center section-gap">
+      <div className="container-narrow bg-teagreen-100 px-4 py-8 text-center section-gap">
         <SectionTitle title="Why Subscribe?" />
         <p className="content-gap">
           Life can be busy, and your favourite brew should always be by your
@@ -38,7 +38,7 @@ const Subcriptions = () => {
         </p>
       </div>
 
-      <div className="container-narrow bg-[#F4F0F0] px-4 py-8 text-center section-gap">
+      <div className="container-narrow bg-teagreen-100 px-4 py-8 text-center section-gap">
         <SectionTitle title="How to Set Up a Subscription" />
         <p className="font-normal mb-2 content-gap">
           It’s simple to do, easy to manage and is one less thing on your to do
@@ -98,7 +98,7 @@ const Subcriptions = () => {
           These are three of our most popular Subscriptions FAQs.
         </p>
         <div className="content-gap">
-          <div className="font-normal bg-[#F4F0F0] mb-2">
+          <div className="font-normal bg-teagreen-100 mb-2">
             What is included in my subscription?
           </div>
           <p>
@@ -109,7 +109,7 @@ const Subcriptions = () => {
         </div>
 
         <div>
-          <div className="font-normal bg-[#F4F0F0] mb-2">
+          <div className="font-normal bg-teagreen-100 mb-2">
             Can I subscribe if I’m outside the UK?
           </div>
           <p>
