@@ -82,10 +82,6 @@ function ExploreDropdown() {
       url: "/explore/discover/welltea-rewards",
     },
     {
-      name: "Blog",
-      url: "/explore/discover/blog",
-    },
-    {
       name: "FAQs",
       url: "/explore/discover/faqs",
     },

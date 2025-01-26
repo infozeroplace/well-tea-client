@@ -52,6 +52,7 @@ function Footer() {
             <FooterListItem name="Return & Refund" href="/return-refund" />
             <FooterListItem name="Cookie Policy" href="/cookie-policy" />
             <FooterListItem name="Delivery" href="/delivery" />
+            <FooterListItem name="Blog" href="/blog" />
           </div>
           <div className="col-span-6 md:col-span-3 lg:col-span-2 text-center md:text-left md:mr-10 content-gap md:mb-0">
             <div className="text-white flex flex-col gap-2 mb-5">

@@ -1,6 +1,9 @@
 "use client";
 
-import { CompanyServices, SignIn, SignUp } from "@/components";
+import {
+  SignIn,
+  SignUp,
+} from "@/components";
 import { useState } from "react";
 
 export default function SignInScreen() {
@@ -15,7 +18,6 @@ export default function SignInScreen() {
       setIsAnimating(false);
     }, 300);
   };
-  // const handleShowForm = (text) => setShowForm(text);
 
   const isSignIn = showForm.includes("sign-in");
 
@@ -45,9 +47,6 @@ export default function SignInScreen() {
           </div>
         </div>
       </div>
-
-      {/* Services Footer */}
-      <CompanyServices />
     </div>
   );
 }

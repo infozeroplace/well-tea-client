@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function middleware(req) {
+export function middleware(req) {
   const { value: authToken } = req.cookies.get("authToken") || {};
   const pathname = req.nextUrl.pathname;
 
