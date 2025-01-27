@@ -94,13 +94,13 @@ const SearchProduct = ({ buttonClass }) => {
                   >
                     <Image
                       src={`${env.app_url}${item?.thumbnails[0]?.path}`}
-                      alt={item.thumbnails[0]?.alt}
+                      alt={item?.thumbnails[0]?.alt}
                       width={100}
                       height={100}
                     />
                     <div className="flex flex-col">
-                      <p>{item.title}</p>
-                      <p>{item.format[0]}</p>
+                      <p>{item?.title}</p>
+                      <p>{item?.teaFormat[0]}</p>
                       <div className="text-sm">
                         {item?.isSale ? (
                           <div className="flex gap-2 text-teagreen-800">

@@ -107,7 +107,7 @@ const Cart = ({ buttonClass }) => {
                   />
                   <div className="flex-1 flex flex-col gap-2">
                     <h3 className="text-sm font-light">{item.product.title}</h3>
-                    <p className="text-sm capitalize">{item.product.type}</p>
+                    <p className="text-sm capitalize">{item.product.productType}</p>
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                         {item.unitObj?.unit}

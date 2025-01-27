@@ -34,19 +34,23 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
 
 const ProductCategory = async ({ searchParams: rawSearchParams }) => {
   const searchParams = await Promise.resolve(rawSearchParams);
+  console.log(searchParams.searchTerm);
 
   const queryParams = new URLSearchParams(searchParams).toString();
+  // console.log(queryParams);
   const url = `/public/product/list?${queryParams}`;
 
   const { data: { data = [] } = {} } = await axios.get(url);
 
+  // console.log(data);
+
   return (
     <div>
       <CommonBanner bannerTitle="Search" />
-      <SearchQuery initialSearchTerm={searchParams.searchTerm}/>
-      {data.length > 0 && 
+      <SearchQuery initialSearchTerm={searchParams.searchTerm} />
+      {data.length > 0 && searchParams.searchTerm && (
         <ProductList products={data} />
-      }
+      )}
     </div>
   );
 };
