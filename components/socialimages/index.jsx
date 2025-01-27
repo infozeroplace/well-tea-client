@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaInstagram } from "react-icons/fa";
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { SectionLinkButton } from "../shared";
 function SocialImages() {
   const socialImages = [
     {
@@ -117,6 +118,9 @@ function SocialImages() {
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className="flex justify-center mx-auto">
+          <SectionLinkButton title="Follow Us" url="/" />
+        </div>
       </div>
     </div>
   );

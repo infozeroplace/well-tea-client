@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
       <div className="h-16 flex justify-between items-center text-sm px-3">
         <div>
           {product?.isSale ? (
-            <div className="w-8">
+            <div className="w-14">
               <img src="/products/label-sale.png" alt="Sale" />
             </div>
           ) : product?.isNewProduct ? (
