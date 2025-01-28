@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client"
+
+import React, { useState, useEffect } from "react";
 import { PiShoppingCartThin } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { SectionLinkButton } from "../shared";
@@ -6,6 +8,7 @@ import { PiTrashSimpleLight } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "@/services/features/cart/cartSlice";
 import { env } from "@/config/env";
+import { useRouter, usePathname } from "next/navigation";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -14,19 +17,26 @@ const toNumber = (value) => {
 };
 
 const Cart = ({ buttonClass }) => {
-
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const totalCost = useSelector((state) => state.cart.totalCost);
+  const router = useRouter();
+  const { asPath } = useRouter();
+  const pathname = usePathname();
 
   const dispatch = useDispatch();
 
   const cartItemsCount = cartItems.length;
 
-  const shippingCost = totalQuantity > 0 ? 20.00 : 0;
+  const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
-  const handleIncreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
+  const handleIncreaseQuantity = (
+    productId,
+    unit,
+    currentQuantity,
+    purchaseType
+  ) => {
     dispatch(
       updateQuantity({
         productId,
@@ -34,11 +44,16 @@ const Cart = ({ buttonClass }) => {
         quantity: currentQuantity + 1,
         purchaseType,
       })
-    )
-  }
+    );
+  };
 
-  const handleDecreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
-    if(currentQuantity > 1){
+  const handleDecreaseQuantity = (
+    productId,
+    unit,
+    currentQuantity,
+    purchaseType
+  ) => {
+    if (currentQuantity > 1) {
       dispatch(
         updateQuantity({
           productId,
@@ -46,19 +61,37 @@ const Cart = ({ buttonClass }) => {
           quantity: currentQuantity - 1,
           purchaseType,
         })
-      )
+      );
     } else {
-      dispatch(
-        removeFromCart({ productId, unit, purchaseType })
-      )
+      dispatch(removeFromCart({ productId, unit, purchaseType }));
     }
-  }
+  };
 
   const handleRemoveItem = (productId, unit, purchaseType) => {
-    dispatch(
-      removeFromCart({ productId, unit, purchaseType })
-    )
-  }
+    dispatch(removeFromCart({ productId, unit, purchaseType }));
+  };
+
+  // useEffect(() => {
+  //   if (!router.events) return;
+
+  //   const handleRouteChange = () => {
+  //     setIsOpen(false);
+  //   };
+
+  //   router.events.on("routeChangeStart", handleRouteChange);
+
+  //   return () => {
+  //     router.events.off("routeChangeStart", handleRouteChange);
+  //   };
+  // }, [router]);
+
+  // useEffect(() => {
+  //   setIsOpen(false);
+  // },[asPath]);
+
+  useEffect(() => {
+    setIsOpen(false);
+  },[pathname]);
 
   return (
     <div>
@@ -102,12 +135,14 @@ const Cart = ({ buttonClass }) => {
                   <img
                     src={`${env.app_url}${item.product?.thumbnails[0]?.path}`}
                     // src="/products/product_01.jpg"
-                    alt={item.product.title}
+                    alt={item.product?.title}
                     className="w-20 h-20 object-cover mr-3"
                   />
                   <div className="flex-1 flex flex-col gap-2">
-                    <h3 className="text-sm font-light">{item.product.title}</h3>
-                    <p className="text-sm capitalize">{item.product.productType}</p>
+                    <h3 className="text-sm font-light">
+                      {item.product?.title}
+                    </h3>
+                    {/* <p className="text-sm capitalize">{item.product?.productType.join(", ")}</p> */}
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                         {item.unitObj?.unit}
@@ -118,7 +153,7 @@ const Cart = ({ buttonClass }) => {
                     </div>
                     {item.purchaseType === "subscribe" && (
                       <p className="text-sm font-normal">
-                        Subscribtion: {item.subObj.weeks}
+                        Subscribtion: {item.subObj?.weeks}
                       </p>
                     )}
                   </div>
@@ -126,8 +161,8 @@ const Cart = ({ buttonClass }) => {
                     <button
                       onClick={() =>
                         handleRemoveItem(
-                          item.product._id,
-                          item.unitObj.unit,
+                          item.product?._id,
+                          item.unitObj?.unit,
                           item.purchaseType
                         )
                       }
@@ -138,8 +173,8 @@ const Cart = ({ buttonClass }) => {
                     <button
                       onClick={() =>
                         handleDecreaseQuantity(
-                          item.product._id,
-                          item.unitObj.unit,
+                          item.product?._id,
+                          item.unitObj?.unit,
                           item.quantity,
                           item.purchaseType
                         )
@@ -152,8 +187,8 @@ const Cart = ({ buttonClass }) => {
                     <button
                       onClick={() =>
                         handleIncreaseQuantity(
-                          item.product._id,
-                          item.unitObj.unit,
+                          item.product?._id,
+                          item.unitObj?.unit,
                           item.quantity,
                           item.purchaseType
                         )

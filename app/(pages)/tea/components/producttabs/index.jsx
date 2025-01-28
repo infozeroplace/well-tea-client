@@ -26,7 +26,7 @@ function ProductTabs({ product }) {
             <BrewInstructions brewInstruction={product?.brewInstruction} />
           </Tab>
           <Tab key="4" title="Review">
-            <Reviews />
+            <Reviews product={product}/>
           </Tab>
         </Tabs>
       </div>

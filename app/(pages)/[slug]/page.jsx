@@ -26,8 +26,6 @@ export async function generateMetadata({ params }) {
 
   const siteUrl = "welltea.zeroplace.co/"
 
-  // console.log(product);
-
   return {
     title: `${capitalizeEachWord(product?.title)} | Well Tea`,
     description: product?.shorDescription,

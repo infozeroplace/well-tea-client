@@ -19,9 +19,9 @@ function ProductSlider({ images }) {
           className="w-full max-w-xl mb-4"
         >
           {images.map((image) => (
-            <SwiperSlide key={image.uid}>
+            <SwiperSlide key={image}>
               <img
-                src={`${env.app_url}${image.path}`}
+                src={`${env.app_url}/${image}`}
                 alt={image.alt}
                 className="w-full"
               />
@@ -37,9 +37,9 @@ function ProductSlider({ images }) {
           className="w-full max-w-xl"
         >
           {images.map((image) => (
-            <SwiperSlide key={image.uid}>
+            <SwiperSlide key={image}>
               <img
-                src={`${env.app_url}${image.path}`}
+                src={`${env.app_url}/${image}`}
                 alt={image.alt}
                 className="cursor-pointer"
               />

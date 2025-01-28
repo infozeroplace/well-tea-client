@@ -30,15 +30,15 @@ const cartSlice = createSlice({
         subObj,
         quantity,
         productPrice,
-        addOns,
+        // addOns,
       } = action.payload;
       const existingItem = state.items.find(
-        (item) => item.product._id === product._id && item.unitObj.unit === unitObj.unit && item.purchaseType === purchaseType
+        (item) => item.product._id === product._id && item.unitObj?.unit === unitObj?.unit && item.purchaseType === purchaseType
       );
 
       if (existingItem) {
         existingItem.quantity += quantity;
-        existingItem.addOns = [...existingItem.addOns, ...addOns];
+        // existingItem.addOns = [...existingItem.addOns, ...addOns];
         existingItem.itemTotal =
           existingItem.quantity * existingItem.productPrice;
       } else {
@@ -49,7 +49,7 @@ const cartSlice = createSlice({
           subObj,
           quantity,
           productPrice,
-          addOns,
+          // addOns,
           itemTotal: quantity * productPrice,
         });
       }
@@ -61,7 +61,7 @@ const cartSlice = createSlice({
       const existingItem = state.items.find(
         (item) =>
           item.product._id === productId &&
-          item.unitObj.unit === unit &&
+          item.unitObj?.unit === unit &&
           item.purchaseType === purchaseType
       );
 
@@ -78,7 +78,7 @@ const cartSlice = createSlice({
         (item) =>
           !(
             item.product._id === productId &&
-            item.unitObj.unit === unit &&
+            item.unitObj?.unit === unit &&
             item.purchaseType === purchaseType
           )
       );
