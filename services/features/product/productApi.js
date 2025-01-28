@@ -12,6 +12,7 @@ const productApi = api.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["product"],
     }),
   }),
 });
