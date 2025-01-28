@@ -9,7 +9,6 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
-
   // console.log(product);
 
   const dispatch = useDispatch();
@@ -59,8 +58,9 @@ const ProductCard = ({ product }) => {
       <div className="h-16 flex justify-between items-center text-sm px-3">
         <div>
           {product?.isSale ? (
-            <div className="w-14">
-              <img src="/products/label-sale.png" alt="Sale" />
+            <div className="w-14 h-14 border-1.5 border-rose-600 rounded-full flex items-center justify-center text-base text-rose-600 bg-white font-medium uppercase mt-3">
+              Sale
+              {/* <img src="/products/label-sale.png" alt="Sale" /> */}
             </div>
           ) : product?.isNewProduct ? (
             <div className="uppercase text-sm bg-teagreen-500 text-white px-2 py-1">
