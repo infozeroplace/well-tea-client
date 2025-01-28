@@ -113,7 +113,7 @@ function SocialImages() {
                 rel="noopener noreferrer"
                 className="inline-block w-[350px] h-[350px]"
               >
-                <Image src={item.image} alt={item.title} fill={true} />
+                <Image src={item?.image} alt={item?.title} fill={true} />
               </Link>
             </SwiperSlide>
           ))}
