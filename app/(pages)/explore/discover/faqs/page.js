@@ -121,10 +121,6 @@ const FAQs = () => {
             faqTitle={"Delivery and returns"}
             faqContents={faqContents}
           />
-          <FAQsCollapse
-            faqTitle={"Click and collect"}
-            faqContents={faqContents}
-          />
           <FAQsCollapse faqTitle={"Ordering"} faqContents={faqContents} />
           <FAQsCollapse faqTitle={"General FAQs"} faqContents={faqContents} />
         </div>

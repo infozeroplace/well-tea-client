@@ -28,12 +28,25 @@ function Footer() {
   return (
     <div className="bg-[#194A34]">
       <div className="container px-4 lg:px-20 py-10">
-        <div className=" mx-auto grid grid-cols-6 lg:grid-cols-7 gap-5 justify-around py-10">
-          <div className="col-span-2 lg:col-span-1 text-white flex flex-col gap-2content-gap lg:mb-0">
+        <div className=" mx-auto grid grid-cols-6 lg:grid-cols-7 gap-5 justify-around py-10 section-gap">
+          <div className="col-span-2 lg:col-span-1 text-white flex flex-col gap-2 lg:mb-0">
             <FooterTitle name="About" />
             <FooterListItem name="Company Info" href="/about" />
             <FooterListItem name="Goal" href="/" />
             <FooterListItem name="Location" href="/" />
+
+            {/* Socials Icons */}
+            <div className="text-white flex items-center gap-2 mt-4">
+              <i
+                className={"text-lg 2xl:text-2xl bx bxl-facebook-circle " + socialIconsExtraClasses}
+              ></i>
+              <i className={"text-lg 2xl:text-2xl bx bxl-instagram " + socialIconsExtraClasses}></i>
+              <i
+                className={"text-lg 2xl:text-2xl bx bxl-linkedin-square " + socialIconsExtraClasses}
+              ></i>
+              <i className={"text-lg 2xl:text-2xl bx bxl-twitter " + socialIconsExtraClasses}></i>
+              <i className={"text-lg 2xl:text-2xl bx bxl-tiktok " + socialIconsExtraClasses}></i>
+            </div>
           </div>
           <div className="col-span-2 lg:col-span-1 text-center lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
             <FooterTitle name="Shop" />
@@ -91,7 +104,7 @@ function Footer() {
         </div>
         {/* Footer Bottom */}
         <div>
-          <div className="flex items-center justify-center gap-10 py-10">
+          {/* <div className="flex items-center justify-center gap-10 py-10">
             <FooterBar />
             <div className="flex-none">
               <Link href="/">
@@ -104,17 +117,7 @@ function Footer() {
               </Link>
             </div>
             <FooterBar />
-          </div>
-
-          <div className="content-gap">
-            <Image
-              src="/images/payment_methods.png"
-              alt="Payment Methods"
-              width={350}
-              height={50}
-              className="mx-auto"
-            />
-          </div>
+          </div> */}
 
           <div className="flex flex-col-reverse md:flex-row gap-10 md:gap-2 justify-between items-center">
             <p className="text-white text-center">
@@ -122,18 +125,16 @@ function Footer() {
               <span className="text-teagreen-500">Welltea.</span> All rights
               reserved
             </p>
-            <div className="text-white flex items-center gap-2">
-              <i
-                className={"bx bxl-facebook-circle " + socialIconsExtraClasses}
-              ></i>
-              <i className={"bx bxl-instagram " + socialIconsExtraClasses}></i>
-              <i
-                className={"bx bxl-linkedin-square " + socialIconsExtraClasses}
-              ></i>
-              <i className={"bx bxl-twitter " + socialIconsExtraClasses}></i>
-              <i className={"bx bxl-tiktok " + socialIconsExtraClasses}></i>
-            </div>
 
+            <div className="">
+              <Image
+                src="/images/payment_methods.png"
+                alt="Payment Methods"
+                width={350}
+                height={50}
+                className="mx-auto"
+              />
+            </div>
             <BackToTopButton />
           </div>
         </div>
