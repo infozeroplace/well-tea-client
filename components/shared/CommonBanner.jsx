@@ -1,7 +1,11 @@
-import React from 'react';
-import Image from 'next/image';
+import Image from "next/image";
 
-function CommonBanner({ bannerImage, bannerTitle = "", breadcrumb, bannerDescription = "" }) {
+function CommonBanner({
+  bannerImage,
+  bannerTitle = "",
+  breadcrumb,
+  bannerDescription = "",
+}) {
   return (
     <div className="relative w-full h-[200px] overflow-hidden">
       <Image
@@ -13,9 +17,11 @@ function CommonBanner({ bannerImage, bannerTitle = "", breadcrumb, bannerDescrip
       />
       <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex flex-col items-center justify-center text-white text-brand__font__size__lg capitalize">
         <p>{bannerTitle}</p>
-        <p className="text-sm mt-2 mx-4 md:mx-20 lg:mx-40 text-center">{bannerDescription}</p>
+        <p className="text-sm mt-2 mx-4 md:mx-20 lg:mx-40 text-center">
+          {bannerDescription}
+        </p>
       </div>
-      <span className="absolute top-10 left-10 w-1/3 text-brand__font__size__base text-white capitalize">
+      <span className="absolute top-10 left-10 2xl:left-24 w-1/3 text-brand__font__size__base text-white capitalize">
         {`Home / ${bannerTitle}`}
       </span>
     </div>
