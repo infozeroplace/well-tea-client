@@ -3,6 +3,12 @@ import Link from "next/link";
 import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
 
+const toNumber = (value) => {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") return parseFloat(value);
+  return 0;
+};
+
 const ProductDetails = ({ product }) => {
 
   // console.log(product);
@@ -42,27 +48,29 @@ const ProductDetails = ({ product }) => {
           <h1 className="text-brand__font__size__lg2 font-brand__font__200">
             {product?.title}
           </h1>
-          {product.teaFlavor && 
+          {product.teaFlavor && (
             <p className="mt-2">
               {product?.teaFlavor
-                .map((flavor) => flavor?.charAt(0).toUpperCase() + flavor?.slice(1))
+                .map(
+                  (flavor) => flavor?.charAt(0).toUpperCase() + flavor?.slice(1)
+                )
                 .join(", ")}
             </p>
-          }
-          {product?.originLocation &&
+          )}
+          {product?.originLocation && (
             <p className="capitalize">
               From {product?.originLocation}, {product?.origin?.join(", ")}
             </p>
-          }
+          )}
 
           <div className="flex items-center gap-2">
-            <span>{product?.ratings}</span>
+            <span>{toNumber(product?.ratings).toFixed(2)}</span>
             <StarRatingDisplay rating={product?.ratings} />
           </div>
           <p className="mt-4">{product?.shortDescription}</p>
         </div>
 
-        {availableOptions.length > 0 &&
+        {availableOptions.length > 0 && (
           <div className="my-5">
             <h3 className="mb-4 font-normal">Available As</h3>
             <div className="flex flex-wrap gap-2">
@@ -88,11 +96,11 @@ const ProductDetails = ({ product }) => {
               })}
             </div>
           </div>
-        }
+        )}
 
         <ManageProduct product={product} />
 
-        <SocialShare productUrl={product?.urlParameter}/>
+        <SocialShare productUrl={product?.urlParameter} />
       </div>
     </div>
   );
