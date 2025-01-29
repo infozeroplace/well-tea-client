@@ -20,13 +20,12 @@ const Delivery = async () => {
   const {
     data: { data: systemData = {} } = {},
   } = await axios.get("/public/system");
-console.log(systemData);
 
   return (
     <div>
       <CommonBanner bannerTitle="Delivery" />
-      <div className="container px-4 lg:px-20 section-gap banner-gap">
-        <DeliveryContents systemData={systemData} />
+      <div className="container px-4 lg:px-10 py-10 section-gap">
+        <DeliveryContents data={systemData.deliveryPolicy || ""} />
       </div>
     </div>
   );

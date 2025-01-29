@@ -13,19 +13,19 @@ export const metadata = {
     card: "summary_large_image",
     title: "Cookie Policy",
     description: "",
-  }
+  },
 };
 
 const CookiePolicy = async () => {
-  const {
-    data: { data: systemData = {} } = {},
-  } = await axios.get("/public/system");
+  const { data: { data: systemData = {} } = {} } = await axios.get(
+    "/public/system"
+  );
 
   return (
     <div>
       <CommonBanner bannerTitle="Cookie Policy" />
-      <div className="container px-4 lg:px-20 section-gap banner-gap">
-        <CookiePolicyContents systemData={systemData} />
+      <div className="container px-4 lg:px-10 py-10 section-gap">
+        <CookiePolicyContents data={systemData.cookiesPolicy || ""} />
       </div>
     </div>
   );
