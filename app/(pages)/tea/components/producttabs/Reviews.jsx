@@ -1,44 +1,66 @@
 import StarRating from "@/components/shared/StarRating";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { usePostReviewMutation } from "@/services/features/review/reviewApi";
+import useToast from "@/hooks/useToast";
+import { Spinner } from "@nextui-org/react";
 
-function Reviews({ product }) {
+function Reviews({ productData }) {
   const [ratingInput, setRatingInput] = useState(0);
   const [hoverRatingInput, setHoverRatingInput] = useState(0);
   const [reviewInput, setReviewInput] = useState("");
   const user = useSelector((state) => state.auth.user);
   const [review, { data, error, isLoading }] = usePostReviewMutation();
+  const { handleSuccess, handleError } = useToast();
+  const [reviews, setReviews] = useState(productData?.reviews);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ ratingInput, reviewInput, user });
+    // console.log({ ratingInput, reviewInput, user });
 
     await review({
       // user: user?._Id,
-      // product: product?._id,
+      // product: _id,
       // date: new Date(),
       data: {
-        sku: product?.sku,
+        sku: productData?.sku,
         ratingPoints: ratingInput,
         reviewText: reviewInput,
       },
     });
-    resetData();
   };
+  useEffect(() => {
+    if (data?.success) {
+      handleSuccess(data?.message);
+      setReviews((prev) => [...prev, data?.data]);
+      resetData();
+    }
+    if (error) {
+      handleError(error?.message);
+    }
+  }, [data]);
+  // console.log(response?.data?.message);
+  // handleSuccess(response?.data?.message);
+  // console.log(error);
+  // if (error) {
+  //   handleError(error?.data?.message);
+  // }
+  // resetData();
 
   const resetData = () => {
     setRatingInput(0);
     setReviewInput("");
-  }
+  };
 
   return (
     <div className="p-5">
-      <h3 className="mb-5">{product?.reviews?.length} Review for {product?.title}</h3>
+      <h3 className="mb-5">
+        {reviews?.length} Review for {productData?.title}
+      </h3>
       <div>
-        {product?.reviews?.length > 1 &&
-          product?.reviews?.map((review) => (
+        {reviews?.length > 1 &&
+          reviews?.map((review) => (
             <div key={review?._id} className="border-b py-5">
               <div className="flex gap-5">
                 <img
@@ -106,7 +128,7 @@ function Reviews({ product }) {
                 disabled={isLoading}
                 className="w-full bg-teagreen-500 text-white p-2"
               >
-                {isLoading ? "Submitting..." : "Submit"}
+                {isLoading ? <Spinner /> : "Submit"}
               </button>
             </form>
           </div>
