@@ -24,7 +24,7 @@ const PrivacyPolicy = async () => {
   return (
     <div>
       <CommonBanner bannerTitle="Privacy Policy" />
-      <div className="container px-4 lg:px-20 section-gap mt-4 w-full flex justify-center">
+      {/* <div className="container px-4 lg:px-20 section-gap mt-4 w-full flex justify-center">
         <iframe
           width="736"
           height="414"
@@ -36,8 +36,8 @@ const PrivacyPolicy = async () => {
           allowFullscreen
           className="rounded-lg"
         ></iframe>
-      </div>
-      <div className="container px-4 lg:px-20 section-gap">
+      </div> */}
+      <div className="container px-4 lg:px-20 section-gap banner-gap">
         <PrivacyPolicyContents systemData={systemData} />
       </div>
     </div>

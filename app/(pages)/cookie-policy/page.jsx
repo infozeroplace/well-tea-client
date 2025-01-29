@@ -24,7 +24,7 @@ const CookiePolicy = async () => {
   return (
     <div>
       <CommonBanner bannerTitle="Cookie Policy" />
-      <div className="container px-4 lg:px-20 section-gap mt-4">
+      <div className="container px-4 lg:px-20 section-gap banner-gap">
         <CookiePolicyContents systemData={systemData} />
       </div>
     </div>

@@ -88,6 +88,9 @@ a {
   .content-gap {
     margin-bottom: 2rem;
   }
+  .banner-gap {
+    margin-top: 4.5rem;
+  }
 }
 
 .custom-shadow {

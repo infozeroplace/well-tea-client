@@ -25,7 +25,7 @@ console.log(systemData);
   return (
     <div>
       <CommonBanner bannerTitle="Delivery" />
-      <div className="container px-4 lg:px-20 section-gap mt-4">
+      <div className="container px-4 lg:px-20 section-gap banner-gap">
         <DeliveryContents systemData={systemData} />
       </div>
     </div>

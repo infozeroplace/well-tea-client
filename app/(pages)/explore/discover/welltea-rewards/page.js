@@ -8,7 +8,7 @@ const WellteaRewards = () => {
   return (
     <>
       <CommonBanner bannerTitle="Well Tea Rewards" />
-      <div className="mt-10">
+      <div className="">
         <div className="section-gap bg-teagreen-100">
           <div className="container px-4 lg:px-20 py-8">
             <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">

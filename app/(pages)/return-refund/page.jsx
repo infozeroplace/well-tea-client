@@ -24,7 +24,7 @@ const ReturnRefund = async () => {
   return (
     <div>
       <CommonBanner bannerTitle="Return & Refund" />
-      <div className="container px-4 lg:px-20 section-gap mt-4">
+      <div className="container px-4 lg:px-20 section-gap banner-gap">
         <ReturnRefundContents systemData={systemData} />
       </div>
     </div>

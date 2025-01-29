@@ -13,7 +13,7 @@ const ProductList = ({ products }) => {
   };
 
   return (
-    <div className="container px-4 lg:px-10 mb-10">
+    <div className="container px-4 lg:px-10 section-gap banner-gap">
       <div className="flex gap-5">
         {/* Sidebar for filters */}
         <aside
