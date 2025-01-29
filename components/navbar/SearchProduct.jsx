@@ -7,12 +7,14 @@ import { env } from '@/config/env';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SectionLinkButton } from '../shared';
+import { usePathname } from 'next/navigation';
 
 const SearchProduct = ({ buttonClass }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isClicked, setIsClicked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const pathname = usePathname();
 
     useEffect(() => {
       const fetchProducts = async () => {
@@ -41,16 +43,18 @@ const SearchProduct = ({ buttonClass }) => {
     }, [searchTerm]);
 
     const handleClose = () => {
-      setIsClicked(false);
+      setIsOpen(false);
       setSearchTerm("");
       setProducts([]);
     };
 
-    // console.log(products);
+  useEffect(() => {
+    setIsOpen(false);
+  },[pathname])
 
   return (
     <div className="">
-      <button onClick={() => setIsClicked(true)} className={`${buttonClass} `}>
+      <button onClick={() => setIsOpen(true)} className={`${buttonClass} `}>
         <CiSearch />
         <svg className="circle" viewBox="0 0 50 50">
           <circle cx="25" cy="25" r="24" />
@@ -58,7 +62,7 @@ const SearchProduct = ({ buttonClass }) => {
       </button>
       <div
         className={`fixed top-0 right-0 h-[100vh] w-[450px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
-          isClicked ? "translate-x-0" : "translate-x-full"
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex items-center p-4 border-b h-20">
@@ -93,8 +97,8 @@ const SearchProduct = ({ buttonClass }) => {
                     className="flex gap-3"
                   >
                     <Image
-                      src={`${env.app_url}${item?.thumbnails[0]?.path}`}
-                      alt={item?.thumbnails[0]?.alt}
+                      src={`${env.app_url}/${item?.thumbnails[0]}`}
+                      alt={item?.title}
                       width={100}
                       height={100}
                     />
@@ -128,17 +132,19 @@ const SearchProduct = ({ buttonClass }) => {
             )}
           </div>
 
-          <div className="p-4 border-t mt-auto">
-            <SectionLinkButton
-              url={`/search?searchTerm=${searchTerm}`}
-              title="View All Results"
-              buttonClass="!block !w-full px-10"
-              textClass="!block !w-full"
-            />
-          </div>
+          {products.length > 0 &&
+            <div className="p-4 border-t mt-auto">
+              <SectionLinkButton
+                url={`/search?searchTerm=${searchTerm}`}
+                title="View All Results"
+                buttonClass="!block !w-full px-10"
+                textClass="!block !w-full"
+              />
+            </div>
+          }
         </div>
       </div>
-      {isClicked && (
+      {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={handleClose}

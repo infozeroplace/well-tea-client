@@ -1,63 +1,93 @@
 import StarRating from "@/components/shared/StarRating";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { usePostReviewMutation } from "@/services/features/review/reviewApi";
+import useToast from "@/hooks/useToast";
+import { Spinner } from "@nextui-org/react";
 
-function Reviews({}) {
-  const productReviews = [
-    {
-      id: 1,
-      name: "John Doe",
-      avatar: "https://randomuser.me/api/portraits/men/75.jpg",
-      rating: 4,
-      review:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      date: "2021-09-01",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      avatar: "https://randomuser.me/api/portraits/women/75.jpg",
-      rating: 5,
-      review:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      date: "2021-09-02",
-    },
-  ];
-  const [rating, setRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0);
-  const [review, setReview] = useState("");
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
+function Reviews({ productData }) {
+  const [ratingInput, setRatingInput] = useState(0);
+  const [hoverRatingInput, setHoverRatingInput] = useState(0);
+  const [reviewInput, setReviewInput] = useState("");
   const user = useSelector((state) => state.auth.user);
+  const [review, { data, error, isLoading }] = usePostReviewMutation();
+  const { handleSuccess, handleError } = useToast();
+  const [reviews, setReviews] = useState(productData?.reviews);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log({ rating, review, name, email });
-    alert("Review submitted!");
+    // console.log({ ratingInput, reviewInput, user });
+
+    await review({
+      // user: user?._Id,
+      // product: _id,
+      // date: new Date(),
+      data: {
+        sku: productData?.sku,
+        ratingPoints: ratingInput,
+        reviewText: reviewInput,
+      },
+    });
+  };
+  useEffect(() => {
+    if (data?.success) {
+      handleSuccess(data?.message);
+      setReviews((prev) => [...prev, data?.data]);
+      resetData();
+    }
+    if (error) {
+      handleError(error?.message);
+    }
+  }, [data]);
+  // console.log(response?.data?.message);
+  // handleSuccess(response?.data?.message);
+  // console.log(error);
+  // if (error) {
+  //   handleError(error?.data?.message);
+  // }
+  // resetData();
+
+  const resetData = () => {
+    setRatingInput(0);
+    setReviewInput("");
   };
 
   return (
     <div className="p-5">
-      <h3 className="mb-5">2 Review for OOlong Tea</h3>
+      <h3 className="mb-5">
+        {reviews?.length} Review for {productData?.title}
+      </h3>
       <div>
-        {productReviews.map((review) => (
-          <div key={review.id} className="border-b py-5">
-            <div className="flex gap-5">
-              <img
-                src={review.avatar}
-                alt={review.name}
-                className="w-14 h-14 rounded-full"
-              />
-              <div className="flex flex-col gap-1 font-thin">
-                <span className="font-extralight">{review.name}</span>
-                <span>{review.date}</span>
-                <StarRating rating={review.rating} />
-                <p>{review.review}</p>
+        {reviews?.length > 1 &&
+          reviews?.map((review) => (
+            <div key={review?._id} className="border-b py-5">
+              <div className="flex gap-5">
+                <img
+                  src={review?.photo}
+                  alt={`${review?.firstName} ${review?.lastName}`}
+                  className="w-14 h-14 rounded-full"
+                />
+                <div className="flex flex-col gap-1 font-thin">
+                  <span className="font-extralight">{`${review?.firstName} ${review?.lastName}`}</span>
+                  <span>
+                    {new Date(review?.date).toLocaleString("en-US", {
+                      // weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      // hour: "2-digit",
+                      // minute: "2-digit",
+                      // second: "2-digit",
+                      // timeZoneName: "short",
+                    })}
+                  </span>
+                  <StarRating rating={review?.ratingPoints} />
+                  <p>{review?.reviewText}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       {user ? (
         <div className="my-10">
@@ -71,11 +101,12 @@ function Reviews({}) {
                     <button
                       key={star}
                       type="button"
-                      onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
+                      aria-label="star"
+                      onClick={() => setRatingInput(star)}
+                      onMouseEnter={() => setHoverRatingInput(star)}
+                      onMouseLeave={() => setHoverRatingInput(0)}
                       className={`text-2xl ${
-                        star <= (hoverRating || rating)
+                        star <= (hoverRatingInput || ratingInput)
                           ? "text-orange-500"
                           : "text-gray-300"
                       } focus:outline-none`}
@@ -85,31 +116,19 @@ function Reviews({}) {
                   ))}
                 </div>
               </div>
-              {/* <input
-                  type="text"
-                  placeholder="Name"
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full p-2 border"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 border"
-                  required
-                /> */}
               <textarea
                 placeholder="Your Review"
-                onChange={(e) => setReview(e.target.value)}
+                value={reviewInput}
+                onChange={(e) => setReviewInput(e.target.value)}
                 className="w-full p-2 border"
                 required
               />
               <button
                 type="submit"
+                disabled={isLoading}
                 className="w-full bg-teagreen-500 text-white p-2"
               >
-                Submit
+                {isLoading ? <Spinner /> : "Submit"}
               </button>
             </form>
           </div>

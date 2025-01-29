@@ -64,8 +64,8 @@ const CartPage = () => {
   return (
     <div>
       <CommonBanner bannerTitle="Cart" />
-      <div className="bg-gray-50 min-h-screen p-10">
-        <div className="flex gap-10">
+      <div className="bg-gray-50 min-h-screen py-20">
+        <div className="container px-20 flex gap-10">
           {/* Cart Section */}
           <div className="w-4/6 bg-white rounded-lg shadow-md overflow-y-auto">
             <div className="p-5">
@@ -92,15 +92,15 @@ const CartPage = () => {
                     >
                       <td className="py-4 flex items-center gap-4 pl-5">
                         <img
-                          src={`${env.app_url}${item.product?.thumbnails[0]?.path}`}
+                          src={`${env.app_url}/${item.product?.thumbnails[0]}`}
                           // src="/products/product_01.jpg"
-                          alt={item.product.title}
+                          alt={item.product?.title}
                           className="w-20 h-20 object-cover"
                         />
                         <div>
                           <h4 className="font-light">{item.product.title}</h4>
                           <p className="text-sm text-gray-500">
-                            Weight: {item.unitObj.unit}
+                            Weight: {item.unitObj?.unit}
                           </p>
                           {item.purchaseType === "subscribe" && (
                             <p className="text-sm text-gray-500">
@@ -117,8 +117,8 @@ const CartPage = () => {
                           <button
                             onClick={() =>
                               handleDecreaseQuantity(
-                                item.product._id,
-                                item.unitObj.unit,
+                                item.product?._id,
+                                item.unitObj?.unit,
                                 item.quantity,
                                 item.purchaseType
                               )
@@ -131,8 +131,8 @@ const CartPage = () => {
                           <button
                             onClick={() =>
                               handleIncreaseQuantity(
-                                item.product._id,
-                                item.unitObj.unit,
+                                item.product?._id,
+                                item.unitObj?.unit,
                                 item.quantity,
                                 item.purchaseType
                               )

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 function CommonBanner({ bannerImage, bannerTitle = "", breadcrumb, bannerDescription = "" }) {
   return (
-    <div className="relative w-full h-[200px] section-gap overflow-hidden">
+    <div className="relative w-full h-[200px] overflow-hidden">
       <Image
         src={bannerImage || "/images/about-image-1.jpg"}
         alt="banner"
