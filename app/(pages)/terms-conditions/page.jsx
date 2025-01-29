@@ -24,7 +24,7 @@ const TermsConditions = async () => {
   return (
     <div>
       <CommonBanner bannerTitle="Terms & Conditions" />
-      <div className="container px-4 lg:px-20 section-gap mt-4 w-full flex justify-center">
+      {/* <div className="container px-4 lg:px-20 section-gap mt-4 w-full flex justify-center">
         <iframe
           width="736"
           height="414"
@@ -36,9 +36,9 @@ const TermsConditions = async () => {
           allowfullscreen
           className="rounded-lg"
         ></iframe>
-      </div>
+      </div> */}
 
-      <div className="container px-4 lg:px-20 section-gap mt-4">
+      <div className="container px-4 lg:px-20 section-gap banner-gap">
         {/* <div className="content-gap text-center text-4xl font-medium">
         Terms & Conditions
       </div> */}
