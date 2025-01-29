@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { SectionButton, CommonBanner } from "@/components";
+import { SectionButton, CommonBanner, YouMayAlsoLike } from "@/components";
 import { updateQuantity, removeFromCart } from "@/services/features/cart/cartSlice";
 import { env } from "@/config/env";
 
@@ -12,9 +12,9 @@ const toNumber = (value) => {
 };
 
 const CartPage = () => {
-  const cartItems = useSelector((state) => state.cart.items);
-  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
-  const totalCost = useSelector((state) => state.cart.totalCost);
+  const cartItems = useSelector((state) => state?.cart?.items);
+  const totalQuantity = useSelector((state) => state?.cart?.totalQuantity);
+  const totalCost = useSelector((state) => state?.cart?.totalCost);
   const dispatch = useDispatch();
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
@@ -70,7 +70,7 @@ const CartPage = () => {
           <div className="w-4/6 bg-white rounded-lg shadow-md overflow-y-auto">
             <div className="p-5">
               <h2 className="text-2xl font-normal mb-4">Cart</h2>
-              <p className="mb-6">{cartItems.length} items in your cart.</p>
+              <p className="mb-6">{cartItems?.length} items in your cart.</p>
             </div>
             <div className="">
               <table className="w-full border-collapse">
@@ -92,35 +92,35 @@ const CartPage = () => {
                     >
                       <td className="py-4 flex items-center gap-4 pl-5">
                         <img
-                          src={`${env.app_url}/${item.product?.thumbnails[0]}`}
+                          src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
                           // src="/products/product_01.jpg"
-                          alt={item.product?.title}
+                          alt={item?.product?.title}
                           className="w-20 h-20 object-cover"
                         />
                         <div>
-                          <h4 className="font-light">{item.product.title}</h4>
+                          <h4 className="font-light">{item?.product.title}</h4>
                           <p className="text-sm text-gray-500">
-                            Weight: {item.unitObj?.unit}
+                            Weight: {item?.unitObj?.unit}
                           </p>
                           {item.purchaseType === "subscribe" && (
                             <p className="text-sm text-gray-500">
-                              Subscription: {item.subObj?.weeks}
+                              Subscription: {item?.subObj?.weeks}
                             </p>
                           )}
                         </div>
                       </td>
                       <td className="py-4 font-light">
-                        £{toNumber(item.productPrice).toFixed(2)}
+                        £{toNumber(item?.productPrice).toFixed(2)}
                       </td>
                       <td className="py-4 text-center font-light">
                         <div className="flex items-center justify-center gap-2">
                           <button
                             onClick={() =>
                               handleDecreaseQuantity(
-                                item.product?._id,
-                                item.unitObj?.unit,
-                                item.quantity,
-                                item.purchaseType
+                                item?.product?._id,
+                                item?.unitObj?.unit,
+                                item?.quantity,
+                                item?.purchaseType
                               )
                             }
                             className="w-8 h-8 border rounded bg-gray-100 hover:bg-gray-200"
@@ -131,10 +131,10 @@ const CartPage = () => {
                           <button
                             onClick={() =>
                               handleIncreaseQuantity(
-                                item.product?._id,
-                                item.unitObj?.unit,
-                                item.quantity,
-                                item.purchaseType
+                                item?.product?._id,
+                                item?.unitObj?.unit,
+                                item?.quantity,
+                                item?.purchaseType
                               )
                             }
                             className="w-8 h-8 border rounded bg-gray-100 hover:bg-gray-200"
@@ -144,17 +144,20 @@ const CartPage = () => {
                         </div>
                       </td>
                       <td className="py-4 text-right font-light pr-5">
-                        £{(item.productPrice * item.quantity).toFixed(2)}
+                        £{(item?.productPrice * item.quantity).toFixed(2)}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              {cartItems.length < 1 && (
-                <div className="flex items-center justify-center h-96">
+              {cartItems?.length < 1 && (
+                <div className="flex items-center justify-center h-60">
                   <h3>Your cart is empty!</h3>
                 </div>
               )}
+              <div className="px-10 bg-teagreen-100 py-5">
+                <YouMayAlsoLike />
+              </div>
             </div>
           </div>
 
@@ -198,6 +201,12 @@ const CartPage = () => {
               <div className="w-full mt-10">
                 <SectionButton title="Checkout" buttonClass="!w-full" />
               </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-md mt-6 grid grid-cols-2 gap-2 overflow-hidden">
+              <button className="bg-gray-600 text-white py-3">Link Pay</button>
+              <button className="bg-gray-600 text-white py-3">Google Pay</button>
+              <button className="bg-gray-600 text-white py-3">Paypal</button>
+              <button className="bg-gray-600 text-white py-3">Pay later</button>
             </div>
           </div>
         </div>

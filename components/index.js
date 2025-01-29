@@ -1,3 +1,5 @@
+import YouMayAlsoLike from "./youmayalsolike";
+
 export * from "./about";
 export * from "./auth";
 export { default as Banner } from "./banner";
@@ -20,3 +22,4 @@ export { default as CookiePolicyContents } from "./cookie-policy";
 export { default as ReturnRefundContents } from "./returnrefund";
 export { default as DeliveryContents } from "./delivery";
 export { default as BlogContents } from "./blog";
+export { default as YouMayAlsoLike } from "./youmayalsolike";

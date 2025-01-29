@@ -64,7 +64,7 @@ const ProductDetails = ({ product }) => {
           )}
 
           <div className="flex items-center gap-2">
-            <span>{toNumber(product?.ratings).toFixed(2)}</span>
+            <span>{toNumber(product?.ratings).toFixed(1)}</span>
             <StarRatingDisplay rating={product?.ratings} />
           </div>
           <p className="mt-4">{product?.shortDescription}</p>
