@@ -71,7 +71,7 @@ function SocialShare({ productUrl}) {
         </div> */}
         <div className="flex gap-5">
           {socialSites.map((site, index) => (
-            <site.shareButton key={index} url={site.url} className="flex items-center space-x-2">
+            <site.shareButton key={index} url={site.url} target="_blank" className="flex items-center space-x-2">
               <site.icon className="" />
             </site.shareButton>
           ))}

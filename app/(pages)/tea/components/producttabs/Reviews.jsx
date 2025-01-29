@@ -55,40 +55,45 @@ function Reviews({ productData }) {
 
   return (
     <div className="p-5">
-      <h3 className="mb-5">
-        {reviews?.length} Review for {productData?.title}
-      </h3>
-      <div>
-        {reviews?.length > 1 &&
-          reviews?.map((review) => (
-            <div key={review?._id} className="border-b py-5">
-              <div className="flex gap-5">
-                <img
-                  src={review?.photo}
-                  alt={`${review?.firstName} ${review?.lastName}`}
-                  className="w-14 h-14 rounded-full"
-                />
-                <div className="flex flex-col gap-1 font-thin">
-                  <span className="font-extralight">{`${review?.firstName} ${review?.lastName}`}</span>
-                  <span>
-                    {new Date(review?.date).toLocaleString("en-US", {
-                      // weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      // hour: "2-digit",
-                      // minute: "2-digit",
-                      // second: "2-digit",
-                      // timeZoneName: "short",
-                    })}
-                  </span>
-                  <StarRating rating={review?.ratingPoints} />
-                  <p>{review?.reviewText}</p>
+      {reviews?.length > 0 ? (
+        <div>
+          <h3 className="mb-5">
+            {reviews?.length} Review for {productData?.title}
+          </h3>
+          <div>
+            {[...reviews].reverse().slice(0, 3).map((review) => (
+                <div key={review?._id} className="border-b py-5">
+                  <div className="flex gap-5">
+                    <img
+                      src={review?.photo}
+                      alt={`${review?.firstName} ${review?.lastName}`}
+                      className="w-14 h-14 rounded-full"
+                    />
+                    <div className="flex flex-col gap-1 font-thin">
+                      <span className="font-extralight">{`${review?.firstName} ${review?.lastName}`}</span>
+                      <span>
+                        {new Date(review?.date).toLocaleString("en-US", {
+                          // weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          // hour: "2-digit",
+                          // minute: "2-digit",
+                          // second: "2-digit",
+                          // timeZoneName: "short",
+                        })}
+                      </span>
+                      <StarRating rating={review?.ratingPoints} />
+                      <p>{review?.reviewText}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-      </div>
+              ))}
+          </div>
+        </div>
+      ) : (
+        <p>No Reviews Yet</p>
+      )}
       {user ? (
         <div className="my-10">
           <h3 className="mb-10 font-normal">Add Your Review</h3>
