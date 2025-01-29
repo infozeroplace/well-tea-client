@@ -248,7 +248,7 @@ function ManageProduct({ product }) {
             >
               <Link href={addOn.urlParameter} className="flex items-center">
                 <img
-                  src={`${env.app_url}/${addOn?.thumbnails[0]}`}
+                  src={`${env.image_path}/${addOn?.thumbnails[0]}`}
                   alt={addOn?.title}
                   className="w-16 h-16 object-cover mr-4"
                 />

@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SectionLinkButton } from '../shared';
 import { usePathname } from 'next/navigation';
+import { Spinner } from '@nextui-org/react';
 
 const SearchProduct = ({ buttonClass }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -83,7 +84,8 @@ const SearchProduct = ({ buttonClass }) => {
           <div className="p-5 overflow-y-auto h-[calc(100vh-10rem)]">
             {isLoading ? (
               <div className="flex items-center justify-center h-96">
-                <h3>Loading...</h3>
+                {/* <h3>Loading...</h3> */}
+                <Spinner />
               </div>
             ) : !searchTerm ? (
               <div className="flex items-center justify-center h-96"></div>
@@ -97,7 +99,7 @@ const SearchProduct = ({ buttonClass }) => {
                     className="flex gap-3"
                   >
                     <Image
-                      src={`${env.app_url}/${item?.thumbnails[0]}`}
+                      src={`${env.image_path}/${item?.thumbnails[0]}`}
                       alt={item?.title}
                       width={100}
                       height={100}

@@ -16,7 +16,7 @@ function CommonBanner({ bannerImage, bannerTitle = "", breadcrumb, bannerDescrip
         <p className="text-sm mt-2 mx-4 md:mx-20 lg:mx-40 text-center">{bannerDescription}</p>
       </div>
       <span className="absolute top-10 left-10 w-1/3 text-brand__font__size__base text-white capitalize">
-        {`Home / ${bannerTitle}`}
+        {`Home / ${breadcrumb ? breadcrumb : bannerTitle}`}
       </span>
     </div>
   );

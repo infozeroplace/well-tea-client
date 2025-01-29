@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "@/services/features/cart/cartSlice";
 import { env } from "@/config/env";
 import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -132,12 +133,14 @@ const Cart = ({ buttonClass }) => {
                   key={index}
                   className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
-                  <img
-                    src={`${env.app_url}${item.product?.thumbnails[0]?.path}`}
-                    // src="/products/product_01.jpg"
-                    alt={item.product?.title}
-                    className="w-20 h-20 object-cover mr-3"
-                  />
+                  <div className="mr-3">
+                    <Image
+                      src={`${env.image_path}/${item.product?.thumbnails[0]}`}
+                      alt={item.product?.title}
+                      width={80}
+                      height={80}
+                    />
+                  </div>
                   <div className="flex-1 flex flex-col gap-2">
                     <h3 className="text-sm font-light">
                       {item.product?.title}

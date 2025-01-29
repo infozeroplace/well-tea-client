@@ -7,7 +7,7 @@ import useToast from "@/hooks/useToast";
 import { Spinner } from "@nextui-org/react";
 
 function Reviews({ productData }) {
-  const [ratingInput, setRatingInput] = useState(0);
+  const [ratingInput, setRatingInput] = useState(null);
   const [hoverRatingInput, setHoverRatingInput] = useState(0);
   const [reviewInput, setReviewInput] = useState("");
   const user = useSelector((state) => state.auth.user);
@@ -17,12 +17,8 @@ function Reviews({ productData }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log({ ratingInput, reviewInput, user });
 
     await review({
-      // user: user?._Id,
-      // product: _id,
-      // date: new Date(),
       data: {
         sku: productData?.sku,
         ratingPoints: ratingInput,
@@ -40,18 +36,15 @@ function Reviews({ productData }) {
       handleError(error?.message);
     }
   }, [data]);
-  // console.log(response?.data?.message);
-  // handleSuccess(response?.data?.message);
-  // console.log(error);
-  // if (error) {
-  //   handleError(error?.data?.message);
-  // }
-  // resetData();
 
   const resetData = () => {
     setRatingInput(0);
     setReviewInput("");
   };
+
+  const reviewValidate = () => {
+    return ratingInput && reviewInput;
+  }
 
   return (
     <div className="p-5">
@@ -61,7 +54,10 @@ function Reviews({ productData }) {
             {reviews?.length} Review for {productData?.title}
           </h3>
           <div>
-            {[...reviews].reverse().slice(0, 3).map((review) => (
+            {[...reviews]
+              .reverse()
+              .slice(0, 3)
+              .map((review) => (
                 <div key={review?._id} className="border-b py-5">
                   <div className="flex gap-5">
                     <img
@@ -130,8 +126,12 @@ function Reviews({ productData }) {
               />
               <button
                 type="submit"
-                disabled={isLoading}
-                className="w-full bg-teagreen-500 text-white p-2"
+                disabled={!reviewValidate() || isLoading}
+                className={`w-full text-white p-2 ${
+                  reviewValidate()
+                    ? "bg-teagreen-500 cursor-pointer"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
               >
                 {isLoading ? <Spinner /> : "Submit"}
               </button>
