@@ -35,7 +35,7 @@ export async function generateMetadata({ params }) {
       url: `${siteUrl}${product?.urlParameter}`,
       images: [
         {
-          url: product?.thumbnails[0]?.path,
+          url: product?.thumbnails[0],
           width: 1200,
           height: 630,
           alt: product?.title,
