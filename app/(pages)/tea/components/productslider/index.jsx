@@ -1,6 +1,7 @@
 "use client";
 
 import { env } from "@/config/env";
+import extractAlterText from "@/utils/extractAlterText";
 import { useState } from "react";
 import { EffectFade, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,10 +20,10 @@ function ProductSlider({ images }) {
           className="w-full max-w-xl mb-4"
         >
           {images.map((image) => (
-            <SwiperSlide key={image.uid}>
+            <SwiperSlide key={image}>
               <img
-                src={`${env.app_url}${image.path}`}
-                alt={image.alt}
+                src={`${env.image_path}/${image}`}
+                alt={extractAlterText(image)}
                 className="w-full"
               />
             </SwiperSlide>
@@ -37,10 +38,10 @@ function ProductSlider({ images }) {
           className="w-full max-w-xl"
         >
           {images.map((image) => (
-            <SwiperSlide key={image.uid}>
+            <SwiperSlide key={image}>
               <img
-                src={`${env.app_url}${image.path}`}
-                alt={image.alt}
+                src={`${env.image_path}/${image}`}
+                alt={extractAlterText(image)}
                 className="cursor-pointer"
               />
             </SwiperSlide>

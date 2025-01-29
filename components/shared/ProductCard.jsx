@@ -4,24 +4,22 @@ import { env } from "@/config/env";
 import { addToCart } from "@/services/features/cart/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
-  // console.log(product);
-
   const dispatch = useDispatch();
   const cardRef = useRef(null);
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  const thumbnail1 = product?.thumbnails[0]?.path
-    ? `${env.app_url}${product?.thumbnails[0]?.path}`
+  const thumbnail1 = product?.thumbnails[0]
+    ? `${env.image_path}/${product?.thumbnails[0]}`
     : "/products/product-back2.png";
 
-  const thumbnail2 = product?.thumbnails[1]?.path
-    ? `${env.app_url}${product?.thumbnails[1]?.path}`
+  const thumbnail2 = product?.thumbnails[1]
+    ? `${env.image_path}/${product?.thumbnails[1]}`
     : "/products/product-back2.png";
 
   const handleAddToCart = (unitObj) => {
