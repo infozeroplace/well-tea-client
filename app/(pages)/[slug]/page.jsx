@@ -1,14 +1,13 @@
 import axios from "@/api/axios";
-import { notFound } from "next/navigation";
-import Head from "next/head";
+import { CommonBanner } from "@/components";
 import { env } from "@/config/env";
+import { notFound } from "next/navigation";
 import {
   ProductDetails,
   ProductSlider,
   ProductTabs,
   RelatedProducts,
 } from "../tea/components";
-import { CommonBanner } from "@/components";
 
 export const revalidate = 0;
 
@@ -27,7 +26,7 @@ export async function generateMetadata({ params }) {
     data: { data: product },
   } = await axios.get(`/public/product/${slug}`);
 
-  const siteUrl = "welltea.zeroplace.co/"
+  const siteUrl = "welltea.zeroplace.co/";
 
   return {
     title: `${capitalizeEachWord(product?.title)} | Well Tea`,
@@ -53,14 +52,13 @@ export async function generateMetadata({ params }) {
       description: product?.shorDescription,
       images: [
         `${env.image_path}/${product?.thumbnails[0]}` ||
-        "/images/product_one.jpg",
+          "/images/product_one.jpg",
       ],
     },
   };
 }
 
 const ProductDetail = async ({ params }) => {
-  // Ensure params is awaited
   const { slug } = await params; // Await the params object
   const decodedSlug = decodeURIComponent(slug);
 
@@ -69,24 +67,8 @@ const ProductDetail = async ({ params }) => {
       data: { data: product },
     } = await axios.get(`/public/product/${slug}`);
 
-    // const jsonLd = {
-    //   "@context": "https://schema.org",
-    //   "@type": "Product",
-    //   name: product?.title,
-    //   image: product?.thumbnails[0]?.path,
-    //   description: product?.shortDescription,
-    // };
-
-    console.log(product);
-
     return (
       <div className="section-gap">
-        {/* <Head>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
-        </Head> */}
         <CommonBanner bannerTitle={product?.title} />
         <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
           <div className="container-narrow mb-10 flex flex-col lg:flex-row justify-center items-center gap-10">

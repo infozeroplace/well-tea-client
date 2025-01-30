@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BsArrowRight } from "react-icons/bs";
 
 function TeawareDropdown({ dropdownItem }) {
   const allTeawares = [
@@ -15,13 +14,12 @@ function TeawareDropdown({ dropdownItem }) {
     {
       name: "Tea Strainers",
       url: "/",
-    },{
+    },
+    {
       name: "Loose Leaf Tea Essentials",
       url: "/",
     },
   ];
-
-  // console.log(dropdownItem);
 
   return (
     <div>

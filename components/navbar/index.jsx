@@ -151,9 +151,7 @@ const Navbar = () => {
           data: { data },
         } = await axios.get("/public/system");
         setLogo(data.logo);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
 
     loadData();

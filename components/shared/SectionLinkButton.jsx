@@ -8,7 +8,6 @@ const SectionLinkButton = ({
   url = "",
   target = "_self",
 }) => {
-  // console.log(url);
   return (
     <Link
       href={url}

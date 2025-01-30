@@ -10,15 +10,11 @@ const toNumber = (value) => {
 };
 
 const ProductDetails = ({ product }) => {
-  // console.log(product);
-
-  // Serialize available options
   const availableOptions = product?.availableAs?.map((item) => ({
     teaFormat: item?.teaFormat[0], // Assuming one format per item
     urlParameter: item?.urlParameter,
   }));
 
-  // Ensure the current product format is included in the options
   const currentFormat = {
     teaFormat: product?.teaFormat[0],
     urlParameter: product?.urlParameter,

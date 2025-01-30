@@ -34,7 +34,6 @@ const Blog = async () => {
     "/public/system"
   );
 
-  console.log("SystemData", systemData);
   return (
     <div>
       <CommonBanner bannerTitle="Blog" />

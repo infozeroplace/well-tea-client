@@ -1,10 +1,10 @@
 "use client";
 
+import { env } from "@/config/env";
 import { addToCart } from "@/services/features/cart/cartSlice";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { env } from "@/config/env";
-import Link from "next/link";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -14,10 +14,10 @@ const toNumber = (value) => {
 
 function ManageProduct({ product }) {
   const [purchaseType, setPurchaseType] = useState("one-time");
-  // const [discountKey, setdiscountKey] = useState("1");
+
   const [quantity, setQuantity] = useState(1);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
-  // const [selectedUnit, setSelectedUnit] = useState(product.unitPrices[0].unit);
+
   const dispatch = useDispatch();
   const [selectedUnitObj, setSelectedUnitObj] = useState(
     product?.unitPrices?.[0]
@@ -76,7 +76,6 @@ function ManageProduct({ product }) {
         ? calculateProductPrice * quantity - product?.multiDiscountAmount
         : calculateProductPrice * quantity;
 
-
     const addOnPrice = selectedAddOns.reduce(
       (sum, addOn) =>
         sum +
@@ -129,8 +128,6 @@ function ManageProduct({ product }) {
     //   })
     // );
   };
-
-  // console.log(product);
 
   return (
     <div>
@@ -238,9 +235,11 @@ function ManageProduct({ product }) {
       </div>
 
       {/* --------------- Helpful Addons --------------- */}
-      {product?.addOns && 
+      {product?.addOns && (
         <div className="mb-6">
-          <h3 className="text-lg font-brand__font__regular mb-4">Helpful Add-Ons</h3>
+          <h3 className="text-lg font-brand__font__regular mb-4">
+            Helpful Add-Ons
+          </h3>
           {product?.addOns?.map((addOn) => (
             <div
               key={addOn._id}
@@ -253,13 +252,16 @@ function ManageProduct({ product }) {
                   className="w-16 h-16 object-cover mr-4"
                 />
                 <div>
-                  <p className="text-teagreen-800 font-brand__font__light">{addOn?.title}</p>
+                  <p className="text-teagreen-800 font-brand__font__light">
+                    {addOn?.title}
+                  </p>
                   {addOn?.isSale ? (
-                    <p>£{toNumber(addOn?.unitPrices[0]?.salePrice).toFixed(2)}</p>
+                    <p>
+                      £{toNumber(addOn?.unitPrices[0]?.salePrice).toFixed(2)}
+                    </p>
                   ) : (
                     <p>{toNumber(addOn?.unitPrices[0]?.price).toFixed(2)}</p>
-                  )
-                  }
+                  )}
                 </div>
               </Link>
               <input
@@ -271,7 +273,7 @@ function ManageProduct({ product }) {
             </div>
           ))}
         </div>
-      }
+      )}
       {/* ------------ Add to cart Button ----------- */}
       <div className="flex mb-6 border text-brand__font__size__base">
         <div className="max-w-[100px] w-full flex items-center justify-center bg-teagreen-600 text-white py-2.5">
@@ -293,8 +295,7 @@ function ManageProduct({ product }) {
           className="w-full bg-teagreen-700 text-white py-2 px-6"
           onClick={handleAddToCart}
         >
-          Add to Cart - £
-          {toNumber(totalPrice).toFixed(2)}
+          Add to Cart - £{toNumber(totalPrice).toFixed(2)}
         </button>
       </div>
     </div>

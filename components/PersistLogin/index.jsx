@@ -11,14 +11,12 @@ const PersistLogin = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // isMounted is using for no memory leak
     let isMounted = true;
 
     const verifyRefreshToken = async () => {
       try {
         await refresh();
       } catch (error) {
-        // console.log(error);
       } finally {
         isMounted && setIsLoading(false);
       }

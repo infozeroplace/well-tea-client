@@ -69,8 +69,6 @@ function TeaDropdown({ dropdownItem }) {
     },
   ];
 
-  // console.log(dropdownItem);
-
   return (
     <div className="container-narrow px-4 w-full mx-auto flex justify-between capitalize">
       <div className="flex flex-col gap-5 p-5 basis-[30%] w-full border-r">
@@ -136,7 +134,10 @@ function TeaDropdown({ dropdownItem }) {
               key={item.title}
               className="hover:text-teagreen-600 flex items-center gap-3"
             >
-              <img src={item.image} className="w-5 text-teagreen-400 hover:text-teagreen-600"/>
+              <img
+                src={item.image}
+                className="w-5 text-teagreen-400 hover:text-teagreen-600"
+              />
               {item.title}
             </Link>
           ))}
