@@ -27,7 +27,7 @@ const WhyChooseUs = ({ data }) => {
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-3 lg:col-span-1 lg:border-r border-slate-200 font-light flex flex-col justify-between items-center lg:items-start pr-2">
           <div>
-            <p className="text-center lg:text-left uppercase text-2xl lg:text-base xl:text-base mb-3">
+            <p className="text-center lg:text-left uppercase text-2xl lg:text-base mb-3">
               why choose us
             </p>
             <div className="text-teagreen-300">

@@ -14,7 +14,7 @@ function FAQsCollapse({ faqTitle, faqContents }) {
   };
 
   return (
-    <div className="w-[500px] section-gap space-y-2">
+    <div className="w-full max-w-[40rem] section-gap space-y-2">
       <h2 className="!text-2xl font-medium mb-5">{faqTitle}</h2>
       {faqContents.map((faqContent, index) => (
         <div key={index} className="w-full">
@@ -32,9 +32,9 @@ function FAQsCollapse({ faqTitle, faqContents }) {
             </span>
           </button>
           <p
-            className={`origin-top transition-all duration-500 ease-in-out overflow-hidden ${
+            className={`origin-top transition-all !duration-500 ease-in-out overflow-hidden pl-1 ${
               activeIndexes.includes(index)
-                ? "max-h-[500px] opacity-100"
+                ? "max-h-[50rem] opacity-100"
                 : "max-h-0 opacity-0"
             }`}
           >
