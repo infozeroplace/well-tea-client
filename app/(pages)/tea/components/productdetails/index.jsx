@@ -10,7 +10,6 @@ const toNumber = (value) => {
 };
 
 const ProductDetails = ({ product }) => {
-
   // console.log(product);
 
   // Serialize available options
@@ -48,6 +47,7 @@ const ProductDetails = ({ product }) => {
           <h1 className="text-brand__font__size__lg2 font-brand__font__200">
             {product?.title}
           </h1>
+
           {product.teaFlavor && (
             <p className="mt-2">
               {product?.teaFlavor
@@ -57,9 +57,12 @@ const ProductDetails = ({ product }) => {
                 .join(", ")}
             </p>
           )}
-          {product?.originLocation && (
+
+          {(product?.originLocation || product?.origin?.length > 0) && (
             <p className="capitalize">
-              From {product?.originLocation}, {product?.origin?.join(", ")}
+              From{" "}
+              {product?.originLocation ? `${product.originLocation}, ` : ""}
+              {product?.origin?.join(", ")}
             </p>
           )}
 

@@ -6,16 +6,16 @@ import extractAlterText from "@/utils/extractAlterText";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CiHeart, CiSearch } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
 import { PiUser } from "react-icons/pi";
 import Cart from "./Cart";
 import ExploreDropdown from "./ExploreDropdown";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
+import SearchProduct from "./SearchProduct";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
-import SearchProduct from "./SearchProduct";
 
 const dropdownData = [
   {
@@ -146,11 +146,14 @@ const Navbar = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const {
-        data: { data },
-      } = await axios.get("/public/system");
-
-      setLogo(data.logo);
+      try {
+        const {
+          data: { data },
+        } = await axios.get("/public/system");
+        setLogo(data.logo);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     loadData();
