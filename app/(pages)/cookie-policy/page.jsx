@@ -20,15 +20,15 @@ export async function generateMetadata() {
 }
 
 const CookiePolicy = async () => {
-  const {
-    data: { data: systemData = {} } = {},
-  } = await axios.get("/public/system");
+  const { data: { data: systemData = {} } = {} } = await axios.get(
+    "/public/system"
+  );
 
   return (
     <div>
       <CommonBanner bannerTitle="Cookie Policy" />
-      <div className="container px-4 lg:px-20 section-gap mt-4">
-        <CookiePolicyContents systemData={systemData} />
+      <div className="container px-4 lg:px-10 py-10 section-gap">
+        <CookiePolicyContents data={systemData.cookiesPolicy || ""} />
       </div>
     </div>
   );

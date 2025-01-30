@@ -77,7 +77,7 @@ const ProductDetail = async ({ params }) => {
     // };
 
     return (
-      <div className="">
+      <div className="section-gap">
         {/* <Head>
           <script
             type="application/ld+json"
@@ -85,7 +85,7 @@ const ProductDetail = async ({ params }) => {
           />
         </Head> */}
         <CommonBanner bannerTitle={product?.title} />
-        <div className="container px-20 my-10">
+        <div className="container px-20 banner-gap">
           <div className="mb-10 flex flex-col lg:flex-row justify-center items-center gap-5">
             <div className="max-w-[650px] w-full">
               <ProductSlider images={product?.slideImages} />

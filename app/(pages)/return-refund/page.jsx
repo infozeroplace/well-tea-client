@@ -13,19 +13,19 @@ export const metadata = {
     card: "summary_large_image",
     title: "Return & Refund",
     description: "",
-  }
+  },
 };
 
 const ReturnRefund = async () => {
-  const {
-    data: { data: systemData = {} } = {},
-  } = await axios.get("/public/system");
+  const { data: { data: systemData = {} } = {} } = await axios.get(
+    "/public/system"
+  );
 
   return (
     <div>
       <CommonBanner bannerTitle="Return & Refund" />
-      <div className="container px-4 lg:px-20 section-gap mt-4">
-        <ReturnRefundContents systemData={systemData} />
+      <div className="container px-4 lg:px-10 py-10 section-gap">
+        <ReturnRefundContents data={systemData.returnAndRefund || ""} />
       </div>
     </div>
   );

@@ -1,10 +1,14 @@
-import React from "react";
-import "@/styles/quillstyle.css" 
+"use client"
 
-const PrivacyPolicyContents = ({systemData}) => {
+import "@/styles/quillstyle.css";
+import DOMPurify from "dompurify";
+
+const PrivacyPolicyContents = ({ data }) => {
+  const sanitizedContent = DOMPurify.sanitize(data);
+
   return (
     <div className="liststyle">
-      <div dangerouslySetInnerHTML={{ __html: systemData?.privacyPolicy || "" }} />
+      <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
     </div>
   );
 };

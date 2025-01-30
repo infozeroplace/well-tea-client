@@ -29,7 +29,7 @@ const Blog = async () => {
   return (
     <div>
       <CommonBanner bannerTitle="Blog" />
-      <div className="container px-4 lg:px-20 section-gap mt-4">
+      <div className="container px-4 lg:px-20 section-gap banner-gap">
         <BlogContents systemData={systemData} />
       </div>
     </div>

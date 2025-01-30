@@ -3,9 +3,8 @@
 import "@/styles/quillstyle.css";
 import DOMPurify from "dompurify";
 
-const TermsConditionsContents = ({ data }) => {
+const SubscriptionPolicyContent = ({ data }) => {
   const sanitizedContent = DOMPurify.sanitize(data);
-
   return (
     <div className="liststyle">
       <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
@@ -13,4 +12,4 @@ const TermsConditionsContents = ({ data }) => {
   );
 };
 
-export default TermsConditionsContents;
+export default SubscriptionPolicyContent;
