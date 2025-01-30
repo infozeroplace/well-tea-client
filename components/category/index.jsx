@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { A11y, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { SectionButton, SectionTitle } from "../shared";
+import { SectionLinkButton, SectionTitle } from "../shared";
 import CategorySlider from "./CategorySlider";
 
 const Category = ({ initialProducts, teaTypes }) => {
@@ -43,9 +43,9 @@ const Category = ({ initialProducts, teaTypes }) => {
 
   return (
     <div className="section-gap">
-      <div className="container px-4 lg:px-20">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
         <SectionTitle title="Explore our single teas" />
-        <div className="relative group max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 p-4">
+        <div className="relative group max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 py-5">
           <Swiper
             modules={[Navigation, Pagination, A11y]}
             slidesPerView={6.5}
@@ -60,11 +60,15 @@ const Category = ({ initialProducts, teaTypes }) => {
             }}
             breakpoints={{
               320: {
-                slidesPerView: 1.5,
+                slidesPerView: 2.5,
                 spaceBetween: 20,
               },
-              768: {
+              640: {
                 slidesPerView: 3.5,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 4.5,
                 spaceBetween: 5,
               },
               1024: {
@@ -116,7 +120,11 @@ const Category = ({ initialProducts, teaTypes }) => {
         </div>
 
         <div className="flex justify-center mx-auto">
-          <SectionButton title="Shop All Teas" />
+          <SectionLinkButton
+            url="/collection/tea"
+            title="Shop All Teas"
+            buttonClass="w-60"
+          />
         </div>
       </div>
     </div>

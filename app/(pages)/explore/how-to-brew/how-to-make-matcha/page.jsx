@@ -2,20 +2,31 @@ import { CommonBanner, MatchaTeaRecipe } from "@/components";
 
 export const revalidate = 0;
 
-export const metadata = {
-  title: "How To Make Traditional Matcha",
-  description: "",
-  keywords: "",
-  openGraph: {
-    title: "How To Make Traditional Matcha",
+export async function generateMetadata() {
+  return {
+    title: "How to make traditional matcha",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "How To Make Traditional Matcha",
-    description: "",
-  },
-};
+    keywords: "",
+    openGraph: {
+      title: "How to make traditional matcha",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "How to make traditional matcha",
+      description: "",
+      images: [""],
+    },
+  };
+}
 
 const MakeMatcha = () => {
   return (

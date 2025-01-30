@@ -24,7 +24,7 @@ function YouMayAlsoLike() {
   };
 
   return (
-    <div className="my-10">
+    <div className="my-10 w-full mx-auto">
       <div className="">
         <h3 className="text-3xl text-center text-teagreen-800 mb-10 capitalize">You may also like</h3>
         <div className="relative">
@@ -45,8 +45,8 @@ function YouMayAlsoLike() {
                 spaceBetween: 5,
               },
               640: {
-                slidesPerView: 1,
-                spaceBetween: 10,
+                slidesPerView: 1.5,
+                spaceBetween: 5,
               },
               768: {
                 slidesPerView: 2,

@@ -19,6 +19,25 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
   return {
     title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
     description: "",
+    keywords: "",
+    openGraph: {
+      title: "Delivery",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Delivery",
+      description: "",
+      images: [""],
+    },
   };
 }
 

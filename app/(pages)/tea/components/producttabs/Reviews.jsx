@@ -14,6 +14,7 @@ function Reviews({ productData }) {
   const [review, { data, error, isLoading }] = usePostReviewMutation();
   const { handleSuccess, handleError } = useToast();
   const [reviews, setReviews] = useState(productData?.reviews);
+  const [showReviews, setShowReviews] = useState(3);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +57,7 @@ function Reviews({ productData }) {
           <div>
             {[...reviews]
               .reverse()
-              .slice(0, 3)
+              .slice(0, showReviews)
               .map((review) => (
                 <div key={review?._id} className="border-b py-5">
                   <div className="flex gap-5">
@@ -86,6 +87,9 @@ function Reviews({ productData }) {
                 </div>
               ))}
           </div>
+          {showReviews < reviews?.length && 
+            <button onClick={() => setShowReviews(showReviews + 3)} className="">See More Reviews</button>
+          }
         </div>
       ) : (
         <p>No Reviews Yet</p>

@@ -3,7 +3,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdRealEstateAgent } from "react-icons/md";
 
-export const revalidate = 0;
+export async function generateMetadata() {
+  return {
+    title: "Rewards",
+    description: "",
+    keywords: "",
+    openGraph: {
+      title: "Rewards",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Rewards",
+      description: "",
+      images: [""],
+    },
+  };
+}
 
 const WellteaRewards = () => {
   return (
@@ -11,7 +35,7 @@ const WellteaRewards = () => {
       <CommonBanner bannerTitle="Well Tea Rewards" />
       <div className="">
         <div className="section-gap bg-teagreen-100">
-          <div className="container px-4 lg:px-20 py-8">
+          <div className="container px-5 sm:px-10 md:px-14 lg:px-20 py-8">
             <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
               Sign up. <br />
               Earn points. <br />
@@ -33,14 +57,14 @@ const WellteaRewards = () => {
                 <SectionLinkButton
                   title="Sign up for free"
                   url="/login"
-                  buttonClass="text-sm"
+                  buttonClass="text-sm w-40"
                 />
               </div>
               <div className="flex justify-center md:justify-center">
                 <SectionLinkButton
                   title="Learn More"
                   url="/#"
-                  buttonClass="text-sm"
+                  buttonClass="text-sm w-40"
                 />
               </div>
             </div>
@@ -119,12 +143,12 @@ const WellteaRewards = () => {
             <SectionLinkButton
               title="Join WellTea Rewards"
               url="/#"
-              buttonClass="text-sm"
+              buttonClass="text-sm w-60"
             />
           </div>
         </div>
 
-        <div className="section-gap container px-4 lg:px-20">
+        <div className="section-gap container px-5 sm:px-10 md:px-14 lg:px-20">
           <div className="border-2 rounded-3xl p-8">
             <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
               How It Works
@@ -135,47 +159,39 @@ const WellteaRewards = () => {
                 <div className="mb-2">
                   <MdRealEstateAgent size={80} />
                 </div>
-                <div className="mb-2 text-xl w-1/2 text-center">
-                  Exclusive Benefits
-                </div>
+                <div className="mb-2 text-xl w-1/2 text-center">Join</div>
                 <p className="text-center">
-                  Get members-only offers, early access to new products, and
-                  more.
+                  Sign up for free and get immediate access to a wealth of
+                  benefits.
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center mx-auto">
                 <div className="mb-2">
                   <MdRealEstateAgent size={80} />
                 </div>
-                <div className="mb-2 text-xl w-1/2 text-center">
-                  Exclusive Benefits
-                </div>
+                <div className="mb-2 text-xl w-1/2 text-center">Earn</div>
                 <p className="text-center">
-                  Get members-only offers, early access to new products, and
-                  more.
+                  Pick up points from purchases and special promotions.
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center mx-auto">
                 <div className="mb-2">
                   <MdRealEstateAgent size={80} />
                 </div>
-                <div className="mb-2 text-xl w-1/2 text-center">
-                  Exclusive Benefits
-                </div>
+                <div className="mb-2 text-xl w-1/2 text-center">Redeem</div>
                 <p className="text-center">
-                  Get members-only offers, early access to new products, and
-                  more.
+                  Spend your points and save money on your favourites.
                 </p>
               </div>
             </div>
 
             <div className="flex justify-center md:justify-center">
-              <SectionLinkButton title="Sign Up Now" url="/#" />
+              <SectionLinkButton title="Sign Up Now" url="/#" buttonClass="w-60" />
             </div>
           </div>
         </div>
 
-        <div className="section-gap container px-4 lg:px-20 rounded-3xl p-8">
+        <div className="section-gap container px-5 sm:px-10 md:px-14 lg:px-20 rounded-3xl p-8">
           <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
             How To Earn Points
           </h2>
@@ -223,7 +239,7 @@ const WellteaRewards = () => {
           </div>
 
           <div className="flex justify-center md:justify-center">
-            <SectionLinkButton title="Join Now" url="/#" />
+            <SectionLinkButton title="Join Now" url="/#" buttonClass="w-60"/>
           </div>
         </div>
 
@@ -240,7 +256,7 @@ const WellteaRewards = () => {
           </div>
 
           <div className="flex justify-center md:justify-center">
-            <SectionLinkButton title="Sign In" url="/login" />
+            <SectionLinkButton title="Sign In" url="/login" buttonClass="w-60"/>
           </div>
         </div>
       </div>

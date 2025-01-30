@@ -27,7 +27,7 @@ function Footer() {
 
   return (
     <div className="bg-[#194A34]">
-      <div className="container px-4 lg:px-20 py-10">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-20 py-10">
         <div className=" mx-auto grid grid-cols-6 lg:grid-cols-7 gap-5 justify-around py-10 section-gap">
           <div className="col-span-2 lg:col-span-1 text-white flex flex-col gap-2 lg:mb-0">
             <FooterTitle name="About" />

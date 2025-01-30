@@ -8,7 +8,7 @@ import Reviews from "./Reviews";
 
 function ProductTabs({ product }) {
   return (
-    <div className="my-10 product-tab container-narrow">
+    <div className="my-10 product-tab">
       <div className="flex flex-col">
         <Tabs
           aria-label="Options"

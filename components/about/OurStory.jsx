@@ -31,7 +31,7 @@ const OurStory = () => {
               </p>
             </div>
             <div className="flex justify-center md:justify-center text-lg">
-              <SectionLinkButton title="Contact" url="/contact" />
+              <SectionLinkButton title="Contact" url="/contact" buttonClass="w-44"/>
             </div>
           </div>
         </div>

@@ -25,11 +25,20 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
     openGraph: {
       title: "Search",
       description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: "Search",
       description: "",
+      images: [""],
     },
   };
 }
@@ -50,9 +59,16 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
     <div>
       <CommonBanner bannerTitle="Search" />
       <SearchQuery initialSearchTerm={searchParams.searchTerm} />
-      {data.length > 0 && searchParams.searchTerm && (
+      {data.length > 0 && searchParams.searchTerm ? (
         <ProductList products={data} />
-      )}
+      ) : (
+        <div className="text-center p-5">
+          <h3 className="">
+            No products found"
+          </h3>
+        </div>
+      )
+    }
     </div>
   );
 };

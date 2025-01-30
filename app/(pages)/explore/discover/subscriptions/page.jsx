@@ -2,22 +2,31 @@ import axios from "@/api/axios";
 import { CommonBanner } from "@/components";
 import SubscriptionPolicyContent from "@/components/subscriptionPolicy";
 
-export const revalidate = 0;
-
-export const metadata = {
-  title: "Subscription",
-  description: "",
-  keywords: "",
-  openGraph: {
+export async function generateMetadata() {
+  return {
     title: "Subscription",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Subscription",
-    description: "",
-  },
-};
+    keywords: "",
+    openGraph: {
+      title: "Subscription",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Subscription",
+      description: "",
+      images: [""],
+    },
+  };
+}
 
 const Subscription = async () => {
   const { data: { data: systemData = {} } = {} } = await axios.get(

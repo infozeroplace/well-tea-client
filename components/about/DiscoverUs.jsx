@@ -45,7 +45,7 @@ const DiscoverUs = () => {
           <div className="mt-3 w-full">
             <div className="mb-2 lg:mb-5 font-bold">{choosOption?.description}</div>
             <div className="flex justify-center text-lg">
-              <SectionLinkButton title="Contact" url="/contact" />
+              <SectionLinkButton title="Contact" url="/contact" buttonClass="w-60" />
             </div>
           </div>
         </div>

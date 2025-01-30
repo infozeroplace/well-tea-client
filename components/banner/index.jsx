@@ -3,7 +3,7 @@ import { SectionLinkButton } from "../shared";
 
 function Banner({ data }) {
   return (
-    <div className="container px-4 md:px-20 section-gap h-[500px] w-full">
+    <div className="container px-5 sm:px-10 md:px-14 lg:px-20 section-gap h-[500px] w-full">
       <div
         className="bg-cover bg-no-repeat bg-center h-full w-full flex items-center"
         style={{ backgroundImage: `url(${env.app_url}${data.bannerImage})` }}

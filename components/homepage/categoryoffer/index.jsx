@@ -2,7 +2,7 @@ import CategoryOfferCard from "./CategoryOfferCard";
 
 const CategoryOffer = ({ data }) => {
   return (
-    <div className="container px-4 lg:px-20 section-gap">
+    <div className="container px-5 sm:px-10 md:px-14 lg:px-20 section-gap">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
         <CategoryOfferCard
           title=""
