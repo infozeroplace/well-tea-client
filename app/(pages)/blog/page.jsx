@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import { BlogContents, CommonBanner } from "@/components";
 
+export const revalidate = 0;
+
 export const metadata = {
   title: "Blog",
   description: "",
@@ -13,14 +15,13 @@ export const metadata = {
     card: "summary_large_image",
     title: "Blog",
     description: "",
-  }
+  },
 };
 
-
 const Blog = async () => {
-  const {
-    data: { data: systemData = {} } = {},
-  } = await axios.get("/public/system");
+  const { data: { data: systemData = {} } = {} } = await axios.get(
+    "/public/system"
+  );
 
   console.log("SystemData", systemData);
   return (

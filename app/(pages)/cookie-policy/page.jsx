@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import { CommonBanner, CookiePolicyContents } from "@/components";
 
+export const revalidate = 0;
+
 export const metadata = {
   title: "Cookie Policy",
   description: "",

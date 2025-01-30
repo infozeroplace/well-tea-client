@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import { CommonBanner, ReturnRefundContents } from "@/components";
 
+export const revalidate = 0;
+
 export const metadata = {
   title: "Return & Refund",
   description: "",

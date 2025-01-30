@@ -1,9 +1,7 @@
-import {
-  IcedTeaRecipe,
-} from "@/components";
+import { CommonBanner, IcedTeaRecipe } from "@/components";
 import Image from "next/image";
-import React from "react";
-import { CommonBanner } from "@/components";
+
+export const revalidate = 0;
 
 export const metadata = {
   title: "How To Make Iced Tea",
@@ -17,7 +15,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "How To Make Iced Tea",
     description: "",
-  }
+  },
 };
 
 const MakeIcedTea = () => {

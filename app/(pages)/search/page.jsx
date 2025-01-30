@@ -1,7 +1,9 @@
 import axios from "@/api/axios";
+import { CommonBanner } from "@/components";
 import ProductList from "@/components/ProductList";
 import SearchQuery from "@/components/searchQuery";
-import { CommonBanner } from "@/components";
+
+export const revalidate = 0;
 
 const capitalizeEachWord = (sentence) => {
   return sentence
@@ -28,7 +30,7 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
       card: "summary_large_image",
       title: "Search",
       description: "",
-    }
+    },
   };
 }
 

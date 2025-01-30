@@ -9,6 +9,8 @@ import {
 } from "../tea/components";
 import { CommonBanner } from "@/components";
 
+export const revalidate = 0;
+
 const capitalizeEachWord = (sentence) => {
   return sentence
     .split(" ")

@@ -1,6 +1,6 @@
-import { MatchaTeaRecipe, CommonBanner } from "@/components";
-import Image from "next/image";
-import React from "react";
+import { CommonBanner, MatchaTeaRecipe } from "@/components";
+
+export const revalidate = 0;
 
 export const metadata = {
   title: "How To Make Traditional Matcha",

@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import ProductList from "@/components/ProductList";
 
+export const revalidate = 0;
+
 const capitalizeEachWord = (sentence) => {
   return sentence
     .split(" ")
@@ -9,10 +11,10 @@ const capitalizeEachWord = (sentence) => {
 };
 
 export async function generateMetadata({ searchParams: rawSearchParams }) {
-
   const searchParams = await Promise.resolve(rawSearchParams);
 
-  const metaTitle = searchParams.type && searchParams.type.split(",").join(" | ");
+  const metaTitle =
+    searchParams.type && searchParams.type.split(",").join(" | ");
 
   return {
     title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",

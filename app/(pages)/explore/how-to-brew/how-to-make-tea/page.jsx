@@ -1,5 +1,12 @@
-import { BrewingGuide, TeaRecipe, TeaTypes, TipsAndTricks, CommonBanner } from "@/components";
-import React from "react";
+import {
+  BrewingGuide,
+  CommonBanner,
+  TeaRecipe,
+  TeaTypes,
+  TipsAndTricks,
+} from "@/components";
+
+export const revalidate = 0;
 
 export const metadata = {
   title: "How To Make Tea",
@@ -12,7 +19,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "How To Make Tea",
     description: "",
-  }
+  },
 };
 
 const MakeTea = () => {

@@ -1,5 +1,6 @@
-import React from "react";
 import { CommonBanner, FAQsCollapse } from "@/components";
+
+export const revalidate = 0;
 
 const FAQs = () => {
   const faqContents = [

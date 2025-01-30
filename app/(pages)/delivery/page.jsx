@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import { CommonBanner, DeliveryContents } from "@/components";
 
+export const revalidate = 0;
+
 export const metadata = {
   title: "Delivery",
   description: "",
@@ -13,13 +15,13 @@ export const metadata = {
     card: "summary_large_image",
     title: "Delivery",
     description: "",
-  }
+  },
 };
 
 const Delivery = async () => {
-  const {
-    data: { data: systemData = {} } = {},
-  } = await axios.get("/public/system");
+  const { data: { data: systemData = {} } = {} } = await axios.get(
+    "/public/system"
+  );
 
   return (
     <div>

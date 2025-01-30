@@ -3,6 +3,8 @@ import ProductList from "@/components/ProductList";
 import { CommonBanner } from "@/components";
 import Head from "next/head";
 
+export const revalidate = 0;
+
 const capitalizeEachWord = (sentence) => {
   return sentence
     .split(" ")

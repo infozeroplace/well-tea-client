@@ -1,8 +1,9 @@
 import { CommonBanner, FindoutMore, SectionLinkButton } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { MdRealEstateAgent } from "react-icons/md";
+
+export const revalidate = 0;
 
 const WellteaRewards = () => {
   return (
@@ -69,7 +70,9 @@ const WellteaRewards = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 content-gap">
             <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:mr-0 md:ml-auto">
-              <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+              <div className="mb-2">
+                <MdRealEstateAgent size={80} />
+              </div>
               <div className="text-xl w-1/2 text-center mb-2">Earn Points</div>
               <p className="text-center">
                 Earn points every time you shop to cash in on your future
@@ -77,14 +80,18 @@ const WellteaRewards = () => {
               </p>
             </div>
             <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:ml-0 md:mr-auto">
-              <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+              <div className="mb-2">
+                <MdRealEstateAgent size={80} />
+              </div>
               <div className="text-xl w-1/2 text-center mb-2">Free Gift</div>
               <p className="text-center">
                 Get a free gift with your second purchase after signing up.
               </p>
             </div>
             <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:mr-0 md:ml-auto">
-              <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+              <div className="mb-2">
+                <MdRealEstateAgent size={80} />
+              </div>
               <div className="text-xl w-1/2 text-center mb-2">
                 Anniversary Voucher
               </div>
@@ -93,7 +100,9 @@ const WellteaRewards = () => {
               </p>
             </div>
             <div className="flex flex-col items-center w-1/2 xl:w-full mx-auto md:ml-0 md:mr-auto">
-              <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+              <div className="mb-2">
+                <MdRealEstateAgent size={80} />
+              </div>
               <div className="text-xl w-1/2 text-center mb-2">
                 Exclusive Benefits
               </div>
@@ -123,7 +132,9 @@ const WellteaRewards = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 content-gap gap-10">
               <div className="flex flex-col items-center justify-center mx-auto">
-                <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+                <div className="mb-2">
+                  <MdRealEstateAgent size={80} />
+                </div>
                 <div className="mb-2 text-xl w-1/2 text-center">
                   Exclusive Benefits
                 </div>
@@ -133,7 +144,9 @@ const WellteaRewards = () => {
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center mx-auto">
-                <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+                <div className="mb-2">
+                  <MdRealEstateAgent size={80} />
+                </div>
                 <div className="mb-2 text-xl w-1/2 text-center">
                   Exclusive Benefits
                 </div>
@@ -143,7 +156,9 @@ const WellteaRewards = () => {
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center mx-auto">
-                <div className="mb-2"><MdRealEstateAgent size={80} /></div>
+                <div className="mb-2">
+                  <MdRealEstateAgent size={80} />
+                </div>
                 <div className="mb-2 text-xl w-1/2 text-center">
                   Exclusive Benefits
                 </div>

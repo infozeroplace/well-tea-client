@@ -2,6 +2,8 @@ import axios from "@/api/axios";
 import { CommonBanner } from "@/components";
 import SubscriptionPolicyContent from "@/components/subscriptionPolicy";
 
+export const revalidate = 0;
+
 export const metadata = {
   title: "Subscription",
   description: "",

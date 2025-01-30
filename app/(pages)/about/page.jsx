@@ -1,14 +1,13 @@
 import {
   AmazingPeople,
-  CompanyServices,
   DiscoverUs,
-  OurStory,
+  MarqueeText,
   Subscription,
-  MarqueeText
 } from "@/components";
 
 import Image from "next/image";
-import React from "react";
+
+export const revalidate = 0;
 
 export const metadata = {
   title: "About Welltea",
@@ -22,7 +21,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About Welltea",
     description: "",
-  }
+  },
 };
 
 const About = () => {
