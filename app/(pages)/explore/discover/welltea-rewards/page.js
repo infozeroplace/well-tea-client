@@ -10,7 +10,7 @@ const WellteaRewards = () => {
       <CommonBanner bannerTitle="Well Tea Rewards" />
       <div className="mt-10">
         <div className="section-gap bg-teagreen-100">
-          <div className="container px-4 lg:px-20 py-8">
+          <div className="container px-5 sm:px-10 md:px-14 lg:px-20 py-8">
             <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
               Sign up. <br />
               Earn points. <br />
@@ -32,14 +32,14 @@ const WellteaRewards = () => {
                 <SectionLinkButton
                   title="Sign up for free"
                   url="/login"
-                  buttonClass="text-sm"
+                  buttonClass="text-sm w-40"
                 />
               </div>
               <div className="flex justify-center md:justify-center">
                 <SectionLinkButton
                   title="Learn More"
                   url="/#"
-                  buttonClass="text-sm"
+                  buttonClass="text-sm w-40"
                 />
               </div>
             </div>
@@ -110,12 +110,12 @@ const WellteaRewards = () => {
             <SectionLinkButton
               title="Join WellTea Rewards"
               url="/#"
-              buttonClass="text-sm"
+              buttonClass="text-sm w-60"
             />
           </div>
         </div>
 
-        <div className="section-gap container px-4 lg:px-20">
+        <div className="section-gap container px-5 sm:px-10 md:px-14 lg:px-20">
           <div className="border-2 rounded-3xl p-8">
             <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
               How It Works
@@ -155,12 +155,12 @@ const WellteaRewards = () => {
             </div>
 
             <div className="flex justify-center md:justify-center">
-              <SectionLinkButton title="Sign Up Now" url="/#" />
+              <SectionLinkButton title="Sign Up Now" url="/#" buttonClass="w-60" />
             </div>
           </div>
         </div>
 
-        <div className="section-gap container px-4 lg:px-20 rounded-3xl p-8">
+        <div className="section-gap container px-5 sm:px-10 md:px-14 lg:px-20 rounded-3xl p-8">
           <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
             How To Earn Points
           </h2>
@@ -208,7 +208,7 @@ const WellteaRewards = () => {
           </div>
 
           <div className="flex justify-center md:justify-center">
-            <SectionLinkButton title="Join Now" url="/#" />
+            <SectionLinkButton title="Join Now" url="/#" buttonClass="w-60"/>
           </div>
         </div>
 
@@ -225,7 +225,7 @@ const WellteaRewards = () => {
           </div>
 
           <div className="flex justify-center md:justify-center">
-            <SectionLinkButton title="Sign In" url="/login" />
+            <SectionLinkButton title="Sign In" url="/login" buttonClass="w-60"/>
           </div>
         </div>
       </div>

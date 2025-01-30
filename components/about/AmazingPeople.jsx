@@ -37,7 +37,7 @@ const AmazingPeople = () => {
             </p>
           </div>
           <div className="flex justify-center text-lg">
-            <SectionLinkButton title="Our Team" url="/ourteam" />
+            <SectionLinkButton title="Our Team" url="/ourteam" buttonClass="w-60" />
           </div>
         </div>
       </div>

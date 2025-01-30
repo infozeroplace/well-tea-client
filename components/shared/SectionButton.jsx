@@ -11,7 +11,7 @@ const SectionButton = ({
     <button
       onClick={onClick}
       className={
-        "relative block w-60 text-nowrap h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full px-10 py-3 text-center transition-all duration-300 " +
+        "relative block text-nowrap h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full px-10 py-3 text-center transition-all duration-300 " +
         buttonClass
       }
     >

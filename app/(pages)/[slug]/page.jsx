@@ -1,6 +1,7 @@
 import axios from "@/api/axios";
 import { notFound } from "next/navigation";
 import Head from "next/head";
+import { env } from "@/config/env";
 import {
   ProductDetails,
   ProductSlider,
@@ -35,7 +36,9 @@ export async function generateMetadata({ params }) {
       url: `${siteUrl}${product?.urlParameter}`,
       images: [
         {
-          url: product?.thumbnails[0]?.path,
+          url:
+            `${env.image_path}/${product?.thumbnails[0]}` ||
+            "/images/product_one.jpg",
           width: 1200,
           height: 630,
           alt: product?.title,
@@ -48,7 +51,9 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: `${product?.title} | Well Tea`,
       description: product?.shorDescription,
-      images: product?.thumbnails[0]?.path,
+      images:
+        `${env.image_path}/${product?.thumbnails[0]}` ||
+        "/images/product_one.jpg",
     },
   };
 }

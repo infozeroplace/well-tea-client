@@ -1,20 +1,23 @@
 import axios from "@/api/axios";
 import { BlogContents, CommonBanner } from "@/components";
 
-export const metadata = {
-  title: "Blog",
-  description: "",
-  keywords: "",
-  openGraph: {
+
+export async function generateMetadata() {
+  return {
     title: "Blog",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog",
-    description: "",
+    keywords: "",
+    openGraph: {
+      title: "Blog",
+      description: "",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Blog",
+      description: "",
+    },
   }
-};
+}
 
 
 const Blog = async () => {

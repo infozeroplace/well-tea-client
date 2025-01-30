@@ -10,7 +10,7 @@ const ProfileScreen = () => {
 
   return (
     <div className="">
-      <CommonBanner bannerTitle={`Hello ${user?.firstName}`} breadcrumb={`${user?.firstName}`}/>
+      <CommonBanner bannerTitle={`Hello ${user?.firstName}`} breadcrumb="Profile"/>
       <div className="container px-20 py-20">
         <h1>Profile Screen</h1>
       </div>

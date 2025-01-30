@@ -23,7 +23,7 @@ const WhyChooseUs = ({ data }) => {
   };
 
   return (
-    <div className=" container section-gap px-4 md:px-20 lg:px-0 lg:pl-20">
+    <div className=" container section-gap px-5 sm:px-10 md:px-14 lg:px-0 lg:pl-20">
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-3 lg:col-span-1 lg:border-r border-slate-200 font-light flex flex-col justify-between items-center lg:items-start pr-2">
           <div>
@@ -60,7 +60,7 @@ const WhyChooseUs = ({ data }) => {
               {chooseOption?.description}
             </div>
             <div className="flex justify-center md:justify-start text-lg">
-              <SectionLinkButton title="Learn more" url="/tea" />
+              <SectionLinkButton title="Learn more" url="/tea" buttonClass="w-60" />
             </div>
           </div>
         </div>

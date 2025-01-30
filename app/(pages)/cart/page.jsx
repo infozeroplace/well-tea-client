@@ -64,22 +64,22 @@ const CartPage = () => {
   return (
     <div>
       <CommonBanner bannerTitle="Cart" />
-      <div className="bg-gray-50 min-h-screen py-20">
-        <div className="container px-20 flex gap-10">
+      <div className="bg-gray-50 min-h-screen py-10 lg:py-20">
+        <div className="container sm:px-10 lg:px-20 flex flex-col lg:flex-row  gap-10">
           {/* Cart Section */}
-          <div className="w-4/6 bg-white rounded-lg shadow-md overflow-y-auto">
-            <div className="p-5">
-              <h2 className="text-2xl font-normal mb-4">Cart</h2>
-              <p className="mb-6">{cartItems?.length} items in your cart.</p>
+          <div className="w-full lg:w-4/6 bg-white rounded-lg shadow-md overflow-y-auto">
+            <div className="p-5 text-center sm:text-left space-y-5">
+              <h2 className="text-2xl font-normal">Cart</h2>
+              <p className="">{cartItems?.length} items in your cart.</p>
             </div>
             <div className="">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse overflow-x-scroll">
                 <thead>
                   <tr className="border-b border-gray-200 text-left text-base">
-                    <th className="py-3 font-medium pl-5">Product</th>
+                    <th className="py-3 font-medium pl-2 sm:pl-5">Product</th>
                     <th className="py-3 font-medium">Price</th>
                     <th className="py-3 font-medium text-center">Quantity</th>
-                    <th className="py-3 font-medium text-right pr-5">
+                    <th className="py-3 font-medium text-right pr-2 sm:pr-5">
                       Total Price
                     </th>
                   </tr>
@@ -90,7 +90,7 @@ const CartPage = () => {
                       key={index}
                       className="border-b border-gray-200 hover:bg-teagreen-100"
                     >
-                      <td className="py-4 flex items-center gap-4 pl-5">
+                      <td className="py-4 flex items-center gap-1 md:gap-5 pl-2 sm:pl-5">
                         <img
                           src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
                           // src="/products/product_01.jpg"
@@ -123,7 +123,7 @@ const CartPage = () => {
                                 item?.purchaseType
                               )
                             }
-                            className="w-8 h-8 border rounded bg-gray-100 hover:bg-gray-200"
+                            className="w-6 h-6 border rounded bg-gray-100 hover:bg-gray-200"
                           >
                             -
                           </button>
@@ -137,13 +137,13 @@ const CartPage = () => {
                                 item?.purchaseType
                               )
                             }
-                            className="w-8 h-8 border rounded bg-gray-100 hover:bg-gray-200"
+                            className="w-6 h-6 border rounded bg-gray-100 hover:bg-gray-200"
                           >
                             +
                           </button>
                         </div>
                       </td>
-                      <td className="py-4 text-right font-light pr-5">
+                      <td className="py-4 text-right font-light pr-2 sm:pr-5">
                         £{(item?.productPrice * item.quantity).toFixed(2)}
                       </td>
                     </tr>
@@ -162,7 +162,7 @@ const CartPage = () => {
           </div>
 
           {/* Summary Section */}
-          <div className="w-2/6 sticky top-0 h-screen">
+          <div className="lg:w-2/6 lg:sticky lg:top-0 lg:h-screen">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-lg font-light mb-4">Coupon Code</h3>
               <p className="text-sm mb-4">
@@ -204,7 +204,9 @@ const CartPage = () => {
             </div>
             <div className="bg-white rounded-lg shadow-md mt-6 grid grid-cols-2 gap-2 overflow-hidden">
               <button className="bg-gray-600 text-white py-3">Link Pay</button>
-              <button className="bg-gray-600 text-white py-3">Google Pay</button>
+              <button className="bg-gray-600 text-white py-3">
+                Google Pay
+              </button>
               <button className="bg-gray-600 text-white py-3">Paypal</button>
               <button className="bg-gray-600 text-white py-3">Pay later</button>
             </div>

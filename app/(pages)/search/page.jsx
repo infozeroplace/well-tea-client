@@ -48,9 +48,16 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
     <div>
       <CommonBanner bannerTitle="Search" />
       <SearchQuery initialSearchTerm={searchParams.searchTerm} />
-      {data.length > 0 && searchParams.searchTerm && (
+      {data.length > 0 && searchParams.searchTerm ? (
         <ProductList products={data} />
-      )}
+      ) : (
+        <div className="text-center p-5">
+          <h3 className="">
+            No products found"
+          </h3>
+        </div>
+      )
+    }
     </div>
   );
 };

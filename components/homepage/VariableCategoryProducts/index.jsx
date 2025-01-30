@@ -3,7 +3,7 @@ import CategorySlider from "@/components/category/CategorySlider";
 const VariableCategoryProducts = ({ initialProducts }) => {
   return (
     <div className="section-gap">
-      <div className="container px-4 md:px-20">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
         <CategorySlider products={initialProducts} />
       </div>
     </div>

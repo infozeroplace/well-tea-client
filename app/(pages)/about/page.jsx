@@ -10,26 +10,29 @@ import {
 import Image from "next/image";
 import React from "react";
 
-export const metadata = {
-  title: "About Welltea",
-  description: "",
-  keywords: "",
-  openGraph: {
+
+export async function generateMetadata() {
+  return {
     title: "About Welltea",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Welltea",
-    description: "",
-  }
-};
+    keywords: "",
+    openGraph: {
+      title: "About Welltea",
+      description: "",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "About Welltea",
+      description: "",
+    },
+  };
+}
 
 const About = () => {
   return (
     <div>
       {/* First Section */}
-      <div className="flex flex-col items-center mt-14 section-gap container px-4 lg:px-20">
+      <div className="flex flex-col items-center mt-14 section-gap container px-5 sm:px-10 md:px-14 lg:px-20">
         <div className="text-center content-gap">
           <div className="text-sm lg:text-base tracking-wide uppercase font-semibold mb-2">
             About Us
@@ -52,7 +55,7 @@ const About = () => {
 
       {/* Third Section */}
       <div className="section-gap bg-[#F9F6EE] pb-10">
-        <div className="container px-4 lg:px-20">
+        <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
           <div className="text-center content-gap pt-10">
             <div className="text-sm lg:text-base tracking-wide uppercase font-semibold mb-2">
               Core values

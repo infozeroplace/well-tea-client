@@ -1,20 +1,24 @@
 import axios from "@/api/axios";
 import { CommonBanner, DeliveryContents } from "@/components";
 
-export const metadata = {
-  title: "Delivery",
-  description: "",
-  keywords: "",
-  openGraph: {
+
+export async function generateMetadata() {
+
+  return {
     title: "Delivery",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Delivery",
-    description: "",
+    keywords: "",
+    openGraph: {
+      title: "Delivery",
+      description: "",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Delivery",
+      description: "",
+    }
   }
-};
+}
 
 const Delivery = async () => {
   const {

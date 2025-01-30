@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { SectionButton } from "../shared";
+import { SectionLinkButton } from "../shared";
 
 function Hero({ data }) {
   const router = useRouter();
@@ -24,9 +24,9 @@ function Hero({ data }) {
     exit: { opacity: 0, y: -50, transition: { duration: 0.2, delay: 0 } },
   };
 
-  const handleNavigation = (url) => {
-    router.push(url);
-  };
+  // const handleNavigation = (url) => {
+  //   router.push(url);
+  // };
 
   return (
     <div className="relative overflow-hidden">
@@ -61,7 +61,7 @@ function Hero({ data }) {
 
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-              <div className="container absolute px-4 lg:px-16 top-1/2 transform -translate-y-1/2 text-white">
+              <div className="container absolute px-5 sm:px-10 md:px-14 lg:px-20 text-center md:text-left top-1/2 transform -translate-y-1/2 text-white">
                 <div>
                   <motion.h1
                     key={`title-${idx}`}
@@ -77,7 +77,7 @@ function Hero({ data }) {
                     initial={activeSlide === idx ? "hidden" : null}
                     animate={activeSlide === idx ? "visible" : "exit"}
                     variants={textAnimation}
-                    className="space-y-4 text-center md:text-left text-sm md:text-base lg:text-lg max-w-[650px] w-full"
+                    className="space-y-4 text-sm md:text-base lg:text-lg max-w-[650px] w-full"
                   >
                     {item.bannerImageDescription || ""}
                   </motion.p>
@@ -88,13 +88,11 @@ function Hero({ data }) {
                     variants={textAnimation}
                     className="mt-5 flex justify-center md:justify-start"
                   >
-                    <SectionButton
+                    <SectionLinkButton
                       title={item.bannerImageButtonText || "Shop Now"}
                       textClass="!mx-auto !text-white"
-                      buttonClass="!bg-teagreen-500"
-                      onClick={() =>
-                        handleNavigation(item.bannerImageButtonUrl)
-                      }
+                      buttonClass="!bg-teagreen-500 w-60"
+                      url={item.bannerImageButtonUrl}
                     />
                   </motion.div>
                 </div>
