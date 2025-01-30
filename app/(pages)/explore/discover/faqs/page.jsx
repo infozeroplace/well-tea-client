@@ -1,5 +1,7 @@
 import { CommonBanner, FAQsCollapse } from "@/components";
 
+export const revalidate = 0;
+
 export async function generateMetadata() {
   return {
     title: "FAQs",

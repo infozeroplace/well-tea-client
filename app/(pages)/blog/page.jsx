@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import { BlogContents, CommonBanner } from "@/components";
 
+export const revalidate = 0;
+
 export async function generateMetadata() {
   return {
     title: "Blog",

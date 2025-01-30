@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdRealEstateAgent } from "react-icons/md";
 
+export const revalidate = 0;
+
 export async function generateMetadata() {
   return {
     title: "Rewards",
@@ -186,7 +188,11 @@ const WellteaRewards = () => {
             </div>
 
             <div className="flex justify-center md:justify-center">
-              <SectionLinkButton title="Sign Up Now" url="/#" buttonClass="w-60" />
+              <SectionLinkButton
+                title="Sign Up Now"
+                url="/#"
+                buttonClass="w-60"
+              />
             </div>
           </div>
         </div>
@@ -239,7 +245,7 @@ const WellteaRewards = () => {
           </div>
 
           <div className="flex justify-center md:justify-center">
-            <SectionLinkButton title="Join Now" url="/#" buttonClass="w-60"/>
+            <SectionLinkButton title="Join Now" url="/#" buttonClass="w-60" />
           </div>
         </div>
 
@@ -256,7 +262,11 @@ const WellteaRewards = () => {
           </div>
 
           <div className="flex justify-center md:justify-center">
-            <SectionLinkButton title="Sign In" url="/login" buttonClass="w-60"/>
+            <SectionLinkButton
+              title="Sign In"
+              url="/login"
+              buttonClass="w-60"
+            />
           </div>
         </div>
       </div>

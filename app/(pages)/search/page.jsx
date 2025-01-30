@@ -45,15 +45,12 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
 
 const ProductCategory = async ({ searchParams: rawSearchParams }) => {
   const searchParams = await Promise.resolve(rawSearchParams);
-  console.log(searchParams.searchTerm);
 
   const queryParams = new URLSearchParams(searchParams).toString();
-  // console.log(queryParams);
+
   const url = `/public/product/list?${queryParams}`;
 
   const { data: { data = [] } = {} } = await axios.get(url);
-
-  // console.log(data);
 
   return (
     <div>
@@ -63,12 +60,9 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
         <ProductList products={data} />
       ) : (
         <div className="text-center p-5">
-          <h3 className="">
-            No products found"
-          </h3>
+          <h3 className="">No products found"</h3>
         </div>
-      )
-    }
+      )}
     </div>
   );
 };
