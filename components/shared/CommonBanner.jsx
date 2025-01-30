@@ -22,7 +22,7 @@ function CommonBanner({
           {bannerDescription}
         </p>
       </div>
-      <span className="absolute top-0 left-0 pl-5 sm:pl-10 lg:pl-20 pt-4 w-1/3 text-brand__font__size__base text-white capitalize">
+      <span className="absolute top-0 left-0 pl-5 sm:pl-10 md:pl-14 lg:pl-20 pt-4 w-1/3 text-brand__font__size__base text-white capitalize">
         {`Home / ${breadcrumb ? breadcrumb : bannerTitle}`}
       </span>
     </div>

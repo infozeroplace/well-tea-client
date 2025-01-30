@@ -1,20 +1,31 @@
 import axios from "@/api/axios";
 import { CommonBanner, PrivacyPolicyContents } from "@/components";
 
-export const metadata = {
-  title: "Privacy Policy",
-  description: "",
-  keywords: "",
-  openGraph: {
+export async function generateMetadata() {
+  return {
     title: "Privacy Policy",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Privacy Policy",
-    description: "",
-  },
-};
+    keywords: "",
+    openGraph: {
+      title: "Privacy Policy",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Privacy Policy",
+      description: "",
+      images: [""],
+    },
+  };
+}
 
 const PrivacyPolicy = async () => {
   const { data: { data: systemData = {} } = {} } = await axios.get(

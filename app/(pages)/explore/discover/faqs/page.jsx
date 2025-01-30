@@ -1,6 +1,39 @@
 import React from "react";
 import { CommonBanner, FAQsCollapse } from "@/components";
 
+export async function generateMetadata() {
+  return {
+    title: "FAQs",
+    description: "",
+    keywords: "",
+    openGraph: {
+      title: "FAQs",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "FAQs",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+  };
+}
+
 const FAQs = () => {
   const faqContents = [
     {

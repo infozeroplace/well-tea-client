@@ -10,13 +10,22 @@ export async function generateMetadata() {
     openGraph: {
       title: "Blog",
       description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: "Blog",
       description: "",
+      images: [""],
     },
-  }
+  };
 }
 
 

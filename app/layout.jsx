@@ -31,21 +31,47 @@ const suse = SUSE({
 
 const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
-export const metadata = {
-  title: "Well Tea",
-  description: "Well Tea - Fresh and Organic Tea Products",
-  keywords: "tea, organic tea, well tea, premium tea",
-  openGraph: {
+// export const metadata = {
+//   title: "Well Tea",
+//   description: "Well Tea - Fresh and Organic Tea Products",
+//   keywords: "tea, organic tea, well tea, premium tea",
+//   openGraph: {
+//     title: "Well Tea",
+//     description: "Well Tea - Fresh and Organic Tea Products",
+//     image: "",
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "Well Tea",
+//     description: "Well Tea - Fresh and Organic Tea Products",
+//   },
+// };
+
+export async function generateMetadata() {
+  return {
     title: "Well Tea",
-    description: "Well Tea - Fresh and Organic Tea Products",
-    image: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Well Tea",
-    description: "Well Tea - Fresh and Organic Tea Products",
-  },
-};
+    description: "",
+    keywords: "",
+    openGraph: {
+      title: "Well Tea",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Well Tea",
+      description: "",
+      images: [""],
+    },
+  };
+}
 
 export default function RootLayout({ children }) {
   return (

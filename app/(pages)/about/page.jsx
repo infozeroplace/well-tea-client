@@ -13,17 +13,26 @@ import React from "react";
 
 export async function generateMetadata() {
   return {
-    title: "About Welltea",
+    title: "About",
     description: "",
     keywords: "",
     openGraph: {
-      title: "About Welltea",
+      title: "About",
       description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "About Welltea",
+      title: "About",
       description: "",
+      images: [""],
     },
   };
 }

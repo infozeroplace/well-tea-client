@@ -2,7 +2,6 @@ import axios from "@/api/axios";
 import { CommonBanner, CookiePolicyContents } from "@/components";
 
 export async function generateMetadata() {
-
   return {
     title: "Cookie Policy",
     description: "",
@@ -10,13 +9,22 @@ export async function generateMetadata() {
     openGraph: {
       title: "Cookie Policy",
       description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: "Cookie Policy",
       description: "",
+      images: [""],
     },
-  }
+  };
 }
 
 const CookiePolicy = async () => {

@@ -240,7 +240,7 @@ function ManageProduct({ product }) {
       {/* --------------- Helpful Addons --------------- */}
       {product?.addOns && 
         <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-4">Helpful Add-Ons</h3>
+          <h3 className="text-lg font-brand__font__regular mb-4">Helpful Add-Ons</h3>
           {product?.addOns?.map((addOn) => (
             <div
               key={addOn._id}
@@ -253,7 +253,7 @@ function ManageProduct({ product }) {
                   className="w-16 h-16 object-cover mr-4"
                 />
                 <div>
-                  <p className="text-teagreen-800 font-normal">{addOn?.title}</p>
+                  <p className="text-teagreen-800 font-brand__font__light">{addOn?.title}</p>
                   {addOn?.isSale ? (
                     <p>£{toNumber(addOn?.unitPrices[0]?.salePrice).toFixed(2)}</p>
                   ) : (

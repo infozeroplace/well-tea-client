@@ -1,19 +1,31 @@
 import { BrewingGuide, TeaRecipe, TeaTypes, TipsAndTricks, CommonBanner } from "@/components";
 import React from "react";
 
-export const metadata = {
-  title: "How To Make Tea",
-  description: "",
-  openGraph: {
-    title: "How To Make Tea",
+export async function generateMetadata() {
+  return {
+    title: "How to make tea",
     description: "",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "How To Make Tea",
-    description: "",
-  }
-};
+    keywords: "",
+    openGraph: {
+      title: "How to make tea",
+      description: "",
+      images: [
+        {
+          url: "",
+          width: 1200,
+          height: 630,
+          alt: "",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "How to make tea",
+      description: "",
+      images: [""],
+    },
+  };
+}
 
 const MakeTea = () => {
   return (
