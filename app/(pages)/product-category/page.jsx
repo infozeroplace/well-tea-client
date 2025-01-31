@@ -1,7 +1,5 @@
 import axios from "@/api/axios";
-import { CommonBanner } from "@/components";
 import ProductList from "@/components/ProductList";
-import SearchQuery from "@/components/searchQuery";
 
 export const revalidate = 0;
 
@@ -15,23 +13,15 @@ const capitalizeEachWord = (sentence) => {
 export async function generateMetadata({ searchParams: rawSearchParams }) {
   const searchParams = await Promise.resolve(rawSearchParams);
 
-  const queryParams = new URLSearchParams(searchParams).toString();
-
-  const url = `/public/product/list?${queryParams}`;
-
-  const { data: { meta = [] } = {} } = await axios.get(url);
-
-  console.log(meta);
-
-  // const metaTitle =
-  //   searchParams.type && searchParams.type.split(",").join(" | ");
+  const metaTitle =
+    searchParams.type && searchParams.type.split(",").join(" | ");
 
   return {
-    title: `Search: ${meta.totalDocs} resutls found for ${searchParams.searchTerm}`,
+    title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
     description: "",
     keywords: "",
     openGraph: {
-      title: "Search",
+      title: "Delivery",
       description: "",
       images: [
         {
@@ -44,7 +34,7 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Search",
+      title: "Delivery",
       description: "",
       images: [""],
     },
@@ -55,24 +45,11 @@ const ProductCategory = async ({ searchParams: rawSearchParams }) => {
   const searchParams = await Promise.resolve(rawSearchParams);
 
   const queryParams = new URLSearchParams(searchParams).toString();
-
   const url = `/public/product/list?${queryParams}`;
 
   const { data: { data = [] } = {} } = await axios.get(url);
 
-  return (
-    <div>
-      <CommonBanner bannerTitle="Search" />
-      <SearchQuery initialSearchTerm={searchParams.searchTerm} />
-      {data.length > 0 && searchParams.searchTerm ? (
-        <ProductList products={data} />
-      ) : (
-        <div className="text-center p-5">
-          <h3 className="">No products found"</h3>
-        </div>
-      )}
-    </div>
-  );
+  return <ProductList products={data} />;
 };
 
 export default ProductCategory;

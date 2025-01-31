@@ -7,6 +7,7 @@ import {
   ProductSlider,
   ProductTabs,
   RelatedProducts,
+  YoutubeVideo,
 } from "../tea/components";
 
 export const revalidate = 0;
@@ -29,10 +30,10 @@ export async function generateMetadata({ params }) {
   const siteUrl = "welltea.zeroplace.co/";
 
   return {
-    title: `${capitalizeEachWord(product?.title)} | Well Tea`,
+    title: `${capitalizeEachWord(product?.metaTitle)}`,
     description: product?.shorDescription,
     openGraph: {
-      title: `${capitalizeEachWord(product?.title)} | Well Tea`,
+      title: `${capitalizeEachWord(product?.metaTitle)}`,
       description: product?.shorDescription,
       url: `${siteUrl}${product?.urlParameter}`,
       images: [
@@ -42,13 +43,13 @@ export async function generateMetadata({ params }) {
             "/images/product_one.jpg",
           width: 1200,
           height: 630,
-          alt: product?.title,
+          alt: product?.metaTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product?.title} | Well Tea`,
+      title: `${product?.metaTitle} | Well Tea`,
       description: product?.shorDescription,
       images: [
         `${env.image_path}/${product?.thumbnails[0]}` ||
@@ -67,6 +68,8 @@ const ProductDetail = async ({ params }) => {
       data: { data: product },
     } = await axios.get(`/public/product/${slug}`);
 
+    console.log(product);
+
     return (
       <div className="section-gap">
         <CommonBanner bannerTitle={product?.title} />
@@ -81,6 +84,9 @@ const ProductDetail = async ({ params }) => {
           </div>
           <div className="container-narrow">
             <ProductTabs product={product} />
+          </div>
+          <div className="container-narrow">
+            <YoutubeVideo youtubeLink={product.youtubeLink}/>
           </div>
           <div>
             <RelatedProducts category={product?.category} />

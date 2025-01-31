@@ -1,33 +1,36 @@
 import { CommonBanner, IcedTeaRecipe } from "@/components";
+import { icedTeaMetadata } from "@/data/staticMetaData";
 import Image from "next/image";
 
 export const revalidate = 0;
 
-export async function generateMetadata() {
-  return {
-    title: "How to make iced tea",
-    description: "",
-    keywords: "",
-    openGraph: {
-      title: "How to make iced tea",
-      description: "",
-      images: [
-        {
-          url: "",
-          width: 1200,
-          height: 630,
-          alt: "",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "How to make iced tea",
-      description: "",
-      images: [""],
-    },
-  };
-}
+// export async function generateMetadata() {
+//   return {
+//     title: "How to make iced tea",
+//     description: "",
+//     keywords: "",
+//     openGraph: {
+//       title: "How to make iced tea",
+//       description: "",
+//       images: [
+//         {
+//           url: "",
+//           width: 1200,
+//           height: 630,
+//           alt: "",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: "How to make iced tea",
+//       description: "",
+//       images: [""],
+//     },
+//   };
+// }
+
+export const metadata = icedTeaMetadata;
 
 const MakeIcedTea = () => {
   return (

@@ -16,6 +16,7 @@ import { Prompt, SUSE } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "swiper/css/bundle";
 import "./globals.css";
+import { layoutMetaData } from "@/data/staticMetaData";
 
 const prompt = Prompt({
   variable: "--prompt",
@@ -47,31 +48,33 @@ const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 //   },
 // };
 
-export async function generateMetadata() {
-  return {
-    title: "Well Tea",
-    description: "",
-    keywords: "",
-    openGraph: {
-      title: "Well Tea",
-      description: "",
-      images: [
-        {
-          url: "",
-          width: 1200,
-          height: 630,
-          alt: "",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Well Tea",
-      description: "",
-      images: [""],
-    },
-  };
-}
+// export async function generateMetadata() {
+//   return {
+//     title: "Well Tea",
+//     description: "",
+//     keywords: "",
+//     openGraph: {
+//       title: "Well Tea",
+//       description: "",
+//       images: [
+//         {
+//           url: "",
+//           width: 1200,
+//           height: 630,
+//           alt: "",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: "Well Tea",
+//       description: "",
+//       images: [""],
+//     },
+//   };
+// }
+
+export const metadata = layoutMetaData;
 
 export default function RootLayout({ children }) {
   return (
