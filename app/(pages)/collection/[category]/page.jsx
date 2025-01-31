@@ -1,7 +1,6 @@
 import axios from "@/api/axios";
-import ProductList from "@/components/ProductList";
 import { CommonBanner } from "@/components";
-import Head from "next/head";
+import ProductList from "@/components/ProductList";
 
 export const revalidate = 0;
 
@@ -12,27 +11,30 @@ const capitalizeEachWord = (sentence) => {
     .join(" ");
 };
 
-export async function generateMetadata({ searchParams, params }) {
+export async function generateMetadata({
+  searchParams: rawSearchParams,
+  params,
+}) {
+  const { category } = await params;
+  const decodedCategory = await decodeURIComponent(category);
+  const searchParams = await Promise.resolve(rawSearchParams);
+
   const metaTitle =
     searchParams.type && searchParams.type.split(",").join(" | ");
 
   return {
     title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
-    description: `Explore products under ${params.category}.`,
-    keywords: `${params.category}, ${searchParams.type}`,
+    description: `Explore products under ${decodedCategory}.`,
+    keywords: `${decodedCategory}, ${searchParams.type}`,
     openGraph: {
-      title: searchParams.type
-        ? capitalizeEachWord(metaTitle)
-        : "All Products",
-      description: `Explore products under ${params.category}.`,
+      title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
+      description: `Explore products under ${decodedCategory}.`,
     },
     twitter: {
       card: "summary_large_image",
-      title: searchParams.type
-       ? capitalizeEachWord(metaTitle)
-        : "All Products",
-      description: `Explore products under ${params.category}.`,
-    }
+      title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
+      description: `Explore products under ${decodedCategory}.`,
+    },
   };
 }
 
@@ -40,8 +42,8 @@ const ProductCategoryScreen = async ({
   params,
   searchParams: rawSearchParams,
 }) => {
-  const { category } = params;
-  const decodedCategory = decodeURIComponent(category);
+  const { category } = await params;
+  const decodedCategory = await decodeURIComponent(category);
 
   const searchParams = await Promise.resolve(rawSearchParams);
   const queryParams = new URLSearchParams(searchParams).toString();
@@ -51,7 +53,7 @@ const ProductCategoryScreen = async ({
 
   const metaTitle =
     searchParams.type && searchParams.type.split(",").join(" | ");
-  
+
   const siteUrl = "http://welltea.zeroplace.co/";
 
   // const jsonLd = {

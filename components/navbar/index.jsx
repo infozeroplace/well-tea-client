@@ -185,7 +185,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-5">
             {dropdownData.map((item) => (
               <div key={item.name} className="group">
-                <NavItem href="/collection/tea" name={item.name} />
+                <NavItem href={`/collection/${item.name}`} name={item.name} />
                 <NavDropdown extraClass="shadow">
                   {item.name === "tea" ? (
                     <TeaDropdown dropdownItem={item} />

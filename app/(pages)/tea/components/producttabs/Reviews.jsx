@@ -1,10 +1,10 @@
 import StarRating from "@/components/shared/StarRating";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { usePostReviewMutation } from "@/services/features/review/reviewApi";
 import useToast from "@/hooks/useToast";
+import { usePostReviewMutation } from "@/services/features/review/reviewApi";
 import { Spinner } from "@nextui-org/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function Reviews({ productData }) {
   const [ratingInput, setRatingInput] = useState(null);
@@ -45,7 +45,7 @@ function Reviews({ productData }) {
 
   const reviewValidate = () => {
     return ratingInput && reviewInput;
-  }
+  };
 
   return (
     <div className="p-5">
@@ -97,15 +97,21 @@ function Reviews({ productData }) {
               </button>
             </div>
           )} */}
-          
-            <div className="text-center w-full mt-5">
-              <button
-                onClick={() => setShowReviews(showReviews < reviews?.length ? showReviews + 3 : 3)}
-                className="bg-teagreen-200 text-teagreen-700 py-2 px-5 rounded-lg"
-              >
-                {showReviews < reviews?.length ? "See More Reviews" : "See Less Reviews"}
-              </button>
-            </div>
+
+          <div className="text-center w-full mt-5">
+            <button
+              onClick={() =>
+                setShowReviews(
+                  showReviews < reviews?.length ? showReviews + 3 : 3
+                )
+              }
+              className="bg-teagreen-200 text-teagreen-700 py-2 px-5 rounded-lg"
+            >
+              {showReviews < reviews?.length
+                ? "See More Reviews"
+                : "See Less Reviews"}
+            </button>
+          </div>
         </div>
       ) : (
         <p>No Reviews Yet</p>
