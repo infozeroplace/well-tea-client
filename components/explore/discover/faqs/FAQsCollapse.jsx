@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function FAQsCollapse({ faqTitle, faqContents }) {
+function FAQsCollapse({ key, faqTitle, faqInfo = [] }) {
   const [activeIndexes, setActiveIndexes] = useState([]);
 
   const handleOnClick = (index) => {
@@ -14,15 +14,22 @@ function FAQsCollapse({ faqTitle, faqContents }) {
   };
 
   return (
-    <div className="w-full max-w-[40rem] section-gap space-y-2">
-      <h2 className="!text-2xl font-medium mb-5">{faqTitle}</h2>
-      {faqContents.map((faqContent, index) => (
-        <div key={index} className="w-full">
+    <div
+      className={`w-full lg:max-w-[50rem] mx-auto inline-block ${
+        faqTitle == "Subscriptions" ? "" : "content-gap"
+      }`}
+      key={key}
+    >
+      <h2 className="!text-2xl text-center lg:text-left font-medium mb-5">
+        {faqTitle}
+      </h2>
+      {faqInfo?.map((info, index) => (
+        <div key={info?.id} className="w-full">
           <button
             onClick={() => handleOnClick(index)}
-            className="w-full bg-teagreen-200 px-10 py-5 flex justify-between overflow-hidden"
+            className="w-full text-left bg-teagreen-200 px-10 py-5 flex justify-between overflow-hidden"
           >
-            {faqContent.question}
+            {info?.question}
             <span
               className={`text-2xl origin-center transition-all duration-300 ${
                 activeIndexes.includes(index) ? "rotate-45" : "rotate-0"
@@ -38,7 +45,7 @@ function FAQsCollapse({ faqTitle, faqContents }) {
                 : "max-h-0 opacity-0"
             }`}
           >
-            {faqContent.answer}
+            {info?.answer}
           </p>
         </div>
       ))}
