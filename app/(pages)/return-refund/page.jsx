@@ -1,33 +1,36 @@
 import axios from "@/api/axios";
 import { CommonBanner, ReturnRefundContents } from "@/components";
+import { returnRefundMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-export async function generateMetadata() {
-  return {
-    title: "Return & Refund",
-    description: "",
-    keywords: "",
-    openGraph: {
-      title: "Return & Refund",
-      description: "",
-      images: [
-        {
-          url: "",
-          width: 1200,
-          height: 630,
-          alt: "",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Return & Refund",
-      description: "",
-      images: [""],
-    },
-  };
-}
+// export async function generateMetadata() {
+//   return {
+//     title: "Return & Refund",
+//     description: "",
+//     keywords: "",
+//     openGraph: {
+//       title: "Return & Refund",
+//       description: "",
+//       images: [
+//         {
+//           url: "",
+//           width: 1200,
+//           height: 630,
+//           alt: "",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: "Return & Refund",
+//       description: "",
+//       images: [""],
+//     },
+//   };
+// }
+
+export const metadata = returnRefundMetadata;
 
 const ReturnRefund = async () => {
   const { data: { data: systemData = {} } = {} } = await axios.get(

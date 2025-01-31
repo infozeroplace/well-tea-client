@@ -50,7 +50,7 @@ function Reviews({ productData }) {
   return (
     <div className="p-5">
       {reviews?.length > 0 ? (
-        <div>
+        <div className="">
           <h3 className="mb-5">
             {reviews?.length} Review for {productData?.title}
           </h3>
@@ -87,9 +87,25 @@ function Reviews({ productData }) {
                 </div>
               ))}
           </div>
-          {showReviews < reviews?.length && 
-            <button onClick={() => setShowReviews(showReviews + 3)} className="">See More Reviews</button>
-          }
+          {/* {showReviews < reviews?.length && (
+            <div className="text-center w-full mt-5">
+              <button
+                onClick={() => setShowReviews(showReviews + 3)}
+                className="bg-gray-200 text-teagreen-700 py-2 px-5 rounded-lg"
+              >
+                See More Reviews
+              </button>
+            </div>
+          )} */}
+          
+            <div className="text-center w-full mt-5">
+              <button
+                onClick={() => setShowReviews(showReviews < reviews?.length ? showReviews + 3 : 3)}
+                className="bg-teagreen-200 text-teagreen-700 py-2 px-5 rounded-lg"
+              >
+                {showReviews < reviews?.length ? "See More Reviews" : "See Less Reviews"}
+              </button>
+            </div>
         </div>
       ) : (
         <p>No Reviews Yet</p>
@@ -125,7 +141,7 @@ function Reviews({ productData }) {
                 placeholder="Your Review"
                 value={reviewInput}
                 onChange={(e) => setReviewInput(e.target.value)}
-                className="w-full p-2 border"
+                className="w-full p-2 border outline-gray-400 outline-offset-0"
                 required
               />
               <button
@@ -134,7 +150,7 @@ function Reviews({ productData }) {
                 className={`w-full text-white p-2 ${
                   reviewValidate()
                     ? "bg-teagreen-500 cursor-pointer"
-                    : "bg-gray-400 cursor-not-allowed"
+                    : "bg-gray-300 cursor-not-allowed"
                 }`}
               >
                 {isLoading ? <Spinner /> : "Submit"}

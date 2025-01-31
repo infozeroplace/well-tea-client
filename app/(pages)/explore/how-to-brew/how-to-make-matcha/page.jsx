@@ -1,32 +1,35 @@
 import { CommonBanner, MatchaTeaRecipe } from "@/components";
+import { makeMatchaMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-export async function generateMetadata() {
-  return {
-    title: "How to make traditional matcha",
-    description: "",
-    keywords: "",
-    openGraph: {
-      title: "How to make traditional matcha",
-      description: "",
-      images: [
-        {
-          url: "",
-          width: 1200,
-          height: 630,
-          alt: "",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "How to make traditional matcha",
-      description: "",
-      images: [""],
-    },
-  };
-}
+// export async function generateMetadata() {
+//   return {
+//     title: "How to make traditional matcha",
+//     description: "",
+//     keywords: "",
+//     openGraph: {
+//       title: "How to make traditional matcha",
+//       description: "",
+//       images: [
+//         {
+//           url: "",
+//           width: 1200,
+//           height: 630,
+//           alt: "",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: "How to make traditional matcha",
+//       description: "",
+//       images: [""],
+//     },
+//   };
+// }
+
+export const metadata = makeMatchaMetadata;
 
 const MakeMatcha = () => {
   return (
