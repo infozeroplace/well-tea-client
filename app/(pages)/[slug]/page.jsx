@@ -85,9 +85,13 @@ const ProductDetail = async ({ params }) => {
           <div className="container-narrow">
             <ProductTabs product={product} />
           </div>
-          <div className="container-narrow">
-            <YoutubeVideo youtubeLink={product.youtubeLink}/>
-          </div>
+          {
+            product.youtubeLink && (
+              <div className="container-narrow">
+                <YoutubeVideo youtubeLink={product.youtubeLink} />
+              </div>
+            )
+          }
           <div>
             <RelatedProducts category={product?.category} />
           </div>
