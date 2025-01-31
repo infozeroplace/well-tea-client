@@ -1,104 +1,37 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-const TeaFilters = () => {
+const TeaFilters = ({ filters = [] }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [showMore, setShowMore] = useState({
-    type: false,
-    format: false,
-    price: false,
-    benefit: false,
-    flavour: false,
-  });
+  // Dynamically initialize showMore state based on filter keys
+  const [showMore, setShowMore] = useState(
+    Object.fromEntries(filters.map(({ key }) => [key, false]))
+  );
 
-  const [filtersData, setFiltersData] = useState([
-    {
-      category: "Types",
-      options: [
-        { param: "green tea" },
-        { param: "white tea" },
-        { param: "black tea" },
-        { param: "oolong tea" },
-        { param: "herbal tea" },
-        { param: "flowering tea" },
-        { param: "jasmine tea" },
-        { param: "yellow tea" },
-        { param: "matcha" },
-      ],
-      key: "type",
-    },
-    {
-      category: "Tea Format",
-      options: [
-        { param: "loose leaf" },
-        { param: "tea caddy" },
-        { param: "tea bag" },
-      ],
-      key: "format",
-    },
-    {
-      category: "Price",
-      options: [{ param: "0-25" }, { param: "26-40" }, { param: "41-65" }],
-      key: "price",
-    },
-    {
-      category: "Health Benefit",
-      options: [
-        { param: "energy" },
-        { param: "gut health" },
-        { param: "immunity" },
-      ],
-      key: "benefit",
-    },
-    {
-      category: "Flavour",
-      options: [
-        { param: "citrus" },
-        { param: "flavoured" },
-        { param: "floral" },
-        { param: "fruity" },
-        { param: "smoke" },
-        { param: "spice" },
-        { param: "sweet" },
-      ],
-      key: "flavour",
-    },
-  ]);
-  
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCheckboxChange = (key, param) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (key === "price") {
-      // For price, set a single value
-      if (params.get(key) === param) {
-        params.delete(key); // Remove the key if the value is already set
-      } else {
-        params.set(key, param); // Set the new value
-      }
+      params.get(key) === param ? params.delete(key) : params.set(key, param);
     } else {
-      // For other filters, allow multiple values
-      const currentValues = params.get(key)?.split(",") || []; // Get existing values
-      const isChecked = currentValues.includes(param); // Check if param is already selected
+      const currentValues = params.get(key)?.split(",") || [];
+      const updatedValues = currentValues.includes(param)
+        ? currentValues.filter((item) => item !== param)
+        : [...currentValues, param];
 
-      const updatedValues = isChecked
-        ? currentValues.filter((item) => item !== param) // Remove the parameter
-        : [...currentValues, param]; // Add the parameter
-
-      if (updatedValues.length) {
-        params.set(key, updatedValues.join(",")); // Join with plain commas
-      } else {
-        params.delete(key); // Remove the key if no values
-      }
+      updatedValues.length
+        ? params.set(key, updatedValues.join(","))
+        : params.delete(key);
     }
 
-    router.push(`?${params.toString()}`); // Push updated query to the router
+    router.push(`?${params.toString()}`);
   };
 
   const handleShowMore = (key) => {
@@ -110,45 +43,40 @@ const TeaFilters = () => {
   };
 
   const isChecked = (key, param) => {
-    const params = searchParams.get(key); // Get the raw query string for the key
-    if (!params) return false;
-
-    // Match the whole parameter as a single entity
-    return params.split(",").some((item) => item === param);
+    return searchParams.get(key)?.split(",").includes(param) || false;
   };
 
-  const hasFilters = Array.from(searchParams.entries()).length > 0;
+  const hasFilters = useMemo(
+    () => Array.from(searchParams.entries()).length > 0,
+    [searchParams]
+  );
 
   return (
     <div>
-      <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>Filters</button>
+      <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        Filters
+      </button>
       <div
-        className={`fixed top-0 left-0 md:relative md:block md:overflow-visible h-[100vh] md:h-full w-[300px] md:w-full bg-white transform transition-transform duration-300 z-50 md:z-auto overflow-y-auto ${
+        className={`fixed top-0 left-0 md:relative md:block h-screen md:h-auto w-[300px] md:w-full bg-white transform transition-transform duration-300 z-50 md:z-auto overflow-y-auto ${
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
         <div className="mb-4 pb-4 border-b flex flex-col">
-          {/* <span className="font-semibold">Filters</span> */}
+          <span className="font-semibold">Filters</span>
           {hasFilters && (
             <button
               onClick={resetFilters}
-              className="mt-4 py-1 px-3 border border-gray-200 hover:border-gray-500 duration-150 flex justify-between items-center"
+              className="mt-4 py-1 px-3 border border-gray-200 hover:border-gray-500 flex items-center"
             >
-              <span className="inline-block basis-[10%]">
-                <IoCloseOutline />
-              </span>{" "}
-              <span className="inline-block basis-[90%]">Clear all</span>
+              <IoCloseOutline className="mr-2" />
+              <span>Clear all</span>
             </button>
           )}
         </div>
-        {filtersData.map(({ category, options, key }, index) => (
-          <div
-            key={key}
-            className={`mb-4 pb-4 ${
-              index !== filtersData.length - 1 ? "border-b border-gray-200" : ""
-            }`}
-          >
-            <h3 className="font-semibold mb-2">{category}</h3>
+
+        {filters.map(({ title, options, key }) => (
+          <div key={key} className="mb-4 pb-4 border-b border-gray-200">
+            <h3 className="font-semibold mb-2">{title}</h3>
             <div>
               {options
                 .slice(0, showMore[key] ? options.length : 10)
@@ -157,7 +85,6 @@ const TeaFilters = () => {
                     <input
                       type="checkbox"
                       checked={isChecked(key, option.param)}
-                      value={option.param}
                       onChange={() => handleCheckboxChange(key, option.param)}
                     />
                     <span className="ml-2 text-sm capitalize">
@@ -175,6 +102,7 @@ const TeaFilters = () => {
           </div>
         ))}
       </div>
+
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
