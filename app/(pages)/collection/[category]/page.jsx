@@ -88,7 +88,7 @@ const ProductCategoryScreen = async ({
           searchParams.type ? capitalizeEachWord(metaTitle) : "All Products"
         }
       />
-      <ProductList products={data} />
+      <ProductList products={data} category={decodedCategory} />
     </div>
   );
 };
