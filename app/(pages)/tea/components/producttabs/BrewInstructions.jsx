@@ -9,10 +9,9 @@ const BrewInstructions = ({ brewInstruction }) => {
         {brewInstruction?.map((item, index) => (
           <button
             key={index}
-            className={
-              "w-1/2 py-2 " +
-              (currentIndex === index && "bg-teagreen-600 text-white")
-            }
+            className={`w-1/2 py-2 capitalize ${
+              currentIndex === index && "bg-teagreen-600 text-white"
+            }`}
             onClick={() => setCurrentIndex(index)}
           >
             {item?.title}

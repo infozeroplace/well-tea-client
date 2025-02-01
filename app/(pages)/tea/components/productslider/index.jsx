@@ -58,16 +58,8 @@ function ProductSlider({ product }) {
             setIsFirstSlide(swiper.isBeginning);
             setIsLastSlide(swiper.isEnd);
           }}
-          // onRealIndexChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          // onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           className="w-full mb-4 relative group"
         >
-          {/* {product?.isMultiDiscount && (
-            <span className="absolute top-0 left-0 z-30 py-1 px-5 m-5 uppercase text-lg font-brand__font__light bg-red-100 text-red-600">
-              Save up to £{product?.multiDiscountAmount} when you buy more than{" "}
-              {product?.multiDiscountAmount} items
-            </span>
-          )} */}
           {product?.slideImages?.map((image) => (
             <SwiperSlide
               key={image}
@@ -78,7 +70,6 @@ function ProductSlider({ product }) {
                 alt={extractAlterText(image)}
                 width={600}
                 height={600}
-                // objectFit="cover"
               />
             </SwiperSlide>
           ))}
@@ -97,53 +88,59 @@ function ProductSlider({ product }) {
             &#x276F;
           </button>
         </Swiper>
-        <Swiper
-          onSwiper={setThumbsSwiper}
-          spaceBetween={20}
-          slidesPerView={5}
-          modules={[Thumbs, Navigation]}
-          navigation={{
-            prevEl: ".thumb-swiper-prev",
-            nextEl: ".thumb-swiper-next",
-          }}
-          onSlideChange={(swiper) => {
-            setIsFirstThumb(swiper.isBeginning);
-            setIsLastThumb(swiper.isEnd);
-          }}
-          watchSlidesProgress={true}
-          className="w-full relative group"
-        >
-          {product?.slideImages?.map((image, index) => (
-            <SwiperSlide
-              key={image}
-              onClick={() => mainSlider?.slideTo(index)}
-              className={`cursor-pointer bg-teagreen-300 rounded-2xl flex items-center justify-center ${
-                activeIndex === index ? "border-1 border-primary" : ""
-              }`}
-            >
-              <Image
-                src={`${env.image_path}/${image}`}
-                alt={extractAlterText(image)}
-                width={120}
-                height={120}
-              />
-            </SwiperSlide>
-          ))}
-          <button
-            className={`thumb-swiper-prev z-10 absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
-              isFirstThumb ? "!hidden" : "opacity-0 group-hover:opacity-100"
-            }`}
+
+        {/* Thumbnail Slider if more than 6 thumbnails */}
+        {product?.slideImages?.length > 6 ? (
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            slidesPerView={6}
+            spaceBetween={10}
+            navigation={{
+              prevEl: ".thumb-swiper-prev",
+              nextEl: ".thumb-swiper-next",
+            }}
+            className="w-full flex items-center relative"
           >
-            &#x276E;
-          </button>
-          <button
-            className={`thumb-swiper-next z-10 absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
-              isLastThumb ? "!hidden" : "opacity-0 group-hover:opacity-100"
-            }`}
-          >
-            &#x276F;
-          </button>
-        </Swiper>
+            {product?.slideImages?.map((image, index) => (
+              <SwiperSlide key={image} className="cursor-pointer">
+                <div
+                  onClick={() => mainSlider?.slideTo(index)}
+                  className={`bg-teagreen-300 rounded-2xl flex items-center justify-center p-1 ${
+                    activeIndex === index ? "border border-teagreen-600" : ""
+                  }`}
+                >
+                  <Image
+                    src={`${env.image_path}/${image}`}
+                    alt={extractAlterText(image)}
+                    width={100}
+                    height={100}
+                    className="rounded-lg"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="flex items-center gap-2">
+            {product?.slideImages?.map((image, index) => (
+              <div
+                key={image}
+                onClick={() => mainSlider?.slideTo(index)}
+                className={`cursor-pointer bg-teagreen-300 rounded-2xl flex items-center justify-center p-1 ${
+                  activeIndex === index ? "border border-teagreen-600" : ""
+                }`}
+              >
+                <Image
+                  src={`${env.image_path}/${image}`}
+                  alt={extractAlterText(image)}
+                  width={100}
+                  height={100}
+                  className="rounded-lg"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

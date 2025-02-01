@@ -1,5 +1,6 @@
 import { StarRatingDisplay } from "@/components/shared/";
 import Link from "next/link";
+import ShortDescription from "../shortdescription";
 import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
 
@@ -64,7 +65,9 @@ const ProductDetails = ({ product }) => {
           <span>{toNumber(product?.ratings).toFixed(1)}</span>
           <StarRatingDisplay rating={product?.ratings} />
         </div>
-        <p className="mt-4">{product?.shortDescription}</p>
+
+        {/* Short Description with "See More" button */}
+        <ShortDescription desc={product?.shortDescription} />
       </div>
 
       {availableOptions.length > 0 && (

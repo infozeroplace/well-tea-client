@@ -69,8 +69,8 @@ const ProductDetail = async ({ params }) => {
 
     return (
       <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
-        <div className="container-narrow mb-10 flex flex-col lg:flex-row gap-10">
-          <div className="basis-[60%] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[750px] w-full">
+        <div className="container-narrow mb-10 flex flex-col xl:flex-row gap-10">
+          <div className="basis-[60%] xl:max-w-[750px] w-full">
             <ProductSlider product={product} />
           </div>
           <div className="basis-[40%] w-full">
