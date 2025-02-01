@@ -56,40 +56,15 @@ const ProductCategoryScreen = async ({
 
   const siteUrl = "http://welltea.zeroplace.co/";
 
-  // const jsonLd = {
-  //   "@context": "https://schema.org",
-  //   "@type": "ItemList",
-  //   url: siteUrl,
-  //   numberOfItems: data.length,
-  //   itemListOrder: "Unordered",
-  //   itemListElement: data.map((product, index) => ({
-  //     "@type": "ListItem",
-  //     position: index + 1,
-  //     item: {
-  //       "@type": "Product",
-  //       name: product?.title,
-  //       image: product?.thumbnails[0]?.path,
-  //       description: product?.shortDescription,
-  //       url: `${siteUrl}${product?.urlParameter}`,
-  //     },
-  //   })),
-  // };
-
   return (
-    <div className="">
-      {/* <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head> */}
+    <>
       <CommonBanner
         bannerTitle={
           searchParams.type ? capitalizeEachWord(metaTitle) : "All Products"
         }
       />
       <ProductList products={data} category={decodedCategory} />
-    </div>
+    </>
   );
 };
 

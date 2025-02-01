@@ -3,8 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -190,8 +188,8 @@ a {
 				transform: translateX( -50% );
 			}
     } */
-.accordiontitle button span{
-font-size: 1.25rem !important;
+.accordiontitle button span {
+  font-size: 1.25rem !important;
 }
 
 /* .marquee {
@@ -207,8 +205,8 @@ font-size: 1.25rem !important;
 }
 
 .marquee:hover .track {
-			animation-play-state: paused ;
-		}
+  animation-play-state: paused;
+}
 
 @keyframes marquee {
   from {
@@ -219,11 +217,11 @@ font-size: 1.25rem !important;
   }
 }
 
-.product-tab ul{
+.product-tab ul {
   list-style: inside;
 }
 
-.product-tab ol{
+.product-tab ol {
   list-style-type: inside;
 }
 

@@ -30,10 +30,10 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${capitalizeEachWord(product?.metaTitle)}`,
-    description: product?.shorDescription,
+    description: product?.shortDescription,
     openGraph: {
       title: `${capitalizeEachWord(product?.metaTitle)}`,
-      description: product?.shorDescription,
+      description: product?.shortDescription,
       url: `${siteUrl}${product?.urlParameter}`,
       images: [
         {
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: `${product?.metaTitle} | Well Tea`,
-      description: product?.shorDescription,
+      description: product?.shortDescription,
       images: [
         `${env.image_path}/${product?.thumbnails[0]}` ||
           "/images/product_one.jpg",
@@ -73,8 +73,6 @@ const ProductDetail = async ({ params }) => {
     });
     const relatedProductsData = data.data.data;
 
-    console.log("relatedProductsData");
-    console.log(relatedProductsData);
     return (
       <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
         <div className="container-narrow mb-10 flex flex-col xl:flex-row gap-10">
@@ -88,6 +86,7 @@ const ProductDetail = async ({ params }) => {
         <div className="container-narrow">
           <ProductTabs product={product} />
         </div>
+
         {product.youtubeLink && (
           <div className="container-narrow flex justify-center items-center">
             <div className="max-w-[1024px] w-full">
@@ -95,12 +94,9 @@ const ProductDetail = async ({ params }) => {
             </div>
           </div>
         )}
-        {relatedProductsData.length > 0 && (
-          <div>
-            {/* <RelatedProducts category={product?.category}  /> */}
 
-            <RelatedProducts relatedProductsData={relatedProductsData} />
-          </div>
+        {relatedProductsData.length > 0 && (
+          <RelatedProducts relatedProductsData={relatedProductsData} />
         )}
       </div>
     );

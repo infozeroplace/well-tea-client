@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
       <div className="h-16 flex justify-between items-center text-sm px-3">
         <div>
           {product?.isSale ? (
-            <div className="relative w-14 h-14 border-1.5 border-rose-600 rounded-full flex items-center justify-center text-base text-rose-600 bg-white font-medium uppercase mt-3">
+            <div className="relative z-10 w-14 h-14 border-1.5 border-rose-600 rounded-full flex items-center justify-center text-base text-rose-600 bg-white font-medium uppercase mt-3">
               Sale
               {/* <img src="/products/label-sale.png" alt="Sale" /> */}
             </div>
