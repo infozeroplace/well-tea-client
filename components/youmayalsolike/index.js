@@ -13,8 +13,8 @@ import {
   Autoplay,
 } from "swiper/modules";
 
-function YouMayAlsoLike() {
-  const relatedProducts = productList.slice(0, 7);
+function YouMayAlsoLike({relatedProductsData}) {
+  const relatedProducts = relatedProductsData.slice(0, 7);
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
 
