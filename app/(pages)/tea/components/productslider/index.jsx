@@ -2,10 +2,11 @@
 
 import { env } from "@/config/env";
 import extractAlterText from "@/utils/extractAlterText";
-import { useState, useEffect } from "react";
-import { EffectFade, Thumbs, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { RiPriceTagFill } from "react-icons/ri";
+import { EffectFade, Navigation, Thumbs } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -28,14 +29,17 @@ function ProductSlider({ product }) {
   }, [mainSlider, thumbsSwiper]);
 
   return (
-    <div className="">
+    <div>
       {product?.isMultiDiscount && (
-        <div className="mb-2 uppercase text-lg font-brand__font__light text-gray-600">
-          Save up to{" "}
-          <span className="text-red-600">£{product?.multiDiscountAmount}</span>{" "}
-          when you buy more than{" "}
-          <span className="text-red-600">{product?.multiDiscountAmount}</span>{" "}
-          items
+        <div className="mb-2 uppercase text-brand__font__size__md font-brand__font__600 text-text__gray flex items-center gap-1.5">
+          <span>
+            <RiPriceTagFill size={20} className="text-red-600 mb-1" />
+          </span>
+          <span>Save up to</span>
+          <span className="text-red-600">£{product?.multiDiscountAmount}</span>
+          <span>when you buy more than</span>
+          <span className="text-red-600">{product?.multiDiscountAmount}</span>
+          <span>items</span>
         </div>
       )}
       <div className="flex flex-col items-center">
@@ -67,7 +71,7 @@ function ProductSlider({ product }) {
           {product?.slideImages?.map((image) => (
             <SwiperSlide
               key={image}
-              className="flex justify-center items-center bg-gray-100 rounded-2xl"
+              className="flex justify-center items-center bg-teagreen-100 rounded-2xl"
             >
               <Image
                 src={`${env.image_path}/${image}`}
@@ -79,14 +83,14 @@ function ProductSlider({ product }) {
             </SwiperSlide>
           ))}
           <button
-            className={`main-swiper-prev z-10 absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+            className={`main-swiper-prev z-10 absolute top-1/2 left-2 transform -translate-y-1/2 bg-teagreen-300 hover:bg-teagreen-400 text-teagreen-800 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
               isFirstSlide ? "!hidden" : "opacity-0 group-hover:opacity-100"
             }`}
           >
             &#x276E;
           </button>
           <button
-            className={`main-swiper-next z-10 absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-300/70 hover:bg-gray-300/100 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
+            className={`main-swiper-next z-10 absolute top-1/2 right-2 transform -translate-y-1/2 bg-teagreen-300 hover:bg-teagreen-400 text-teagreen-800 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg ${
               isLastSlide ? "!hidden" : "opacity-0 group-hover:opacity-100"
             }`}
           >
@@ -113,7 +117,7 @@ function ProductSlider({ product }) {
             <SwiperSlide
               key={image}
               onClick={() => mainSlider?.slideTo(index)}
-              className={`cursor-pointer bg-gray-100 rounded-2xl flex items-center justify-center ${
+              className={`cursor-pointer bg-teagreen-300 rounded-2xl flex items-center justify-center ${
                 activeIndex === index ? "border-1 border-primary" : ""
               }`}
             >

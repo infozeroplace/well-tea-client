@@ -1,5 +1,4 @@
 import axios from "@/api/axios";
-import { CommonBanner } from "@/components";
 import { env } from "@/config/env";
 import { notFound } from "next/navigation";
 import {
@@ -68,33 +67,28 @@ const ProductDetail = async ({ params }) => {
       data: { data: product },
     } = await axios.get(`/public/product/${slug}`);
 
-    console.log(product);
-
     return (
-      <div className="section-gap">
-        <CommonBanner bannerTitle={product?.title} />
-        <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
-          <div className="container-narrow mb-10 flex flex-col lg:flex-row justify-center items-center gap-10">
-            <div className="w-full lg:w-1/2">
-              <ProductSlider product={product} />
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
+        <div className="container-narrow mb-10 flex flex-col lg:flex-row gap-10">
+          <div className="basis-[60%] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[750px] w-full">
+            <ProductSlider product={product} />
+          </div>
+          <div className="basis-[40%] w-full">
+            <ProductDetails product={product} />
+          </div>
+        </div>
+        <div className="container-narrow">
+          <ProductTabs product={product} />
+        </div>
+        {product.youtubeLink && (
+          <div className="container-narrow flex justify-center items-center">
+            <div className="max-w-[1024px] w-full">
+              <YoutubeVideo youtubeLink={product.youtubeLink} />
             </div>
-            <div className="lg:w-1/2">
-              <ProductDetails product={product} />
-            </div>
           </div>
-          <div className="container-narrow">
-            <ProductTabs product={product} />
-          </div>
-          {
-            product.youtubeLink && (
-              <div className="container-narrow">
-                <YoutubeVideo youtubeLink={product.youtubeLink} />
-              </div>
-            )
-          }
-          <div>
-            <RelatedProducts category={product?.category} />
-          </div>
+        )}
+        <div>
+          <RelatedProducts category={product?.category} />
         </div>
       </div>
     );
