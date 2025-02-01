@@ -6,7 +6,7 @@ import TeaFilters from "../TeaFilters";
 import TeaSort from "../TeaSort";
 import { ProductCard } from "../shared";
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, category }) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   const { data: { data: { filters } = [] } = {} } = useGetSystemConfigQuery();
@@ -24,13 +24,15 @@ const ProductList = ({ products }) => {
               isFilterVisible ? "max-w-[200px] w-full py-5" : "max-w-0 w-0"
             } text-teagreen-600 hidden md:block`}
           >
-            {isFilterVisible && <TeaFilters filters={filters} />}
+            {isFilterVisible && (
+              <TeaFilters filters={filters} category={category} />
+            )}
           </aside>
 
           <div className="flex-1 w-full">
             <div className="py-3 flex justify-end items-center gap-5">
               <div className="md:hidden">
-                <TeaFilters filters={filters} />
+                <TeaFilters filters={filters} category={category} />
               </div>
               <TeaSort onToggleFilter={toggleFilterVisibility} />
             </div>

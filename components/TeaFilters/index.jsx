@@ -1,12 +1,15 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-const TeaFilters = ({ filters = [] }) => {
+export const revalidate = 0;
+
+const TeaFilters = ({ filters = [], category="" }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  // const [filtersByCategory, setFiltersByCategory] = useState([]);
 
   // Dynamically initialize showMore state based on filter keys
   const [showMore, setShowMore] = useState(
@@ -51,6 +54,13 @@ const TeaFilters = ({ filters = [] }) => {
     [searchParams]
   );
 
+  const filteredFilters = useMemo(() => {
+    return filters.filter((item) => item.category === category || item.category ==="all");
+  }, [filters, category]);
+
+  // console.log(filters.filter((item) => item.category === category || item.category ==="all"));
+  console.log("category : ", category, "filteredFilters :", filteredFilters);
+
   return (
     <div>
       <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -74,33 +84,39 @@ const TeaFilters = ({ filters = [] }) => {
           )}
         </div>
 
-        {filters.map(({ title, options, key }) => (
-          <div key={key} className="mb-4 pb-4 border-b border-gray-200">
-            <h3 className="font-semibold mb-2">{title}</h3>
-            <div>
-              {options
-                .slice(0, showMore[key] ? options.length : 10)
-                .map((option) => (
-                  <label key={option.param} className="block">
-                    <input
-                      type="checkbox"
-                      checked={isChecked(key, option.param)}
-                      onChange={() => handleCheckboxChange(key, option.param)}
-                    />
-                    <span className="ml-2 text-sm capitalize">
-                      {option.param}
-                    </span>
-                  </label>
-                ))}
+        {
+          filteredFilters
+          // filters.filter((item) => item.category === category || item.category === "all")
+          .map(({ title, options, key }) => (
+            <div key={key} className="mb-4 pb-4 border-b border-gray-200">
+              <h3 className="font-semibold mb-2">{title}</h3>
+              <div>
+                {options
+                  .slice(0, showMore[key] ? options.length : 10)
+                  .map((option) => (
+                    <label key={option.param} className="block">
+                      <input
+                        type="checkbox"
+                        checked={isChecked(key, option.param)}
+                        onChange={() => handleCheckboxChange(key, option.param)}
+                      />
+                      <span className="ml-2 text-sm capitalize">
+                        {option.param}
+                      </span>
+                    </label>
+                  ))}
 
-              {options.length > 10 && (
-                <button onClick={() => handleShowMore(key)} className="text-sm">
-                  {showMore[key] ? "Show less" : "Show more"}
-                </button>
-              )}
+                {options.length > 10 && (
+                  <button
+                    onClick={() => handleShowMore(key)}
+                    className="text-sm"
+                  >
+                    {showMore[key] ? "Show less" : "Show more"}
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {isOpen && (
