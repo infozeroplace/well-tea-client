@@ -1,9 +1,13 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SectionButton, CommonBanner, YouMayAlsoLike } from "@/components";
-import { updateQuantity, removeFromCart } from "@/services/features/cart/cartSlice";
+import {
+  updateQuantity,
+  removeFromCart,
+} from "@/services/features/cart/cartSlice";
 import { env } from "@/config/env";
+import axios from "@/api/axios";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -16,50 +20,71 @@ const CartPage = () => {
   const totalQuantity = useSelector((state) => state?.cart?.totalQuantity);
   const totalCost = useSelector((state) => state?.cart?.totalCost);
   const dispatch = useDispatch();
+  const ids = cartItems.map((item) => item?.product?._id);
+  const[ relatedProductsData, setRelatedProductsData] = useState([]);
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
-  const handleIncreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
+  // Fetching you may also like products
+  useEffect(() => {
+    const fetchRelatedProduct = async () => {
+      const data = await axios.post("/public/product/get-related-products", {
+        ids: ids,
+      });
+      setRelatedProductsData(data.data.data);
+    };
+    fetchRelatedProduct();
+  }, []);
+
+  
+
+  const handleIncreaseQuantity = (
+    productId,
+    unit,
+    currentQuantity,
+    purchaseType
+  ) => {
+    dispatch(
+      updateQuantity({
+        productId,
+        unit,
+        quantity: currentQuantity + 1,
+        purchaseType,
+      })
+    );
+  };
+
+  const handleDecreaseQuantity = (
+    productId,
+    unit,
+    currentQuantity,
+    purchaseType
+  ) => {
+    if (currentQuantity > 1) {
       dispatch(
         updateQuantity({
           productId,
           unit,
-          quantity: currentQuantity + 1,
+          quantity: currentQuantity - 1,
           purchaseType,
         })
-      )
+      );
+    } else {
+      dispatch(removeFromCart({ productId, unit, purchaseType }));
     }
-  
-    const handleDecreaseQuantity = (productId, unit, currentQuantity, purchaseType) => {
-      if(currentQuantity > 1){
-        dispatch(
-          updateQuantity({
-            productId,
-            unit,
-            quantity: currentQuantity - 1,
-            purchaseType,
-          })
-        )
-      } else {
-        dispatch(
-          removeFromCart({ productId, unit, purchaseType })
-        )
-      }
-    }
-  
-    const handleRemoveItem = (productId, unit, purchaseType) => {
-      dispatch(
-        removeFromCart({ productId, unit, purchaseType })
-      )
-    }
-  
-    const handleEmptyCart = () => {
-      return (
-        <div className="flex items-center justify-center h-96">
-          <h3>Your cart is empty!</h3>
-        </div>
-      )
-    }
+  };
+
+  const handleRemoveItem = (productId, unit, purchaseType) => {
+    dispatch(removeFromCart({ productId, unit, purchaseType }));
+  };
+
+  const handleEmptyCart = () => {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <h3>Your cart is empty!</h3>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -155,9 +180,9 @@ const CartPage = () => {
                   <h3>Your cart is empty!</h3>
                 </div>
               )}
-              <div className="px-10 bg-teagreen-100 py-5">
-                <YouMayAlsoLike />
-              </div>
+             {relatedProductsData.length > 0 && <div className="px-10 bg-teagreen-100 py-5">
+                <YouMayAlsoLike relatedProductsData={relatedProductsData} />
+              </div>}
             </div>
           </div>
 

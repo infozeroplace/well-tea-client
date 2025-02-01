@@ -13,11 +13,13 @@ import {
   Autoplay,
 } from "swiper/modules";
 
-function YouMayAlsoLike() {
-  const relatedProducts = productList.slice(0, 7);
+function YouMayAlsoLike({relatedProductsData}) {
+  const relatedProducts = relatedProductsData.slice(0, 7);
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
 
+  console.log(relatedProducts);
+  
   const handleSlideChange = (swiper) => {
     setIsFirstSlide(swiper.isBeginning);
     setIsLastSlide(swiper.isEnd);
@@ -64,7 +66,7 @@ function YouMayAlsoLike() {
           >
             {relatedProducts.map((item, index) => (
               <SwiperSlide key={index}>
-                <ProductCard item={item} url={`/tea/${item.id}`} />
+                <ProductCard product={item} url={`/tea/${item.id}`} />
               </SwiperSlide>
             ))}
           </Swiper>
