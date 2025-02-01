@@ -67,6 +67,14 @@ const ProductDetail = async ({ params }) => {
       data: { data: product },
     } = await axios.get(`/public/product/${slug}`);
 
+    // Fetching you may also like products
+    const data = await axios.post("/public/product/get-related-products", {
+      ids: product._id,
+    });
+    const relatedProductsData = data.data.data;
+
+    console.log("relatedProductsData");
+    console.log(relatedProductsData);
     return (
       <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
         <div className="container-narrow mb-10 flex flex-col lg:flex-row gap-10">
@@ -87,9 +95,13 @@ const ProductDetail = async ({ params }) => {
             </div>
           </div>
         )}
-        <div>
-          <RelatedProducts category={product?.category} />
-        </div>
+        {relatedProductsData.length > 0 && (
+          <div>
+            {/* <RelatedProducts category={product?.category}  /> */}
+
+            <RelatedProducts relatedProductsData={relatedProductsData} />
+          </div>
+        )}
       </div>
     );
   } catch (error) {

@@ -6,8 +6,8 @@ import { useState } from "react";
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-function RelatedProducts() {
-  const relatedProducts = productList.slice(0, 7);
+function RelatedProducts({relatedProductsData}) {
+  const relatedProducts = relatedProductsData.slice(0, 7);
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
 
@@ -57,7 +57,7 @@ function RelatedProducts() {
           >
             {relatedProducts.map((item, index) => (
               <SwiperSlide key={index}>
-                <ProductCard item={item} url={`/tea/${item.id}`} />
+                <ProductCard product={item} url={`/tea/${item.id}`} />
               </SwiperSlide>
             ))}
           </Swiper>

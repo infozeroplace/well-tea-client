@@ -18,6 +18,8 @@ function YouMayAlsoLike({relatedProductsData}) {
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
 
+  console.log(relatedProducts);
+  
   const handleSlideChange = (swiper) => {
     setIsFirstSlide(swiper.isBeginning);
     setIsLastSlide(swiper.isEnd);
@@ -64,7 +66,7 @@ function YouMayAlsoLike({relatedProductsData}) {
           >
             {relatedProducts.map((item, index) => (
               <SwiperSlide key={index}>
-                <ProductCard item={item} url={`/tea/${item.id}`} />
+                <ProductCard product={item} url={`/tea/${item.id}`} />
               </SwiperSlide>
             ))}
           </Swiper>
