@@ -24,7 +24,9 @@ const ProductList = ({ products, category }) => {
               isFilterVisible ? "max-w-[200px] w-full py-5" : "max-w-0 w-0"
             } text-teagreen-600 hidden md:block`}
           >
-            {isFilterVisible && <TeaFilters filters={filters} />}
+            {isFilterVisible && (
+              <TeaFilters filters={filters} category={category} />
+            )}
           </aside>
 
           <div className="flex-1 w-full">
