@@ -36,7 +36,7 @@ const ProductList = ({ products, category, meta }) => {
     }
   };
 
-  console.log(productLimit, products);
+  // console.log(productLimit, products);
   // console.log(isLoading);
 
   return (
