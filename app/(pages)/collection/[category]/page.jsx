@@ -64,7 +64,7 @@ const ProductCategoryScreen = async ({
         }
       />
       <ProductList products={data} category={decodedCategory} meta={meta}/>
-    </div>
+    </>
   );
 };
 

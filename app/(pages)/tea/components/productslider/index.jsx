@@ -63,7 +63,7 @@ function ProductSlider({ product }) {
           {product?.slideImages?.map((image) => (
             <SwiperSlide
               key={image}
-              className="flex justify-center items-center bg-teagreen-100 rounded-2xl"
+              className="flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
             >
               <Image
                 src={`${env.image_path}/${image}`}
