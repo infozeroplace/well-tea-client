@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
+import { Spinner } from "@nextui-org/react";
 
 function SearchQuery({ initialSearchTerm }) {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
@@ -44,9 +45,10 @@ function SearchQuery({ initialSearchTerm }) {
           placeholder="Search products..."
           className="p-2 w-full outline-none text-base font-light bg-inherit"
         />
-        <CiSearch size={25} onClick={handleSearch} className="cursor-pointer"/>
+        <CiSearch size={25} onClick={handleSearch} className="cursor-pointer" />
       </div>
-      {isLoading && <p>Loading...</p>}
+      {/* {isLoading && <p>Loading...</p>} */}
+      {isLoading && <Spinner />}
     </div>
   );
 }

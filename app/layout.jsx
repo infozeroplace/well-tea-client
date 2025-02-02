@@ -16,7 +16,7 @@ import { Prompt, SUSE } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "swiper/css/bundle";
 import "./globals.css";
-import { layoutMetaData } from "@/data/staticMetaData";
+import { layoutMetadata } from "@/data/staticMetaData";
 
 const prompt = Prompt({
   variable: "--prompt",
@@ -74,7 +74,7 @@ const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 //   };
 // }
 
-export const metadata = layoutMetaData;
+export const metadata = layoutMetadata;
 
 export default function RootLayout({ children }) {
   return (
