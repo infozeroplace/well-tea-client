@@ -21,8 +21,6 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
 
   const { data: { meta = [] } = {} } = await axios.get(url);
 
-  console.log(meta);
-
   // const metaTitle =
   //   searchParams.type && searchParams.type.split(",").join(" | ");
 

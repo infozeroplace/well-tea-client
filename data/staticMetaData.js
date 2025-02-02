@@ -1,5 +1,5 @@
 
-export const layoutMetaData = {
+export const layoutMetadata = {
     title: "Well Tea",
     description: "",
     keywords: "",
@@ -23,28 +23,28 @@ export const layoutMetaData = {
     },
 }
 
-export const aboutMetaData = {
+export const aboutMetadata = {
   title: "About",
-    description: "",
-    keywords: "",
-    openGraph: {
-      title: "About",
-      description: "",
-      images: [
-        {
-          url: "",
-          width: 1200,
-          height: 630,
-          alt: "",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "About",
-      description: "",
-      images: [""],
-    },
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
+  openGraph: {
+    title: "About",
+    description: "Well Tea is a UK Based online tea retailer",
+    images: [
+      {
+        url: "/images/chooseus-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "About Welltea",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About",
+    description: "Well Tea is a UK Based online tea retailer",
+    images: ["/images/chooseus-1.jpg"],
+  },
 };
 
 export const cookiePolicyMetadata = {

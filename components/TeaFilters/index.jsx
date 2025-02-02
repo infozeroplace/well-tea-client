@@ -9,7 +9,6 @@ export const revalidate = 0;
 const TeaFilters = ({ filters = [], category="" }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  // const [filtersByCategory, setFiltersByCategory] = useState([]);
 
   // Dynamically initialize showMore state based on filter keys
   const [showMore, setShowMore] = useState(
@@ -54,12 +53,9 @@ const TeaFilters = ({ filters = [], category="" }) => {
     [searchParams]
   );
 
-  const filteredFilters = useMemo(() => {
-    return filters.filter((item) => item.category === category || item.category ==="all");
-  }, [filters, category]);
-
-  // console.log(filters.filter((item) => item.category === category || item.category ==="all"));
-  console.log("category : ", category, "filteredFilters :", filteredFilters);
+  // const filteredFilters = useMemo(() => {
+  //   return filters.filter((item) => item.category === category || item.category ==="all");
+  // }, [filters, category]);
 
   return (
     <div>
@@ -85,8 +81,8 @@ const TeaFilters = ({ filters = [], category="" }) => {
         </div>
 
         {
-          filteredFilters
-          // filters.filter((item) => item.category === category || item.category === "all")
+          // filteredFilters
+          filters.filter((item) => item.category === category || item.category === "all")
           .map(({ title, options, key }) => (
             <div key={key} className="mb-4 pb-4 border-b border-gray-200">
               <h3 className="font-semibold mb-2">{title}</h3>

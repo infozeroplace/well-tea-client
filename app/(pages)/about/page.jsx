@@ -4,7 +4,7 @@ import {
   MarqueeText,
   Subscription,
 } from "@/components";
-import { aboutMetaData } from "@/data/staticMetaData";
+import { aboutMetadata } from "@/data/staticMetaData";
 
 import Image from "next/image";
 
@@ -37,7 +37,7 @@ export const revalidate = 0;
 //   };
 // }
 
-export const metadata = aboutMetaData;
+export const metadata = aboutMetadata;
 
 const About = () => {
   return (
