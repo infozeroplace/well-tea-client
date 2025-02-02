@@ -131,17 +131,17 @@ function ManageProduct({ product }) {
 
   return (
     <div>
-      <div className="my-5 text-brand__font__size__base">
-        <h3 className="mb-4 font-normal">Product Unit</h3>
+      <div className="px-5 pb-5 bg-teagreen-100 text-brand__font__size__base">
+        <h3 className="mb-4 font-normal">Choose Type</h3>
         <div className="flex gap-4">
           {product?.unitPrices?.map((item, index) => (
             <button
               key={item?.unit}
               onClick={() => handleUnitSelect(item)}
-              className={`py-1.5 px-10 rounded-full ${
+              className={`py-1.5 px-10 rounded-md text-teagreen-600 border border-teagreen-500 ${
                 selectedUnitObj === item
-                  ? "bg-teagreen-600 text-white"
-                  : "border text-teagreen-600 bg-teagreen-100"
+                  ? "border-1.5 border-teagreen-600"
+                  : ""
               }`}
             >
               {item?.unit}
@@ -186,7 +186,7 @@ function ManageProduct({ product }) {
                   value="subscribe"
                   checked={purchaseType === "subscribe"}
                   onChange={() => setPurchaseType("subscribe")}
-                  className="form-radio h-5 w-5 text-green-600 mr-3"
+                  className="form-radio h-5 w-5 text-teagreen-600 mr-3"
                 />
                 <span className="">Subscribe and Save</span>
                 <span className="ml-auto">

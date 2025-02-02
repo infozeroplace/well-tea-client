@@ -49,7 +49,7 @@ const ProductCategoryScreen = async ({
   const queryParams = new URLSearchParams(searchParams).toString();
   const url = `/public/product/list?category=${decodedCategory}&${queryParams}`;
 
-  const { data: { data = [] } = {} } = await axios.get(url);
+  const { data: { data = [], meta = {} } = {} } = await axios.get(url);
 
   const metaTitle =
     searchParams.type && searchParams.type.split(",").join(" | ");
@@ -63,7 +63,7 @@ const ProductCategoryScreen = async ({
           searchParams.type ? capitalizeEachWord(metaTitle) : "All Products"
         }
       />
-      <ProductList products={data} category={decodedCategory} />
+      <ProductList products={data} category={decodedCategory} meta={meta}/>
     </>
   );
 };

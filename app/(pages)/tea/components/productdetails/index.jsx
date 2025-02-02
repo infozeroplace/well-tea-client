@@ -71,7 +71,7 @@ const ProductDetails = ({ product }) => {
       </div>
 
       {availableOptions.length > 0 && (
-        <div className="my-5">
+        <div className="mt-5 p-5 bg-teagreen-100">
           <h3 className="mb-4 font-normal">Available As</h3>
           <div className="flex flex-wrap gap-2">
             {availableOptions.map(({ teaFormat, urlParameter }) => {
@@ -83,9 +83,9 @@ const ProductDetails = ({ product }) => {
                 <Link
                   href={isSelected ? "#" : `/${urlParameter}`}
                   key={teaFormat}
-                  className={`py-1.5 px-5 text-teagreen-800 bg-teagreen-100 rounded-full text-sm capitalize border ${
+                  className={`py-1.5 px-10 text-teagreen-600 font-brand__font__light rounded-md text-brand__font__size__base capitalize border ${
                     isSelected
-                      ? "border-teagreen-600 bg-inherit cursor-not-allowed pointer-events-none"
+                      ? "border-1.5 border-teagreen-600 bg-inherit cursor-not-allowed pointer-events-none"
                       : ""
                   }`}
                   aria-disabled={isSelected ? "true" : "false"}
