@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { RiPriceTagFill } from "react-icons/ri";
 import { EffectFade, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ReactImageMagnify from "react-image-magnify";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -58,18 +59,48 @@ function ProductSlider({ product }) {
             setIsFirstSlide(swiper.isBeginning);
             setIsLastSlide(swiper.isEnd);
           }}
-          className="w-full mb-4 relative group"
+          // onRealIndexChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          // onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          className="w-full mb-4 relative group !overflow-visible"
         >
           {product?.slideImages?.map((image) => (
             <SwiperSlide
               key={image}
               className="flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
             >
-              <Image
+              {/* <Image
                 src={`${env.image_path}/${image}`}
                 alt={extractAlterText(image)}
                 width={600}
                 height={600}
+                // objectFit="cover"
+              /> */}
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: extractAlterText(image),
+                    isFluidWidth: true,
+                    // src: `${env.image_path}/${image}`,
+                    src: "/products/product_07_square.jpg",
+                  },
+                  largeImage: {
+                    src: "/products/product_07_square.jpg",
+                    width: 1200,
+                    height: 1200,
+                  },
+                  enlargedImageContainerStyle: {
+                    zIndex: "1500",
+                    backgroundColor: "white",
+                    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+                  },
+                  // enlargedImagePosition: enlargedImagePosition,
+                  // enlargedImageContainerDimensions: {
+                  //   width: "200%",
+                  //   height: "125%",
+                  // },
+                  // shouldUsePositiveSpaceLens: true,
+                  isHintEnabled: true,
+                }}
               />
             </SwiperSlide>
           ))}

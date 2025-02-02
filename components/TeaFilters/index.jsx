@@ -82,37 +82,43 @@ const TeaFilters = ({ filters = [], category = "" }) => {
 
         {
           // filteredFilters
-          filters.filter((item) => item.category === category || item.category === "all")
-          .map(({ title, options, key }) => (
-            <div key={key} className="mb-4 pb-4 border-b border-gray-200">
-              <h3 className="font-semibold mb-2">{title}</h3>
-              <div>
-                {options
-                  .slice(0, showMore[key] ? options.length : 10)
-                  .map((option) => (
-                    <label key={option.param} className="block">
-                      <input
-                        type="checkbox"
-                        checked={isChecked(key, option.param)}
-                        onChange={() => handleCheckboxChange(key, option.param)}
-                      />
-                      <span className="ml-2 text-sm capitalize">
-                        {option.param}
-                      </span>
-                    </label>
-                  ))}
+          filters
+            .filter(
+              (item) => item.category === category || item.category === "all"
+            )
+            .map(({ title, options, key }) => (
+              <div key={key} className="mb-4 pb-4 border-b border-gray-200">
+                <h3 className="font-semibold mb-2">{title}</h3>
+                <div>
+                  {options
+                    .slice(0, showMore[key] ? options.length : 10)
+                    .map((option) => (
+                      <label key={option.param} className="block">
+                        <input
+                          type="checkbox"
+                          checked={isChecked(key, option.param)}
+                          onChange={() =>
+                            handleCheckboxChange(key, option.param)
+                          }
+                        />
+                        <span className="ml-2 text-sm capitalize">
+                          {option.param}
+                        </span>
+                      </label>
+                    ))}
 
-              {options.length > 10 && (
-                <button
-                  onClick={() => handleShowMore(key)}
-                  className="text-brand__font__size__sm"
-                >
-                  {showMore[key] ? "less" : "more..."}
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
+                  {options.length > 10 && (
+                    <button
+                      onClick={() => handleShowMore(key)}
+                      className="text-brand__font__size__sm"
+                    >
+                      {showMore[key] ? "less" : "more..."}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))
+        }
       </div>
 
       {isOpen && (
