@@ -32,7 +32,7 @@ export const aboutMetadata = {
     description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
-        url: "/images/chooseus-1.jpg",
+        url: "https://api.welltea.zeroplace.co/public/image/upload/matcha-super%201__1738490260860_ebdaef3ed914d09c.jpg",
         width: 1200,
         height: 630,
         alt: "About Welltea",
