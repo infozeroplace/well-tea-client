@@ -71,7 +71,7 @@ const ProductDetails = ({ product }) => {
       </div>
 
       {availableOptions.length > 0 && (
-        <div className="mt-5 p-5 bg-teagreen-100">
+        <div className="mt-5 p-5">
           <h3 className="mb-4 font-normal">Available As</h3>
           <div className="flex flex-wrap gap-2">
             {availableOptions.map(({ teaFormat, urlParameter }) => {
