@@ -80,11 +80,11 @@ function ProductSlider({ product }) {
                   smallImage: {
                     alt: extractAlterText(image),
                     isFluidWidth: true,
-                    // src: `${env.image_path}/${image}`,
-                    src: "/products/product_07_square.jpg",
+                    src: `${env.image_path}/${image}`,
+                    // src: "/products/product_07_square.jpg",
                   },
                   largeImage: {
-                    src: "/products/product_07_square.jpg",
+                    src: `${env.image_path}/${image}`,
                     width: 1200,
                     height: 1200,
                   },
