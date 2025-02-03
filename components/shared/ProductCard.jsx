@@ -153,7 +153,7 @@ const ProductCard = ({ product }) => {
             Choose weight for cart
           </p>
           <div className="flex justify-between px-4 py-1">
-            {product?.unitPrices?.map((item, index) => (
+            {product?.unitPrices?.slice(0, 3).map((item, index) => (
               <button
                 key={index}
                 onClick={() => {

@@ -135,7 +135,7 @@ function ManageProduct({ product }) {
         <h3 className="mb-1 font-normal text-brand__font__size__sm">
           Choose Type
         </h3>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {product?.unitPrices?.map((item, index) => (
             <button
               key={item?.unit}
