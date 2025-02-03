@@ -6,7 +6,7 @@ import TeaFilters from "../TeaFilters";
 import TeaSort from "../TeaSort";
 import { ProductCard } from "../shared";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 
 const ProductList = ({ products, category, meta }) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);

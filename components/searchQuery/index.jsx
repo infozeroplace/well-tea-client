@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 
 function SearchQuery({ initialSearchTerm }) {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);

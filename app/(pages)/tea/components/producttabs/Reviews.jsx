@@ -1,7 +1,7 @@
 import StarRating from "@/components/shared/StarRating";
 import useToast from "@/hooks/useToast";
 import { usePostReviewMutation } from "@/services/features/review/reviewApi";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";

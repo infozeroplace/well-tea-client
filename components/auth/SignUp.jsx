@@ -10,7 +10,7 @@ import {
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
-import { Input, Spinner } from "@nextui-org/react";
+import { Input, Spinner } from "@heroui/react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -113,7 +113,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   };
 
   return (
-    <div
+    (<div
       className={`${
         showForm === "sign-up"
           ? "block translate-x-0 opacity-1"
@@ -218,7 +218,6 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
           {isLoading ? <Spinner /> : <span>Submit</span>}
         </button>
       </form>
-
       <div className="text-teagreen-500 text-center">
         Have an account?{" "}
         <span
@@ -228,7 +227,6 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
           Sign in now
         </span>
       </div>
-
       <div className="flex items-center my-4 xl:my-6">
         <div className="w-full h-[1px] bg-slate-300"></div>
         <div className="text-xl font-semibold text-center mx-2">Or</div>
@@ -238,7 +236,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
       <div className="flex justify-center gap-3">
         <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
-    </div>
+    </div>)
   );
 };
 

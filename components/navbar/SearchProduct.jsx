@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SectionLinkButton } from '../shared';
 import { usePathname } from 'next/navigation';
-import { Spinner } from '@nextui-org/react';
+import { Spinner } from "@heroui/react";
 
 const SearchProduct = ({ buttonClass }) => {
   const [searchTerm, setSearchTerm] = useState("");

@@ -3,7 +3,7 @@
 import useToast from "@/hooks/useToast";
 import { useForgotPasswordMutation } from "@/services/features/auth/authApi";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -42,7 +42,7 @@ const ForgetPasswordScreen = () => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-[#EEF2F2]">
+    (<div className="flex justify-center items-center bg-[#EEF2F2]">
       <div className="max-w-[510px] w-full px-5 section-gap">
           <div className="my-12 text-center">
             <h4 className="text-4xl font-semibold text-teagreen-600 mb-3">
@@ -86,7 +86,7 @@ const ForgetPasswordScreen = () => {
             </button>
           </form>
       </div>
-    </div>
+    </div>)
   );
 };
 

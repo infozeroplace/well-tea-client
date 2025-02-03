@@ -6,7 +6,7 @@ import { useResetPasswordMutation } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -68,7 +68,7 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-[#EEF2F2]">
+    (<div className="flex justify-center items-center bg-[#EEF2F2]">
       <div className="max-w-[510px] w-full px-5 section-gap">
         <div className="my-12 text-center">
           <h4 className="text-4xl font-semibold text-teagreen-600 mb-3">
@@ -125,7 +125,7 @@ const ResetPasswordScreen = () => {
           </div>
         </form>
       </div>
-    </div>
+    </div>)
   );
 };
 
