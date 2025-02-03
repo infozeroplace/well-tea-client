@@ -27,33 +27,32 @@ export async function generateMetadata({ params }) {
   } = await axios.get(`/public/product/${slug}`);
 
   const siteUrl = "welltea.zeroplace.co/";
+  const imageUrl = `${env.image_path}/${product?.thumbnails[0]}` || "/images/product_one.jpg";
+  const title = `${capitalizeEachWord(product?.metaTitle)} | Well Tea`;
 
   return {
     title: `${capitalizeEachWord(product?.metaTitle)}`,
     description: product?.shortDescription,
     openGraph: {
-      title: `${capitalizeEachWord(product?.metaTitle)}`,
+      title: title,
       description: product?.shortDescription,
       url: `${siteUrl}${product?.urlParameter}`,
       images: [
         {
-          url:
-            `${env.image_path}/${product?.thumbnails[0]}` ||
-            "/images/product_one.jpg",
+          url: imageUrl,
           width: 1200,
           height: 630,
-          alt: product?.metaTitle,
+          alt: title,
         },
       ],
+      type: "website",
+      siteName: "Well Tea",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product?.metaTitle} | Well Tea`,
+      title: title,
       description: product?.shortDescription,
-      images: [
-        `${env.image_path}/${product?.thumbnails[0]}` ||
-          "/images/product_one.jpg",
-      ],
+      images: [imageUrl],
     },
   };
 }
