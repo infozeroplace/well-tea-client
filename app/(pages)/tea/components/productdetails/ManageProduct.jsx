@@ -132,13 +132,15 @@ function ManageProduct({ product }) {
   return (
     <div>
       <div className="mt-4 text-brand__font__size__base">
-        <h3 className="mb-1 font-normal">Choose Type</h3>
-        <div className="flex gap-4">
+        <h3 className="mb-1 font-normal text-brand__font__size__sm">
+          Choose Type
+        </h3>
+        <div className="flex gap-2">
           {product?.unitPrices?.map((item, index) => (
             <button
               key={item?.unit}
               onClick={() => handleUnitSelect(item)}
-              className={`py-1.5 px-10 rounded-md text-teagreen-600 border border-teagreen-600 ${
+              className={`py-1.5 px-10 rounded-md text-teagreen-600 border border-teagreen-600 text-brand__font__size__sm ${
                 selectedUnitObj === item
                   ? "bg-teagreen-600 text-white cursor-not-allowed pointer-events-none"
                   : ""

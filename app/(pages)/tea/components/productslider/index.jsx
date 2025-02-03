@@ -5,7 +5,7 @@ import extractAlterText from "@/utils/extractAlterText";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RiPriceTagFill } from "react-icons/ri";
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 import { EffectFade, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -68,14 +68,14 @@ function ProductSlider({ product }) {
               key={image}
               className="flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
             >
-              {/* <Image
+              <Image
                 src={`${env.image_path}/${image}`}
                 alt={extractAlterText(image)}
                 width={600}
                 height={600}
                 // objectFit="cover"
-              /> */}
-              <ReactImageMagnify
+              />
+              {/* <ReactImageMagnify
                 {...{
                   smallImage: {
                     alt: extractAlterText(image),
@@ -101,7 +101,7 @@ function ProductSlider({ product }) {
                   // shouldUsePositiveSpaceLens: true,
                   isHintEnabled: true,
                 }}
-              />
+              /> */}
             </SwiperSlide>
           ))}
           <button
