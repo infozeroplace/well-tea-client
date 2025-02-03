@@ -66,14 +66,14 @@ function ProductSlider({ product }) {
           {product?.slideImages?.map((image) => (
             <SwiperSlide
               key={image}
-              className="flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
+              className="!flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
             >
               <Image
                 src={`${env.image_path}/${image}`}
                 alt={extractAlterText(image)}
                 width={600}
                 height={600}
-                // objectFit="cover"
+                objectFit="cover"
               />
               {/* <ReactImageMagnify
                 {...{
