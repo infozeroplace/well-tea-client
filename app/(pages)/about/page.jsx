@@ -10,34 +10,35 @@ import Image from "next/image";
 
 export const revalidate = 0;
 
+export async function generateMetadata() {
+  // return {
+  //   title: "About",
+  //   description: "",
+  //   keywords: "",
+  //   openGraph: {
+  //     title: "About",
+  //     description: "",
+  //     images: [
+  //       {
+  //         url: "",
+  //         width: 1200,
+  //         height: 630,
+  //         alt: "",
+  //       },
+  //     ],
+  //   },
+  //   twitter: {
+  //     card: "summary_large_image",
+  //     title: "About",
+  //     description: "",
+  //     images: [""],
+  //   },
+  // };
 
-// export async function generateMetadata() {
-//   return {
-//     title: "About",
-//     description: "",
-//     keywords: "",
-//     openGraph: {
-//       title: "About",
-//       description: "",
-//       images: [
-//         {
-//           url: "",
-//           width: 1200,
-//           height: 630,
-//           alt: "",
-//         },
-//       ],
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: "About",
-//       description: "",
-//       images: [""],
-//     },
-//   };
-// }
+  return aboutMetadata;
+}
 
-export const metadata = aboutMetadata;
+// export const metadata = aboutMetadata;
 
 const About = () => {
   return (

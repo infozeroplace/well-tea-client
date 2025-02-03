@@ -1,27 +1,26 @@
-
 export const layoutMetadata = {
+  title: "Well Tea",
+  description: "",
+  keywords: "",
+  openGraph: {
     title: "Well Tea",
     description: "",
-    keywords: "",
-    openGraph: {
-      title: "Well Tea",
-      description: "",
-      images: [
-        {
-          url: "",
-          width: 1200,
-          height: 630,
-          alt: "",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Well Tea",
-      description: "",
-      images: [""],
-    },
-}
+    images: [
+      {
+        url: "",
+        width: 1200,
+        height: 630,
+        alt: "",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Well Tea",
+    description: "",
+    images: [""],
+  },
+};
 
 export const aboutMetadata = {
   title: "About",
@@ -43,7 +42,9 @@ export const aboutMetadata = {
     card: "summary_large_image",
     title: "About",
     description: "Well Tea is a UK Based online tea retailer",
-    images: ["/images/chooseus-1.jpg"],
+    images: [
+      "https://api.welltea.zeroplace.co/public/image/upload/matcha-super%201__1738490260860_ebdaef3ed914d09c.jpg",
+    ],
   },
 };
 
@@ -317,4 +318,3 @@ export const termsConditionsMetadata = {
     images: [""],
   },
 };
-
