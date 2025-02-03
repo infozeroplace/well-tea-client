@@ -8,6 +8,7 @@ import {
   RelatedProducts,
   YoutubeVideo,
 } from "../tea/components";
+import { CommonBanner } from "@/components";
 
 export const revalidate = 0;
 
@@ -32,10 +33,10 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${capitalizeEachWord(product?.metaTitle)}`,
-    description: product?.shorDescription,
+    description: product?.shortDescription,
     openGraph: {
       title: title,
-      description: product?.shorDescription,
+      description: product?.shortDescription,
       url: `${siteUrl}${product?.urlParameter}`,
       images: [
         {
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: title,
-      description: product?.shorDescription,
+      description: product?.shortDescription,
       images: [imageUrl],
     },
   };
@@ -67,29 +68,32 @@ const ProductDetail = async ({ params }) => {
     } = await axios.get(`/public/product/${slug}`);
 
     return (
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
-        <div className="container-narrow mb-10 flex flex-col lg:flex-row gap-10">
-          <div className="basis-[60%] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[750px] w-full">
-            <ProductSlider product={product} />
-          </div>
-          <div className="basis-[40%] w-full">
-            <ProductDetails product={product} />
-          </div>
-        </div>
-        <div className="container-narrow">
-          <ProductTabs product={product} />
-        </div>
-        {product.youtubeLink && (
-          <div className="container-narrow flex justify-center items-center">
-            <div className="max-w-[1024px] w-full">
-              <YoutubeVideo youtubeLink={product.youtubeLink} />
+      <>
+        <CommonBanner bannerTitle={product?.title}/>
+        <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
+          <div className="container-narrow mb-10 flex flex-col lg:flex-row gap-10">
+            <div className="basis-[60%] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[750px] w-full">
+              <ProductSlider product={product} />
+            </div>
+            <div className="basis-[40%] w-full">
+              <ProductDetails product={product} />
             </div>
           </div>
-        )}
-        <div>
-          <RelatedProducts category={product?.category} />
+          <div className="container-narrow">
+            <ProductTabs product={product} />
+          </div>
+          {product.youtubeLink && (
+            <div className="container-narrow flex justify-center items-center">
+              <div className="max-w-[1024px] w-full">
+                <YoutubeVideo youtubeLink={product.youtubeLink} />
+              </div>
+            </div>
+          )}
+          <div>
+            <RelatedProducts category={product?.category} />
+          </div>
         </div>
-      </div>
+      </>
     );
   } catch (error) {
     notFound();
