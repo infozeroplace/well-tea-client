@@ -1,19 +1,25 @@
 "use client";
 
 import { useGetSystemConfigQuery } from "@/services/features/system/systemApi";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { GoPlus } from "react-icons/go";
 import TeaFilters from "../TeaFilters";
 import TeaSort from "../TeaSort";
 import { ProductCard } from "../shared";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Spinner } from "@nextui-org/react";
 
 const ProductList = ({ products, category, meta }) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [productLimit, setProductLimit] = useState(meta.limit);
-  const [isLoading, setIsLoading] = useState(false);
+  const [productLimit, setProductLimit] = useState(meta.limit || 0);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Ensure productLimit syncs with meta.limit without unnecessary re-renders
+  useEffect(() => {
+    if (productLimit !== meta.limit) {
+      setProductLimit(meta.limit || 0);
+    }
+  }, [meta.limit]);
 
   const { data: { data: { filters } = [] } = {} } = useGetSystemConfigQuery();
 
@@ -21,28 +27,23 @@ const ProductList = ({ products, category, meta }) => {
     setIsFilterVisible((prev) => !prev);
   };
 
-  const handleShowProducts = async () => {
-    setIsLoading(true);
-    try {
-      const newLimit = productLimit + meta.limit;
-      setProductLimit(newLimit < meta.totalDocs ? newLimit : meta.totalDocs);
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("limit", newLimit < meta.totalDocs ? newLimit : meta.totalDocs );
-      router.push(`?${params.toString()}`);
-    } catch (error) {
-      console.error("Error loading more products:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const handleLoadMoreProducts = async () => {
+    if (productLimit >= meta.totalDocs) return;
 
-  // console.log(productLimit, products);
-  // console.log(isLoading);
+    const newLimit = Math.min(productLimit + meta.limit, meta.totalDocs);
+    setProductLimit(newLimit);
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("limit", newLimit);
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <div className="banner-gap">
       <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
         <div className="flex gap-5">
+          {/* Sidebar for Filters */}
           <aside
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
               isFilterVisible ? "max-w-[200px] w-full py-5" : "max-w-0 w-0"
@@ -53,6 +54,7 @@ const ProductList = ({ products, category, meta }) => {
             )}
           </aside>
 
+          {/* Main Product List */}
           <div className="flex-1 w-full">
             <div className="py-3 flex justify-end items-center gap-5">
               <div className="md:hidden">
@@ -60,28 +62,32 @@ const ProductList = ({ products, category, meta }) => {
               </div>
               <TeaSort onToggleFilter={toggleFilterVisibility} />
             </div>
-            {isLoading && <Spinner />}
+
             {products.length > 0 ? (
-              <div>
+              <div className="flex flex-col gap-20 w-full mb-10">
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-                  {products.map((product) => (
+                  {products.slice(0, productLimit).map((product) => (
                     <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
 
-                <div className="text-center mt-10">Showing {productLimit} of {meta.totalDocs}</div>
+                {/* Show more button */}
+                <div className="flex flex-col gap-4 w-full">
+                  <span className="text-center font-brand__font__light">
+                    Showing {Math.min(productLimit, meta.totalDocs)} of{" "}
+                    {meta.totalDocs}
+                  </span>
 
-                {meta.totalDocs > productLimit && (
-                <div className="flex items-center justify-center">
-                  <button
-                    onClick={handleShowProducts}
-                    className="py-2 px-4 my-10 text-center border flex gap-5 items-center justify-between"
-                  >
-                    Load More Products {isLoading && <Spinner />}
-                    {/* <span>+</span> */}
-                  </button>
+                  {productLimit < meta.totalDocs && (
+                    <button
+                      onClick={handleLoadMoreProducts}
+                      className="max-w-[250px] w-full mx-auto py-2 px-4 text-center border border-teagreen-500 text-teagreen-700 flex gap-5 items-center justify-between font-brand__font__light"
+                    >
+                      <span>Load More</span>
+                      <GoPlus />
+                    </button>
+                  )}
                 </div>
-                )} 
               </div>
             ) : (
               <div className="h-full flex flex-col justify-center items-center">

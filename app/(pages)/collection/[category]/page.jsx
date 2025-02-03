@@ -47,23 +47,23 @@ const ProductCategoryScreen = async ({
 
   const searchParams = await Promise.resolve(rawSearchParams);
   const queryParams = new URLSearchParams(searchParams).toString();
-  const url = `/public/product/list?category=${decodedCategory}&${queryParams}`;
 
-  const { data: { data = [], meta = {} } = {} } = await axios.get(url);
-
-  const metaTitle =
-    searchParams.type && searchParams.type.split(",").join(" | ");
-
-  const siteUrl = "http://welltea.zeroplace.co/";
+  const { data: { data = [], meta = {} } = {} } = await axios.get(
+    `/public/product/list?category=${decodedCategory}&${queryParams}`
+  );
 
   return (
     <>
       <CommonBanner
         bannerTitle={
-          searchParams.type ? capitalizeEachWord(metaTitle) : "All Products"
+          searchParams.type
+            ? capitalizeEachWord(
+                searchParams.type && searchParams.type.split(",").join(" | ")
+              )
+            : "All Products"
         }
       />
-      <ProductList products={data} category={decodedCategory} meta={meta}/>
+      <ProductList products={data} category={decodedCategory} meta={meta} />
     </>
   );
 };
