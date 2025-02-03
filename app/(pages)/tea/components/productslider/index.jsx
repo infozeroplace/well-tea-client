@@ -5,9 +5,9 @@ import extractAlterText from "@/utils/extractAlterText";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RiPriceTagFill } from "react-icons/ri";
+import ReactImageMagnify from "react-image-magnify";
 import { EffectFade, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ReactImageMagnify from "react-image-magnify";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
