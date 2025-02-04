@@ -3,9 +3,13 @@
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 import { FaXTwitter } from "react-icons/fa6";
 import { GrFacebookOption } from "react-icons/gr";
+import { env } from "@/config/env";
 
 function SocialShare({ productUrl }) {
-  const siteUrl = "https://welltea.zeroplace.com/";
+  const siteUrl = "https://welltea.zeroplace.co/";
+
+  console.log(env.app_url);
+
   // const socialSites = [
   //   {
   //     name: "Facebook",
