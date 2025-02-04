@@ -72,7 +72,6 @@ function ProductSlider({ product }) {
             <SwiperSlide
               key={image}
               className="!flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
-              className="flex justify-center items-center bg-teagreen-100 rounded-2xl"
               onClick={onOpen}
             >
               <Image

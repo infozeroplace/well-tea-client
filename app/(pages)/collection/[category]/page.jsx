@@ -18,22 +18,48 @@ export async function generateMetadata({
   const { category } = await params;
   const decodedCategory = await decodeURIComponent(category);
   const searchParams = await Promise.resolve(rawSearchParams);
+  const queryParams = new URLSearchParams(searchParams).toString();
 
   const metaTitle =
-    searchParams.type && searchParams.type.split(",").join(" | ");
+    searchParams.productType && searchParams.productType.split(",").slice(0, 3).join(" | ");
+  
+  // const title = searchParams.productType
+  //   ? capitalizeEachWord(metaTitle)
+  //   : "All Products";
+
+  const title = `${capitalizeEachWord(decodedCategory)} Products`;
+  const imageUrl = "/images/chooseus-1.jpg";
+  const siteUrl = "welltea.zeroplace.co/";
+
+  const queryString = queryParams ? `?${queryParams}` : "";
+  const fullUrl = `${siteUrl}collection/${decodedCategory}${queryString}`;
+
+  // console.log(fullUrl);
 
   return {
-    title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
+    title: title,
     description: `Explore products under ${decodedCategory}.`,
-    keywords: `${decodedCategory}, ${searchParams.type}`,
+    keywords: `${decodedCategory}, ${searchParams.productType}`,
     openGraph: {
-      title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
+      title: title,
       description: `Explore products under ${decodedCategory}.`,
+      url: fullUrl,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: "website",
+      siteName: "Well Tea",
     },
     twitter: {
       card: "summary_large_image",
-      title: searchParams.type ? capitalizeEachWord(metaTitle) : "All Products",
+      title: title,
       description: `Explore products under ${decodedCategory}.`,
+      images: [imageUrl],
     },
   };
 }
