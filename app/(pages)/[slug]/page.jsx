@@ -8,6 +8,7 @@ import {
   RelatedProducts,
   YoutubeVideo,
 } from "../tea/components";
+import ProductView from "../tea/components/productdetails/ProductView";
 
 export const revalidate = 0;
 
@@ -97,6 +98,9 @@ const ProductDetail = async ({ params }) => {
         {relatedProductsData.length > 0 && (
           <RelatedProducts relatedProductsData={relatedProductsData} />
         )}
+
+        {/* <ProductView /> */}
+        
       </div>
     );
   } catch (error) {

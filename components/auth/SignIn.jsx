@@ -10,7 +10,7 @@ import {
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
-import { Input, Spinner } from "@nextui-org/react";
+import { Input, Spinner } from "@heroui/react";
 import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
@@ -107,7 +107,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
     reset();
   };
   return (
-    <div
+    (<div
       className={`${
         showForm === "sign-in"
           ? "block translate-x-0 opacity-1"
@@ -192,7 +192,6 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
           {isLoading ? <Spinner /> : <span>Login</span>}
         </button>
       </form>
-
       <div className="text-teagreen-500 text-center">
         New customer?{" "}
         <span
@@ -211,7 +210,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
       <div className="flex justify-center items-center gap-3">
         <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
-    </div>
+    </div>)
   );
 };
 

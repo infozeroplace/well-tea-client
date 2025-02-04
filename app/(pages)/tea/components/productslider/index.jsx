@@ -1,5 +1,7 @@
 "use client";
 
+import { useDisclosure } from "@heroui/react";
+
 import { env } from "@/config/env";
 import extractAlterText from "@/utils/extractAlterText";
 import Image from "next/image";
@@ -8,6 +10,7 @@ import { RiPriceTagFill } from "react-icons/ri";
 // import ReactImageMagnify from "react-image-magnify";
 import { EffectFade, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ProductView from "../productdetails/ProductView";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -17,6 +20,8 @@ function ProductSlider({ product }) {
   const [isFirstSlide, setIsFirstSlide] = useState(true);
   const [isFirstThumb, setIsFirstThumb] = useState(true);
   const [isLastThumb, setIsLastThumb] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [placement, setPlacement] = useState("auto");
 
   useEffect(() => {
     if (mainSlider) {
@@ -67,6 +72,8 @@ function ProductSlider({ product }) {
             <SwiperSlide
               key={image}
               className="!flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
+              className="flex justify-center items-center bg-teagreen-100 rounded-2xl"
+              onClick={onOpen}
             >
               <Image
                 src={`${env.image_path}/${image}`}
@@ -81,7 +88,6 @@ function ProductSlider({ product }) {
                     alt: extractAlterText(image),
                     isFluidWidth: true,
                     src: `${env.image_path}/${image}`,
-                    // src: "/products/product_07_square.jpg",
                   },
                   largeImage: {
                     src: `${env.image_path}/${image}`,
@@ -173,6 +179,13 @@ function ProductSlider({ product }) {
           </div>
         )}
       </div>
+      {/* Product pop-up */}
+      <ProductView
+        product={product}
+        isOpen={isOpen}
+        placement={placement}
+        onOpenChange={onOpenChange}
+      />
     </div>
   );
 }

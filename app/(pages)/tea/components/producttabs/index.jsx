@@ -1,6 +1,6 @@
 "use client";
 
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import BrewInstructions from "./BrewInstructions";
 import Description from "./Description";
 import Ingredients from "./Ingredients";

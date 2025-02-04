@@ -2,7 +2,7 @@
 
 import useRefreshToken from "@/hooks/useRefreshToken";
 import { useAppSelector } from "@/services/hook";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 import { useEffect, useState } from "react";
 
 const PersistLogin = ({ children }) => {
