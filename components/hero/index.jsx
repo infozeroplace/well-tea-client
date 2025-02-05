@@ -47,7 +47,7 @@ function Hero({ data }) {
         >
           {data.map((item, idx) => (
             <SwiperSlide key={idx} className="relative">
-              <div className=" w-full h-[30vh] md:h-full">
+              <div className=" w-full 2xl:h-[500px]">
                 <Image
                   src={`${env.app_url}${item?.bannerImagePath}`}
                   alt={extractAlterText(
@@ -55,7 +55,7 @@ function Hero({ data }) {
                   )}
                   width={1900}
                   height={750}
-                  style={{ width: "100%", height: "100%" }}
+                  className="object-cover h-full w-full"
                 />
               </div>
 
