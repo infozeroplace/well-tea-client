@@ -22,6 +22,7 @@ function ProductSlider({ product }) {
   const [isLastThumb, setIsLastThumb] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [placement, setPlacement] = useState("auto");
+  const [selectedImage, setSelectedImage] = useState(product?.slideImages[0]);
 
   useEffect(() => {
     if (mainSlider) {
@@ -33,6 +34,13 @@ function ProductSlider({ product }) {
       setIsLastThumb(thumbsSwiper.isEnd);
     }
   }, [mainSlider, thumbsSwiper]);
+
+  const handleItemClick = (index, image) => {
+    if (mainSlider) {
+      mainSlider.slideTo(index);
+    }
+    setSelectedImage(image);
+  };
 
   return (
     <div>
@@ -80,6 +88,7 @@ function ProductSlider({ product }) {
                 width={600}
                 height={600}
                 objectFit="cover"
+                className="cursor-pointer"
               />
               {/* <ReactImageMagnify
                 {...{
@@ -140,7 +149,8 @@ function ProductSlider({ product }) {
             {product?.slideImages?.map((image, index) => (
               <SwiperSlide key={image} className="cursor-pointer">
                 <div
-                  onClick={() => mainSlider?.slideTo(index)}
+                  onClick={() => handleItemClick(index, image)}
+                  // onClick={() => mainSlider?.slideTo(index)}
                   className={`bg-teagreen-300 rounded-2xl flex items-center justify-center p-1 ${
                     activeIndex === index ? "border border-teagreen-600" : ""
                   }`}
@@ -161,7 +171,8 @@ function ProductSlider({ product }) {
             {product?.slideImages?.map((image, index) => (
               <div
                 key={image}
-                onClick={() => mainSlider?.slideTo(index)}
+                onClick={() => handleItemClick(index, image)}
+                // onClick={() => {mainSlider?.slideTo(index) setSelectedImage(image)}}
                 className={`cursor-pointer bg-teagreen-300 rounded-2xl flex items-center justify-center p-1 ${
                   activeIndex === index ? "border border-teagreen-600" : ""
                 }`}
@@ -184,6 +195,8 @@ function ProductSlider({ product }) {
         isOpen={isOpen}
         placement={placement}
         onOpenChange={onOpenChange}
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
       />
     </div>
   );
