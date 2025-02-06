@@ -23,12 +23,12 @@ const ProfileScreen = () => {
     //   </div>
     // </div>
     <div className="w-full bg-gray-50 p-4">
-      <div className="bg-white p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+      <div className="bg-white p-6 section-gap">
+        <p className="text-2xl content-gap">Personal Information</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <p className="content-gap">{user?.firstName} {user?.lastName}</p>
-            <p className="content-gap">
+            <p className="mb-3">{user?.firstName} {user?.lastName}</p>
+            <p className="mb-3">
               <span className="font-semibold">Email:</span> {user?.email}
             </p>
             <p className="content-gap">
@@ -45,7 +45,7 @@ const ProfileScreen = () => {
       <div className="bg-gray-100 p-6">
         <p className="content-gap">You’re currently a</p>
         <p className="text-2xl content-gap">VIP Member - 2,186 Points</p>
-        <button className="bg-black text-white px-4 py-2 flex items-center gap-3 text-lg">
+        <button className="bg-teagreen-700 hover:bg-teagreen-600 text-white px-5 py-4 flex items-center gap-3 text-lg">
           Redeem Rewards <span className="text-xl"><GoArrowRight /></span>
         </button>
       </div>

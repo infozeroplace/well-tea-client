@@ -1,6 +1,15 @@
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { VscAccount } from "react-icons/vsc";
+import { CiSettings, CiLogout } from "react-icons/ci";
+import { BsPersonFill } from "react-icons/bs";
+import {
+  PiMapPinAreaThin,
+  PiShoppingCartThin,
+  PiListHeartThin,
+  PiGiftThin,
+  PiPersonSimpleCircleThin,
+} from "react-icons/pi";
 
 function ProfileSidebar() {
   const pathname = usePathname();
@@ -9,37 +18,37 @@ function ProfileSidebar() {
     {
       title: "My Account",
       href: "/profile",
-      icon: "HomeIcon",
+      icon: <PiPersonSimpleCircleThin />,
     },
     {
       title: "Personals & Addresses",
       href: "/profile/address",
-      icon: "MapIcon",
+      icon: <PiMapPinAreaThin />,
     },
     {
       title: "My Orders",
       href: "/profile/orders",
-      icon: "ShoppingCartIcon",
+      icon: <PiShoppingCartThin />,
     },
     {
       title: "Wishlist",
       href: "/profile/wishlist",
-      icon: "HeartIcon",
+      icon: <PiListHeartThin />,
     },
     {
       title: "My Subscriptions",
       href: "/profile/subscription",
-      icon: "GiftIcon",
+      icon: <PiGiftThin />,
     },
     {
       title: "Settings",
       href: "/profile/settings",
-      icon: "CogIcon",
+      icon: <CiSettings />,
     },
     {
       title: "Log Out",
       href: "/logout",
-      icon: "LogoutIcon",
+      icon: <CiLogout />,
     },
   ];
   return (
@@ -47,17 +56,22 @@ function ProfileSidebar() {
       <div className="flex flex-col gap-3">
         {sidebarItems.map((item, index) => (
           <Link key={index} href={item.href}>
-            <div className={`flex items-center space-x-2 ${
-              pathname === item.href? 'border-b-1 border-gray-600' : ''
-            }`}>
+            <div className={`flex items-center space-x-2 `}>
               {/* <item.icon className="h-6 w-6 text-gray-600" /> */}
-              <span className="text-nowrap">{item.title}</span>
+              {item?.icon}{" "}
+              <span
+                className={`text-nowrap ${
+                  pathname === item.href ? "border-b-1 border-gray-600" : ""
+                }`}
+              >
+                {item.title}
+              </span>
             </div>
           </Link>
         ))}
       </div>
-    </div> 
-  )
+    </div>
+  );
 }
 
 export default ProfileSidebar;
