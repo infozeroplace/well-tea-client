@@ -12,16 +12,6 @@ const ProfileScreen = () => {
   console.log("user", user);
 
   return (
-    // <div className="">
-    //   {/* <CommonBanner bannerTitle={`Hello ${user?.firstName}`} breadcrumb="Profile"/> */}
-    //   <div className="container px-20 py-20">
-    //     <h1>Personal Information</h1>
-    //     <div className="grid grid-cols-2">
-    //     <div>Personal Profile</div>
-    //     <div>Personal Address</div>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="w-full bg-gray-50 p-4">
       <div className="bg-white p-6 section-gap">
         <p className="text-2xl content-gap">Personal Information</p>

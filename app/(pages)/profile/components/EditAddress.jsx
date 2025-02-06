@@ -14,11 +14,12 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !my-auto"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 border-b-2">
               Edit Address
             </ModalHeader>
             <ModalBody>
@@ -45,8 +46,11 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button color="primary" onPress={onClose}>
-                Action
+              <Button
+                className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700"
+                onPress={onClose}
+              >
+                Edit Address
               </Button>
             </ModalFooter>
           </>

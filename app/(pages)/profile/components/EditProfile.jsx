@@ -58,7 +58,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button className="bg-teagreen-600 hover:bg-teagreen-800 text-white" onPress={onClose}>
+              <Button className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700" onPress={onClose}>
                 Update Profile
               </Button>
             </ModalFooter>

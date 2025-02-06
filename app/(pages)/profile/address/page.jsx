@@ -2,16 +2,13 @@
 
 import { useAppSelector } from "@/services/hook";
 import React, { useState } from "react";
+import { useDisclosure } from "@heroui/react";
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  useDisclosure,
-} from "@heroui/react";
-import { AddNewAddress, EditAddress, EditForm, EditProfile } from "../components";
+  AddNewAddress,
+  EditAddress,
+  EditForm,
+  EditProfile,
+} from "../components";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -94,14 +91,6 @@ function AddressScreen() {
         </div>
       </div>
 
-      {/* Update or Add form */}
-      {/* <EditForm
-        user={user}
-        editType={editType}
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      /> */}
-
       {/* Update Porfile form */}
       {editType === "profile" && (
         <EditProfile user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
@@ -112,9 +101,13 @@ function AddressScreen() {
         <EditAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
-       {/* Add New Address form */}
-       {editType === "addAddress" && (
-        <AddNewAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+      {/* Add New Address form */}
+      {editType === "addAddress" && (
+        <AddNewAddress
+          user={user}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        />
       )}
     </div>
   );
