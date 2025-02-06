@@ -15,7 +15,7 @@ function layout({ children }) {
       <div className="container-narrow my-20">
         <div className="flex gap-10">
           <ProfileSidebar />
-          <div>{children}</div>
+          <div className="w-full">{children}</div>
         </div>
       </div>
     </>
