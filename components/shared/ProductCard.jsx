@@ -14,13 +14,8 @@ const ProductCard = ({ product }) => {
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  const thumbnail1 = product?.thumbnails[0]
-    ? `${env.image_path}/${product?.thumbnails[0]}`
-    : "/products/product-back2.png";
-
-  const thumbnail2 = product?.thumbnails[1]
-    ? `${env.image_path}/${product?.thumbnails[1]}`
-    : "/products/product-back2.png";
+  const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
+  const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
 
   const handleAddToCart = (unitObj) => {
     dispatch(
@@ -50,127 +45,131 @@ const ProductCard = ({ product }) => {
   return (
     <div
       ref={cardRef}
-      className="max-w-[380px] w-full h-full bg-[#F8F8F8] relative overflow-hidden"
+      className="w-full bg-[#F8F8F8] relative overflow-hidden shadow-md flex flex-col justify-between"
     >
-      {/* Sell and Favorite Section */}
-      <div className="h-16 flex justify-between items-center text-sm px-3">
-        <div>
-          {product?.isSale ? (
-            <div className="relative z-10 w-14 h-14 border-1.5 border-rose-600 rounded-full flex items-center justify-center text-base text-rose-600 bg-white font-medium uppercase mt-3">
-              Sale
-              {/* <img src="/products/label-sale.png" alt="Sale" /> */}
+      {/* Top Section: Labels & Wishlist */}
+      <div className="h-16 flex justify-between items-center text-brand__font__size__sm px-3">
+        {product?.isSale ? (
+          <div className="relative z-[1] top-0 left-0 w-[4.3rem] h-[4.3rem] mt-8 rounded-full">
+            <div className="absolute top-0 left-0 w-full h-full bg-red-500 text-white rounded-full text-brand__font__size__xs font-brand__font__500 leading-tight border border-white flex justify-center items-center shadow-lg">
+              <div className="w-[3.8rem] h-[3.8rem] rounded-full border-2 border-dotted border-white flex flex-col items-center justify-center">
+                <span className="text-brand__font__size__base">
+                  {product.sale || 0}%
+                </span>
+                <span className="uppercase">OFF</span>
+              </div>
             </div>
-          ) : product?.isNewProduct ? (
-            <div className="uppercase text-sm bg-teagreen-500 text-white px-2 py-1">
-              new
+          </div>
+        ) : (
+          product?.isNewProduct && (
+            <div className="uppercase text-brand__font__size__xs bg-teagreen-600 text-white px-1.5 py-0.5">
+              New
             </div>
-          ) : null}
-        </div>
-        <div className="text-3xl cursor-pointer">
+          )
+        )}
+
+        <div className="text-brand__font__size__md cursor-pointer text-gray-600 hover:text-gray-800 transition-all">
           <MdFavoriteBorder />
         </div>
       </div>
 
-      <>
-        {/* Product image and descriptions */}
-        <Link
-          href={`/${product?.urlParameter}`}
-          className="px-3 flex flex-col justify-between w-full"
-        >
-          {/* Product Image */}
-          <div className="relative z-0 group w-full">
-            <Image
-              src={thumbnail1}
-              className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
-              height={316}
-              width={316}
-              alt="Product Front"
-            />
-            <Image
-              src={thumbnail2}
-              className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-              height={316}
-              width={316}
-              alt="Product Back"
-            />
-          </div>
-
-          {/* Product Content */}
-          <div
-            // style={{ display: addButtonClicked ? "none" : "block" }}
-            className={`flex flex-col justify-center w-full h-[60px] transition-all duration-300 mx-auto px-3 ${
-              addButtonClicked ? "opacity-0" : "opacity-1"
-            }`}
-          >
-            <h4 className="md:text-sm lg:text-base text-start font-normal text-teagreen-800 overflow-hidden text-ellipsis whitespace-nowrap">
-              {product?.title}
-            </h4>
-            <p className="capitalize text-sm">{product?.format}</p>
-          </div>
-        </Link>
-        {/* Add to card */}
-        <div
-          className={`border-t transform w-full mx-auto transition-all duration-300 ${
-            addButtonClicked ? "opacity-0" : "opacity-1"
-          }`}
-        >
-          <button
-            onClick={() => setAddButtonClicked(true)}
-            className="text-xs py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
-          >
-            <img
-              src="/icons/shopping-bag.svg"
-              className="absolute top-1/2 left-[22px] -translate-y-1/2 w-5"
-            />
-            <div className="text-sm">
-              {product?.isSale ? (
-                <div className="flex justify-center text-center gap-2 text-teagreen-800">
-                  <span className="font-brand__font__500">
-                    £{product?.unitPrices[0]?.salePrice} GBP
-                  </span>
-                  <span className="font-light">
-                    was £{product?.unitPrices[0]?.price}
-                  </span>
-                </div>
-              ) : (
-                <span className="font-brand__font__500 text-teagreen-800">
-                  £{product?.unitPrices[0]?.price} GBP
-                </span>
-              )}
-            </div>
-          </button>
+      {/* Product Image Section */}
+      <Link href={`/${product?.urlParameter}`} className="px-3 block">
+        <div className="relative w-full aspect-square group overflow-hidden">
+          <Image
+            src={env.app_url + product?.thumbnails[0]?.filepath}
+            className="mx-auto transition-opacity duration-300 group-hover:opacity-0 object-contain w-full h-full"
+            height={316}
+            width={316}
+            alt={product?.thumbnails[0]?.alternateText}
+          />
+          <Image
+            src={env.app_url + product?.thumbnails[1]?.filepath}
+            className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 object-contain w-full h-full"
+            height={316}
+            width={316}
+            alt={product?.thumbnails[1]?.alternateText}
+          />
         </div>
+      </Link>
 
-        {/* Weight Selection*/}
-        <div
-          className={`absolute botton-0 h-fit left-0 z-20 w-full transform transition-all duration-300 mt-1 ${
-            addButtonClicked
-              ? "-translate-y-full opacity-1"
-              : "translate-y-0 opacity-0"
-          }`}
+      {/* Product Details */}
+      <div
+        className={`px-3 py-3 transition-all duration-300 text-teagreen-700 ${
+          addButtonClicked ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <h4 className="text-brand__font__size__base font-brand__font__500 truncate">
+          {product?.title}
+        </h4>
+        {product?.teaFormat?.length ? (
+          <p className="text-brand__font__size__xs font-brand__font__500 capitalize">
+            {product?.teaFormat.join(",")}
+          </p>
+        ) : (
+          <p className="text-brand__font__size__xs font-brand__font__500 capitalize">
+            {product?.category.join(", ")}
+          </p>
+        )}
+      </div>
+
+      {/* Price & Add to Cart Button */}
+      <div
+        className={`border-t transition-all duration-300 ${
+          addButtonClicked ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <button
+          onClick={() => setAddButtonClicked(true)}
+          className="relative text-sm py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
         >
-          <p className="uppercase text-center py-1 text-sm border-b">
+          <img
+            src="/icons/shopping-bag.svg"
+            className="absolute top-1/2 left-4 -translate-y-1/2 w-5"
+            alt="Cart Icon"
+          />
+          {product?.isSale ? (
+            <div className="flex items-center gap-2">
+              <span className="font-brand__font__500 text-brand__font__size__sm">
+                £{product?.unitPrices?.[0]?.salePrice} GBP
+              </span>
+              <span className="text-gray-500 text-brand__font__size__xs">
+                was £{product?.unitPrices?.[0]?.price} GBP
+              </span>
+            </div>
+          ) : (
+            <span className="font-brand__font__500">
+              £{product?.unitPrices?.[0]?.price} GBP
+            </span>
+          )}
+        </button>
+      </div>
+
+      {/* Weight Selection (Only when Add to Cart is Clicked) */}
+      {addButtonClicked && (
+        <div className="absolute bottom-0 left-0 w-full bg-white shadow-lg z-20 transition-all duration-300">
+          <p className="uppercase text-center py-2 text-brand__font__size__xs font-brand__font__500 border-b">
             Choose weight for cart
           </p>
-          <div className="flex justify-between px-4 py-1">
+          <div className="flex justify-between px-4 py-2">
             {product?.unitPrices?.slice(0, 3).map((item, index) => (
               <button
                 key={index}
-                onClick={() => {
-                  handleAddToCart(item);
-                }}
-                className={`flex flex-col items-center ${
+                onClick={() => handleAddToCart(item)}
+                className={`flex flex-col items-center w-full py-2 text-teagreen-600 hover:text-teagreen-800 duration-300 ${
                   index !== product.unitPrices?.length - 1 ? "border-r" : ""
-                } w-full py-1 text-teagreen-500 hover:text-teagreen-700`}
+                }`}
               >
-                <div>{item?.unit}</div>
-                <div>|</div>
-                <div>£{product?.isSale ? item?.salePrice : item?.price}</div>
+                <span className="font-brand__font__500">{item?.unit}</span>
+                <span className="text-xs text-gray-400">|</span>
+                <span className="font-semibold">
+                  £{product?.isSale ? item?.salePrice : item?.price}
+                </span>
               </button>
             ))}
           </div>
         </div>
-      </>
+      )}
     </div>
   );
 };

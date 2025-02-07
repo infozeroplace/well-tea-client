@@ -12,7 +12,11 @@ const ShortDescription = ({ desc }) => {
   return (
     <div className="mt-4">
       <p>
-        {showFullDescription ? desc : `${desc?.slice(0, 150)}...`}{" "}
+        {showFullDescription
+          ? desc
+          : desc?.length > 150
+          ? `${desc?.slice(0, 150)}...`
+          : desc}
         {desc?.length > 150 && (
           <button
             onClick={toggleDescription}

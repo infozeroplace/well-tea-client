@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { SectionButton, CommonBanner, YouMayAlsoLike } from "@/components";
-import {
-  updateQuantity,
-  removeFromCart,
-} from "@/services/features/cart/cartSlice";
-import { env } from "@/config/env";
 import axios from "@/api/axios";
+import { CommonBanner, SectionButton, YouMayAlsoLike } from "@/components";
+import { env } from "@/config/env";
+import {
+  removeFromCart,
+  updateQuantity,
+} from "@/services/features/cart/cartSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -21,7 +21,7 @@ const CartPage = () => {
   const totalCost = useSelector((state) => state?.cart?.totalCost);
   const dispatch = useDispatch();
   const ids = cartItems.map((item) => item?.product?._id);
-  const[ relatedProductsData, setRelatedProductsData] = useState([]);
+  const [relatedProductsData, setRelatedProductsData] = useState([]);
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
@@ -35,8 +35,6 @@ const CartPage = () => {
     };
     fetchRelatedProduct();
   }, []);
-
-  
 
   const handleIncreaseQuantity = (
     productId,
@@ -117,9 +115,8 @@ const CartPage = () => {
                     >
                       <td className="py-4 flex items-center gap-1 md:gap-5 pl-2 sm:pl-5">
                         <img
-                          src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
-                          // src="/products/product_01.jpg"
-                          alt={item?.product?.title}
+                          src={`${env.app_url}${item.product?.thumbnails[0]?.filepath}`}
+                          alt={item.product?.thumbnails[0]?.alternateText}
                           className="w-20 h-20 object-cover"
                         />
                         <div>
@@ -180,9 +177,11 @@ const CartPage = () => {
                   <h3>Your cart is empty!</h3>
                 </div>
               )}
-             {relatedProductsData.length > 0 && <div className="px-10 bg-teagreen-100 py-5">
-                <YouMayAlsoLike relatedProductsData={relatedProductsData} />
-              </div>}
+              {relatedProductsData.length > 0 && (
+                <div className="px-10 bg-teagreen-100 py-5">
+                  <YouMayAlsoLike relatedProductsData={relatedProductsData} />
+                </div>
+              )}
             </div>
           </div>
 

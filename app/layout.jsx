@@ -8,6 +8,7 @@ import {
 } from "@/components";
 import PersistLogin from "@/components/PersistLogin";
 import { env } from "@/config/env";
+import { layoutMetadata } from "@/data/staticMetaData";
 import ReduxProvider from "@/services/ReduxProvider";
 import "@/styles/quillstyle.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -16,7 +17,6 @@ import { Prompt, SUSE } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "swiper/css/bundle";
 import "./globals.css";
-import { layoutMetadata } from "@/data/staticMetaData";
 
 const prompt = Prompt({
   variable: "--prompt",

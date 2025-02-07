@@ -1,16 +1,16 @@
 "use client";
 
-import { SectionButton, SectionLinkButton } from "@/components/shared";
-import Image from "next/image";
-import React, { useState } from "react";
+import { SectionLinkButton } from "@/components/shared";
 import { env } from "@/config/env";
+import Image from "next/image";
+import { useState } from "react";
 
 const WhyChooseUs = ({ data }) => {
   const discoverItems = data;
 
   const [chooseOption, setChooseOption] = useState({
-    iconPath: discoverItems[0]?.iconPath || "",
-    imagePath: discoverItems[0]?.imagePath || "",
+    iconPath: discoverItems[0]?.iconPath[0]?.filepath || "",
+    imagePath: discoverItems[0]?.imagePath[0]?.filepath || "",
     description: discoverItems[0]?.description || "",
   });
 
@@ -18,12 +18,17 @@ const WhyChooseUs = ({ data }) => {
 
   const handleClick = (item) => {
     const { title, iconPath, imagePath, description } = item;
-    setChooseOption({ ...chooseOption, iconPath, imagePath, description });
+    setChooseOption({
+      ...chooseOption,
+      iconPath: iconPath[0]?.filepath,
+      imagePath: imagePath[0]?.filepath,
+      description,
+    });
     setSelected(title);
   };
 
   return (
-    <div className=" container section-gap px-5 sm:px-10 md:px-14 lg:px-0 lg:pl-20">
+    <div className=" container section-gap px-5 sm:px-10 md:px-14 lg:px-10">
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-3 lg:col-span-1 lg:border-r border-slate-200 font-light flex flex-col justify-between items-center lg:items-start pr-2">
           <div>
@@ -47,20 +52,24 @@ const WhyChooseUs = ({ data }) => {
           </div>
           <div className="mt-3">
             <div className="mb-3">
-              {chooseOption?.iconPath &&
+              {chooseOption?.iconPath && (
                 <Image
                   src={`${env.app_url}${chooseOption?.iconPath}`}
                   alt={selected}
                   width={30}
                   height={30}
                 />
-              }
+              )}
             </div>
             <div className="text-xs 2xl:text-base text-center lg:text-left lg:text-base mb-2 lg:mb-5">
               {chooseOption?.description}
             </div>
             <div className="flex justify-center md:justify-start text-lg">
-              <SectionLinkButton title="Learn more" url="/tea" buttonClass="w-60" />
+              <SectionLinkButton
+                title="Learn more"
+                url="/tea"
+                buttonClass="w-60"
+              />
             </div>
           </div>
         </div>

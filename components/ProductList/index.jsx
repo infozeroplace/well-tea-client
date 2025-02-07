@@ -50,7 +50,7 @@ const ProductList = ({ products, category, meta }) => {
 
   return (
     <div className="banner-gap">
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
         <div className="flex gap-5">
           {/* Sidebar for Filters */}
           <aside

@@ -51,13 +51,18 @@ function SocialImages() {
   ];
   return (
     <div className="section-gap">
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
         <div className="flex flex-col sm:flex-row items-center justify-between py-5">
           <div className="text-4xl mb-5 font-semibold flex items-center gap-2">
             <FaInstagram /> <span>@wellteauk</span>
           </div>
           <div>
-            <SectionLinkButton title="Follow Us" url="https://www.instagram.com/wellteauk/" buttonClass="w-60" target="_blank" />
+            <SectionLinkButton
+              title="Follow Us"
+              url="https://www.instagram.com/wellteauk/"
+              buttonClass="w-60"
+              target="_blank"
+            />
           </div>
         </div>
         <Swiper

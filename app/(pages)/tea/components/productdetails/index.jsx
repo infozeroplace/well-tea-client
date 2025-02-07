@@ -72,25 +72,30 @@ const ProductDetails = ({ product }) => {
 
       {availableOptions.length > 0 && (
         <div>
-          <h3 className="mb-1 font-normal text-brand__font__size__sm">Available As</h3>
+          <h3 className="text-teagreen-700 mb-1 font-normal text-brand__font__size__sm">
+            Available as:
+          </h3>
           <div className="flex flex-wrap gap-2">
             {availableOptions.map(({ teaFormat, urlParameter }) => {
               const isSelected =
                 teaFormat?.toLowerCase() ===
-                product.teaFormat?.[0]?.toLowerCase();
+                product?.teaFormat?.[0]?.toLowerCase();
 
-              return (
-                <Link
-                  href={isSelected ? "#" : `/${urlParameter}`}
+              return isSelected ? (
+                <span
+                  className="py-1.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 flex cursor-pointer"
                   key={teaFormat}
-                  className={`py-1.5 px-10 text-teagreen-600 font-brand__font__light rounded-md text-brand__font__size__sm capitalize border border-teagreen-600 ${
-                    isSelected
-                      ? "bg-teagreen-600 text-white cursor-not-allowed pointer-events-none"
-                      : ""
-                  }`}
-                  aria-disabled={isSelected ? "true" : "false"}
                 >
-                  {teaFormat?.charAt(0).toUpperCase() + teaFormat?.slice(1)}
+                  {" "}
+                  {teaFormat}
+                </span>
+              ) : (
+                <Link
+                  href={`/${urlParameter}`}
+                  key={teaFormat}
+                  className="py-1.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-400 hover:border-teagreen-600 duration-300"
+                >
+                  {teaFormat}
                 </Link>
               );
             })}

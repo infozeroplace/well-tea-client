@@ -8,7 +8,6 @@ import {
   RelatedProducts,
   YoutubeVideo,
 } from "../tea/components";
-import ProductView from "../tea/components/productdetails/ProductView";
 
 export const revalidate = 0;
 
@@ -28,7 +27,8 @@ export async function generateMetadata({ params }) {
   } = await axios.get(`/public/product/${slug}`);
 
   const siteUrl = "welltea.zeroplace.co/";
-  const imageUrl = `${env.image_path}/${product?.thumbnails[0]}` || "/images/product_one.jpg";
+  const imageUrl =
+    `${env.image_path}/${product?.thumbnails[0]}` || "/images/product_one.jpg";
   const title = `${capitalizeEachWord(product?.metaTitle)} | Well Tea`;
 
   return {
@@ -63,9 +63,9 @@ const ProductDetail = async ({ params }) => {
   const decodedSlug = decodeURIComponent(slug);
 
   try {
-    const {
-      data: { data: product },
-    } = await axios.get(`/public/product/${slug}`);
+    const { data: { data: product = {} } = {} } = await axios.get(
+      `/public/product/${slug}`
+    );
 
     // Fetching you may also like products
     const data = await axios.post("/public/product/get-related-products", {
@@ -74,7 +74,7 @@ const ProductDetail = async ({ params }) => {
     const relatedProductsData = data.data.data;
 
     return (
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-20 banner-gap">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10 banner-gap">
         <div className="container-narrow mb-10 flex flex-col xl:flex-row gap-10">
           <div className="basis-[60%] xl:max-w-[750px] w-full">
             <ProductSlider product={product} />
@@ -98,9 +98,6 @@ const ProductDetail = async ({ params }) => {
         {relatedProductsData.length > 0 && (
           <RelatedProducts relatedProductsData={relatedProductsData} />
         )}
-
-        {/* <ProductView /> */}
-        
       </div>
     );
   } catch (error) {

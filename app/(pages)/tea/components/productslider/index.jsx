@@ -3,14 +3,11 @@
 import { useDisclosure } from "@heroui/react";
 
 import { env } from "@/config/env";
-import extractAlterText from "@/utils/extractAlterText";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RiPriceTagFill } from "react-icons/ri";
 // import ReactImageMagnify from "react-image-magnify";
 import { EffectFade, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductView from "../productdetails/ProductView";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -23,6 +20,23 @@ function ProductSlider({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [placement, setPlacement] = useState("auto");
   const [selectedImage, setSelectedImage] = useState(product?.slideImages[0]);
+
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (isZoomed) {
+      const { left, top, width, height } =
+        e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - left) / width) * 100;
+      const y = ((e.clientY - top) / height) * 100;
+      setCursorPosition({ x, y });
+    }
+  };
+
+  const toggleZoom = () => {
+    setIsZoomed(!isZoomed);
+  };
 
   useEffect(() => {
     if (mainSlider) {
@@ -56,6 +70,7 @@ function ProductSlider({ product }) {
           <span>items</span>
         </div>
       )}
+
       <div className="flex flex-col items-center">
         <Swiper
           spaceBetween={10}
@@ -72,50 +87,31 @@ function ProductSlider({ product }) {
             setIsFirstSlide(swiper.isBeginning);
             setIsLastSlide(swiper.isEnd);
           }}
-          // onRealIndexChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          // onActiveIndexChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           className="w-full mb-4 relative group !overflow-visible"
         >
-          {product?.slideImages?.map((image) => (
+          {product?.slideImages?.map((image, idx) => (
             <SwiperSlide
-              key={image}
-              className="!flex justify-center items-center bg-teagreen-100 rounded-2xl w-full"
+              key={idx}
+              className="!flex justify-center items-center bg-teagreen-100 rounded-2xl w-full h-full min-h-[500px] min-w-[500px]"
               onClick={onOpen}
             >
-              <Image
-                src={`${env.image_path}/${image}`}
-                alt={extractAlterText(image)}
-                width={600}
-                height={600}
-                objectFit="cover"
-                className="cursor-pointer"
-              />
-              {/* <ReactImageMagnify
-                {...{
-                  smallImage: {
-                    alt: extractAlterText(image),
-                    isFluidWidth: true,
-                    src: `${env.image_path}/${image}`,
-                  },
-                  largeImage: {
-                    src: `${env.image_path}/${image}`,
-                    width: 1200,
-                    height: 1200,
-                  },
-                  enlargedImageContainerStyle: {
-                    zIndex: "1500",
-                    backgroundColor: "white",
-                    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-                  },
-                  // enlargedImagePosition: enlargedImagePosition,
-                  // enlargedImageContainerDimensions: {
-                  //   width: "200%",
-                  //   height: "125%",
-                  // },
-                  // shouldUsePositiveSpaceLens: true,
-                  isHintEnabled: true,
-                }}
-              /> */}
+              <div
+                className="relative overflow-hidden cursor-zoom-in h-full w-full flex justify-center items-center"
+                onMouseMove={handleMouseMove}
+                onClick={toggleZoom}
+                style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
+              >
+                <img
+                  src={`${env.app_url}${image?.filepath}`}
+                  alt={image?.alternateText || ""}
+                  className={`w-full h-full max-h-[700px] max-w-[700px] object-contain transition-transform duration-300 ${
+                    isZoomed ? "scale-[2.5]" : "scale-100"
+                  }`}
+                  style={{
+                    transformOrigin: `${cursorPosition.x}% ${cursorPosition.y}%`,
+                  }}
+                />
+              </div>
             </SwiperSlide>
           ))}
           <button
@@ -146,21 +142,19 @@ function ProductSlider({ product }) {
             }}
             className="w-full flex items-center relative"
           >
-            {product?.slideImages?.map((image, index) => (
-              <SwiperSlide key={image} className="cursor-pointer">
+            {product?.slideImages?.map((image, idx) => (
+              <SwiperSlide key={idx} className="cursor-pointer">
                 <div
-                  onClick={() => handleItemClick(index, image)}
-                  // onClick={() => mainSlider?.slideTo(index)}
-                  className={`bg-teagreen-300 rounded-2xl flex items-center justify-center p-1 ${
-                    activeIndex === index ? "border border-teagreen-600" : ""
+                  onClick={() => handleItemClick(idx, image)}
+                  // onClick={() => mainSlider?.slideTo(idx)}
+                  className={`bg-teagreen-300 rounded-lg flex items-center justify-center p-1 ${
+                    activeIndex === idx ? "border border-teagreen-500" : ""
                   }`}
                 >
-                  <Image
-                    src={`${env.image_path}/${image}`}
-                    alt={extractAlterText(image)}
-                    width={100}
-                    height={100}
-                    className="rounded-lg"
+                  <img
+                    src={`${env.app_url}${image?.filepath}`}
+                    alt={image?.alternateText || ""}
+                    className="w-[100px] h-[100px] rounded-lg"
                   />
                 </div>
               </SwiperSlide>
@@ -168,36 +162,24 @@ function ProductSlider({ product }) {
           </Swiper>
         ) : (
           <div className="flex items-center gap-2">
-            {product?.slideImages?.map((image, index) => (
+            {product?.slideImages?.map((image, idx) => (
               <div
-                key={image}
-                onClick={() => handleItemClick(index, image)}
-                // onClick={() => {mainSlider?.slideTo(index) setSelectedImage(image)}}
-                className={`cursor-pointer bg-teagreen-300 rounded-2xl flex items-center justify-center p-1 ${
-                  activeIndex === index ? "border border-teagreen-600" : ""
+                key={idx}
+                onClick={() => handleItemClick(idx, image)}
+                className={`cursor-pointer bg-teagreen-300 rounded-lg flex items-center justify-center p-1 ${
+                  activeIndex === idx ? "border border-teagreen-500" : ""
                 }`}
               >
-                <Image
-                  src={`${env.image_path}/${image}`}
-                  alt={extractAlterText(image)}
-                  width={100}
-                  height={100}
-                  className="rounded-lg"
+                <img
+                  src={`${env.app_url}${image?.filepath}`}
+                  alt={image?.alternateText || ""}
+                  className="w-[100px] h-[100px] rounded-lg"
                 />
               </div>
             ))}
           </div>
         )}
       </div>
-      {/* Product pop-up */}
-      <ProductView
-        product={product}
-        isOpen={isOpen}
-        placement={placement}
-        onOpenChange={onOpenChange}
-        selectedImage={selectedImage}
-        setSelectedImage={setSelectedImage}
-      />
     </div>
   );
 }
