@@ -15,13 +15,15 @@ const CompanyServices = async () => {
         {data?.companyService?.map((item, idx) => (
           <div
             key={idx}
-            className="text-center md:border-r border-gray-200 p-6 xl:p-8 group"
+            className={`text-center border-gray-200 p-6 xl:p-8 group ${
+              idx !== data?.companyService?.length - 1 ? "md:border-r" : ""
+            }`}
           >
             <div className="mb-5 flex text-3xl font-thin group-hover:text-teagreen-600 justify-center">
-              {item?.iconPath && (
+              {item?.iconPath[0]?.filepath && (
                 <Image
-                  src={`${env.app_url}${item?.iconPath}`}
-                  alt={item?.title}
+                  src={`${env.app_url}${item?.iconPath[0]?.filepath}`}
+                  alt={item?.iconPath[0]?.alternateText || ""}
                   width={20}
                   height={20}
                 />

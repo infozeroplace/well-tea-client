@@ -2,7 +2,6 @@
 
 import axios from "@/api/axios";
 import { env } from "@/config/env";
-import extractAlterText from "@/utils/extractAlterText";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -161,18 +160,19 @@ const Navbar = () => {
     "flex items-center text-2xl border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
   return (
-    <nav className="bg-white sticky top-0 z-50 shadow-sm">
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
+    <nav className="bg-white sticky top-0 z-[9999999] shadow-sm">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
         <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
           <div className="flex-shrink-0 w-28 md:w-36">
             <Link href="/">
               <Image
                 src={
-                  `${env.app_url}/public/image/upload/${logo}` ||
-                  "/logo/welltea_logo_color.png"
+                  logo[0]?.filepath
+                    ? `${env.app_url}${logo[0]?.filepath}`
+                    : "/logo/welltea_logo_color.png"
                 }
-                alt={extractAlterText(logo)}
+                alt={logo[0]?.alternateText || "welltea"}
                 width={150}
                 height={100}
                 quality={100}

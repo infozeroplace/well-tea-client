@@ -1,15 +1,17 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from "react";
-import { PiShoppingCartThin } from "react-icons/pi";
-import { RxCross1 } from "react-icons/rx";
-import { SectionLinkButton } from "../shared";
-import { PiTrashSimpleLight } from "react-icons/pi";
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "@/services/features/cart/cartSlice";
 import { env } from "@/config/env";
-import { useRouter, usePathname } from "next/navigation";
+import {
+  removeFromCart,
+  updateQuantity,
+} from "@/services/features/cart/cartSlice";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
+import { RxCross1 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { SectionLinkButton } from "../shared";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -92,7 +94,7 @@ const Cart = ({ buttonClass }) => {
 
   useEffect(() => {
     setIsOpen(false);
-  },[pathname]);
+  }, [pathname]);
 
   return (
     <div>
@@ -135,8 +137,8 @@ const Cart = ({ buttonClass }) => {
                 >
                   <div className="mr-3">
                     <Image
-                      src={`${env.image_path}/${item.product?.thumbnails[0]}`}
-                      alt={item.product?.title}
+                      src={`${env.app_url}${item.product?.thumbnails[0]?.filepath}`}
+                      alt={item.product?.thumbnails[0]?.alternateText}
                       width={80}
                       height={80}
                     />

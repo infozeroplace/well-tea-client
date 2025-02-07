@@ -132,18 +132,18 @@ function ManageProduct({ product }) {
   return (
     <div>
       <div className="mt-4 text-brand__font__size__base">
-        <h3 className="mb-1 font-normal text-brand__font__size__sm">
-          Choose Type
+        <h3 className="text-teagreen-700 mb-1 font-normal text-brand__font__size__sm">
+          Choose type:
         </h3>
         <div className="flex flex-wrap gap-2">
           {product?.unitPrices?.map((item, index) => (
             <button
               key={item?.unit}
               onClick={() => handleUnitSelect(item)}
-              className={`py-1.5 px-10 rounded-md text-teagreen-600 border border-teagreen-600 text-brand__font__size__sm ${
+              className={`py-1.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 border ${
                 selectedUnitObj === item
-                  ? "bg-teagreen-600 text-white cursor-not-allowed pointer-events-none"
-                  : ""
+                  ? "border-teagreen-800"
+                  : "border-teagreen-400 hover:border-teagreen-600 duration-300"
               }`}
             >
               {item?.unit}
@@ -173,7 +173,7 @@ function ManageProduct({ product }) {
                   {toNumber(selectedUnitObj?.salePrice).toFixed(2)}
                 </span>
               ) : (
-                toNumber(selectedUnitObj?.price).toFixed(2)
+                <span>{toNumber(selectedUnitObj?.price).toFixed(2)}</span>
               )}
             </span>
           </label>
@@ -235,48 +235,64 @@ function ManageProduct({ product }) {
       </div>
 
       {/* --------------- Helpful Addons --------------- */}
-      {product?.addOns && (
+      {product?.addOns?.length > 0 && (
         <div className="mb-6">
           <h3 className="text-lg font-brand__font__regular mb-4">
             Helpful Add-Ons
           </h3>
-          {product?.addOns?.map((addOn) => (
+          {product?.addOns?.map((addOn, idx) => (
             <div
-              key={addOn._id}
-              className="flex items-center justify-between mb-4 border-b border-gray-200 pb-4"
+              key={idx}
+              className={`flex items-center justify-between hover:bg-teagreen-300 duration-300 ${
+                idx !== product?.addOns.length - 1
+                  ? "border-b border-gray-200"
+                  : ""
+              }`}
             >
-              <Link href={addOn.urlParameter} className="flex items-center">
+              <Link
+                href={addOn?.urlParameter || ""}
+                className="flex items-center"
+              >
                 <img
-                  src={`${env.image_path}/${addOn?.thumbnails[0]}`}
-                  alt={addOn?.title}
-                  className="w-16 h-16 object-cover mr-4"
+                  src={`${env.app_url}${addOn?.thumbnails[0]?.filepath}`}
+                  alt={addOn?.thumbnails[0]?.alternateText}
+                  className="max-w-[80px] w-full h-[80px] object-cover mr-4"
                 />
                 <div>
-                  <p className="text-teagreen-800 font-brand__font__light">
+                  <p className="text-teagreen-800 font-brand__font__light text-brand__font__size__sm">
                     {addOn?.title}
                   </p>
+
                   {addOn?.isSale ? (
-                    <p>
-                      £{toNumber(addOn?.unitPrices[0]?.salePrice).toFixed(2)}
-                    </p>
+                    <span className="font-brand__font__regular text-brand__font__size__sm">
+                      £{toNumber(addOn?.unitPrices[0]?.salePrice).toFixed(2)}{" "}
+                      <span className="text-gray-500">
+                        was £{toNumber(addOn?.unitPrices[0]?.price).toFixed(2)}
+                      </span>
+                    </span>
                   ) : (
-                    <p>{toNumber(addOn?.unitPrices[0]?.price).toFixed(2)}</p>
+                    <span className="font-brand__font__regular text-brand__font__size__sm">
+                      £{toNumber(addOn?.unitPrices[0]?.price).toFixed(2)}
+                    </span>
                   )}
                 </div>
               </Link>
-              <input
-                type="checkbox"
-                className="w-5 h-5"
-                checked={selectedAddOns.some((a) => a._id === addOn._id)}
-                onChange={() => handleAddOnSelect(addOn)}
-              />
+
+              <div className="p-4">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 border border-teagreen-800 cursor-pointer"
+                  checked={selectedAddOns.some((a) => a._id === addOn._id)}
+                  onChange={() => handleAddOnSelect(addOn)}
+                />
+              </div>
             </div>
           ))}
         </div>
       )}
       {/* ------------ Add to cart Button ----------- */}
-      <div className="flex mb-6 border text-brand__font__size__base">
-        <div className="max-w-[100px] w-full flex items-center justify-center bg-teagreen-600 text-white py-2.5">
+      <div className="flex mb-6 gap-1 text-brand__font__size__base">
+        <div className="max-w-[100px] w-full flex items-center justify-center bg-teagreen-200 text-teagreen-800 py-2.5 border border-teagreen-600">
           <button
             className=" text-xl flex items-center justify-center"
             onClick={() => handleQuantityChange("decrement")}
@@ -292,7 +308,7 @@ function ManageProduct({ product }) {
           </button>
         </div>
         <button
-          className="w-full bg-teagreen-700 text-white py-2 px-6"
+          className="w-full bg-teagreen-800 hover:bg-teagreen-600 duration-300 text-white py-2 px-6 border border-teagreen-600"
           onClick={handleAddToCart}
         >
           Add to Cart - £{toNumber(totalPrice).toFixed(2)}

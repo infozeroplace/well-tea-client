@@ -43,7 +43,7 @@ const Category = ({ initialProducts, teaTypes }) => {
 
   return (
     <div className="section-gap">
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-20">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
         <SectionTitle title="Explore our single teas" />
         <div className="relative group max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 py-5">
           <Swiper

@@ -1,7 +1,6 @@
 "use client";
 
 import { env } from "@/config/env";
-import extractAlterText from "@/utils/extractAlterText";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -47,12 +46,10 @@ function Hero({ data }) {
         >
           {data.map((item, idx) => (
             <SwiperSlide key={idx} className="relative">
-              <div className=" w-full 2xl:h-[500px]">
+              <div className="w-full h-[450px] md:h-[500px] 2xl:h-[636px]">
                 <Image
-                  src={`${env.app_url}${item?.bannerImagePath}`}
-                  alt={extractAlterText(
-                    item?.bannerImagePath?.split("upload/")[1]
-                  )}
+                  src={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
+                  alt={item?.bannerImagePath[0]?.alternateText}
                   width={1900}
                   height={750}
                   className="object-cover h-full w-full"
@@ -61,7 +58,7 @@ function Hero({ data }) {
 
               <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-              <div className="container absolute px-5 sm:px-10 md:px-14 lg:px-20 text-center md:text-left top-1/2 transform -translate-y-1/2 text-white">
+              <div className="container px-5 sm:px-10 md:px-14 lg:px-10 2xl:px-24 absolute text-center md:text-left top-1/2 transform -translate-y-1/2 text-white">
                 <div>
                   <motion.h1
                     key={`title-${idx}`}

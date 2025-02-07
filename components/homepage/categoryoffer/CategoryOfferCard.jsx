@@ -1,13 +1,13 @@
 import { env } from "@/config/env";
 import Link from "next/link";
 
-const CategoryOfferCard = ({ title, subTitle, thumbnail, url }) => {
+const CategoryOfferCard = ({ title, subTitle, thumbnail = [], url }) => {
   return (
     <Link
       href={url}
       className={`bg-cover bg-no-repeat rounded-lg group relative inline-block`}
       style={{
-        backgroundImage: `url(${env.app_url}${thumbnail})`,
+        backgroundImage: `url(${env.app_url}${thumbnail[0]?.filepath})`,
       }}
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-black opacity-50 rounded-lg"></div>
