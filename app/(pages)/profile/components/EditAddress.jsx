@@ -7,7 +7,12 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
 } from "@heroui/react";
+
+import { countries } from "./countriesData";
+
 
 const EditAddress = ({ user, isOpen, onOpenChange }) => {
   return (
@@ -23,24 +28,57 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
               Edit Address
             </ModalHeader>
             <ModalBody>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-                amet hendrerit risus, sed porttitor quam.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-                amet hendrerit risus, sed porttitor quam.
-              </p>
-              <p>
-                Magna exercitation reprehenderit magna aute tempor cupidatat
-                consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi
-                consectetur esse laborum eiusmod pariatur proident Lorem eiusmod
-                et. Culpa deserunt nostrud ad veniam.
-              </p>
+              <Input
+                radius="none"
+                className=""
+                variant="bordered"
+                label="Company"
+                type="text"
+                isRequired
+              />
+              <Input
+                radius="none"
+                className=""
+                variant="bordered"
+                label="Address 1"
+                type="text"
+              />
+              <Input
+                radius="none"
+                className=""
+                variant="bordered"
+                label="Address 2"
+                type="text"
+              />
+              <Select
+                isRequired
+                radius="none"
+                className=""
+                variant="bordered"
+                defaultSelectedKeys={["gb"]}
+                label="Choose Country"
+                placeholder="Select an country"
+              >
+                {countries.map((country) => (
+                  <SelectItem key={country.key}>{country.label}</SelectItem>
+                ))}
+              </Select>
+
+              <Input
+                radius="none"
+                className=""
+                variant="bordered"
+                label="City"
+                type="text"
+              />
+
+              <Input
+                radius="none"
+                className=""
+                variant="bordered"
+                label="Postal Code"
+                type="text"
+              />
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
