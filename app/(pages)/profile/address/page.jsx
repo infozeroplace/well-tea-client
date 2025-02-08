@@ -1,33 +1,24 @@
-"use client"
+"use client";
 
-import { useAppSelector } from "@/services/hook";
-import React, { useState } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  useDisclosure,
-} from "@heroui/react";
-import { AddNewAddress, EditAddress, EditForm, EditProfile } from "../components";
 import { useGetAddressQuery } from "@/services/features/address/addressApi";
+import { useAppSelector } from "@/services/hook";
+import { useDisclosure } from "@heroui/react";
+import { useState } from "react";
+import { AddNewAddress, EditAddress, EditProfile } from "../components";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [editType, setEditType] = useState("");
-  const { data:{ data } = {}, isLoading, error} = useGetAddressQuery();
-
-  // console.log("useDiscloser", useDisclosure());
-  // console.log(data);
-  // console.log("error: ", error);
-
+  
   const {
-    auth: { user },
+    auth: { user, token },
   } = useAppSelector((state) => state);
 
-  // console.log("user", user);
+  const {
+    data: { data } = {},
+    isLoading,
+    error,
+  } = useGetAddressQuery({}, { skip: !token });
 
   const handleEdit = (data) => {
     setEditType(data);
@@ -116,9 +107,13 @@ function AddressScreen() {
         <EditAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
-       {/* Add New Address form */}
-       {editType === "addAddress" && (
-        <AddNewAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+      {/* Add New Address form */}
+      {editType === "addAddress" && (
+        <AddNewAddress
+          user={user}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        />
       )}
     </div>
   );

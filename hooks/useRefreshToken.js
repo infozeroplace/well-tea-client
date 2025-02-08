@@ -14,7 +14,7 @@ const useRefreshToken = () => {
     const options = {
       data: { token },
     };
-    console.log(options);
+   
     await getRefreshToken(options);
   };
 

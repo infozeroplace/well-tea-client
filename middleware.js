@@ -5,21 +5,18 @@ export function middleware(req) {
   const pathname = req.nextUrl.pathname;
 
   const authPaths = ["/login", "/forgot-password", "/reset-password"];
-
   const protectedPaths = ["/profile"];
 
+  const isAuthRoute = authPaths.includes(pathname);
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
 
-  // Redirect if trying to access protected paths without token
-  if (isProtected && !authToken) {
-    const url = new URL("/login", req.url);
-    url.searchParams.set("redirect", pathname);
-
-    return NextResponse.redirect(url);
+  if (!authToken && isProtected) {
+    const loginUrl = new URL("/login", req.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect if logged in and trying to access auth pages
-  if (authPaths.includes(pathname) && authToken) {
+  if (authToken && isAuthRoute) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -32,6 +29,6 @@ export const config = {
     "/forgot-password",
     "/reset-password",
     "/profile",
-    "/profile/:path*", // Match all nested routes under /profile
+    "/profile/:path*",
   ],
 };

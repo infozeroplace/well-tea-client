@@ -9,7 +9,6 @@ const baseQuery = fetchBaseQuery({
 
   prepareHeaders: (headers, { getState }) => {
     const token = getState()?.auth?.token;
-    console.log(token);
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -38,11 +37,17 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
     } else {
       Cookies.remove("authToken");
       api.dispatch(logOut());
+      if (typeof window !== "undefined") {
+        window.location.href = "/login"; // Redirect to login page
+      }
     }
   }
   if (result?.error?.status === 401) {
     Cookies.remove("authToken");
     api.dispatch(logOut());
+    if (typeof window !== "undefined") {
+      window.location.href = "/login"; // Redirect to login page
+    }
   }
 
   return result;
