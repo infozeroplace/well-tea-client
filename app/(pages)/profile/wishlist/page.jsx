@@ -1,4 +1,7 @@
-import React from 'react'
+"use client"
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '@/services/features/cart/cartSlice';
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -23,13 +26,22 @@ function WishlistScreen() {
       unit: "100gm",
     },
   ];
+  const dispatch = useDispatch();
 
   const handleRemoveFromWishlist = () => {
 
   }
 
-  const handleAddToCart = () => {
-    
+  const handleAddToCart = (product) => {
+    // dispatch(
+    //   addToCart({
+    //     product: product,
+    //     unitObj,
+    //     quantity: 1,
+    //     productPrice: product?.price,
+    //     addOns: [],
+    //   })
+    // );
   }
 
   return (
@@ -67,7 +79,7 @@ function WishlistScreen() {
               </td>
               <td className="py-4 font-light space-x-5">
                 <button
-                  // onClick={() => handleAddToCart(item?._id)}
+                  onClick={() => handleAddToCart(item)}
                   className="text-nowrap bg-teagreen-600 text-white px-5 py-2"
                 >
                   Add To Cart

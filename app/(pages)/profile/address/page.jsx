@@ -1,26 +1,24 @@
 "use client";
 
+import { useGetAddressQuery } from "@/services/features/address/addressApi";
 import { useAppSelector } from "@/services/hook";
-import React, { useState } from "react";
 import { useDisclosure } from "@heroui/react";
-import {
-  AddNewAddress,
-  EditAddress,
-  EditForm,
-  EditProfile,
-} from "../components";
+import { useState } from "react";
+import { AddNewAddress, EditAddress, EditProfile } from "../components";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [editType, setEditType] = useState("");
-
-  console.log("useDiscloser", useDisclosure());
-
+  
   const {
-    auth: { user },
+    auth: { user, token },
   } = useAppSelector((state) => state);
 
-  console.log("user", user);
+  const {
+    data: { data } = {},
+    isLoading,
+    error,
+  } = useGetAddressQuery({}, { skip: !token });
 
   const handleEdit = (data) => {
     setEditType(data);

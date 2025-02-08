@@ -37,11 +37,17 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
     } else {
       Cookies.remove("authToken");
       api.dispatch(logOut());
+      if (typeof window !== "undefined") {
+        window.location.href = "/login"; // Redirect to login page
+      }
     }
   }
   if (result?.error?.status === 401) {
     Cookies.remove("authToken");
     api.dispatch(logOut());
+    if (typeof window !== "undefined") {
+      window.location.href = "/login"; // Redirect to login page
+    }
   }
 
   return result;
@@ -50,6 +56,6 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["user", "product", "review", "system"],
+  tagTypes: ["user", "product", "review", "system", "address"],
   endpoints: () => ({}),
 });
