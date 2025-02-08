@@ -33,31 +33,29 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !my-auto"
+      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 border-b-2">
+            <ModalHeader className="flex flex-col gap-1 border-b-2 mb-4">
               Add New Address
             </ModalHeader>
-            <ModalBody>
+            <ModalBody className="gap-6">
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Company"
                 type="text"
               />
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Address 1"
                 type="text"
+                isRequired
               />
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Address 2"
@@ -65,7 +63,6 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
               />
               <Select
                 isRequired
-                radius="none"
                 className=""
                 variant="bordered"
                 defaultSelectedKeys={["gb"]}
@@ -78,15 +75,14 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
               </Select>
 
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="City"
                 type="text"
+                isRequired
               />
 
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Postal Code"

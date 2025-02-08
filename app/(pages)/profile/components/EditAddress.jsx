@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Input,
@@ -13,38 +13,44 @@ import {
 
 import { countries } from "./countriesData";
 
-
 const EditAddress = ({ user, isOpen, onOpenChange }) => {
+  const [addressData, setAddressData] = useState({
+    address1: "",
+    address2: "",
+  });
+
+  const handleInput = (field, value) =>
+    setAddressData((prev) => ({ ...prev, [field]: value }));
   return (
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !my-auto"
+      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 border-b-2">
+            <ModalHeader className="flex flex-col gap-1 border-b-2 mb-4">
               Edit Address
             </ModalHeader>
-            <ModalBody>
+            <ModalBody className="gap-6">
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Company"
                 type="text"
-                isRequired
               />
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Address 1"
                 type="text"
+                isRequired
+                onChange={(e) => {
+                  handleInput("address1", e.target.value);
+                }}
               />
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Address 2"
@@ -52,7 +58,6 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
               />
               <Select
                 isRequired
-                radius="none"
                 className=""
                 variant="bordered"
                 defaultSelectedKeys={["gb"]}
@@ -65,15 +70,14 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
               </Select>
 
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="City"
                 type="text"
+                isRequired
               />
 
               <Input
-                radius="none"
                 className=""
                 variant="bordered"
                 label="Postal Code"

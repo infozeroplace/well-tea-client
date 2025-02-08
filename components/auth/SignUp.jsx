@@ -21,7 +21,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
   const { handleGetCookie, handleSetCookie } = useCookie();
 
-  // Password strates
+  // Password states
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
