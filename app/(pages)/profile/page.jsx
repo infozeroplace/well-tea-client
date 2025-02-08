@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useAppSelector } from "@/services/hook";
 import { CommonBanner } from "@/components";
 import { GoArrowRight } from "react-icons/go";
@@ -9,7 +10,11 @@ const ProfileScreen = () => {
     auth: { user },
   } = useAppSelector((state) => state);
 
-  console.log("user", user);
+  // console.log("user", user);
+
+  useEffect(() => {
+    console.log("ProfileScreen useEffect");
+  }, []);
 
   return (
     // <div className="">

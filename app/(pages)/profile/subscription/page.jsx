@@ -1,4 +1,14 @@
-import React from 'react'
+"use client"
+import { useState } from "react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@heroui/react";
 
 function SubscriptionScreen() {
   const subscriptionList = [
@@ -19,6 +29,15 @@ function SubscriptionScreen() {
       totalPrice: "46.95",
     }
   ];
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleRowClick = (item) => {
+    setSelectedItem(item);
+    onOpen();
+  };
+
   return (
     <div>
       <table className="w-full border-collapse">
@@ -34,7 +53,8 @@ function SubscriptionScreen() {
           {subscriptionList.map((item, index) => (
             <tr
               key={index}
-              className="border-b border-gray-200 hover:bg-teagreen-100 text-center"
+              className="border-b border-gray-200 hover:bg-teagreen-100 text-center cursor-pointer"
+              onClick={() => handleRowClick(item)}
             >
               <td className="py-4 flex items-center gap-1 md:gap-5">
                 <img
@@ -66,6 +86,23 @@ function SubscriptionScreen() {
           ))}
         </tbody>
       </table>
+      <Modal isOpen={isOpen} size="5xl" onClose={onClose}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Subscription
+              </ModalHeader>
+              <ModalBody>{selectedItem.title}</ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

@@ -9,6 +9,7 @@ const baseQuery = fetchBaseQuery({
 
   prepareHeaders: (headers, { getState }) => {
     const token = getState()?.auth?.token;
+    console.log(token);
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -50,6 +51,6 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["user", "product", "review", "system"],
+  tagTypes: ["user", "product", "review", "system", "address"],
   endpoints: () => ({}),
 });

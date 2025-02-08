@@ -27,5 +27,11 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/login", "/forgot-password", "/reset-password", "/profile"],
+  matcher: [
+    "/login",
+    "/forgot-password",
+    "/reset-password",
+    "/profile",
+    "/profile/:path*", // Match all nested routes under /profile
+  ],
 };

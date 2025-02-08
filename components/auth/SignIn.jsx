@@ -78,8 +78,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
   const handleShowPassword = () => setShowPassword((show) => !show);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async () => {
 
     const options = {
       data: credentials,
