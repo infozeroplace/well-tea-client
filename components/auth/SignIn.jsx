@@ -39,18 +39,19 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
   const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
     useGoogleSignInMutation();
+    console.log(googleSignInData)
 
   useEffect(() => {
     if (data?.success || googleSignInData?.success) {
-      handleSetCookie(
-        "authToken",
-        data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
-        {
-          expires: 7,
-          secure: true,
-          sameSite: "None",
-        }
-      );
+      // handleSetCookie(
+      //   "authToken",
+      //   data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
+      //   {
+      //     expires: 7,
+      //     secure: true,
+      //     sameSite: "None",
+      //   }
+      // );
 
       dispatch(setAuth(data?.data || googleSignInData?.data));
 
