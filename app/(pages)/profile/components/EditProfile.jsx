@@ -16,6 +16,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
   const [profileData, setProfileData] = useState({
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
+    lastName: user?.email || "",
     phone: user?.phone || "",
   });
 
@@ -91,6 +92,23 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                     defaultValue={user?.lastName || ""}
                   />
                 </div>
+                <Input
+                  {...register("email", {
+                    required: true,
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: "Please enter a valid email",
+                    },
+                    onChange: (e) => handleInput("email", e.target.value),
+                  })}
+                  errorMessage={getAuthErrorMessage(errors, "email")}
+                  isInvalid={!!getAuthErrorMessage(errors, "email")}
+                  isClearable
+                  type="email"
+                  label="Email"
+                  variant="bordered"
+                  isRequired
+                />
                 <Input
                   {...register("phone", {
                     required: true,

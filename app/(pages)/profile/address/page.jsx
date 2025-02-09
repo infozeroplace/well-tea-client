@@ -4,12 +4,13 @@ import { useGetAddressQuery } from "@/services/features/address/addressApi";
 import { useAppSelector } from "@/services/hook";
 import { useDisclosure } from "@heroui/react";
 import { useState } from "react";
-import { AddNewAddress, EditAddress, EditProfile } from "../components";
+import { AddNewAddress, EditAddress, EditPassword, EditProfile } from "../components";
+import { GoKey } from "react-icons/go";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [editType, setEditType] = useState("");
-  
+
   const {
     auth: { user, token },
   } = useAppSelector((state) => state);
@@ -31,7 +32,7 @@ function AddressScreen() {
     <div className="w-full bg-gray-50 p-4">
       <div className="bg-white p-6 section-gap">
         <p className="text-2xl content-gap">Personal Information</p>
-        <div>
+        <div className="content-gap">
           <p className="mb-3">
             {user?.firstName} {user?.lastName}
           </p>
@@ -50,6 +51,16 @@ function AddressScreen() {
           >
             Edit
           </div>
+        </div>
+
+        {/* Password Section */}
+        <div
+          onClick={() => {
+            handleEdit("password");
+          }}
+          className="capitalize flex gap-2 border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
+        >
+          <span className="pt-1 text-sm"><GoKey /></span> Change Password
         </div>
       </div>
       <div className="flex justify-between gap-4 bg-gray-100 p-6">
@@ -91,17 +102,22 @@ function AddressScreen() {
         </div>
       </div>
 
-      {/* Update Porfile form */}
+      {/* Porfile Update form */}
       {editType === "profile" && (
         <EditProfile user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
-      {/* Update Address form */}
+      {/* Password Update Form */}
+      {editType === "password" && (
+        <EditPassword user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+      )}
+
+      {/* Address Update form */}
       {editType === "address" && (
         <EditAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
-      {/* Add New Address form */}
+      {/* New Address Add form */}
       {editType === "addAddress" && (
         <AddNewAddress
           user={user}

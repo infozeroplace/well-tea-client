@@ -22,6 +22,23 @@ const addressApi = api.injectEndpoints({
       }),
       invalidatesTags: ["address"],
     }),
+    // editSocialPassword: builder.mutation({
+    //   query: ({ data }) => ({
+    //     url: "/secure/profile/edit-social-password",
+    //     method: "PUT",
+    //     body: data,
+    //   }),
+    //   invalidatesTags: ["password"],
+    // }),
+    // editPassword: builder.mutation({
+    //   query: ({ data }) => ({
+    //     url: "/secure/profile/edit-password",
+    //     method: "PUT",
+    //     body: data,
+    //   }),
+    //   invalidatesTags: ["password"],
+    // }),
+    
   }),
 });
 
