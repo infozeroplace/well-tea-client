@@ -39,20 +39,9 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
   const [googleSignIn, { data: googleSignInData, error: googleSignInError }] =
     useGoogleSignInMutation();
-    console.log(googleSignInData)
 
   useEffect(() => {
     if (data?.success || googleSignInData?.success) {
-      // handleSetCookie(
-      //   "authToken",
-      //   data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
-      //   {
-      //     expires: 7,
-      //     secure: true,
-      //     sameSite: "None",
-      //   }
-      // );
-
       dispatch(setAuth(data?.data || googleSignInData?.data));
 
       handleSuccess(data?.message || googleSignInData?.message);
@@ -80,7 +69,6 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const handleShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit = async () => {
-
     const options = {
       data: credentials,
     };
@@ -107,7 +95,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
     reset();
   };
   return (
-    (<div
+    <div
       className={`${
         showForm === "sign-in"
           ? "block translate-x-0 opacity-1"
@@ -210,7 +198,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
       <div className="flex justify-center items-center gap-3">
         <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
-    </div>)
+    </div>
   );
 };
 
