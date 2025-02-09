@@ -43,7 +43,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
     let data = Object.fromEntries(new FormData(e.currentTarget));
 
     // setAction(`submit ${JSON.stringify(data)}`);
-    console.log(data);
+    // console.log(data);
     setFormData(data);
     await addAddress({
       data

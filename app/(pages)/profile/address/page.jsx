@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAddressQuery } from "@/services/features/address/addressApi";
+import { useGetAddressQuery, useDeleteAddressMutation } from "@/services/features/address/addressApi";
 import { useAppSelector } from "@/services/hook";
 import { useDisclosure } from "@heroui/react";
 import { useState } from "react";
@@ -19,13 +19,18 @@ function AddressScreen() {
     isLoading,
     error,
   } = useGetAddressQuery({}, { skip: !token });
+  const [deleteAddress, { data: addressId, isLoading: deleteLoading }] = useDeleteAddressMutation();
 
   const handleEdit = (data) => {
     setEditType(data);
     onOpen();
   };
 
-  // console.log(data);
+  const handleDeleteAddress = async (id) => {
+    // await deleteAddress();
+  };
+
+  console.log(data);
 
   return (
     <div className="w-full bg-gray-50 p-4">
@@ -68,7 +73,9 @@ function AddressScreen() {
             >
               Edit
             </div>
-            <div className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600">
+            <div
+              onClick={() => handleDeleteAddress("")}
+              className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600">
               Delete
             </div>
           </div>
