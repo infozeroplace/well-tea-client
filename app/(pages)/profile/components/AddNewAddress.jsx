@@ -20,38 +20,33 @@ import { FaSquare } from "react-icons/fa";
 
 const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
   const [action, setAction] = useState();
-  const [addressData, setAddressData] = useState({
-    isSelected: false,
-  });
+  // const [addressData, setAddressData] = useState({
+  //   isDefault: false,
+  // });
+  const [isDefault, setIsDefault] = useState(false);
 
   // Checkbox toggle
-  const handleChecked = (e) => {
-    setAddressData({ ...addressData, isSelected: e.target.checked });
-  };
+  // const handleChecked = (e) => {
+  //   // console.log(e.target.checked);
+  //   setAddressData({ ...addressData, isDefault: e.target.checked });
+  // };
 
-   // Updating form data state
-  const handleInput = (field, value) =>
-    setAddressData((prev) => ({ ...prev, [field]: value }));
+  //  // Updating form data state
+  // const handleInput = (field, value) =>
+  //   setAddressData((prev) => ({ ...prev, [field]: value }));
  
   const [addAddress, { data, isLoading, isError, isSuccess, error }] =
     useAddAddressMutation();
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    let data = Object.fromEntries(new FormData(e.currentTarget));
-
-    // setAction(`submit ${JSON.stringify(data)}`);
-    console.log(data);
-    setAddressData(data);
+    e.preventDefault();
+    let formData = Object.fromEntries(new FormData(e.currentTarget));
+    formData.isDefault = isDefault;
     await addAddress({
-      data,
+      data: formData,
     });
+    onOpenChange(false);
   };
-  // useEffect(() => {
-  //   console.log(data);
-  //   console.log(error);
-  // }, [data, error])
-  // console.log("isSelected", isSelected);
 
   return (
     <Modal
@@ -66,7 +61,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
               Add New Address
             </ModalHeader>
             <ModalBody>
-            <Form
+              <Form
                 className="w-full flex gap-6"
                 validationBehavior="native"
                 onReset={() => setAction("reset")}
@@ -87,7 +82,8 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                     errorMessage="Please enter a your last name"
                     label="Last Name"
                     labelPlacement="inside"
-                    name="lastName"                    type="text"
+                    name="lastName"
+                    type="text"
                   />
                 </div>
 
@@ -170,8 +166,10 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
 
                 {/* <Checkbox isSelected={isSelected} onValueChange={setIsSelected}> */}
                 <Checkbox
-                  isSelected={addressData?.isSelected}
-                  onChange={handleChecked}
+                  // isSelected={addressData?.isDefault}
+                  isSelected={isDefault}
+                  name="isDefault"
+                  onChange={()=> setIsDefault(!isDefault)}
                   className="custom-checkbox"
                 >
                   <span className="text-sm font-extralight">

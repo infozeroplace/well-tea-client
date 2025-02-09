@@ -28,9 +28,11 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
     country: "",
     postalCode: "",
     phone: "",
-    isSelected: false,
+    isDefault: false,
   });
   const [editAddress, { isLoading }] = useEditAddressMutation();
+
+  // console.log(currentAddressData);
 
   // Populate addressData when user data is available or modal opens
   useEffect(() => {
@@ -46,7 +48,7 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
         country: currentAddressData.country || "",
         postalCode: currentAddressData.postalCode || "",
         phone: currentAddressData.phone || "",
-        isSelected: currentAddressData.isSelected || false,
+        isDefault: currentAddressData.isDefault || false,
       });
     }
   }, [currentAddressData, isOpen]);
@@ -58,14 +60,13 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
 
   // Handle checkbox toggle
   const handleChecked = (e) => {
-    setAddressData({ ...addressData, isSelected: e.target.checked });
+    setAddressData({ ...addressData, isDefault: e.target.checked });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await editAddress({data: addressData});
     onOpenChange(false);
-    console.log("Updated Address:", addressData);
   };
 
   return (
@@ -194,7 +195,7 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                 />
 
                 <Checkbox
-                  isSelected={addressData.isSelected}
+                  isSelected={addressData.isDefault}
                   onChange={handleChecked}
                   className="custom-checkbox"
                 >

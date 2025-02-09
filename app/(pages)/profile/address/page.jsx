@@ -33,7 +33,7 @@ function AddressScreen() {
     await deleteAddress(id);
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="w-full bg-gray-50 p-4">
