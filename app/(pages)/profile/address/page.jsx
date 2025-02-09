@@ -25,6 +25,8 @@ function AddressScreen() {
     onOpen();
   };
 
+  // console.log(data);
+
   return (
     <div className="w-full bg-gray-50 p-4">
       <div className="bg-white p-6 section-gap">

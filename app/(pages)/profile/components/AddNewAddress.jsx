@@ -8,7 +8,9 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Form
+  Form,
+  Select,
+  SelectItem,
 } from "@heroui/react";
 import { useAddAddressMutation } from "@/services/features/address/addressApi";
 import { countries } from "@/data/countries";
@@ -24,16 +26,16 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
     let data = Object.fromEntries(new FormData(e.currentTarget));
 
     // setAction(`submit ${JSON.stringify(data)}`);
-    // console.log(data);
+    console.log(data);
     setFormData(data);
     await addAddress({
       data
     })
   };
-  useEffect(() => {
-    console.log(data);
-    console.log(error);
-  }, [data, error])
+  // useEffect(() => {
+  //   console.log(data);
+  //   console.log(error);
+  // }, [data, error])
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
@@ -45,8 +47,8 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
             </ModalHeader>
             <ModalBody>
               <Form
-                className="w-full max-w-xs flex flex-col gap-4"
-                validationBehavior="aria"
+                className="w-full max-w-xs flex gap-4"
+                validationBehavior="native"
                 onReset={() => setAction("reset")}
                 onSubmit={handleSubmit}
               >
@@ -54,7 +56,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   isRequired
                   errorMessage="Please enter your first name"
                   radius="none"
-                  className=""
+                  className="w-full"
                   variant="bordered"
                   label="First Name"
                   labelPlacement="inside"
@@ -62,7 +64,6 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   placeholder="First Name"
                   type="text"
                 />
-
                 <Input
                   isRequired
                   errorMessage="Please enter a your last name"
@@ -106,7 +107,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   placeholder="City"
                   type="text"
                 />
-                <Input
+                {/* <Input
                   isRequired
                   errorMessage="Please enter your country"
                   label="Country"
@@ -114,7 +115,20 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   name="country"
                   placeholder="Country"
                   type="text"
-                />
+                /> */}
+                <Select
+                  isRequired
+                  errorMessage="Please select your country"
+                  className="max-w-xs"
+                  label="Country"
+                  placeholder="Select your country"
+                  name="country"
+                  // selectionMode="multiple"
+                >
+                  {countries.map((country) => (
+                    <SelectItem key={country} name="country">{country}</SelectItem>
+                  ))}
+                </Select>
                 <Input
                   isRequired
                   errorMessage="Please enter your postal code"
@@ -134,7 +148,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   type="text"
                 />
                 <div className="flex gap-2">
-                  <Button color="danger" type="submit">
+                  <Button type="submit" className="bg-teagreen-600 text-white">
                     Submit
                   </Button>
                   <Button type="reset" variant="flat">
