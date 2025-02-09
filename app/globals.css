@@ -234,3 +234,16 @@ a {
   list-style-type: decimal;
   list-style-position: inside;
 }
+
+
+/* Profile Section */
+/* Custom CSS to change the checkbox color when checked */
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-icon {
+  background-color: black !important; /* Change to black when checked */
+  border-color: black; /* Change border color if needed */
+  color: var(--teagreen-600) !important;
+}
+
+.custom-checkbox span{
+  color: var(--teagreen-600) !important;
+}
