@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  // Read the raw cookie header
-  const cookieHeader = req.headers.get("cookie") || "";
-  
-  // Manually extract authToken
-  const authToken = cookieHeader
-    .split("; ")
-    .find((cookie) => cookie.startsWith("authToken="))
-    ?.split("=")[1];
-    
+  const { value: authToken } = req.cookies.get("authToken") || {};
   const pathname = req.nextUrl.pathname;
 
   const authPaths = ["/login", "/forgot-password", "/reset-password"];
@@ -17,7 +9,7 @@ export function middleware(req) {
 
   const isAuthRoute = authPaths.includes(pathname);
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
-  console.log(authToken);
+
   if (!authToken && isProtected) {
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("redirect", pathname);
