@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
+  // Read the raw cookie header
   const cookieHeader = req.headers.get("cookie") || "";
-  const cookies = Object.fromEntries(
-    cookieHeader.split("; ").map((c) => c.split("="))
-  );
-
-  const authToken = cookies.authToken;
+  
+  // Manually extract authToken
+  const authToken = cookieHeader
+    .split("; ")
+    .find((cookie) => cookie.startsWith("authToken="))
+    ?.split("=")[1];
+    
   const pathname = req.nextUrl.pathname;
 
   const authPaths = ["/login", "/forgot-password", "/reset-password"];
