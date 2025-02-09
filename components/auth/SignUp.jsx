@@ -80,8 +80,6 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const handleShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-
     const options = {
       data: credentials,
     };
@@ -113,7 +111,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   };
 
   return (
-    (<div
+    <div
       className={`${
         showForm === "sign-up"
           ? "block translate-x-0 opacity-1"
@@ -134,8 +132,8 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
           {...register("firstName", {
             required: true,
             pattern: {
-              value: /^[a-zA-Z]$/,
-              message: "Please enter only letters",
+              value: /^[a-zA-Z]{2,30}$/,
+              message: "Please enter only letters within 2 to 30 characters",
             },
             onChange: (e) => handleInput("firstName", e.target.value),
           })}
@@ -151,8 +149,8 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
           {...register("lastName", {
             required: true,
             pattern: {
-              value: /^[a-zA-Z]$/,
-              message: "Please enter only letters",
+              value: /^[a-zA-Z]{2,30}$/,
+              message: "Please enter only letters within 2 to 30 characters",
             },
             onChange: (e) => handleInput("lastName", e.target.value),
           })}
@@ -236,7 +234,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
       <div className="flex justify-center gap-3">
         <GoogleLoginButton onLogin={handleGoogleLogin} />
       </div>
-    </div>)
+    </div>
   );
 };
 
