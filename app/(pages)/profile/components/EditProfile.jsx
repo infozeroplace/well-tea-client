@@ -32,7 +32,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
 
   // Submit for update
   const onSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     await console.log(e);
   };
 
