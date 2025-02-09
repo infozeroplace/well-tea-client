@@ -14,7 +14,7 @@ export function middleware(req) {
 
   const isAuthRoute = authPaths.includes(pathname);
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
-
+  console.log(authToken);
   if (!authToken && isProtected) {
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("redirect", pathname);
