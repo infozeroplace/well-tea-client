@@ -26,15 +26,15 @@ const addressApi = api.injectEndpoints({
       query: ({ data }) => ({
         url: "/secure/address/edit",
         method: "PUT",
-        body: data,
+        body: { addressId: data.id, ...data },
       }),
       invalidatesTags: ["address"],
     }),
     deleteAddress: builder.mutation({
-      query: ({ data }) => ({
+      query: ( id ) => ({
         url: "/secure/address/delete",
         method: "DELETE",
-        body: data,
+        body: {addressId: id},
       }),
       invalidatesTags: ["address"],
     }),

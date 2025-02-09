@@ -3,12 +3,14 @@
 import { useGetAddressQuery, useDeleteAddressMutation } from "@/services/features/address/addressApi";
 import { useAppSelector } from "@/services/hook";
 import { useDisclosure } from "@heroui/react";
+import { Spinner } from "@heroui/react";
 import { useState } from "react";
 import { AddNewAddress, EditAddress, EditProfile } from "../components";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [editType, setEditType] = useState("");
+  const [ selectedAddress, setSelectedAddress] = useState({});
   
   const {
     auth: { user, token },
@@ -19,15 +21,16 @@ function AddressScreen() {
     isLoading,
     error,
   } = useGetAddressQuery({}, { skip: !token });
-  const [deleteAddress, { data: addressId, isLoading: deleteLoading }] = useDeleteAddressMutation();
+  const [deleteAddress, { isLoading: deleteLoading }] = useDeleteAddressMutation();
 
-  const handleEdit = (data) => {
+  const handleEdit = (data, addressData) => {
     setEditType(data);
     onOpen();
+    setSelectedAddress(addressData);
   };
 
   const handleDeleteAddress = async (id) => {
-    // await deleteAddress();
+    await deleteAddress(id);
   };
 
   console.log(data);
@@ -57,44 +60,58 @@ function AddressScreen() {
           </div>
         </div>
       </div>
-      <div className="flex justify-between gap-4 bg-gray-100 p-6">
-        <div>
+      <div className="bg-gray-100 p-6">
+        <div className="flex justify-between gap-4">
           <p className="text-2xl content-gap">Your Address</p>
-          <p className="">
-            {user?.firstName} {user?.lastName}
-          </p>
-          <p className="content-gap">{user?.address || "Location"}</p>
-          <div className="flex gap-8">
-            <div
-              onClick={() => {
-                handleEdit("address");
-              }}
-              className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
-            >
-              Edit
+          <div
+            onClick={() => {
+              handleEdit("addAddress");
+            }}
+            className="flex gap-2 cursor-pointer hover:text-teagreen-600"
+          >
+            <div className="flex items-center justify-center pb-[1px] w-7 h-7 text-[2.5rem] font-thin bg-white text-gray-800 rounded-full">
+              +
             </div>
-            <div
-              onClick={() => handleDeleteAddress("")}
-              className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600">
-              Delete
+            <div className="relative text-gray-800">
+              <span className="block hover:text-teagreen-600">
+                Add New Address
+              </span>
+              <span className="block w-full h-[1.5px] bg-teagreen-500 mt-[-2px]"></span>
             </div>
           </div>
         </div>
-        <div
-          onClick={() => {
-            handleEdit("addAddress");
-          }}
-          className="flex gap-2 cursor-pointer hover:text-teagreen-600"
-        >
-          <div className="flex items-center justify-center pb-[1px] w-7 h-7 text-[2.5rem] font-thin bg-white text-gray-800 rounded-full">
-            +
-          </div>
-          <div className="relative text-gray-800">
-            <span className="block hover:text-teagreen-600">
-              Add New Address
-            </span>
-            <span className="block w-full h-[1.5px] bg-teagreen-500 mt-[-2px]"></span>
-          </div>
+        <div className="grid lg:grid-cols-2 gap-10">
+          {data?.map((item, index) => (
+            <div key={index} className="space-y-2">
+              <p className="">
+                {item?.firstName} {item?.lastName}
+              </p>
+              <p className="">{item?.company}</p>
+              <p className="">{item?.address1}</p>
+              <p className="">{item?.address2}</p>
+              <p className="">{item?.city}</p>
+              <p className="">{item?.country}</p>
+              <p className="">{item?.postalCode}</p>
+              <p className="">{item?.phone}</p>
+              <div className="flex gap-8">
+                <div
+                  onClick={() => {
+                    handleEdit("address", item);
+                  }}
+                  className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
+                >
+                  Edit
+                </div>
+                <div
+                  onClick={() => handleDeleteAddress(item._id)}
+                  className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
+                >
+                  Delete 
+                  {/* {deleteLoading && <Spinner />} */}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -105,7 +122,11 @@ function AddressScreen() {
 
       {/* Update Address form */}
       {editType === "address" && (
-        <EditAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+        <EditAddress
+          currentAddressData={selectedAddress}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        />
       )}
 
       {/* Add New Address form */}

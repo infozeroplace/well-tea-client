@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -12,31 +12,62 @@ import {
   Select,
   SelectItem,
 } from "@heroui/react";
+import { countries } from "@/data/countries";
+import { useEditAddressMutation } from "@/services/features/address/addressApi";
 
-import { countries } from "./countriesData";
-
-const EditAddress = ({ user, isOpen, onOpenChange }) => {
+const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
   const [action, setAction] = useState();
   const [addressData, setAddressData] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    company: "",
     address1: "",
     address2: "",
+    city: "",
+    country: "",
+    postalCode: "",
+    phone: "",
     isSelected: false,
   });
+  const [editAddress, { isLoading }] = useEditAddressMutation();
 
+  // Populate addressData when user data is available or modal opens
+  useEffect(() => {
+    if (currentAddressData) {
+      setAddressData({
+        id: currentAddressData._id || "",
+        firstName: currentAddressData.firstName || "",
+        lastName: currentAddressData.lastName || "",
+        company: currentAddressData.company || "",
+        address1: currentAddressData.address1 || "",
+        address2: currentAddressData.address2 || "",
+        city: currentAddressData.city || "",
+        country: currentAddressData.country || "",
+        postalCode: currentAddressData.postalCode || "",
+        phone: currentAddressData.phone || "",
+        isSelected: currentAddressData.isSelected || false,
+      });
+    }
+  }, [currentAddressData, isOpen]);
 
-   // Checkbox toggle
-   const handleChecked = (e) => {
+  // Handle input change
+  const handleInput = (field, value) => {
+    setAddressData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // Handle checkbox toggle
+  const handleChecked = (e) => {
     setAddressData({ ...addressData, isSelected: e.target.checked });
   };
 
-   // Updating form data state
-  const handleInput = (field, value) =>
-    setAddressData((prev) => ({ ...prev, [field]: value }));
- 
-  const handleSubmit =  (e) => {
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await editAddress({data: addressData});
+    onOpenChange(false);
+    console.log("Updated Address:", addressData);
   };
- 
+
   return (
     <Modal
       isOpen={isOpen}
@@ -65,25 +96,29 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                     labelPlacement="inside"
                     name="firstName"
                     type="text"
+                    value={addressData.firstName}
+                    onChange={(e) => handleInput("firstName", e.target.value)}
                   />
                   <Input
                     variant="bordered"
-                    errorMessage="Please enter a your last name"
+                    errorMessage="Please enter your last name"
                     label="Last Name"
                     labelPlacement="inside"
                     name="lastName"
                     type="text"
+                    value={addressData.lastName}
+                    onChange={(e) => handleInput("lastName", e.target.value)}
                   />
                 </div>
 
                 <Input
                   variant="bordered"
-                  // isRequired
-                  // errorMessage="Please enter your company"
                   label="Company"
                   labelPlacement="inside"
                   name="company"
                   type="text"
+                  value={addressData.company}
+                  onChange={(e) => handleInput("company", e.target.value)}
                 />
                 <Input
                   variant="bordered"
@@ -93,6 +128,8 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                   labelPlacement="inside"
                   name="address1"
                   type="text"
+                  value={addressData.address1}
+                  onChange={(e) => handleInput("address1", e.target.value)}
                 />
                 <Input
                   variant="bordered"
@@ -100,6 +137,8 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                   labelPlacement="inside"
                   name="address2"
                   type="text"
+                  value={addressData.address2}
+                  onChange={(e) => handleInput("address2", e.target.value)}
                 />
                 <Input
                   variant="bordered"
@@ -109,15 +148,20 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                   labelPlacement="inside"
                   name="city"
                   type="text"
+                  value={addressData.city}
+                  onChange={(e) => handleInput("city", e.target.value)}
                 />
-               
+
                 <Select
                   variant="bordered"
                   isRequired
                   errorMessage="Please select your country"
                   label="Country"
                   name="country"
-                  // selectionMode="multiple"
+                  selectedKeys={[addressData.country]}
+                  onSelectionChange={(keys) =>
+                    handleInput("country", [...keys][0])
+                  }
                 >
                   {countries.map((country) => (
                     <SelectItem key={country} name="country">
@@ -125,6 +169,7 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                     </SelectItem>
                   ))}
                 </Select>
+
                 <Input
                   variant="bordered"
                   isRequired
@@ -133,6 +178,8 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                   labelPlacement="inside"
                   name="postalCode"
                   type="text"
+                  value={addressData.postalCode}
+                  onChange={(e) => handleInput("postalCode", e.target.value)}
                 />
                 <Input
                   variant="bordered"
@@ -142,9 +189,12 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                   labelPlacement="inside"
                   name="phone"
                   type="text"
+                  value={addressData.phone}
+                  onChange={(e) => handleInput("phone", e.target.value)}
                 />
+
                 <Checkbox
-                  isSelected={addressData?.isSelected}
+                  isSelected={addressData.isSelected}
                   onChange={handleChecked}
                   className="custom-checkbox"
                 >
@@ -152,6 +202,7 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                     Set as default address
                   </span>
                 </Checkbox>
+
                 <div className="flex gap-2">
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Submit
@@ -160,6 +211,7 @@ const EditAddress = ({ user, isOpen, onOpenChange }) => {
                     Reset
                   </Button>
                 </div>
+
                 {action && (
                   <div className="text-small text-default-500">
                     Action: <code>{action}</code>
