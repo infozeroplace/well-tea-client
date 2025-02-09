@@ -3,26 +3,6 @@ import generateServiceUrl from "@/utils/generateServiceUrl";
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getRefreshToken: builder.query({
-      query: (query) => {
-        const url = generateServiceUrl("/public/auth/refresh/user", query);
-
-        return {
-          url,
-          method: "GET",
-        };
-      },
-    }),
-    checkAuth: builder.query({
-      query: (query) => {
-        const url = generateServiceUrl("/public/auth/me", query);
-
-        return {
-          url,
-          method: "GET",
-        };
-      },
-    }),
     resetPassword: builder.mutation({
       query: ({ data }) => ({
         url: "/public/auth/reset-password",
@@ -38,6 +18,14 @@ const authApi = api.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["user"],
+    }),
+    getRefreshToken: builder.mutation({
+      query: ({ data }) => ({
+        url: "/public/auth/refresh/token",
+        method: "POST",
+        body: data,
+      }),
+      providesTags: ["user"],
     }),
     googleSignIn: builder.mutation({
       query: ({ data }) => ({
@@ -77,10 +65,9 @@ const authApi = api.injectEndpoints({
 });
 
 export const {
-  useGetRefreshTokenQuery,
-  useCheckAuthQuery,
   useResetPasswordMutation,
   useForgotPasswordMutation,
+  useGetRefreshTokenMutation,
   useGoogleSignInMutation,
   useSignInMutation,
   useSignUpMutation,

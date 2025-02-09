@@ -42,6 +42,16 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
   useEffect(() => {
     if (data?.success || googleSignInData?.success) {
+      handleSetCookie(
+        "authToken",
+        data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
+        {
+          expires: 7,
+          secure: true,
+          sameSite: "None",
+        }
+      );
+
       dispatch(setAuth(data?.data || googleSignInData?.data));
 
       handleSuccess(data?.message || googleSignInData?.message);

@@ -1,6 +1,7 @@
 import { env } from "@/config/env";
 import { logOut, setAuth } from "@/services/features/auth/authSlice";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import Cookies from "js-cookie";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: env.app_route_url,
@@ -16,11 +17,14 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReAuth = async (args, api, extraOptions) => {
+  const token = Cookies.get("authToken");
+
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 403) {
+    // send the refresh token to get new access token
     const refreshResult = await baseQuery(
-      { url: "/auth/refresh/user", method: "GET" },
+      { url: "/auth/refresh/token", method: "POST", body: { token } },
       api,
       extraOptions
     );
@@ -31,6 +35,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
       // retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
+      Cookies.remove("authToken");
       api.dispatch(logOut());
       if (typeof window !== "undefined") {
         window.location.href = "/login"; // Redirect to login page
@@ -38,6 +43,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
     }
   }
   if (result?.error?.status === 401) {
+    Cookies.remove("authToken");
     api.dispatch(logOut());
     if (typeof window !== "undefined") {
       window.location.href = "/login"; // Redirect to login page
