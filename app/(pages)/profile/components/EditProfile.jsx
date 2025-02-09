@@ -7,34 +7,44 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Spinner,
 } from "@heroui/react";
+import { useForm } from "react-hook-form";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 
 const EditProfile = ({ user, isOpen, onOpenChange }) => {
-  const [formInputs, setFormInputs] = useState({
-    firstName: user?.firstName,
-    lastName: user?.lastName,
-    email: user?.email,
-    phone: user?.phone
-  })
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    // Update user profile here
-    console.log(formInputs);
-    // setFormInputs({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   phone: "",
-    // });
-    // onOpenChange(false);
-  }
-  // console.log(formInputs);
+  const [profileData, setProfileData] = useState({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    phone: user?.phone || "",
+  });
+
+  const handleInput = (field, value) =>
+    setProfileData((prev) => ({ ...prev, [field]: value }));
+
+  // react-hook-form-function
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  // Submit for update
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await console.log(e);
+  };
+
+  const resetForm = () => {
+    reset();
+  };
 
   return (
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !my-auto"
+      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
     >
       <ModalContent>
         {(onClose) => (
@@ -42,62 +52,86 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
             <ModalHeader className="flex flex-col gap-1 border-b-2">
               Edit Profile
             </ModalHeader>
-            <ModalBody>
-              <div className="flex gap-3 justify-between">
+            <ModalBody className="mt-6">
+              <form
+                // onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-3 mb-3"
+              >
+                <div className="flex flex-col md:flex-row gap-8 mb-5 justify-between">
+                  <Input
+                    {...register("firstName", {
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z]$/,
+                        message: "Please enter only letters",
+                      },
+                      onChange: (e) => handleInput("firstName", e.target.value),
+                    })}
+                    errorMessage={getAuthErrorMessage(errors, "firstName")}
+                    isInvalid={!!getAuthErrorMessage(errors, "firstName")}
+                    variant="bordered"
+                    label="First Name"
+                    type="text"
+                    defaultValue={user?.firstName || ""}
+                  />
+                  <Input
+                    {...register("lastName", {
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z]$/,
+                        message: "Please enter only letters",
+                      },
+                      onChange: (e) => handleInput("lastName", e.target.value),
+                    })}
+                    errorMessage={getAuthErrorMessage(errors, "lastName")}
+                    isInvalid={!!getAuthErrorMessage(errors, "lastName")}
+                    variant="bordered"
+                    label="Last Name"
+                    type="text"
+                    defaultValue={user?.lastName || ""}
+                  />
+                </div>
                 <Input
-                  radius="none"
-                  className=""
+                  {...register("phone", {
+                    required: true,
+                    pattern: {
+                      value: /^\+?[0-9]{7,14}$/,
+                      message:
+                        "Please enter only numbers at least 7 to 14 digits",
+                    },
+                    onChange: (e) => handleInput("phone", e.target.value),
+                  })}
+                  errorMessage={getAuthErrorMessage(errors, "phone")}
+                  isInvalid={!!getAuthErrorMessage(errors, "phone")}
                   variant="bordered"
-                  label="First Name"
+                  label="Phone"
                   type="text"
-                  value={formInputs.firstName}
-                  onChange={(e) =>
-                    setFormInputs({ ...formInputs, firstName: e.target.value })
-                  }
+                  defaultValue={user?.phone || ""}
+                  isClearable
                 />
-                <Input
-                  radius="none"
-                  className=""
-                  variant="bordered"
-                  label="Last Name"
-                  type="text"
-                  value={formInputs.lastName}
-                  onChange={(e) =>
-                    setFormInputs({ ...formInputs, lastName: e.target.value })
-                  }
-                />
-              </div>
-              <Input
-                radius="none"
-                className=""
-                variant="bordered"
-                label="Email"
-                type="email"
-                value={formInputs.email}
-                onChange={(e) =>
-                  setFormInputs({ ...formInputs, email: e.target.value })
-                }
-              />
-              <Input
-                radius="none"
-                className=""
-                variant="bordered"
-                label="Phone"
-                type="text"
-                value={formInputs.phone}
-                onChange={(e) =>
-                  setFormInputs({ ...formInputs, phone: e.target.value })
-                }
-              />
+              </form>
             </ModalBody>
             <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
+              <Button
+                color="danger"
+                variant="light"
+                onPress={() => {
+                  resetForm();
+                  onClose();
+                }}
+              >
                 Close
               </Button>
               <Button
-                className="bg-teagreen-600 hover:bg-teagreen-800 text-white"
-                onPress={handleSubmit}
+                type="submit"
+                className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700"
+                onPress={() => {
+                  handleSubmit(onSubmit);
+                  // resetForm();
+                  onClose();
+                }}
               >
+                {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
                 Update Profile
               </Button>
             </ModalFooter>

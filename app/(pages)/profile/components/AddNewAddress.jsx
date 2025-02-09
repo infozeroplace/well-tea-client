@@ -15,6 +15,23 @@ import {
 import { useAddAddressMutation } from "@/services/features/address/addressApi";
 import { countries } from "@/data/countries";
 
+// export const countries = [
+//   { key: "au", label: "Australia" },
+//   { key: "bd", label: "Bangladesh" },
+//   { key: "br", label: "Brazil" },
+//   { key: "ca", label: "Canada" },
+//   { key: "cn", label: "China" },
+//   { key: "fr", label: "France" },
+//   { key: "de", label: "Germany" },
+//   { key: "in", label: "India" },
+//   { key: "jp", label: "Japan" },
+//   { key: "mx", label: "Mexico" },
+//   { key: "ru", label: "Russia" },
+//   { key: "za", label: "South Africa" },
+//   { key: "gb", label: "United Kingdom" },
+//   { key: "us", label: "United States" },
+// ];
+
 const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
   const [ action, setAction ] = useState();
   const [ formData, setFormData ] = useState({})
@@ -42,7 +59,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 border-b-2 mb-4">
               Add New Address
             </ModalHeader>
             <ModalBody>
@@ -166,8 +183,8 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button color="primary" onPress={onClose}>
-                Action
+              <Button className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700" onPress={onClose}>
+                Add Address
               </Button>
             </ModalFooter>
           </>

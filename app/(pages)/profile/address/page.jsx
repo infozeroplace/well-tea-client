@@ -91,14 +91,6 @@ function AddressScreen() {
         </div>
       </div>
 
-      {/* Update or Add form */}
-      {/* <EditForm
-        user={user}
-        editType={editType}
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      /> */}
-
       {/* Update Porfile form */}
       {editType === "profile" && (
         <EditProfile user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
