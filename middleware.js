@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const { value: authToken } = req.cookies.get("authToken") || {};
+  const cookieHeader = req.headers.get("cookie") || "";
+  const cookies = Object.fromEntries(
+    cookieHeader.split("; ").map((c) => c.split("="))
+  );
+
+  const authToken = cookies.authToken;
   const pathname = req.nextUrl.pathname;
 
   const authPaths = ["/login", "/forgot-password", "/reset-password"];
