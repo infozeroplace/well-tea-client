@@ -43,7 +43,6 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
       dispatch(setAuth(data?.data || googleSignInData?.data));
 
       handleSuccess(data?.message || googleSignInData?.message);
-      console.log(redirect);
 
       window.location.href = redirect || "/"; // ✅ Redirect correctly
     }

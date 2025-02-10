@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/services/hook";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { Input, Spinner } from "@heroui/react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import GoogleLoginButton from "./GoogleLoginButton";
@@ -25,7 +25,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectedUrl = searchParams.get("redirect");
+  const redirect = searchParams.get("redirect");
 
   const [credentials, setCredentials] = useState({
     firstName: "",
@@ -45,8 +45,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
 
       handleSuccess(data?.message || googleSignInData?.message);
 
-      // window.location.href = redirectedUrl || "/";
-      redirect(redirectedUrl || "/");
+      window.location.href = redirect || "/"; // ✅ Redirect correctly
     }
 
     if (error) {
