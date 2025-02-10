@@ -1,17 +1,25 @@
 "use client";
 
-import { useGetAddressQuery, useDeleteAddressMutation } from "@/services/features/address/addressApi";
+import {
+  useDeleteAddressMutation,
+  useGetAddressQuery,
+} from "@/services/features/address/addressApi";
 import { useAppSelector } from "@/services/hook";
 import { useDisclosure } from "@heroui/react";
-import { Spinner } from "@heroui/react";
 import { useState } from "react";
-import { AddNewAddress, EditAddress, EditProfile } from "../components";
+import { GoKey } from "react-icons/go";
+import {
+  AddNewAddress,
+  EditAddress,
+  EditPassword,
+  EditProfile,
+} from "../components";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [editType, setEditType] = useState("");
-  const [ selectedAddress, setSelectedAddress] = useState({});
-  
+  const [selectedAddress, setSelectedAddress] = useState({});
+
   const {
     auth: { user, token },
   } = useAppSelector((state) => state);
@@ -21,7 +29,9 @@ function AddressScreen() {
     isLoading,
     error,
   } = useGetAddressQuery({}, { skip: !token });
-  const [deleteAddress, { isLoading: deleteLoading }] = useDeleteAddressMutation();
+
+  const [deleteAddress, { isLoading: deleteLoading }] =
+    useDeleteAddressMutation();
 
   const handleEdit = (data, addressData) => {
     setEditType(data);
@@ -39,7 +49,7 @@ function AddressScreen() {
     <div className="w-full bg-gray-50 p-4">
       <div className="bg-white p-6 section-gap">
         <p className="text-2xl content-gap">Personal Information</p>
-        <div>
+        <div className="content-gap">
           <p className="mb-3">
             {user?.firstName} {user?.lastName}
           </p>
@@ -58,6 +68,19 @@ function AddressScreen() {
           >
             Edit
           </div>
+        </div>
+
+        {/* Password Section */}
+        <div
+          onClick={() => {
+            handleEdit("password");
+          }}
+          className="capitalize flex gap-2 border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
+        >
+          <span className="pt-1 text-sm">
+            <GoKey />
+          </span>{" "}
+          Change Password
         </div>
       </div>
       <div className="bg-gray-100 p-6">
@@ -106,7 +129,7 @@ function AddressScreen() {
                   onClick={() => handleDeleteAddress(item._id)}
                   className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
                 >
-                  Delete 
+                  Delete
                   {/* {deleteLoading && <Spinner />} */}
                 </div>
               </div>
@@ -115,12 +138,17 @@ function AddressScreen() {
         </div>
       </div>
 
-      {/* Update Porfile form */}
+      {/* Porfile Update form */}
       {editType === "profile" && (
         <EditProfile user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
-      {/* Update Address form */}
+      {/* Password Update Form */}
+      {editType === "password" && (
+        <EditPassword user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+      )}
+
+      {/* Address Update form */}
       {editType === "address" && (
         <EditAddress
           currentAddressData={selectedAddress}
@@ -129,7 +157,7 @@ function AddressScreen() {
         />
       )}
 
-      {/* Add New Address form */}
+      {/* New Address Add form */}
       {editType === "addAddress" && (
         <AddNewAddress
           user={user}
