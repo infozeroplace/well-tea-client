@@ -1,6 +1,5 @@
 "use client";
 
-import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
 import { useResetPasswordMutation } from "@/services/features/auth/authApi";
 import { setAuth } from "@/services/features/auth/authSlice";
@@ -15,7 +14,6 @@ import { FaEye } from "react-icons/fa6";
 
 const ResetPasswordScreen = () => {
   const dispatch = useAppDispatch();
-  const { handleSetCookie } = useCookie();
   const { handleSuccess, handleError } = useToast();
 
   const [password, setPassword] = useState("");
@@ -34,17 +32,11 @@ const ResetPasswordScreen = () => {
 
   useEffect(() => {
     if (data) {
-      handleSetCookie("authToken", data?.data?.refreshToken, {
-        expires: 7,
-        secure: true,
-        sameSite: "None",
-      });
-
       dispatch(setAuth(data?.data));
 
       handleSuccess(data?.message);
 
-      window.location.href = redirect || "/profile";
+      window.location.href = redirect || "/";
     }
 
     if (error?.status) {
@@ -68,7 +60,7 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    (<div className="flex justify-center items-center bg-[#EEF2F2]">
+    <div className="flex justify-center items-center bg-[#EEF2F2]">
       <div className="max-w-[510px] w-full px-5 section-gap">
         <div className="my-12 text-center">
           <h4 className="text-4xl font-semibold text-teagreen-600 mb-3">
@@ -125,7 +117,7 @@ const ResetPasswordScreen = () => {
           </div>
         </form>
       </div>
-    </div>)
+    </div>
   );
 };
 

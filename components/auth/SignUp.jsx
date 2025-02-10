@@ -1,6 +1,5 @@
 "use client";
 
-import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
 import { FaEye, FaEyeSlash } from "@/icons";
 import {
@@ -19,7 +18,6 @@ import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignUp = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
-  const { handleGetCookie, handleSetCookie } = useCookie();
 
   // Password states
   const [showPassword, setShowPassword] = useState(false);
@@ -43,16 +41,6 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
 
   useEffect(() => {
     if (data?.success || googleSignInData?.success) {
-      handleSetCookie(
-        "authToken",
-        data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
-        {
-          expires: 7,
-          secure: true,
-          sameSite: "None",
-        }
-      );
-
       dispatch(setAuth(data?.data || googleSignInData?.data));
 
       handleSuccess(data?.message || googleSignInData?.message);

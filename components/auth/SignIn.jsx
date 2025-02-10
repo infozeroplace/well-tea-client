@@ -1,6 +1,5 @@
 "use client";
 
-import useCookie from "@/hooks/useCookie";
 import useToast from "@/hooks/useToast";
 import { FaEye, FaEyeSlash } from "@/icons";
 import {
@@ -13,14 +12,13 @@ import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { Input, Spinner } from "@heroui/react";
 import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const { handleSuccess, handleError } = useToast();
-  const { handleGetCookie, handleSetCookie } = useCookie();
 
   // Password states
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +26,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectedUrl = searchParams.get("redirect");
+  const redirect = searchParams.get("redirect");
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -42,22 +40,12 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
   useEffect(() => {
     if (data?.success || googleSignInData?.success) {
-      handleSetCookie(
-        "authToken",
-        data?.data?.refreshToken || googleSignInData?.data?.refreshToken,
-        {
-          expires: 7,
-          secure: true,
-          sameSite: "None",
-        }
-      );
-
       dispatch(setAuth(data?.data || googleSignInData?.data));
 
       handleSuccess(data?.message || googleSignInData?.message);
+      console.log(redirect);
 
-      // window.location.href = redirectedUrl || "/";
-      redirect(redirectedUrl || "/");
+      window.location.href = redirect || "/"; // ✅ Redirect correctly
     }
 
     if (error) {

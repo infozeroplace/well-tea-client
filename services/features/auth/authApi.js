@@ -19,13 +19,16 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
-    getRefreshToken: builder.mutation({
-      query: ({ data }) => ({
-        url: "/public/auth/refresh/token",
-        method: "POST",
-        body: data,
-      }),
-      providesTags: ["user"],
+    getRefreshToken: builder.query({
+      query: (query) => {
+        const url = generateServiceUrl("/public/auth/refresh/token", query);
+
+        return {
+          url,
+          method: "GET",
+        };
+      },
+      // providesTags: ["user"],
     }),
     googleSignIn: builder.mutation({
       query: ({ data }) => ({
@@ -67,7 +70,7 @@ const authApi = api.injectEndpoints({
 export const {
   useResetPasswordMutation,
   useForgotPasswordMutation,
-  useGetRefreshTokenMutation,
+  useGetRefreshTokenQuery,
   useGoogleSignInMutation,
   useSignInMutation,
   useSignUpMutation,
