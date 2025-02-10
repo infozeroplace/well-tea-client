@@ -18,7 +18,7 @@ import { useEditPasswordMutation, useEditSocialPasswordMutation } from "@/servic
 //   useEditSocialPasswordMutation,
 // } from "@/services/features/address/addressApi";
 
-const EditPassword = ({ user, isOpen, onOpenChange }) => {
+const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
   // Password states
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -32,7 +32,6 @@ const EditPassword = ({ user, isOpen, onOpenChange }) => {
     useEditSocialPasswordMutation({}, { skip: !token });
   const [editPassword, { data: editPasswordData, error: editPasswordError }] =
     useEditPasswordMutation({}, { skip: !token });
-  //   console.log("updatedPassword", updatedPassword);
 
   const handleInput = (field, value) =>
     setUpdatedPassword((prev) => ({ ...prev, [field]: value }));

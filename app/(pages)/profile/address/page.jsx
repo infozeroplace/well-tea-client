@@ -145,7 +145,7 @@ function AddressScreen() {
 
       {/* Password Update Form */}
       {editType === "password" && (
-        <EditPassword user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+        <EditPassword user={user} token={token} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
       {/* Address Update form */}

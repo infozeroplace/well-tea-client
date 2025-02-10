@@ -11,14 +11,17 @@ import {
 } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
+import { useEditProfileMutation } from "@/services/features/profile/profileApi";
 
 const EditProfile = ({ user, isOpen, onOpenChange }) => {
   const [profileData, setProfileData] = useState({
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
-    lastName: user?.email || "",
+    email: user?.email || "",
     phone: user?.phone || "",
   });
+
+  const [editProfile, { isLoading }] = useEditProfileMutation();
 
   const handleInput = (field, value) =>
     setProfileData((prev) => ({ ...prev, [field]: value }));
@@ -34,8 +37,14 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
   // Submit for update
   const onSubmit = async (e) => {
     // e.preventDefault();
-    await console.log(e);
+    await editProfile({ data: profileData });
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   await editAddress({data: addressData});
+  //   onOpenChange(false);
+  // };
 
   const resetForm = () => {
     reset();
@@ -55,7 +64,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
             </ModalHeader>
             <ModalBody className="mt-6">
               <form
-                // onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-3 mb-3"
               >
                 <div className="flex flex-col md:flex-row gap-8 mb-5 justify-between">
@@ -63,7 +72,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                     {...register("firstName", {
                       required: true,
                       pattern: {
-                        value: /^[a-zA-Z]$/,
+                        value: /^[a-zA-Z]{2,30}$/,
                         message: "Please enter only letters",
                       },
                       onChange: (e) => handleInput("firstName", e.target.value),
@@ -79,7 +88,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                     {...register("lastName", {
                       required: true,
                       pattern: {
-                        value: /^[a-zA-Z]$/,
+                        value: /^[a-zA-Z]{2,30}$/,
                         message: "Please enter only letters",
                       },
                       onChange: (e) => handleInput("lastName", e.target.value),
@@ -107,6 +116,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                   type="email"
                   label="Email"
                   variant="bordered"
+                  defaultValue={user?.email || ""}
                   isRequired
                 />
                 <Input
@@ -127,9 +137,18 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                   defaultValue={user?.phone || ""}
                   isClearable
                 />
+
+                <div className="flex gap-2">
+                  <Button type="submit" className="bg-teagreen-600 text-white">
+                    Submit
+                  </Button>
+                  <Button type="reset" variant="flat">
+                    Reset
+                  </Button>
+                </div>
               </form>
             </ModalBody>
-            <ModalFooter>
+            {/* <ModalFooter>
               <Button
                 color="danger"
                 variant="light"
@@ -145,14 +164,12 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                 className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700"
                 onPress={() => {
                   handleSubmit(onSubmit);
-                  // resetForm();
                   onClose();
                 }}
               >
-                {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
                 Update Profile
               </Button>
-            </ModalFooter>
+            </ModalFooter> */}
           </>
         )}
       </ModalContent>
