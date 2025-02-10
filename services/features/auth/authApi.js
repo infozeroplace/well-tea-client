@@ -54,6 +54,14 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    signOut: builder.mutation({
+      query: ({ data }) => ({
+        url: "/public/auth/logout",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
     welcome: builder.query({
       query: (query) => {
         const url = generateServiceUrl("/", query);
@@ -75,4 +83,5 @@ export const {
   useSignInMutation,
   useSignUpMutation,
   useWelcomeQuery,
+  useSignOutMutation,
 } = authApi;
