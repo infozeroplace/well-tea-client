@@ -11,51 +11,49 @@ import {
   Form,
   Select,
   SelectItem,
+  Checkbox,
 } from "@heroui/react";
 import { useAddAddressMutation } from "@/services/features/address/addressApi";
 import { countries } from "@/data/countries";
+import { FaSquare } from "react-icons/fa";
 
-// export const countries = [
-//   { key: "au", label: "Australia" },
-//   { key: "bd", label: "Bangladesh" },
-//   { key: "br", label: "Brazil" },
-//   { key: "ca", label: "Canada" },
-//   { key: "cn", label: "China" },
-//   { key: "fr", label: "France" },
-//   { key: "de", label: "Germany" },
-//   { key: "in", label: "India" },
-//   { key: "jp", label: "Japan" },
-//   { key: "mx", label: "Mexico" },
-//   { key: "ru", label: "Russia" },
-//   { key: "za", label: "South Africa" },
-//   { key: "gb", label: "United Kingdom" },
-//   { key: "us", label: "United States" },
-// ];
 
 const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
-  const [ action, setAction ] = useState();
-  const [ formData, setFormData ] = useState({})
-  const [ addAddress, {data, isLoading, isError, isSuccess, error} ] = useAddAddressMutation();
-  // console.log(user);
+  const [action, setAction] = useState();
+  // const [addressData, setAddressData] = useState({
+  //   isDefault: false,
+  // });
+  const [isDefault, setIsDefault] = useState(false);
+
+  // Checkbox toggle
+  // const handleChecked = (e) => {
+  //   // console.log(e.target.checked);
+  //   setAddressData({ ...addressData, isDefault: e.target.checked });
+  // };
+
+  //  // Updating form data state
+  // const handleInput = (field, value) =>
+  //   setAddressData((prev) => ({ ...prev, [field]: value }));
+ 
+  const [addAddress, { data, isLoading, isError, isSuccess, error }] =
+    useAddAddressMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = Object.fromEntries(new FormData(e.currentTarget));
-
-    // setAction(`submit ${JSON.stringify(data)}`);
-    console.log(data);
-    setFormData(data);
+    let formData = Object.fromEntries(new FormData(e.currentTarget));
+    formData.isDefault = isDefault;
     await addAddress({
-      data
-    })
+      data: formData,
+    });
+    onOpenChange(false);
   };
-  // useEffect(() => {
-  //   console.log(data);
-  //   console.log(error);
-  // }, [data, error])
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
+    >
       <ModalContent>
         {(onClose) => (
           <>
@@ -64,67 +62,67 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
             </ModalHeader>
             <ModalBody>
               <Form
-                className="w-full max-w-xs flex gap-4"
+                className="w-full flex gap-6"
                 validationBehavior="native"
                 onReset={() => setAction("reset")}
                 onSubmit={handleSubmit}
               >
+                <div className="flex flex-col md:flex-row gap-6 justify-between w-full">
+                  <Input
+                    variant="bordered"
+                    isRequired
+                    errorMessage="Please enter your first name"
+                    label="First Name"
+                    labelPlacement="inside"
+                    name="firstName"
+                    type="text"
+                  />
+                  <Input
+                    variant="bordered"
+                    errorMessage="Please enter a your last name"
+                    label="Last Name"
+                    labelPlacement="inside"
+                    name="lastName"
+                    type="text"
+                  />
+                </div>
+
                 <Input
-                  isRequired
-                  errorMessage="Please enter your first name"
-                  radius="none"
-                  className="w-full"
                   variant="bordered"
-                  label="First Name"
-                  labelPlacement="inside"
-                  name="firstName"
-                  placeholder="First Name"
-                  type="text"
-                />
-                <Input
-                  isRequired
-                  errorMessage="Please enter a your last name"
-                  label="Last Name"
-                  labelPlacement="inside"
-                  name="lastName"
-                  placeholder="Last Name"
-                  type="text"
-                />
-                <Input
                   // isRequired
                   // errorMessage="Please enter your company"
                   label="Company"
                   labelPlacement="inside"
                   name="company"
-                  placeholder="Company"
                   type="text"
                 />
                 <Input
+                  variant="bordered"
                   isRequired
                   errorMessage="Please enter your address"
                   label="Address 1"
                   labelPlacement="inside"
                   name="address1"
-                  placeholder="Address 1"
                   type="text"
                 />
                 <Input
+                  variant="bordered"
                   label="Address 2"
                   labelPlacement="inside"
                   name="address2"
-                  placeholder="Address 2"
                   type="text"
                 />
                 <Input
+                  variant="bordered"
                   isRequired
                   errorMessage="Please enter your city"
                   label="City"
                   labelPlacement="inside"
                   name="city"
-                  placeholder="City"
                   type="text"
                 />
                 {/* <Input
+                variant="bordered"
                   isRequired
                   errorMessage="Please enter your country"
                   label="Country"
@@ -134,36 +132,50 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   type="text"
                 /> */}
                 <Select
+                  variant="bordered"
                   isRequired
                   errorMessage="Please select your country"
-                  className="max-w-xs"
                   label="Country"
-                  placeholder="Select your country"
                   name="country"
                   // selectionMode="multiple"
                 >
                   {countries.map((country) => (
-                    <SelectItem key={country} name="country">{country}</SelectItem>
+                    <SelectItem key={country} name="country">
+                      {country}
+                    </SelectItem>
                   ))}
                 </Select>
                 <Input
+                  variant="bordered"
                   isRequired
                   errorMessage="Please enter your postal code"
                   label="Postal Code"
                   labelPlacement="inside"
                   name="postalCode"
-                  placeholder="Postal Code"
                   type="text"
                 />
                 <Input
+                  variant="bordered"
                   isRequired
                   errorMessage="Please enter your phone number"
                   label="Phone"
                   labelPlacement="inside"
                   name="phone"
-                  placeholder="Phone"
                   type="text"
                 />
+
+                {/* <Checkbox isSelected={isSelected} onValueChange={setIsSelected}> */}
+                <Checkbox
+                  // isSelected={addressData?.isDefault}
+                  isSelected={isDefault}
+                  name="isDefault"
+                  onChange={()=> setIsDefault(!isDefault)}
+                  className="custom-checkbox"
+                >
+                  <span className="text-sm font-extralight">
+                    Set as default address
+                  </span>
+                </Checkbox>
                 <div className="flex gap-2">
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Submit
@@ -183,7 +195,10 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700" onPress={onClose}>
+              <Button
+                className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700"
+                onPress={onClose}
+              >
                 Add Address
               </Button>
             </ModalFooter>

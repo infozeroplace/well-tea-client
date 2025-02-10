@@ -22,7 +22,23 @@ const addressApi = api.injectEndpoints({
       }),
       invalidatesTags: ["address"],
     }),
+    editAddress: builder.mutation({
+      query: ({ data }) => ({
+        url: "/secure/address/edit",
+        method: "PUT",
+        body: { addressId: data.id, ...data },
+      }),
+      invalidatesTags: ["address"],
+    }),
+    deleteAddress: builder.mutation({
+      query: ( id ) => ({
+        url: "/secure/address/delete",
+        method: "DELETE",
+        body: {addressId: id},
+      }),
+      invalidatesTags: ["address"],
+    }),
   }),
 });
 
-export const { useGetAddressQuery, useAddAddressMutation } = addressApi;
+export const { useGetAddressQuery, useAddAddressMutation, useEditAddressMutation, useDeleteAddressMutation } = addressApi;
