@@ -17,8 +17,6 @@ function YouMayAlsoLike({relatedProductsData}) {
   const relatedProducts = relatedProductsData.slice(0, 7);
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
-
-  console.log(relatedProducts);
   
   const handleSlideChange = (swiper) => {
     setIsFirstSlide(swiper.isBeginning);
@@ -32,7 +30,7 @@ function YouMayAlsoLike({relatedProductsData}) {
         <div className="relative">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, A11y]}
-            slidesPerView={3}
+            slidesPerView={4}
             spaceBetween={25}
             speed={1000}
             slidesPerGroup={1}
@@ -55,11 +53,11 @@ function YouMayAlsoLike({relatedProductsData}) {
                 spaceBetween: 10,
               },
               1024: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 15,
               },
               1280: {
-                slidesPerView: 3,
+                slidesPerView: 4,
                 spaceBetween: 25,
               },
             }}

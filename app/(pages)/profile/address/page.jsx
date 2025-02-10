@@ -13,12 +13,14 @@ import {
   EditAddress,
   EditPassword,
   EditProfile,
+  ConfirmDelete
 } from "../components";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [editType, setEditType] = useState("");
   const [selectedAddress, setSelectedAddress] = useState({});
+  const [addressId, setAddressId] = useState("");
 
   const {
     auth: { user, token },
@@ -33,21 +35,21 @@ function AddressScreen() {
   const [deleteAddress, { isLoading: deleteLoading }] =
     useDeleteAddressMutation();
 
-  const handleEdit = (data, addressData) => {
-    setEditType(data);
-    onOpen();
+  const handleEdit = (type, addressData) => {
+    setEditType(type);
     setSelectedAddress(addressData);
+    onOpen();
   };
 
-  const handleDeleteAddress = async (id) => {
-    await deleteAddress(id);
+  const handleDelete = (type, id) => {
+    setEditType(type);
+    setAddressId(id);
+    onOpen();
   };
-
-  // console.log(data);
 
   return (
-    <div className="w-full bg-gray-50 p-4">
-      <div className="bg-white p-6 section-gap">
+    <div className="w-full bg-teagreen-100 p-4">
+      <div className="p-6 section-gap">
         <p className="text-2xl content-gap">Personal Information</p>
         <div className="content-gap">
           <p className="mb-3">
@@ -83,7 +85,7 @@ function AddressScreen() {
           Change Password
         </div>
       </div>
-      <div className="bg-gray-100 p-6">
+      <div className="p-6">
         <div className="flex justify-between gap-4">
           <p className="text-2xl content-gap">Your Address</p>
           <div
@@ -103,19 +105,27 @@ function AddressScreen() {
             </div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 gap-10">
-          {data?.map((item, index) => (
-            <div key={index} className="space-y-2">
-              <p className="">
-                {item?.firstName} {item?.lastName}
-              </p>
-              <p className="">{item?.company}</p>
-              <p className="">{item?.address1}</p>
-              <p className="">{item?.address2}</p>
-              <p className="">{item?.city}</p>
-              <p className="">{item?.country}</p>
-              <p className="">{item?.postalCode}</p>
-              <p className="">{item?.phone}</p>
+        <div className="">
+          {data
+          ?.slice()
+          .sort((a, b) => (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0))
+          .map((item, index) => (
+            <div key={index} className="space-y-2 py-5 flex items-start justify-between border-b">
+              <div className="space-y-2">
+                <p className="">
+                  {item?.firstName} {item?.lastName}
+                  {item?.isDefault &&
+                    <span className="bg-teagreen-200 rounded-xl px-3 ml-3 text-sm">Default</span>
+                  }
+                </p>
+                <p className="">{item?.company}</p>
+                <p className="">{item?.address1}</p>
+                <p className="">{item?.address2}</p>
+                <p className="">{item?.city}</p>
+                <p className="">{item?.country}</p>
+                <p className="">{item?.postalCode}</p>
+                <p className="">{item?.phone}</p>
+              </div>
               <div className="flex gap-8">
                 <div
                   onClick={() => {
@@ -126,7 +136,7 @@ function AddressScreen() {
                   Edit
                 </div>
                 <div
-                  onClick={() => handleDeleteAddress(item._id)}
+                  onClick={() => handleDelete("delete", item._id)}
                   className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
                 >
                   Delete
@@ -135,6 +145,9 @@ function AddressScreen() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="flex justify-center items-center text-teagreen-600">
+          <span>At most 5 addresses can be added!</span>
         </div>
       </div>
 
@@ -152,6 +165,13 @@ function AddressScreen() {
       {editType === "address" && (
         <EditAddress
           currentAddressData={selectedAddress}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        />
+      )}
+      {editType === "delete" && (
+        <ConfirmDelete
+          addressId={addressId}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
         />
