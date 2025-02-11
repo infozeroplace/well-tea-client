@@ -177,11 +177,6 @@ const CartPage = () => {
                   <h3>Your cart is empty!</h3>
                 </div>
               )}
-              {relatedProductsData.length > 0 && (
-                <div className="px-10 bg-teagreen-100 py-5">
-                  <YouMayAlsoLike relatedProductsData={relatedProductsData} />
-                </div>
-              )}
             </div>
           </div>
 
@@ -237,6 +232,11 @@ const CartPage = () => {
           </div>
         </div>
       </div>
+      {relatedProductsData.length > 0 && (
+        <div className="px-10 bg-teagreen-100 py-5">
+          <YouMayAlsoLike relatedProductsData={relatedProductsData} />
+        </div>
+      )}
     </div>
   );
 };

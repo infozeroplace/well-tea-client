@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { VscAccount } from "react-icons/vsc";
 import { CiSettings, CiLogout } from "react-icons/ci";
 import { BsPersonFill } from "react-icons/bs";
@@ -10,10 +10,13 @@ import {
   PiGiftThin,
   PiPersonSimpleCircleThin,
 } from "react-icons/pi";
+import { useSignOutMutation } from "@/services/features/auth/authApi";
+import { useAppSelector } from "@/services/hook";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { logOut } from "@/services/features/auth/authSlice";
 
 function ProfileSidebar() {
-  const pathname = usePathname();
-
   const sidebarItems = [
     {
       title: "My Account",
@@ -45,12 +48,29 @@ function ProfileSidebar() {
       href: "/profile/settings",
       icon: <CiSettings />,
     },
-    {
-      title: "Log Out",
-      href: "/logout",
-      icon: <CiLogout />,
-    },
+    // {
+    //   title: "Log Out",
+    //   href: "/logout",
+    //   icon: <CiLogout />,
+    // },
   ];
+  const pathname = usePathname();
+  const [signOut, { isLoading }] = useSignOutMutation();
+  const {
+    auth: { user, token },
+  } = useAppSelector((state) => state);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  
+  const handleLogout = async () => {
+    const {data} = await signOut({ data: { token } });
+    if (data.success) {
+      toast.success(data.message);
+      dispatch(logOut());
+      router.push("/");
+    }
+  };
+
   return (
     <div className="">
       <div className="flex flex-col gap-3">
@@ -69,6 +89,12 @@ function ProfileSidebar() {
             </div>
           </Link>
         ))}
+        <button href="/logout" onClick={handleLogout} className="font-brand__font__200">
+          <div className="flex items-center space-x-2">
+            <CiLogout />
+            <span className="text-nowrap">Log Out</span>
+          </div>
+        </button>
       </div>
     </div>
   );
