@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -12,33 +12,40 @@ import {
   Select,
   SelectItem,
 } from "@heroui/react";
+import { useForm } from "react-hook-form";
 import { countries } from "@/data/countries";
 import { useEditAddressMutation } from "@/services/features/address/addressApi";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 
 const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
-  const [action, setAction] = useState();
-  const [addressData, setAddressData] = useState({
-    id: "",
-    firstName: "",
-    lastName: "",
-    company: "",
-    address1: "",
-    address2: "",
-    city: "",
-    country: "",
-    postalCode: "",
-    phone: "",
-    isDefault: false,
-  });
   const [editAddress, { isLoading }] = useEditAddressMutation();
+  const [isDefault, setIsDefault] = useState(false);
 
-  // console.log(currentAddressData);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      company: "",
+      address1: "",
+      address2: "",
+      city: "",
+      country: "",
+      postalCode: "",
+      phone: "",
+      isDefault: false,
+    },
+  });
 
-  // Populate addressData when user data is available or modal opens
+  // Populate form when currentAddressData changes
   useEffect(() => {
     if (currentAddressData) {
-      setAddressData({
-        id: currentAddressData._id || "",
+      reset({
         firstName: currentAddressData.firstName || "",
         lastName: currentAddressData.lastName || "",
         company: currentAddressData.company || "",
@@ -50,22 +57,13 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
         phone: currentAddressData.phone || "",
         isDefault: currentAddressData.isDefault || false,
       });
+      setIsDefault(currentAddressData.isDefault || false);
     }
-  }, [currentAddressData, isOpen]);
+  }, [currentAddressData, isOpen, reset]);
 
-  // Handle input change
-  const handleInput = (field, value) => {
-    setAddressData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  // Handle checkbox toggle
-  const handleChecked = (e) => {
-    setAddressData({ ...addressData, isDefault: e.target.checked });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await editAddress({data: addressData});
+  const onSubmit = async (formData) => {
+    formData.isDefault = isDefault;
+    await editAddress({ data: { id: currentAddressData._id, ...formData } });
     onOpenChange(false);
   };
 
@@ -81,87 +79,107 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
             <ModalHeader className="flex flex-col gap-1 border-b-2 mb-4">
               Edit Address
             </ModalHeader>
-            <ModalBody className="gap-6">
+            <ModalBody>
               <Form
                 className="w-full flex gap-6"
                 validationBehavior="native"
-                onReset={() => setAction("reset")}
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="flex flex-col md:flex-row gap-6 justify-between w-full">
                   <Input
+                    {...register("firstName", {
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z]+$/,
+                        message: "Please enter only letters",
+                      },
+                    })}
                     variant="bordered"
                     isRequired
-                    errorMessage="Please enter your first name"
+                    errorMessage={getAuthErrorMessage(errors, "firstName")}
+                    isInvalid={!!getAuthErrorMessage(errors, "firstName")}
                     label="First Name"
                     labelPlacement="inside"
                     name="firstName"
                     type="text"
-                    value={addressData.firstName}
-                    onChange={(e) => handleInput("firstName", e.target.value)}
                   />
                   <Input
+                    {...register("lastName", {
+                      pattern: {
+                        value: /^[a-zA-Z]+$/,
+                        message: "Please enter only letters",
+                      },
+                    })}
                     variant="bordered"
-                    errorMessage="Please enter your last name"
+                    errorMessage={getAuthErrorMessage(errors, "lastName")}
+                    isInvalid={!!getAuthErrorMessage(errors, "lastName")}
                     label="Last Name"
                     labelPlacement="inside"
                     name="lastName"
                     type="text"
-                    value={addressData.lastName}
-                    onChange={(e) => handleInput("lastName", e.target.value)}
                   />
                 </div>
 
                 <Input
+                  {...register("company")}
                   variant="bordered"
                   label="Company"
                   labelPlacement="inside"
                   name="company"
                   type="text"
-                  value={addressData.company}
-                  onChange={(e) => handleInput("company", e.target.value)}
                 />
                 <Input
+                  {...register("address1", {
+                    required: true,
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your address"
+                  errorMessage={getAuthErrorMessage(errors, "address1")}
+                  isInvalid={!!getAuthErrorMessage(errors, "address1")}
                   label="Address 1"
                   labelPlacement="inside"
                   name="address1"
                   type="text"
-                  value={addressData.address1}
-                  onChange={(e) => handleInput("address1", e.target.value)}
                 />
                 <Input
+                  {...register("address2")}
                   variant="bordered"
+                  errorMessage={getAuthErrorMessage(errors, "address2")}
+                  isInvalid={!!getAuthErrorMessage(errors, "address2")}
                   label="Address 2"
                   labelPlacement="inside"
                   name="address2"
                   type="text"
-                  value={addressData.address2}
-                  onChange={(e) => handleInput("address2", e.target.value)}
                 />
                 <Input
+                  {...register("city", {
+                    required: true,
+                    pattern: {
+                      value: /^[a-zA-Z\s]+$/,
+                      message: "Please enter only letters",
+                    },
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your city"
+                  errorMessage={getAuthErrorMessage(errors, "city")}
+                  isInvalid={!!getAuthErrorMessage(errors, "city")}
                   label="City"
                   labelPlacement="inside"
                   name="city"
                   type="text"
-                  value={addressData.city}
-                  onChange={(e) => handleInput("city", e.target.value)}
                 />
 
                 <Select
+                  {...register("country", { required: true })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please select your country"
+                  errorMessage={getAuthErrorMessage(errors, "country")}
+                  isInvalid={!!getAuthErrorMessage(errors, "country")}
                   label="Country"
                   name="country"
-                  selectedKeys={[addressData.country]}
+                  selectedKeys={[currentAddressData?.country]}
                   onSelectionChange={(keys) =>
-                    handleInput("country", [...keys][0])
+                    setValue("country", [...keys][0])
                   }
                 >
                   {countries.map((country) => (
@@ -172,31 +190,45 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                 </Select>
 
                 <Input
+                  {...register("postalCode", {
+                    required: true,
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Please enter only numbers",
+                    },
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your postal code"
+                  errorMessage={getAuthErrorMessage(errors, "postalCode")}
+                  isInvalid={!!getAuthErrorMessage(errors, "postalCode")}
                   label="Postal Code"
                   labelPlacement="inside"
                   name="postalCode"
                   type="text"
-                  value={addressData.postalCode}
-                  onChange={(e) => handleInput("postalCode", e.target.value)}
                 />
                 <Input
+                  {...register("phone", {
+                    required: true,
+                    pattern: {
+                      value: /^[-+()0-9\s]+$/,
+                      message: "Please enter a valid phone number",
+                    },
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your phone number"
+                  
+                  errorMessage={getAuthErrorMessage(errors, "phone")}
+                  isInvalid={!!getAuthErrorMessage(errors, "phone")}
                   label="Phone"
                   labelPlacement="inside"
                   name="phone"
                   type="text"
-                  value={addressData.phone}
-                  onChange={(e) => handleInput("phone", e.target.value)}
                 />
 
                 <Checkbox
-                  isSelected={addressData.isDefault}
-                  onChange={handleChecked}
+                  isSelected={isDefault}
+                  name="isDefault"
+                  onChange={() => setIsDefault(!isDefault)}
                   className="custom-checkbox"
                 >
                   <span className="text-sm font-extralight">
@@ -208,16 +240,10 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Submit
                   </Button>
-                  <Button type="reset" variant="flat">
+                  <Button type="reset" variant="flat" onClick={() => reset()}>
                     Reset
                   </Button>
                 </div>
-
-                {action && (
-                  <div className="text-small text-default-500">
-                    Action: <code>{action}</code>
-                  </div>
-                )}
               </Form>
             </ModalBody>
             <ModalFooter>

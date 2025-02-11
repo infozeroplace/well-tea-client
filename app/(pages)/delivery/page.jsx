@@ -4,33 +4,12 @@ import { deliveryMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-// export async function generateMetadata() {
-//   return {
-//     title: "Delivery",
-//     description: "",
-//     keywords: "",
-//     openGraph: {
-//       title: "Delivery",
-//       description: "",
-//       images: [
-//         {
-//           url: "",
-//           width: 1200,
-//           height: 630,
-//           alt: "",
-//         },
-//       ],
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: "Delivery",
-//       description: "",
-//       images: [""],
-//     },
-//   };
-// }
+// export const metadata = deliveryMetadata;
 
-export const metadata = deliveryMetadata;
+export async function generateMetadata() {
+  return deliveryMetadata;
+}
+
 
 const Delivery = async () => {
   const { data: { data: systemData = {} } = {} } = await axios.get(

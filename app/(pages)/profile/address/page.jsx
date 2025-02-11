@@ -146,7 +146,7 @@ function AddressScreen() {
             </div>
           ))}
         </div>
-        <div className="flex justify-center items-center text-teagreen-600">
+        <div className="flex justify-center items-center text-teagreen-600 pt-3">
           <span>At most 5 addresses can be added!</span>
         </div>
       </div>

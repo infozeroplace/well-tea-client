@@ -14,9 +14,10 @@ import {
   Checkbox,
 } from "@heroui/react";
 import { useAddAddressMutation } from "@/services/features/address/addressApi";
+import { useForm } from "react-hook-form";
 import { countries } from "@/data/countries";
 import { FaSquare } from "react-icons/fa";
-
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 
 const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
   const [action, setAction] = useState();
@@ -37,16 +38,45 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
  
   const [addAddress, { data, isLoading, isError, isSuccess, error }] =
     useAddAddressMutation();
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      company: "",
+      address1: "",
+      address2: "",
+      city: "",
+      country: "",
+      postalCode: "",
+      phone: "",
+      isDefault: false,
+    },
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let formData = Object.fromEntries(new FormData(e.currentTarget));
+  const onSubmit = async (formData) => {
     formData.isDefault = isDefault;
     await addAddress({
       data: formData,
     });
+
     onOpenChange(false);
+    reset();
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      reset();
+      setIsDefault(false);
+    }
+  }, [isOpen, reset]);
+
 
   return (
     <Modal
@@ -65,21 +95,37 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                 className="w-full flex gap-6"
                 validationBehavior="native"
                 onReset={() => setAction("reset")}
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="flex flex-col md:flex-row gap-6 justify-between w-full">
                   <Input
+                    {...register("firstName", {
+                      required: true,
+                      pattern: {
+                        value: /^[a-zA-Z]+$/,
+                        message: "Please enter only letters",
+                      },
+                    })}
                     variant="bordered"
                     isRequired
-                    errorMessage="Please enter your first name"
+                    errorMessage={getAuthErrorMessage(errors, "firstName")}
+                    isInvalid={!!getAuthErrorMessage(errors, "firstName")}
                     label="First Name"
                     labelPlacement="inside"
                     name="firstName"
                     type="text"
                   />
                   <Input
+                    {...register("lastName", {
+                      required: false,
+                      pattern: {
+                        value: /^[a-zA-Z]+$/,
+                        message: "Please enter only letters",
+                      },
+                    })}
                     variant="bordered"
-                    errorMessage="Please enter a your last name"
+                    errorMessage={getAuthErrorMessage(errors, "lastName")}
+                    isInvalid={!!getAuthErrorMessage(errors, "lastName")}
                     label="Last Name"
                     labelPlacement="inside"
                     name="lastName"
@@ -88,6 +134,9 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                 </div>
 
                 <Input
+                  {...register("company", {
+                    required: false,
+                  })}
                   variant="bordered"
                   // isRequired
                   // errorMessage="Please enter your company"
@@ -97,25 +146,43 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   type="text"
                 />
                 <Input
+                  {...register("address1", {
+                    required: true,
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your address"
+                  errorMessage={getAuthErrorMessage(errors, "address1")}
+                  isInvalid={!!getAuthErrorMessage(errors, "address1")}
                   label="Address 1"
                   labelPlacement="inside"
                   name="address1"
                   type="text"
                 />
                 <Input
+                  {...register("address2", {
+                    required: false,
+                  })}
                   variant="bordered"
+                  // isRequired
+                  errorMessage={getAuthErrorMessage(errors, "address2")}
+                  isInvalid={!!getAuthErrorMessage(errors, "address2")}
                   label="Address 2"
                   labelPlacement="inside"
                   name="address2"
                   type="text"
                 />
                 <Input
+                  {...register("city", {
+                    required: true,
+                    pattern: {
+                      value: /^[a-zA-Z\s]+$/,
+                      message: "Please enter only letters",
+                    },
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your city"
+                  errorMessage={getAuthErrorMessage(errors, "city")}
+                  isInvalid={!!getAuthErrorMessage(errors, "city")}
                   label="City"
                   labelPlacement="inside"
                   name="city"
@@ -132,9 +199,13 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   type="text"
                 /> */}
                 <Select
+                  {...register("country", {
+                    required: true,
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please select your country"
+                  errorMessage={getAuthErrorMessage(errors, "country")}
+                  isInvalid={!!getAuthErrorMessage(errors, "country")}
                   label="Country"
                   name="country"
                   // selectionMode="multiple"
@@ -146,18 +217,34 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   ))}
                 </Select>
                 <Input
+                  {...register("postalCode", {
+                    required: true,
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Please enter only numbers",
+                    },
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your postal code"
+                  errorMessage={getAuthErrorMessage(errors, "postalCode")}
+                  isInvalid={!!getAuthErrorMessage(errors, "postalCode")}
                   label="Postal Code"
                   labelPlacement="inside"
                   name="postalCode"
                   type="text"
                 />
                 <Input
+                  {...register("phone", {
+                    required: true,
+                    pattern: {
+                      value: /^[-+()0-9\s]+$/,
+                      message: "Please enter a valid phone number",
+                    },
+                  })}
                   variant="bordered"
                   isRequired
-                  errorMessage="Please enter your phone number"
+                  errorMessage={getAuthErrorMessage(errors, "phone")}
+                  isInvalid={!!getAuthErrorMessage(errors, "phone")}
                   label="Phone"
                   labelPlacement="inside"
                   name="phone"
@@ -169,7 +256,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                   // isSelected={addressData?.isDefault}
                   isSelected={isDefault}
                   name="isDefault"
-                  onChange={()=> setIsDefault(!isDefault)}
+                  onChange={() => setIsDefault(!isDefault)}
                   className="custom-checkbox"
                 >
                   <span className="text-sm font-extralight">
