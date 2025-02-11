@@ -9,8 +9,6 @@ import { makeTeaMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-export const metadata = makeTeaMetadata;
-
 export async function generateMetadata() {
   return makeTeaMetadata;
 }

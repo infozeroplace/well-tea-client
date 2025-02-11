@@ -55,12 +55,12 @@ const ProductCard = ({ product }) => {
       className="w-full bg-[#F8F8F8] relative overflow-hidden shadow-md flex flex-col justify-between"
     >
       {/* Top Section: Labels & Wishlist */}
-      <div className="h-16 flex justify-between items-center text-brand__font__size__sm px-3">
+      <div className="h-16 flex justify-between items-center text-brand__font__size__xs px-3">
         {product?.isSale ? (
-          <div className="relative z-[1] top-0 left-0 w-[4.3rem] h-[4.3rem] mt-8 rounded-full">
-            <div className="absolute top-0 left-0 w-full h-full bg-red-500 text-white rounded-full text-brand__font__size__xs font-brand__font__500 leading-tight border border-white flex justify-center items-center shadow-lg">
-              <div className="w-[3.8rem] h-[3.8rem] rounded-full border-2 border-dotted border-white flex flex-col items-center justify-center">
-                <span className="text-brand__font__size__base">
+          <div className="relative z-[1] top-0 left-0 w-[4rem] h-[4rem] mt-8 rounded-full">
+            <div className="absolute top-0 left-0 w-full h-full bg-red-500 text-white rounded-full text-brand__font__size__xs font-brand__font__500 leading-tight border border-white flex flex-col justify-center items-center shadow-lg">
+              <div className="w-[3.4rem] h-[3.4rem] rounded-full border-2 border-dotted border-white flex flex-col items-center justify-center">
+                <span>
                   {product.sale || 0}%
                 </span>
                 <span className="uppercase">OFF</span>
