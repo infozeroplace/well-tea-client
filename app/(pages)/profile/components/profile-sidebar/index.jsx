@@ -1,20 +1,18 @@
+import { useSignOutMutation } from "@/services/features/auth/authApi";
+import { logOut } from "@/services/features/auth/authSlice";
+import { useAppSelector } from "@/services/hook";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { VscAccount } from "react-icons/vsc";
-import { CiSettings, CiLogout } from "react-icons/ci";
-import { BsPersonFill } from "react-icons/bs";
-import {
-  PiMapPinAreaThin,
-  PiShoppingCartThin,
-  PiListHeartThin,
-  PiGiftThin,
-  PiPersonSimpleCircleThin,
-} from "react-icons/pi";
-import { useSignOutMutation } from "@/services/features/auth/authApi";
-import { useAppSelector } from "@/services/hook";
 import { toast } from "react-hot-toast";
+import { CiLogout, CiSettings } from "react-icons/ci";
+import {
+  PiGiftThin,
+  PiListHeartThin,
+  PiMapPinAreaThin,
+  PiPersonSimpleCircleThin,
+  PiShoppingCartThin,
+} from "react-icons/pi";
 import { useDispatch } from "react-redux";
-import { logOut } from "@/services/features/auth/authSlice";
 
 function ProfileSidebar() {
   const sidebarItems = [
@@ -54,20 +52,33 @@ function ProfileSidebar() {
     //   icon: <CiLogout />,
     // },
   ];
+
   const pathname = usePathname();
   const [signOut, { isLoading }] = useSignOutMutation();
+
   const {
     auth: { user, token },
   } = useAppSelector((state) => state);
+
   const dispatch = useDispatch();
   const router = useRouter();
-  
+
   const handleLogout = async () => {
-    const {data} = await signOut({ data: { token } });
-    if (data.success) {
-      toast.success(data.message);
-      dispatch(logOut());
-      router.push("/");
+    try {
+      const { data } = await signOut({ data: { token } });
+
+      if (data.success) {
+        toast.success(data.message);
+        dispatch(logOut());
+        router.push("/");
+
+        // ✅ Explicitly reload the page after navigation
+        setTimeout(() => {
+          window.location.reload();
+        }, 100); // Small delay to ensure navigation happens first
+      }
+    } catch (error) {
+      toast.error("Logout failed. Please try again.");
     }
   };
 
@@ -89,7 +100,11 @@ function ProfileSidebar() {
             </div>
           </Link>
         ))}
-        <button href="/logout" onClick={handleLogout} className="font-brand__font__200">
+        <button
+          href="/logout"
+          onClick={handleLogout}
+          className="font-brand__font__200"
+        >
           <div className="flex items-center space-x-2">
             <CiLogout />
             <span className="text-nowrap">Log Out</span>
