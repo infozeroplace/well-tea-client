@@ -51,7 +51,7 @@ const ProductList = ({ products, category, meta }) => {
   return (
     <div className="banner-gap">
       <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
-        <div className="flex gap-5">
+        <div className={`flex ${isFilterVisible ? "gap-5" : "gap-0"}`}>
           {/* Sidebar for Filters */}
           <aside
             className={`overflow-hidden transition-all duration-300 ease-in-out ${

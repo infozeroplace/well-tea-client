@@ -44,7 +44,7 @@ const SignIn = ({ showForm, handleShowForm = () => {} }) => {
 
       handleSuccess(data?.message || googleSignInData?.message);
 
-      window.location.href = redirect || "/"; // ✅ Redirect correctly
+      window.location.href = redirect || "/profile"; // ✅ Redirect correctly
     }
 
     if (error) {

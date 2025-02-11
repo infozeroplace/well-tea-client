@@ -2,6 +2,7 @@
 
 import { env } from "@/config/env";
 import { addToCart } from "@/services/features/cart/cartSlice";
+import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -14,8 +15,11 @@ const ProductCard = ({ product }) => {
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
+  const [addToWishlist] = useAddToWishlistMutation();
+
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
   const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
+  const productId = product._id;
 
   const handleAddToCart = (unitObj) => {
     dispatch(
@@ -28,6 +32,9 @@ const ProductCard = ({ product }) => {
       })
     );
   };
+
+  const handleAddToWishlist = async () =>
+    await addToWishlist({ data: { productId } });
 
   const handleClickOutside = (event) => {
     if (cardRef.current && !cardRef.current.contains(event.target)) {
@@ -68,9 +75,9 @@ const ProductCard = ({ product }) => {
           )
         )}
 
-        <div className="text-brand__font__size__md cursor-pointer text-gray-600 hover:text-gray-800 transition-all">
-          <MdFavoriteBorder />
-        </div>
+        <button onClick={handleAddToWishlist}>
+          <MdFavoriteBorder className="text-brand__font__size__md cursor-pointer text-gray-600 hover:text-gray-800 hover:bg-gray-800 transition-all" />
+        </button>
       </div>
 
       {/* Product Image Section */}

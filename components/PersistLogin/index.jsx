@@ -11,46 +11,46 @@ const PersistLogin = ({ children }) => {
   const { auth } = useAppSelector((state) => state);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { data, refetch } = useGetRefreshTokenQuery();
+  const { data, refetch, isFetching } = useGetRefreshTokenQuery(undefined, {
+    skip: !!auth?.token, // ✅ Avoid calling API if the token already exists
+  });
 
   useEffect(() => {
     let isMounted = true;
 
     const verifyRefreshToken = async () => {
-      try {
+      if (!auth?.token) {
         await refetch();
-      } catch (error) {
-      } finally {
-        isMounted && setIsLoading(false);
       }
+      if (isMounted) setIsLoading(false);
     };
 
-    !auth?.token ? verifyRefreshToken() : setIsLoading(false);
+    verifyRefreshToken();
 
-    return () => (isMounted = false);
+    return () => {
+      isMounted = false;
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth?.token]);
 
   useEffect(() => {
-    if (data) {
+    if (data?.data) {
       dispatch(setAuth(data.data));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data?.data]);
 
-  return (
-    <>
-      {isLoading ? (
-        <div className="h-screen flex flex-col justify-center items-center">
-          <Spinner />
-        </div>
-      ) : (
-        children
-      )}
-    </>
-  );
+  if (isLoading || isFetching) {
+    return (
+      <div className="h-screen flex flex-col justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
+
+  return children;
 };
 
 export default PersistLogin;

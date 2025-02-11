@@ -6,18 +6,21 @@ import { env } from "@/config/env";
 import ReduxProvider from "@/services/ReduxProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
+import LoadInitialData from "../LoadInitialData";
 
 const ClientWrapper = ({ children }) => {
   return (
     <ReduxProvider>
-      <PersistLogin>
-        <GoogleOAuthProvider clientId={env.google_client_id}>
-          <UIProvider>
-            {children}
-            <Toaster position="bottom-right" />
-          </UIProvider>
-        </GoogleOAuthProvider>
-      </PersistLogin>
+      <LoadInitialData>
+        <PersistLogin>
+          <GoogleOAuthProvider clientId={env.google_client_id}>
+            <UIProvider>
+              {children}
+              <Toaster position="bottom-right" />
+            </UIProvider>
+          </GoogleOAuthProvider>
+        </PersistLogin>
+      </LoadInitialData>
     </ReduxProvider>
   );
 };

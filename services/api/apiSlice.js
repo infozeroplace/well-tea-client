@@ -21,7 +21,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
   if (result?.error?.status === 403) {
     // send the refresh token to get new access token
     const refreshResult = await baseQuery(
-      { url: "/auth/refresh/token", method: "GET" },
+      { url: "/public/auth/refresh/token", method: "GET" },
       api,
       extraOptions
     );
@@ -45,6 +45,14 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["user", "product", "review", "system", "address", "profile"],
+  tagTypes: [
+    "user",
+    "product",
+    "review",
+    "system",
+    "address",
+    "profile",
+    "wishlist",
+  ],
   endpoints: () => ({}),
 });
