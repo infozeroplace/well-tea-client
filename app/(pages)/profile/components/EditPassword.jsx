@@ -1,41 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   Spinner,
 } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useEditPasswordMutation, useEditSocialPasswordMutation } from "@/services/features/profile/profileApi";
-// import {
-//   useEditPasswordMutation,
-//   useEditSocialPasswordMutation,
-// } from "@/services/features/address/addressApi";
+import {
+  useEditPasswordMutation,
+  useEditSocialPasswordMutation,
+} from "@/services/features/profile/profileApi";
+import useToast from "@/hooks/useToast";
 
-const EditPassword = ({ user, isOpen, onOpenChange }) => {
-  // Password states
+const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
+  const { handleSuccess, handleError } = useToast();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [updatedPassword, setUpdatedPassword] = useState({
-    currentPassword: "",
-    newPassword: "",
-  });
 
   // Defined Api function
   const [editSocialPassword, { data, error, isLoading }] =
     useEditSocialPasswordMutation({}, { skip: !token });
   const [editPassword, { data: editPasswordData, error: editPasswordError }] =
     useEditPasswordMutation({}, { skip: !token });
-  //   console.log("updatedPassword", updatedPassword);
-
-  const handleInput = (field, value) =>
-    setUpdatedPassword((prev) => ({ ...prev, [field]: value }));
 
   // react-hook-form-function
   const {
@@ -60,12 +51,21 @@ const EditPassword = ({ user, isOpen, onOpenChange }) => {
 
     console.log("options", options);
 
-    user?.isPasswordHas
-      ? await editPassword(options)
-      : await editSocialPassword(options);
-
-    reset();
+    try {
+      const res = user?.isPasswordHas
+        ? await editPassword(options)
+        : await editSocialPassword(options);
+      if (res?.success) handleSuccess(res?.message);
+      
+      onOpenChange(false);
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
   };
+
+  useEffect(() => {
+    reset();
+  }, [user, isOpen]);
 
   return (
     <Modal
@@ -79,10 +79,10 @@ const EditPassword = ({ user, isOpen, onOpenChange }) => {
             <ModalHeader className="flex flex-col gap-1 border-b-2">
               Change Password
             </ModalHeader>
-            <ModalBody className="mt-6">
+            <ModalBody>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-3 mb-3"
+                className="flex flex-col gap-5 my-3"
               >
                 {/* Current password field */}
                 {user?.isPasswordHas && (
@@ -94,8 +94,6 @@ const EditPassword = ({ user, isOpen, onOpenChange }) => {
                         message:
                           "Password must contain one special character and minimum six characters.",
                       },
-                      onChange: (e) =>
-                        handleInput("currentPassword", e.target.value),
                     })}
                     endContent={
                       <button
@@ -129,7 +127,6 @@ const EditPassword = ({ user, isOpen, onOpenChange }) => {
                       message:
                         "Password must contain one special character and minimum six characters.",
                     },
-                    onChange: (e) => handleInput("newPassword", e.target.value),
                   })}
                   endContent={
                     <button
@@ -152,40 +149,17 @@ const EditPassword = ({ user, isOpen, onOpenChange }) => {
                   label="New Password"
                   variant="bordered"
                 />
-                <Button
-                  size="lg"
-                  type="submit"
-                  className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700"
-                  onPress={onClose}
-                >
-                  {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
-                  {user?.isPasswordHas ? "Update" : "Set Password"}
-                </Button>
+                <div className="flex gap-2">
+                  <Button type="submit" className="bg-teagreen-600 text-white">
+                    {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
+                    {user?.isPasswordHas ? "Update" : "Set Password"}
+                  </Button>
+                  <Button onPress={onClose} type="reset" variant="flat">
+                    Cancel
+                  </Button>
+                </div>
               </form>
             </ModalBody>
-            {/* <ModalFooter> */}
-            {/* <Button
-                color="danger"
-                variant="light"
-                onPress={() => {
-                  resetForm();
-                  onClose();
-                }}
-              >
-                Close
-              </Button> */}
-            {/* <Button
-                type="submit"
-                className="bg-teagreen-200 hover:bg-teagreen-400 text-teagreen-700"
-                onPress={() => {
-                  handleSubmit(onSubmit);
-                  resetForm();
-                  onClose();
-                }}
-              >
-                 {user?.isPasswordHas?"Update":"Set Password"}
-              </Button> */}
-            {/* </ModalFooter> */}
           </>
         )}
       </ModalContent>

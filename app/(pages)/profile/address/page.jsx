@@ -48,8 +48,8 @@ function AddressScreen() {
   };
 
   return (
-    <div className="w-full bg-teagreen-100 p-4">
-      <div className="p-6 section-gap">
+    <div className="w-full p-4">
+      <div className="p-6 bg-teagreen-100 section-gap rounded-lg">
         <p className="text-2xl content-gap">Personal Information</p>
         <div className="content-gap">
           <p className="mb-3">
@@ -85,7 +85,7 @@ function AddressScreen() {
           Change Password
         </div>
       </div>
-      <div className="p-6">
+      <div className="p-6 bg-teagreen-100 rounded-lg">
         <div className="flex justify-between gap-4">
           <p className="text-2xl content-gap">Your Address</p>
           <div
@@ -146,7 +146,7 @@ function AddressScreen() {
             </div>
           ))}
         </div>
-        <div className="flex justify-center items-center text-teagreen-600 pt-3">
+        <div className="flex justify-center mt-6 text-teagreen-600">
           <span>At most 5 addresses can be added!</span>
         </div>
       </div>
@@ -158,7 +158,7 @@ function AddressScreen() {
 
       {/* Password Update Form */}
       {editType === "password" && (
-        <EditPassword user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+        <EditPassword user={user} token={token} isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
 
       {/* Address Update form */}

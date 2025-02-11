@@ -67,15 +67,15 @@ function SocialImages() {
         </div>
         <Swiper
           modules={[Navigation, Pagination, Autoplay, A11y]}
-          slidesPerView={5}
-          spaceBetween={25}
+          slidesPerView={1.2}
+          spaceBetween={10}
           speed={1000}
           loop={true}
           autoplay
           breakpoints={{
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 5,
+            520: {
+              slidesPerView: 1.5,
+              spaceBetween: 10,
             },
             640: {
               slidesPerView: 2,
@@ -93,7 +93,7 @@ function SocialImages() {
               slidesPerView: 4,
               spaceBetween: 25,
             },
-            1400: {
+            1536: {
               slidesPerView: 5,
               spaceBetween: 25,
             },
