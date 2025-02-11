@@ -43,17 +43,21 @@ function CategorySlider({ products }) {
 
       <Swiper
         modules={[Navigation, Pagination, Autoplay, A11y]}
-        slidesPerView={4.5}
-        spaceBetween={25}
+        slidesPerView={1.2}
+        spaceBetween={15}
         speed={1000}
         slidesPerGroup={1}
         onSlideChange={handleSlideChange}
         onSwiper={(swiper) => (swiperInstance.current = swiper)} // Store instance
         breakpoints={{
-          480: { slidesPerView: 1.2, spaceBetween: 15 },
+          520: {
+            slidesPerView: 1.5,
+            spaceBetween: 10,
+          },
           768: { slidesPerView: 2.5, spaceBetween: 15 },
           1024: { slidesPerView: 3.5, spaceBetween: 15 },
           1280: { slidesPerView: 4.5, spaceBetween: 25 },
+          1536: { slidesPerView: 5.5, spaceBetween: 25 },
         }}
       >
         {products.map((product, idx) => (

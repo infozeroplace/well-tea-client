@@ -90,13 +90,13 @@ function TestimonialSlider({}) {
     <div className="relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, A11y]}
-        spaceBetween={25}
+        spaceBetween={5}
         speed={500}
         loop={true}
         autoplay={{
           delay: 4000,
         }}
-        slidesPerView={5}
+        slidesPerView={1}
         slidesPerGroup={1}
         onSlideChange={handleSlideChange}
         navigation={{
@@ -104,10 +104,6 @@ function TestimonialSlider({}) {
           nextEl: ".second-swiper-next", // Unique class
         }}
         breakpoints={{
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 5,
-          },
           640: {
             slidesPerView: 2,
             spaceBetween: 10,
@@ -124,6 +120,7 @@ function TestimonialSlider({}) {
             slidesPerView: 5,
             spaceBetween: 25,
           },
+          1536: { slidesPerView: 5.5, spaceBetween: 25 },
         }}
       >
         {testimonials.map((item, index) => (

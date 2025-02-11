@@ -48,7 +48,7 @@ const Category = ({ initialProducts, teaTypes }) => {
         <div className="relative group max-w-[900px] w-full flex flex-wrap gap-2 md:gap-5 mx-auto items-center justify-center mb-8 md:mb-10 py-5">
           <Swiper
             modules={[Navigation, Pagination, A11y]}
-            slidesPerView={6.5}
+            slidesPerView={2.5}
             loop
             speed={500}
             slidesPerGroup={1}
@@ -59,10 +59,6 @@ const Category = ({ initialProducts, teaTypes }) => {
               nextEl: ".category-btn-next",
             }}
             breakpoints={{
-              320: {
-                slidesPerView: 2.5,
-                spaceBetween: 20,
-              },
               640: {
                 slidesPerView: 3.5,
                 spaceBetween: 10,
@@ -77,6 +73,10 @@ const Category = ({ initialProducts, teaTypes }) => {
               },
               1280: {
                 slidesPerView: 5.5,
+                spaceBetween: 5,
+              },
+              1536: {
+                slidesPerView: 6.5,
                 spaceBetween: 5,
               },
             }}

@@ -13,11 +13,11 @@ import {
   Autoplay,
 } from "swiper/modules";
 
-function YouMayAlsoLike({relatedProductsData}) {
+function YouMayAlsoLike({ relatedProductsData }) {
   const relatedProducts = relatedProductsData.slice(0, 7);
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
-  
+
   const handleSlideChange = (swiper) => {
     setIsFirstSlide(swiper.isBeginning);
     setIsLastSlide(swiper.isEnd);
@@ -26,12 +26,14 @@ function YouMayAlsoLike({relatedProductsData}) {
   return (
     <div className="my-10 w-full mx-auto">
       <div className="">
-        <h3 className="text-3xl text-center text-teagreen-800 mb-10 capitalize">You may also like</h3>
+        <h3 className="text-3xl text-center text-teagreen-800 mb-10 capitalize">
+          You may also like
+        </h3>
         <div className="relative">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, A11y]}
-            slidesPerView={4}
-            spaceBetween={25}
+            slidesPerView={1.2}
+            spaceBetween={5}
             speed={1000}
             slidesPerGroup={1}
             onSlideChange={handleSlideChange}
@@ -40,10 +42,6 @@ function YouMayAlsoLike({relatedProductsData}) {
               nextEl: ".related-swiper-next",
             }}
             breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 5,
-              },
               640: {
                 slidesPerView: 1.5,
                 spaceBetween: 5,
@@ -60,6 +58,7 @@ function YouMayAlsoLike({relatedProductsData}) {
                 slidesPerView: 4,
                 spaceBetween: 25,
               },
+              1536: { slidesPerView: 5, spaceBetween: 25 },
             }}
           >
             {relatedProducts.map((item, index) => (
