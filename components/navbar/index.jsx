@@ -15,6 +15,8 @@ import NavItem from "./NavItem";
 import SearchProduct from "./SearchProduct";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
+import Profile from "./Profile";
+import Wishlist from "./Wishlist";
 
 const dropdownData = [
   {
@@ -227,7 +229,7 @@ const Navbar = () => {
             {/* ------ Explore Dropdown Menu ------ */}
             <div className="group">
               <NavItem href="/explore" name="Explore" />
-              <NavDropdown extraClass="group-hover:h-[300px] shadow">
+              <NavDropdown extraClass=" shadow">
                 <ExploreDropdown />
               </NavDropdown>
             </div>
@@ -246,20 +248,23 @@ const Navbar = () => {
                 </svg>
               </button> */}
               <SearchProduct buttonClass={`nav-button ${navIconsClasses}`} />
-              <button className={`nav-button ${navIconsClasses}`}>
-                <CiHeart />
-                <svg className="circle" viewBox="0 0 50 50">
-                  <circle cx="25" cy="25" r="24" />
-                </svg>
-              </button>
-              <Link href="/profile">
+
+              {/* <Link href="/profile">
                 <button className={`nav-button ${navIconsClasses}`}>
                   <PiUser className="text-xl" />
                   <svg className="circle" viewBox="0 0 50 50">
                     <circle cx="25" cy="25" r="24" />
                   </svg>
                 </button>
-              </Link>
+              </Link> */}
+              <Profile buttonClass={`nav-button ${navIconsClasses}`} />
+              {/* <button className={`nav-button ${navIconsClasses}`}>
+                <CiHeart />
+                <svg className="circle" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="24" />
+                </svg>
+              </button> */}
+              <Wishlist buttonClass={`nav-button ${navIconsClasses}`} />
 
               <Cart buttonClass={`nav-button ${navIconsClasses}`} />
             </div>
