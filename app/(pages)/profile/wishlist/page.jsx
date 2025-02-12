@@ -5,6 +5,7 @@ import { addToCart } from '@/services/features/cart/cartSlice';
 import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
+import { useAppSelector } from "@/services/hook";
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -12,7 +13,7 @@ const toNumber = (value) => {
 };
 
 function WishlistScreen() {
-  const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
+  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const wishlistItems = wishlist?.items;
   const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
 

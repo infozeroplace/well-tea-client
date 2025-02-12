@@ -18,7 +18,7 @@ const toNumber = (value) => {
 
 function Wishlist({ buttonClass }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
+  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
   const { user } = useAppSelector(state => state.auth);
   const pathname = usePathname();

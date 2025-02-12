@@ -22,10 +22,6 @@ const ProductCard = ({ product }) => {
 
   const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
   const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
-  // const { data } = useGetWtwQuery();
-  // const wishlist = data?.data?.items;
-
-  // console.log(addToWishlistData);
 
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
   const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
