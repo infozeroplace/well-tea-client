@@ -8,6 +8,7 @@ import { logOut } from "@/services/features/auth/authSlice";
 import { useSignOutMutation } from "@/services/features/auth/authApi";
 import { usePathname, useRouter } from "next/navigation";
 import { CiLogout } from "react-icons/ci";
+import Image from "next/image";
 
 function profile({ buttonClass }) {
     const profileItems = [
@@ -50,17 +51,20 @@ function profile({ buttonClass }) {
         toast.success(data.message);
         dispatch(logOut());
         router.push("/");
+        
+        // ✅ Explicitly reload the page after navigation
+        setTimeout(() => {
+          window.location.reload();
+        }, 100); // Small delay to ensure navigation happens first
       }
     };
 
   return (
     <div className="relative group">
       <Link href="/profile">
-        <button className={`${buttonClass} $`}>
-          <PiUser className="text-xl" />
-          <svg className="circle" viewBox="0 0 50 50">
-            <circle cx="25" cy="25" r="24" />
-          </svg>
+        <button className={`${buttonClass}`}>
+          {/* <PiUser className="text-xl" /> */}
+          <Image src="/icons/user icon.svg" alt="user" width={20} height={20} />
         </button>
       </Link>
       {user &&

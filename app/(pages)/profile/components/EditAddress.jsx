@@ -71,6 +71,7 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      scrollBehavior="inside"
       className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
     >
       <ModalContent>
@@ -177,7 +178,6 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                   isInvalid={!!getAuthErrorMessage(errors, "country")}
                   label="Country"
                   name="country"
-                  selectedKeys={[currentAddressData?.country]}
                   onSelectionChange={(keys) =>
                     setValue("country", [...keys][0])
                   }
@@ -216,7 +216,6 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                   })}
                   variant="bordered"
                   isRequired
-                  
                   errorMessage={getAuthErrorMessage(errors, "phone")}
                   isInvalid={!!getAuthErrorMessage(errors, "phone")}
                   label="Phone"
@@ -236,17 +235,25 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                   </span>
                 </Checkbox>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-end w-full pb-5">
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Submit
                   </Button>
-                  <Button type="reset" variant="flat" onClick={() => reset()}>
+                  <Button type="reset" variant="flat">
                     Reset
+                  </Button>
+                  <Button
+                    color="danger"
+                    variant="light"
+                    onPress={onClose}
+                    className="bg-rose-100"
+                  >
+                    Close
                   </Button>
                 </div>
               </Form>
             </ModalBody>
-            <ModalFooter>
+            {/* <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
@@ -256,7 +263,7 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
               >
                 Edit Address
               </Button>
-            </ModalFooter>
+            </ModalFooter> */}
           </>
         )}
       </ModalContent>

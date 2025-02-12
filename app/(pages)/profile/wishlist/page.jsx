@@ -2,6 +2,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '@/services/features/cart/cartSlice';
+import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -10,26 +11,30 @@ const toNumber = (value) => {
 };
 
 function WishlistScreen() {
-  const wishlistItems = [
-    {
-      _id: 1,
-      image: "/products/product_01.jpg",
-      title: "Product 1",
-      price: 10.99,
-      unit: "50gm",
-    },
-    {
-      _id: 2,
-      image: "/products/product_02.jpg",
-      title: "Product 2",
-      price: 15.99,
-      unit: "100gm",
-    },
-  ];
+  // const wishlistItems = [
+  //   {
+  //     _id: 1,
+  //     image: "/products/product_01.jpg",
+  //     title: "Product 1",
+  //     price: 10.99,
+  //     unit: "50gm",
+  //   },
+  //   {
+  //     _id: 2,
+  //     image: "/products/product_02.jpg",
+  //     title: "Product 2",
+  //     price: 15.99,
+  //     unit: "100gm",
+  //   },
+  // ];
+  const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
+  const wishlistItems = wishlist?.items;
+  const [addToWishlist, { isLoading }] = useAddToWishlistMutation();
+
   const dispatch = useDispatch();
-
-  const handleRemoveFromWishlist = () => {
-
+  const handleRemoveFromWishlist = async (productId) => {
+    console.log(productId);
+    await addToWishlist({ data: { productId } })
   }
 
   const handleAddToCart = (product) => {
@@ -44,6 +49,8 @@ function WishlistScreen() {
     // );
   }
 
+  console.log(wishlistItems);
+
   return (
     <div className="max-h-screen">
       <table className="w-full border-collapse">
@@ -55,7 +62,7 @@ function WishlistScreen() {
           </tr>
         </thead>
         <tbody>
-          {wishlistItems.map((item, index) => (
+          {wishlistItems?.map((item, index) => (
             <tr
               key={index}
               className="border-b border-gray-200 hover:bg-teagreen-100 text-center"
@@ -72,10 +79,16 @@ function WishlistScreen() {
                 </div>
               </td>
               <td className="py-4 font-light">
-                <p className="text-sm text-gray-500">{item?.unit}</p>
+                <p className="text-sm text-gray-500">{item?.unitPrices[0]?.unit}</p>
               </td>
               <td className="py-4 font-light">
-                £{toNumber(item?.price).toFixed(2)}
+                {item?.isSale ? (
+                  <span>
+                    £{toNumber(item?.unitPrices[0]?.salePrice).toFixed(2)}
+                  </span>
+                ) : (
+                  <span>£{toNumber(item?.unitPrices[0]?.price).toFixed(2)}</span>
+                )}
               </td>
               <td className="py-4 font-light space-x-5">
                 <button
@@ -85,7 +98,7 @@ function WishlistScreen() {
                   Add To Cart
                 </button>
                 <button
-                  // onClick={() => handleRemoveFromWishlist(item?._id)}
+                  onClick={() => handleRemoveFromWishlist(item?._id)}
                   className="text-nowrap bg-rose-600 text-white px-5 py-2"
                 >
                   Remove From Wishlist

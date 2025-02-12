@@ -2,11 +2,14 @@
 
 import { env } from "@/config/env";
 import { addToCart } from "@/services/features/cart/cartSlice";
-import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import {
+  useAddToWishlistMutation,
+  useGetWtwQuery,
+} from "@/services/features/wishlist/wishlistApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { MdFavoriteBorder } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
@@ -16,10 +19,13 @@ const ProductCard = ({ product }) => {
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
   const [addToWishlist] = useAddToWishlistMutation();
+  const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
 
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
   const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
   const productId = product._id;
+
+  console.log(wishlist?.items);
 
   const handleAddToCart = (unitObj) => {
     dispatch(
@@ -60,9 +66,7 @@ const ProductCard = ({ product }) => {
           <div className="relative z-[1] top-0 left-0 w-[4rem] h-[4rem] mt-8 rounded-full">
             <div className="absolute top-0 left-0 w-full h-full bg-red-500 text-white rounded-full text-brand__font__size__xs font-brand__font__500 leading-tight border border-white flex flex-col justify-center items-center shadow-lg">
               <div className="w-[3.4rem] h-[3.4rem] rounded-full border-2 border-dotted border-white flex flex-col items-center justify-center">
-                <span>
-                  {product.sale || 0}%
-                </span>
+                <span>{product.sale || 0}%</span>
                 <span className="uppercase">OFF</span>
               </div>
             </div>
@@ -75,8 +79,12 @@ const ProductCard = ({ product }) => {
           )
         )}
 
-        <button onClick={handleAddToWishlist}>
-          <MdFavoriteBorder className="text-brand__font__size__md cursor-pointer text-gray-600 hover:text-gray-800 hover:bg-gray-800 transition-all" />
+        <button onClick={handleAddToWishlist} className="">
+          {wishlist?.items?.some((item) => item?._id === productId) ? (
+            <MdFavorite className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
+          ) : (
+            <MdFavoriteBorder className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 hover:text-gray-800 hover:bg-gray-800 transition-all" />
+          )}
         </button>
       </div>
 

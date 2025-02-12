@@ -8,6 +8,7 @@ import {
 } from "@/services/features/cart/cartSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RelatedProducts } from "../tea/components";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -26,13 +27,14 @@ const CartPage = () => {
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
   // Fetching you may also like products
+  const fetchRelatedProduct = async () => {
+    const data = await axios.post("/public/product/get-related-products", {
+      ids: ids,
+    });
+    setRelatedProductsData(data.data.data);
+  };
+
   useEffect(() => {
-    const fetchRelatedProduct = async () => {
-      const data = await axios.post("/public/product/get-related-products", {
-        ids: ids,
-      });
-      setRelatedProductsData(data.data.data);
-    };
     fetchRelatedProduct();
   }, []);
 
@@ -87,10 +89,10 @@ const CartPage = () => {
   return (
     <div>
       <CommonBanner bannerTitle="Cart" />
-      <div className="bg-gray-50 min-h-screen py-10 lg:py-20">
+      <div className="bg-gray-50 py-10 lg:py-20">
         <div className="container sm:px-10 lg:px-20 flex flex-col lg:flex-row  gap-10">
           {/* Cart Section */}
-          <div className="w-full lg:w-4/6 bg-white rounded-lg shadow-md overflow-y-auto">
+          <div className="w-full lg:w-4/6 h-fit bg-white rounded-lg shadow-md overflow-y-auto">
             <div className="p-5 text-center sm:text-left space-y-5">
               <h2 className="text-2xl font-normal">Cart</h2>
               <p className="">{cartItems?.length} items in your cart.</p>
@@ -233,8 +235,12 @@ const CartPage = () => {
         </div>
       </div>
       {relatedProductsData.length > 0 && (
-        <div className="px-10 bg-teagreen-100 py-5">
-          <YouMayAlsoLike relatedProductsData={relatedProductsData} />
+        <div className="px-10 py-5">
+          {/* <YouMayAlsoLike relatedProductsData={relatedProductsData} /> */}
+          <RelatedProducts
+            relatedProductsData={relatedProductsData}
+            title="You may also like"
+          />
         </div>
       )}
     </div>

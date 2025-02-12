@@ -8,6 +8,7 @@ import { useAppSelector } from "@/services/hook";
 import { useDisclosure } from "@heroui/react";
 import { useState } from "react";
 import { GoKey } from "react-icons/go";
+import { useEditProfileMutation } from "@/services/features/profile/profileApi";
 import {
   AddNewAddress,
   EditAddress,
@@ -22,9 +23,13 @@ function AddressScreen() {
   const [selectedAddress, setSelectedAddress] = useState({});
   const [addressId, setAddressId] = useState("");
 
+  const [editProfile, { data: editProfileData, isLoading: editProfileLoading }] = useEditProfileMutation();
+
   const {
     auth: { user, token },
   } = useAppSelector((state) => state);
+
+  // console.log(user);
 
   const {
     data: { data } = {},
@@ -107,44 +112,49 @@ function AddressScreen() {
         </div>
         <div className="">
           {data
-          ?.slice()
-          .sort((a, b) => (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0))
-          .map((item, index) => (
-            <div key={index} className="space-y-2 py-5 flex items-start justify-between border-b">
-              <div className="space-y-2">
-                <p className="">
-                  {item?.firstName} {item?.lastName}
-                  {item?.isDefault &&
-                    <span className="bg-teagreen-200 rounded-xl px-3 ml-3 text-sm">Default</span>
-                  }
-                </p>
-                <p className="">{item?.company}</p>
-                <p className="">{item?.address1}</p>
-                <p className="">{item?.address2}</p>
-                <p className="">{item?.city}</p>
-                <p className="">{item?.country}</p>
-                <p className="">{item?.postalCode}</p>
-                <p className="">{item?.phone}</p>
-              </div>
-              <div className="flex gap-8">
-                <div
-                  onClick={() => {
-                    handleEdit("address", item);
-                  }}
-                  className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
-                >
-                  Edit
+            ?.slice()
+            .sort((a, b) => (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0))
+            .map((item, index) => (
+              <div
+                key={index}
+                className="space-y-2 py-5 flex items-start justify-between border-b"
+              >
+                <div className="space-y-2">
+                  <p className="">
+                    {item?.firstName} {item?.lastName}
+                    {item?.isDefault && (
+                      <span className="bg-teagreen-400 rounded-xl px-3 ml-3 text-sm">
+                        Default
+                      </span>
+                    )}
+                  </p>
+                  <p className="">{item?.company}</p>
+                  <p className="">{item?.address1}</p>
+                  <p className="">{item?.address2}</p>
+                  <p className="">{item?.city}</p>
+                  <p className="">{item?.country}</p>
+                  <p className="">{item?.postalCode}</p>
+                  <p className="">{item?.phone}</p>
                 </div>
-                <div
-                  onClick={() => handleDelete("delete", item._id)}
-                  className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
-                >
-                  Delete
-                  {/* {deleteLoading && <Spinner />} */}
+                <div className="flex gap-8">
+                  <div
+                    onClick={() => {
+                      handleEdit("address", item);
+                    }}
+                    className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
+                  >
+                    Edit
+                  </div>
+                  <div
+                    onClick={() => handleDelete("delete", item._id)}
+                    className=" border-b-2 border-teagreen-500 px-[1px] w-fit cursor-pointer hover:text-teagreen-600"
+                  >
+                    Delete
+                    {/* {deleteLoading && <Spinner />} */}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div className="flex justify-center mt-6 text-teagreen-600">
           <span>At most 5 addresses can be added!</span>
@@ -153,12 +163,23 @@ function AddressScreen() {
 
       {/* Porfile Update form */}
       {editType === "profile" && (
-        <EditProfile user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
+        <EditProfile
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          editProfile={editProfile}
+          editProfileData={editProfileData}
+          auth={{user, token}}
+        />
       )}
 
       {/* Password Update Form */}
       {editType === "password" && (
-        <EditPassword user={user} token={token} isOpen={isOpen} onOpenChange={onOpenChange} />
+        <EditPassword
+          user={user}
+          token={token}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        />
       )}
 
       {/* Address Update form */}

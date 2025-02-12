@@ -11,7 +11,7 @@ const PersistLogin = ({ children }) => {
   const { auth } = useAppSelector((state) => state);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { data, refetch, isFetching } = useGetRefreshTokenQuery(undefined, {
+  const { data, refetch } = useGetRefreshTokenQuery(undefined, {
     skip: !!auth?.token, // ✅ Avoid calling API if the token already exists
   });
 
@@ -42,7 +42,7 @@ const PersistLogin = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data]);
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
       <div className="h-screen flex flex-col justify-center items-center">
         <Spinner />

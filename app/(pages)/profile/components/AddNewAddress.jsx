@@ -21,20 +21,7 @@ import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 
 const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
   const [action, setAction] = useState();
-  // const [addressData, setAddressData] = useState({
-  //   isDefault: false,
-  // });
   const [isDefault, setIsDefault] = useState(false);
-
-  // Checkbox toggle
-  // const handleChecked = (e) => {
-  //   // console.log(e.target.checked);
-  //   setAddressData({ ...addressData, isDefault: e.target.checked });
-  // };
-
-  //  // Updating form data state
-  // const handleInput = (field, value) =>
-  //   setAddressData((prev) => ({ ...prev, [field]: value }));
  
   const [addAddress, { data, isLoading, isError, isSuccess, error }] =
     useAddAddressMutation();
@@ -82,6 +69,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      scrollBehavior="inside"
       className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
     >
       <ModalContent>
@@ -263,22 +251,30 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                     Set as default address
                   </span>
                 </Checkbox>
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-end w-full pb-5">
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Submit
                   </Button>
                   <Button type="reset" variant="flat">
                     Reset
                   </Button>
+                  <Button
+                    color="danger"
+                    variant="light"
+                    onPress={onClose}
+                    className="bg-rose-100"
+                  >
+                    Close
+                  </Button>
                 </div>
-                {action && (
+                {/* {action && (
                   <div className="text-small text-default-500">
                     Action: <code>{action}</code>
                   </div>
-                )}
+                )} */}
               </Form>
             </ModalBody>
-            <ModalFooter>
+            {/* <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
@@ -288,7 +284,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
               >
                 Add Address
               </Button>
-            </ModalFooter>
+            </ModalFooter> */}
           </>
         )}
       </ModalContent>

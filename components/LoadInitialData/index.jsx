@@ -5,10 +5,14 @@ const LoadInitialData = ({ children }) => {
   const { data: { data: { wishlist } = {} } = {}, refetch: refetchWishlist } =
     useGetWtwQuery(undefined);
 
-  useEffect(async () => {
+  useEffect( () => {
     let isMounted = true;
 
-    await refetchWishlist();
+    const fetchData = async () => {
+      await refetchWishlist();
+    };
+
+    fetchData();
 
     return () => {
       isMounted = false;

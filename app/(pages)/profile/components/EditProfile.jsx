@@ -14,10 +14,10 @@ import { useEditProfileMutation } from "@/services/features/profile/profileApi";
 import { useAppDispatch } from "@/services/hook";
 import { setAuth } from "@/services/features/auth/authSlice";
 
-const EditProfile = ({ user, isOpen, onOpenChange }) => {
+const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData }) => {
   const dispatch = useAppDispatch();
 
-  const [editProfile, { isLoading }] = useEditProfileMutation();
+  // const [editProfile, { isLoading }] = useEditProfileMutation();
 
   const {
     register,
@@ -29,17 +29,30 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
   // Submit for update
   const onSubmit = async (data) => {
     try {
-      const res = await editProfile({ data }).unwrap();
-      dispatch(setAuth(res?.data));
+      await editProfile({ data }).unwrap();
+      // dispatch(setAuth(res?.data));
       onOpenChange(false);
     } catch (error) {
       console.error("Failed to update profile:", error);
     }
   };
 
+  console.log(editProfileData);
+
+  useEffect(() => {
+    if (editProfileData?.data) {
+      dispatch(
+        setAuth({
+          ...auth,
+          user: editProfileData?.data,
+        })
+      );
+    }
+  }, [editProfileData?.data]);
+
   useEffect(() => {
     reset();
-  }, [user, isOpen]);
+  }, [auth?.user, isOpen]);
 
   return (
     <Modal
@@ -72,7 +85,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                     variant="bordered"
                     label="First Name"
                     type="text"
-                    defaultValue={user?.firstName || ""}
+                    defaultValue={auth?.user?.firstName || ""}
                   />
                   <Input
                     {...register("lastName", {
@@ -87,7 +100,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                     variant="bordered"
                     label="Last Name"
                     type="text"
-                    defaultValue={user?.lastName || ""}
+                    defaultValue={auth?.user?.lastName || ""}
                   />
                 </div>
                 <Input
@@ -104,7 +117,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                   type="email"
                   label="Email"
                   variant="bordered"
-                  defaultValue={user?.email || ""}
+                  defaultValue={auth?.user?.email || ""}
                   isRequired
                 />
                 <Input
@@ -121,7 +134,7 @@ const EditProfile = ({ user, isOpen, onOpenChange }) => {
                   variant="bordered"
                   label="Phone"
                   type="text"
-                  defaultValue={user?.phone || ""}
+                  defaultValue={auth?.user?.phone || ""}
                   isClearable
                 />
                 <div className="flex gap-2">

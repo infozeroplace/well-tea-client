@@ -75,7 +75,7 @@ function ProfileSidebar() {
         // ✅ Explicitly reload the page after navigation
         setTimeout(() => {
           window.location.reload();
-        }, 100); // Small delay to ensure navigation happens first
+        }, 1); // Small delay to ensure navigation happens first
       }
     } catch (error) {
       toast.error("Logout failed. Please try again.");
