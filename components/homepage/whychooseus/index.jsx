@@ -50,8 +50,8 @@ const WhyChooseUs = ({ data }) => {
               ))}
             </div>
           </div>
-          <div className="mt-3">
-            <div className="mb-3">
+          <div className="mt-8 lg:mt-3">
+            <div className="mb-3 flex justify-center lg:justify-start">
               {chooseOption?.iconPath && (
                 <Image
                   src={`${env.app_url}${chooseOption?.iconPath}`}
