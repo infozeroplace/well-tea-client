@@ -247,3 +247,8 @@ a {
 .custom-checkbox span{
   color: var(--teagreen-600) !important;
 }
+
+/* Modal z-index */
+.z-50 {
+  z-index: 9999999 !important;
+}

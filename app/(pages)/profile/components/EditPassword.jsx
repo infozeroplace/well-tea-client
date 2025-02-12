@@ -56,7 +56,7 @@ const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
         ? await editPassword(options)
         : await editSocialPassword(options);
       if (res?.success) handleSuccess(res?.message);
-      
+
       onOpenChange(false);
     } catch (error) {
       console.error("Failed to update profile:", error);
@@ -69,9 +69,14 @@ const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
 
   return (
     <Modal
+      backdrop="blur"
+      placement="center"
+      scrollBehavior="inside"
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
+      classNames={{
+        base: "max-w-full md:max-w-[700px] lg:max-w-[650px]",
+      }}
     >
       <ModalContent>
         {(onClose) => (
@@ -149,12 +154,17 @@ const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
                   label="New Password"
                   variant="bordered"
                 />
-                <div className="flex gap-2">
+                <div className="flex justify-end gap-2">
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
                     {user?.isPasswordHas ? "Update" : "Set Password"}
                   </Button>
-                  <Button onPress={onClose} type="reset" variant="flat">
+                  <Button
+                    onPress={onClose}
+                    color="danger"
+                    type="reset"
+                    variant="flat"
+                  >
                     Cancel
                   </Button>
                 </div>
