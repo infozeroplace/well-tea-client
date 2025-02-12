@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import useToast from "@/hooks/useToast";
+import { toast } from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -18,14 +20,17 @@ const ProductCard = ({ product }) => {
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  const [addToWishlist] = useAddToWishlistMutation();
+  const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
   const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
+  // const { data } = useGetWtwQuery();
+  // const wishlist = data?.data?.items;
+
+  // console.log(addToWishlistData);
 
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
   const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
   const productId = product._id;
 
-  console.log(wishlist?.items);
 
   const handleAddToCart = (unitObj) => {
     dispatch(
@@ -39,8 +44,16 @@ const ProductCard = ({ product }) => {
     );
   };
 
-  const handleAddToWishlist = async () =>
+  const handleAddToWishlist = async () => {
     await addToWishlist({ data: { productId } });
+
+  };
+
+  useEffect(() => {
+    if (addToWishlistData?.message) {
+      toast.success(addToWishlistData?.message);
+    }
+  }, [addToWishlistData]);
 
   const handleClickOutside = (event) => {
     if (cardRef.current && !cardRef.current.contains(event.target)) {
@@ -83,7 +96,7 @@ const ProductCard = ({ product }) => {
           {wishlist?.items?.some((item) => item?._id === productId) ? (
             <MdFavorite className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
           ) : (
-            <MdFavoriteBorder className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 hover:text-gray-800 hover:bg-gray-800 transition-all" />
+            <MdFavoriteBorder className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
           )}
         </button>
       </div>

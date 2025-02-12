@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { env } from "@/config/env";
+import { toast } from "react-hot-toast";
+import { SectionLinkButton } from '../shared';
+import { useAppSelector } from '@/services/hook';
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -16,16 +19,26 @@ const toNumber = (value) => {
 function Wishlist({ buttonClass }) {
   const [isOpen, setIsOpen] = useState(false);
   const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
-  const [addToWishlist, { isLoading }] = useAddToWishlistMutation();
+  const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
+  const { user } = useAppSelector(state => state.auth);
+  const pathname = usePathname();
 
   const wishlistItems = wishlist?.items;
   const totalQuantity = wishlistItems?.length;
 
   const handleRemoveFromWishlist = async (productId) => {
-    console.log(productId);
     await addToWishlist({ data: { productId } });
   };
 
+  useEffect(() => {
+    if (addToWishlistData?.message) {
+      toast.success(addToWishlistData?.message);
+    }
+  }, [addToWishlistData]);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <div>
@@ -54,7 +67,7 @@ function Wishlist({ buttonClass }) {
         </div>
         {/* ------ Cart Items ------ */}
         <div className="flex flex-col">
-          <div className="overflow-y-auto h-[calc(100vh-15rem)]">
+          <div className="overflow-y-auto h-[calc(100vh-9rem)]">
             {totalQuantity < 1 ? (
               <div className="flex items-center justify-center h-96">
                 <h3>Your Wishlist is empty!</h3>
@@ -114,6 +127,16 @@ function Wishlist({ buttonClass }) {
             )}
           </div>
         </div>
+        {user && (
+          <div className="flex items-center justify-center p-4 border-t">
+            <SectionLinkButton
+              url={`/profile/wishlist`}
+              title="View Wishlist"
+              buttonClass="!block !w-full px-10"
+              textClass="!block !w-full"
+            />
+          </div>
+        )}
       </div>
       {/* -------- Mask -------- */}
       {isOpen && (

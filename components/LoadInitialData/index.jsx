@@ -22,7 +22,7 @@ const LoadInitialData = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(wishlist);
+    // console.log(wishlist);
   }, [wishlist?.items]);
 
   return children;

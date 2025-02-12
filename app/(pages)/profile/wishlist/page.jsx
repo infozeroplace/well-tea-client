@@ -3,7 +3,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '@/services/features/cart/cartSlice';
 import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
-
+import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -11,31 +12,21 @@ const toNumber = (value) => {
 };
 
 function WishlistScreen() {
-  // const wishlistItems = [
-  //   {
-  //     _id: 1,
-  //     image: "/products/product_01.jpg",
-  //     title: "Product 1",
-  //     price: 10.99,
-  //     unit: "50gm",
-  //   },
-  //   {
-  //     _id: 2,
-  //     image: "/products/product_02.jpg",
-  //     title: "Product 2",
-  //     price: 15.99,
-  //     unit: "100gm",
-  //   },
-  // ];
   const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
   const wishlistItems = wishlist?.items;
-  const [addToWishlist, { isLoading }] = useAddToWishlistMutation();
+  const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
 
   const dispatch = useDispatch();
   const handleRemoveFromWishlist = async (productId) => {
     console.log(productId);
     await addToWishlist({ data: { productId } })
   }
+
+  useEffect(() => {
+    if (addToWishlistData?.message) {
+      toast.success(addToWishlistData?.message);
+    }
+  }, [addToWishlistData]);
 
   const handleAddToCart = (product) => {
     // dispatch(
@@ -108,6 +99,11 @@ function WishlistScreen() {
           ))}
         </tbody>
       </table>
+      {wishlistItems?.length === 0 && (
+        <div className="flex items-center justify-center h-60">
+          <h3>Your wishlist is empty!</h3>
+        </div>
+      )}
     </div>
   );
 }
