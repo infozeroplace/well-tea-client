@@ -8,6 +8,10 @@ import { RiPriceTagFill } from "react-icons/ri";
 // import ReactImageMagnify from "react-image-magnify";
 import { EffectFade, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import { useAppSelector, useAppDispatch } from "@/services/hook";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -20,10 +24,13 @@ function ProductSlider({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [placement, setPlacement] = useState("auto");
   const [selectedImage, setSelectedImage] = useState(product?.slideImages[0]);
-
   const [isZoomed, setIsZoomed] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-
+  const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
+  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
+  const wishlistItems = wishlist?.items;
+  const productId = product?._id;
+  
   const handleMouseMove = (e) => {
     if (isZoomed) {
       const { left, top, width, height } =
@@ -55,6 +62,16 @@ function ProductSlider({ product }) {
     }
     setSelectedImage(image);
   };
+
+  const handleAddToWishlist = async () => {
+    await addToWishlist({ data: { productId } });
+  };
+
+  useEffect(() => {
+    if (addToWishlistData?.message) {
+      toast.success(addToWishlistData?.message);
+    }
+  }, [addToWishlistData]);
 
   return (
     <div>
@@ -89,6 +106,13 @@ function ProductSlider({ product }) {
           }}
           className="w-full mb-4 relative group !overflow-visible"
         >
+          <button onClick={handleAddToWishlist} className="">
+            {wishlistItems?.some((item) => item?._id === productId) ? (
+              <MdFavorite className="absolute top-10 right-10 z-30 overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
+            ) : (
+              <MdFavoriteBorder className="absolute top-10 right-10 z-30 overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
+            )}
+          </button>
           {product?.slideImages?.map((image, idx) => (
             <SwiperSlide
               key={idx}

@@ -2,34 +2,26 @@
 
 import { env } from "@/config/env";
 import { addToCart } from "@/services/features/cart/cartSlice";
-import {
-  useAddToWishlistMutation,
-  useGetWtwQuery,
-} from "@/services/features/wishlist/wishlistApi";
+import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import useToast from "@/hooks/useToast";
+import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { toast } from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef(null);
-
   const [addButtonClicked, setAddButtonClicked] = useState(false);
-
+  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
+  const wishlistItems = wishlist?.items;
   const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
-  const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
-  // const { data } = useGetWtwQuery();
-  // const wishlist = data?.data?.items;
-
-  // console.log(addToWishlistData);
+  // const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
 
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
   const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
-  const productId = product._id;
+  const productId = product?._id;
 
 
   const handleAddToCart = (unitObj) => {
@@ -93,7 +85,7 @@ const ProductCard = ({ product }) => {
         )}
 
         <button onClick={handleAddToWishlist} className="">
-          {wishlist?.items?.some((item) => item?._id === productId) ? (
+          {wishlistItems?.some((item) => item?._id === productId) ? (
             <MdFavorite className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
           ) : (
             <MdFavoriteBorder className="overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />

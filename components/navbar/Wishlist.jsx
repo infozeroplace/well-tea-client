@@ -9,7 +9,7 @@ import { env } from "@/config/env";
 import { toast } from "react-hot-toast";
 import { SectionLinkButton } from '../shared';
 import { useAppSelector } from '@/services/hook';
-
+import Link from 'next/link';
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -18,7 +18,7 @@ const toNumber = (value) => {
 
 function Wishlist({ buttonClass }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
+  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
   const { user } = useAppSelector(state => state.auth);
   const pathname = usePathname();
@@ -78,15 +78,16 @@ function Wishlist({ buttonClass }) {
                   key={index}
                   className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
-                  <div className="mr-3">
-                    <Image
-                      src={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
-                      alt={item?.thumbnails[0]?.alternateText}
-                      width={80}
-                      height={80}
-                    />
-                  </div>
-                  <div className="flex-1 flex flex-col gap-2">
+                  <Link href={`/${item?.urlParameter}`} className="flex items-center gap-1">
+                    <div className="mr-3">
+                      <Image
+                        src={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
+                        alt={item?.thumbnails[0]?.alternateText}
+                        width={80}
+                        height={80}
+                      />
+                    </div>
+                  <div className="flex-1 space-y-2">
                     <h3 className="text-sm font-light">{item?.title}</h3>
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
@@ -108,6 +109,7 @@ function Wishlist({ buttonClass }) {
                       </p>
                     </div>
                   </div>
+                  </Link>
                   <div className="flex items-center border text-base font-light">
                     <button
                       onClick={() => console.log(item)}
