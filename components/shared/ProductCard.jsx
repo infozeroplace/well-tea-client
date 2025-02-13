@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { toast } from "react-hot-toast";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 
 const ProductCard = ({ product }) => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const ProductCard = ({ product }) => {
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const wishlistItems = wishlist?.items;
   const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
+  const [addToCart, { data: addToCartData, isLoading: isAddingToCartLoading }] = useAddToCartMutation();
   // const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
 
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
@@ -24,16 +26,23 @@ const ProductCard = ({ product }) => {
   const productId = product?._id;
 
 
-  const handleAddToCart = (unitObj) => {
-    dispatch(
-      addToCart({
-        product,
-        unitObj,
+  const handleAddToCart = async (unitPriceId) => {
+
+    await addToCart({
+      data: {
+        productId,
+        unitPriceId,
+        actionType: "plus",
+        purchaseType: "one_time",
+        subscriptionId: "",
         quantity: 1,
-        productPrice: product?.isSale ? unitObj.salePrice : unitObj.price,
-        addOns: [],
-      })
-    );
+      },
+    });
+
+    if(addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
+
   };
 
   const handleAddToWishlist = async () => {
@@ -175,7 +184,7 @@ const ProductCard = ({ product }) => {
             {product?.unitPrices?.slice(0, 3).map((item, index) => (
               <button
                 key={index}
-                onClick={() => handleAddToCart(item)}
+                onClick={() => handleAddToCart(item._id)}
                 className={`flex flex-col items-center w-full py-2 text-teagreen-600 hover:text-teagreen-800 duration-300 ${
                   index !== product.unitPrices?.length - 1 ? "border-r" : ""
                 }`}

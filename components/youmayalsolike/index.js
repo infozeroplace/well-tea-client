@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { productList } from "@/data/products";
-import CategoryCard from "@/components/category/CategoryCard";
 import { ProductCard } from "@/components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {

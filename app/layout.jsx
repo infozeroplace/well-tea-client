@@ -69,7 +69,11 @@ const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 //   };
 // }
 
-export const metadata = layoutMetadata;
+// export const metadata = layoutMetadata;
+
+export async function generateMetadata() {
+  return layoutMetadata;
+}
 
 export default function RootLayout({ children }) {
   return (

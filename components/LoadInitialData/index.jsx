@@ -1,20 +1,24 @@
 import { useGetWtwQuery } from "@/services/features/wishlist/wishlistApi";
+import { useGetCartQuery } from "@/services/features/cart/cartApi";
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { addWishlist } from "@/services/features/wishlist/wishlistSlice";
+import { addCart } from "@/services/features/cart/cartSlices";
 
 const LoadInitialData = ({ children }) => {
   const { data: { data: { wishlist } = {} } = {}, refetch: refetchWishlist } =
     useGetWtwQuery(undefined);
+  const { data: { data: { cart } = {} } = {}, refetch: refetchCart } =
+    useGetCartQuery(undefined);
 
   const dispatch = useAppDispatch();
-  // const wishList = useAppSelector((state) => state.wishlist.wishlist);
 
   useEffect( () => {
     let isMounted = true;
 
     const fetchData = async () => {
       await refetchWishlist();
+      await refetchCart();
     };
 
     fetchData();
@@ -25,11 +29,15 @@ const LoadInitialData = ({ children }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(cart);
 
   useEffect(() => {
-    // console.log(wishlist);
     dispatch(addWishlist(wishlist));
   }, [wishlist?.items]);
+
+  useEffect(() => {
+    dispatch(addCart(cart));
+  }, [cart?.items]);
 
   return children;
 };

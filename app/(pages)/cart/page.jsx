@@ -2,14 +2,13 @@
 import axios from "@/api/axios";
 import { CommonBanner, SectionButton } from "@/components";
 import { env } from "@/config/env";
-import {
-  removeFromCart,
-  updateQuantity,
-} from "@/services/features/cart/cartSlice";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { RelatedProducts } from "../tea/components";
-
+import { useAppSelector, useAppDispatch } from "@/services/hook";
+import Link from "next/link";
+import Image from "next/image";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import { toast } from "react-hot-toast";
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -17,11 +16,11 @@ const toNumber = (value) => {
 };
 
 const CartPage = () => {
-  const cartItems = useSelector((state) => state?.cart?.items);
-  const totalQuantity = useSelector((state) => state?.cart?.totalQuantity);
-  const totalCost = useSelector((state) => state?.cart?.totalCost);
-  const dispatch = useDispatch();
-  const ids = cartItems.map((item) => item?.product?._id);
+  const [addToCart, { data: addToCartData, isLoading }] = useAddToCartMutation();
+  const carts = useAppSelector((state) => state.carts.carts);
+  const dispatch = useAppDispatch();
+  const totalQuantity = carts?.items?.length;
+  const ids = carts?.items?.map((item) => item?.productId);
   const [relatedProductsData, setRelatedProductsData] = useState([]);
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
@@ -35,53 +34,38 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    if (cartItems?.length > 0) fetchRelatedProduct();
+    if (carts?.items?.length > 0) fetchRelatedProduct();
   }, []);
 
-  const handleIncreaseQuantity = (
+  const handleUpdateQuantity = async (
     productId,
-    unit,
-    currentQuantity,
-    purchaseType
+    actionType,
+    purchaseType,
+    quantity,
+    unitPriceId,
+    subscriptionId
   ) => {
-    dispatch(
-      updateQuantity({
+    await addToCart({
+      data: {
         productId,
-        unit,
-        quantity: currentQuantity + 1,
+        actionType,
         purchaseType,
-      })
-    );
-  };
-
-  const handleDecreaseQuantity = (
-    productId,
-    unit,
-    currentQuantity,
-    purchaseType
-  ) => {
-    if (currentQuantity > 1) {
-      dispatch(
-        updateQuantity({
-          productId,
-          unit,
-          quantity: currentQuantity - 1,
-          purchaseType,
-        })
-      );
+        quantity,
+        unitPriceId,
+        subscriptionId,
+      },
+    });
+    if (addToCartData?.success) {
+      toast.success(addToCartData?.message);
     } else {
-      dispatch(removeFromCart({ productId, unit, purchaseType }));
+      toast.error(addToCartData?.message);
     }
-  };
-
-  const handleRemoveItem = (productId, unit, purchaseType) => {
-    dispatch(removeFromCart({ productId, unit, purchaseType }));
   };
 
   return (
     <div>
       <CommonBanner bannerTitle="Cart" />
-      {cartItems?.length < 1 ? (
+      {carts?.items?.length < 1 ? (
         <div className="flex items-center justify-center h-60 text-brand__font__size__lg2">
           <h3>Your cart is empty!</h3>
         </div>
@@ -102,57 +86,62 @@ const CartPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {cartItems.map((item, index) => (
+                    {carts?.items?.map((item, index) => (
                       <tr
                         key={index}
                         className="border-b border-gray-200 hover:bg-teagreen-100"
                       >
                         <td className="py-4 flex items-center gap-1 md:gap-5 pl-2 sm:pl-5">
-                          <img
-                            src={`${env.app_url}${item.product?.thumbnails[0]?.filepath}`}
-                            alt={item.product?.thumbnails[0]?.alternateText}
-                            className="w-20 h-20 object-cover"
+                          <Link href={`/${item?.urlParameter}`} className="flex items-center group">
+                            <Image
+                              src={`${env.app_url}${item.thumbnail?.filepath}`}
+                              alt={item?.thumbnail?.alternateText}
+                              width={80}
+                              height={80}
                           />
                           <div>
-                            <h4 className="font-light">
-                              {item?.product.title}
-                            </h4>
+                            <h4 className="font-light group-hover:underline duration-300">{item?.title}</h4>
                             <p className="text-sm text-gray-500">
-                              {item?.unitObj?.unit}
+                              {item?.unit}
                             </p>
                             <p className="text-sm text-gray-500">
-                              £{item?.productPrice}
+                              £{item?.totalPrice}
                             </p>
                             {item.purchaseType === "subscribe" && (
                               <p className="text-sm text-gray-500">
-                                Every {item?.subObj?.weeks}
+                                Every {item?.subscription}
                               </p>
                             )}
                           </div>
+                          </Link>
                         </td>
                         <td className="text-center font-light">
                           <div className="flex items-center justify-center gap-2.5 bg-gray-100 border rounded">
                             <button
                               onClick={() =>
-                                handleDecreaseQuantity(
-                                  item?.product?._id,
-                                  item?.unitObj?.unit,
-                                  item?.quantity,
-                                  item?.purchaseType
+                                handleUpdateQuantity(
+                                  item?.productId,
+                                  "minus",
+                                  item?.purchaseType,
+                                  1,
+                                  item?.unitPriceId,
+                                  item?.subscriptionId
                                 )
                               }
                               className="text-brand__font__size__lg"
                             >
                               -
                             </button>
-                            <span>{item.quantity}</span>
+                            <span>{item?.quantity}</span>
                             <button
                               onClick={() =>
-                                handleIncreaseQuantity(
-                                  item?.product?._id,
-                                  item?.unitObj?.unit,
-                                  item?.quantity,
-                                  item?.purchaseType
+                                handleUpdateQuantity(
+                                  item?.productId,
+                                  "plus",
+                                  item?.purchaseType,
+                                  1,
+                                  item?.unitPriceId,
+                                  item?.subscriptionId
                                 )
                               }
                               className="text-brand__font__size__lg"
@@ -162,7 +151,7 @@ const CartPage = () => {
                           </div>
                         </td>
                         <td className="py-4 text-right font-light pr-2 sm:pr-5">
-                          £{(item?.productPrice * item.quantity).toFixed(2)}
+                          £{(item?.totalPrice * item?.quantity).toFixed(2)}
                         </td>
                       </tr>
                     ))}
@@ -172,7 +161,7 @@ const CartPage = () => {
             </div>
 
             {/* Summary Section */}
-            <div className="lg:w-2/6 lg:sticky lg:top-0 lg:h-screen flex flex-col gap-6">
+            <div className="lg:w-2/6 lg:sticky lg:top-0 flex flex-col gap-6">
               <div className="bg-white p-6 border rounded">
                 <h3 className="text-lg font-light mb-4">Coupon Code</h3>
                 <p className="text-sm mb-4">
@@ -197,7 +186,7 @@ const CartPage = () => {
                 </div>
                 <div className="flex justify-between font-light mb-2">
                   <span>Sub Total</span>
-                  <span>£{toNumber(totalCost).toFixed(2)}</span>
+                  <span>£{toNumber(carts?.totalPrice).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-light mb-2">
                   <span>Shipping Cost</span>
@@ -206,7 +195,9 @@ const CartPage = () => {
                 <hr />
                 <div className="flex justify-between text-md mt-2">
                   <span>Total</span>
-                  <span>£{toNumber(totalCost + shippingCost).toFixed(2)}</span>
+                  <span>
+                    £{toNumber(carts?.totalPrice + shippingCost).toFixed(2)}
+                  </span>
                 </div>
                 <div className="w-full mt-10">
                   <SectionButton title="Checkout" buttonClass="!w-full" />
@@ -230,7 +221,7 @@ const CartPage = () => {
         </div>
       )}
 
-      {relatedProductsData.length > 0 && cartItems?.length > 0 && (
+      {relatedProductsData?.length > 0 && carts?.items?.length > 0 && (
         <div className="px-10 py-5">
           {/* <YouMayAlsoLike relatedProductsData={relatedProductsData} /> */}
           <RelatedProducts
