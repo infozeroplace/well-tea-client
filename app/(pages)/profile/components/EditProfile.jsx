@@ -56,9 +56,14 @@ const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData 
 
   return (
     <Modal
+      backdrop="blur"
+      placement="center"
+      scrollBehavior="inside"
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className="!w-full md:!max-w-[700px] lg:!max-w-[850px] !mb-auto !mt-20"
+      classNames={{
+        base: "max-w-full md:max-w-[700px] lg:max-w-[650px]",
+      }}
     >
       <ModalContent>
         {(onClose) => (
@@ -137,11 +142,11 @@ const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData 
                   defaultValue={auth?.user?.phone || ""}
                   isClearable
                 />
-                <div className="flex gap-2">
+                <div className="flex justify-end gap-2">
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Update
                   </Button>
-                  <Button type="reset" variant="flat">
+                  <Button type="reset" color="danger" variant="flat">
                     Reset
                   </Button>
                 </div>
