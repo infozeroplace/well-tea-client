@@ -6,6 +6,8 @@ import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wi
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useAppSelector } from "@/services/hook";
+import Link from 'next/link';
+
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -19,7 +21,6 @@ function WishlistScreen() {
 
   const dispatch = useDispatch();
   const handleRemoveFromWishlist = async (productId) => {
-    console.log(productId);
     await addToWishlist({ data: { productId } })
   }
 
@@ -59,19 +60,26 @@ function WishlistScreen() {
               key={index}
               className="border-b border-gray-200 hover:bg-teagreen-100 text-center"
             >
-              <td className="py-4 flex items-center gap-1">
-                <img
-                  // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
-                  src="/products/product_01.jpg"
-                  alt={item?.title}
-                  className="w-20 h-20 object-cover"
-                />
-                <div>
-                  <h4 className="font-light">{item?.title}</h4>
-                </div>
+              <td className="py-4">
+                <Link href={`/${item?.urlParameter}`} className="flex items-center gap-1">
+                  <img
+                    // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
+                    src="/products/product_01.jpg"
+                    alt={item?.title}
+                    className="w-20 h-20 object-cover"
+                  />
+                  <div className="text-left capitalize">
+                    <h4 className="font-light hover:underline">{item?.title}</h4>
+                    <p className="text-sm text-gray-500">
+                      {item?.teaFormat[0]}
+                    </p>
+                  </div>
+                </Link>
               </td>
               <td className="py-4 font-light">
-                <p className="text-sm text-gray-500">{item?.unitPrices[0]?.unit}</p>
+                <p className="text-sm text-gray-500">
+                  {item?.unitPrices[0]?.unit}
+                </p>
               </td>
               <td className="py-4 font-light">
                 {item?.isSale ? (
@@ -79,7 +87,9 @@ function WishlistScreen() {
                     £{toNumber(item?.unitPrices[0]?.salePrice).toFixed(2)}
                   </span>
                 ) : (
-                  <span>£{toNumber(item?.unitPrices[0]?.price).toFixed(2)}</span>
+                  <span>
+                    £{toNumber(item?.unitPrices[0]?.price).toFixed(2)}
+                  </span>
                 )}
               </td>
               <td className="py-4 font-light space-x-5">
