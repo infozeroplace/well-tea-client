@@ -92,7 +92,7 @@ function ProductSlider({ product }) {
           {product?.slideImages?.map((image, idx) => (
             <SwiperSlide
               key={idx}
-              className="!flex justify-center items-center bg-teagreen-100 rounded-2xl w-full h-full min-h-[500px] min-w-[500px]"
+              className="!flex justify-center items-center rounded-2xl w-full h-full min-h-[500px] min-w-[500px]"
               onClick={onOpen}
             >
               <div
@@ -147,7 +147,7 @@ function ProductSlider({ product }) {
                 <div
                   onClick={() => handleItemClick(idx, image)}
                   // onClick={() => mainSlider?.slideTo(idx)}
-                  className={`bg-teagreen-300 rounded-lg flex items-center justify-center p-1 ${
+                  className={`rounded-lg flex items-center justify-center p-1 ${
                     activeIndex === idx ? "border border-teagreen-500" : ""
                   }`}
                 >
@@ -166,7 +166,7 @@ function ProductSlider({ product }) {
               <div
                 key={idx}
                 onClick={() => handleItemClick(idx, image)}
-                className={`cursor-pointer bg-teagreen-300 rounded-lg flex items-center justify-center p-1 ${
+                className={`cursor-pointer rounded-lg flex items-center justify-center p-1 ${
                   activeIndex === idx ? "border border-teagreen-500" : ""
                 }`}
               >
