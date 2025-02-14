@@ -8,7 +8,7 @@ import { env } from "@/config/env";
 function SocialShare({ productUrl }) {
   const siteUrl = "https://welltea.zeroplace.co/";
 
-  console.log(env.app_url);
+  // console.log(env.app_url);
 
   // const socialSites = [
   //   {

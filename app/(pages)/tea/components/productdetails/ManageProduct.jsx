@@ -5,6 +5,10 @@ import { addToCart } from "@/services/features/cart/cartSlice";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/services/hook";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import { toast } from "react-hot-toast";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -13,12 +17,10 @@ const toNumber = (value) => {
 };
 
 function ManageProduct({ product }) {
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
   const [purchaseType, setPurchaseType] = useState("one-time");
-
   const [quantity, setQuantity] = useState(1);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
-
-  const dispatch = useDispatch();
   const [selectedUnitObj, setSelectedUnitObj] = useState(
     product?.unitPrices?.[0]
   );
@@ -32,6 +34,7 @@ function ManageProduct({ product }) {
   );
   const [totalPrice, setTotalPrice] = useState(productPrice);
 
+  const dispatch = useAppDispatch();
   // ---------- Handle Quantity Change ---------- //
   const handleQuantityChange = (type) => {
     setQuantity((prevQuantity) =>
@@ -53,9 +56,10 @@ function ManageProduct({ product }) {
 
   // ---------- Handle Add-On Selection ---------- //
   const handleAddOnSelect = (addOn) => {
+
     setSelectedAddOns((prevAddOns) => {
-      if (prevAddOns.some((a) => a.id === addOn.id)) {
-        return prevAddOns.filter((a) => a.id !== addOn.id);
+      if (prevAddOns.some((a) => a._id === addOn._id)) {
+        return prevAddOns.filter((a) => a._id !== addOn._id);
       } else {
         return [...prevAddOns, addOn];
       }
@@ -92,45 +96,44 @@ function ManageProduct({ product }) {
   }, [quantity, selectedUnitObj, purchaseType, selectedAddOns]);
 
   // ---------- Handle Add To Cart ---------- //
-  const handleAddToCart = () => {
-    const itemsToAdd = [
-      {
-        product,
-        unitObj: selectedUnitObj,
-        purchaseType,
-        subObj: purchaseType === "subscribe" && selectedSubObj,
-        quantity,
-        productPrice: productPrice,
-        addOns: [],
-      },
-      ...selectedAddOns.map((addOn) => ({
-        product: addOn,
-        productPrice: toNumber(
-          addOn.isSale
-            ? addOn.unitPrices[0]?.salePrice
-            : addOn.unitPrices[0]?.price
-        ),
-        quantity: 1,
-        addOns: [],
-      })),
-    ];
-    itemsToAdd.forEach((item) => dispatch(addToCart(item)));
 
-    // dispatch(
-    //   addToCart({
-    //     product,
-    //     unitObj: selectedUnitObj,
-    //     purchaseType,
-    //     subObj: purchaseType === "subscribe" && selectedSubObj,
-    //     quantity,
-    //     productPrice: totalPrice / quantity,
-    //     addOns: [],
-    //   })
-    // );
+  const handleAddToCart = async () => {
+    await addToCart({
+      data: {
+        productId: product?._id,
+        unitPriceId: selectedUnitObj?._id,
+        actionType: "plus",
+        purchaseType: purchaseType,
+        subscriptionId: selectedSubObj?._id ? selectedSubObj?._id : "",
+        quantity: quantity,
+      },
+    });
+
+    if (selectedAddOns.length > 0) {
+      const addOnPromises = selectedAddOns.map((addOn) =>
+        addToCart({
+          data: {
+            productId: addOn?._id,
+            unitPriceId: addOn?.unitPrices[0]?._id,
+            actionType: "plus",
+            purchaseType: purchaseType,
+            subscriptionId: selectedSubObj?._id || "",
+            quantity: 1,
+          },
+        })
+      );
+      await Promise.all(addOnPromises);
+    }
+
+    if (addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
+    setSelectedAddOns([]);
+    setQuantity(1);
   };
 
   return (
-    <div>
+    <>
       <div className="mt-4 text-brand__font__size__base">
         <h3 className="text-teagreen-700 mb-1 font-normal text-brand__font__size__sm">
           Choose type:
@@ -299,7 +302,22 @@ function ManageProduct({ product }) {
           >
             -
           </button>
-          <span className="px-4">{quantity}</span>
+          <input
+            type="text"
+            value={quantity}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (/^\d+$/.test(value) || value === "") {
+                setQuantity(value === "" ? 1 : Number(value));
+              }
+            }}
+            onBlur={() => {
+              if (!quantity || quantity < 1) setQuantity(1);
+            }}
+            className="w-10 text-center bg-transparent border-none outline-none"
+          />
+
           <button
             className="text-xl flex items-center justify-center"
             onClick={() => handleQuantityChange("increment")}
@@ -314,7 +332,9 @@ function ManageProduct({ product }) {
           Add to Cart - £{toNumber(totalPrice).toFixed(2)}
         </button>
       </div>
-    </div>
+      
+      <LoadingOverlay isLoading={addToCartLoading} />
+    </>
   );
 }
 

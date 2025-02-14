@@ -1,12 +1,13 @@
 "use client"
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '@/services/features/cart/cartSlice';
-import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import Link from 'next/link';
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useAppSelector } from "@/services/hook";
-import Link from 'next/link';
+import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -17,7 +18,8 @@ const toNumber = (value) => {
 function WishlistScreen() {
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const wishlistItems = wishlist?.items;
-  const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
+  const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
 
   const dispatch = useDispatch();
   const handleRemoveFromWishlist = async (productId) => {
@@ -30,17 +32,30 @@ function WishlistScreen() {
     }
   }, [addToWishlistData]);
 
-  const handleAddToCart = (product) => {
-    // dispatch(
-    //   addToCart({
-    //     product: product,
-    //     unitObj,
-    //     quantity: 1,
-    //     productPrice: product?.price,
-    //     addOns: [],
-    //   })
-    // );
-  }
+  const handleAddToCart = async (
+    productId,
+    actionType,
+    purchaseType,
+    quantity,
+    unitPriceId,
+    subscriptionId
+  ) => {
+    // console.log(productId, actionType, purchaseType, quantity, unitPriceId, subscriptionId);
+    await addToCart({
+      data: {
+        productId,
+        actionType,
+        purchaseType,
+        quantity,
+        unitPriceId,
+        subscriptionId,
+      },
+    });
+
+    if (addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
+  };
 
   console.log(wishlistItems);
 
@@ -61,7 +76,10 @@ function WishlistScreen() {
               className="border-b border-gray-200 hover:bg-teagreen-100 text-center"
             >
               <td className="py-4">
-                <Link href={`/${item?.urlParameter}`} className="flex items-center gap-1">
+                <Link
+                  href={`/${item?.urlParameter}`}
+                  className="flex items-center gap-1"
+                >
                   <img
                     // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
                     src="/products/product_01.jpg"
@@ -69,7 +87,9 @@ function WishlistScreen() {
                     className="w-20 h-20 object-cover"
                   />
                   <div className="text-left capitalize">
-                    <h4 className="font-light hover:underline">{item?.title}</h4>
+                    <h4 className="font-light hover:underline">
+                      {item?.title}
+                    </h4>
                     <p className="text-sm text-gray-500">
                       {item?.teaFormat[0]}
                     </p>
@@ -94,7 +114,16 @@ function WishlistScreen() {
               </td>
               <td className="py-4 font-light space-x-5">
                 <button
-                  onClick={() => handleAddToCart(item)}
+                  onClick={() =>
+                    handleAddToCart(
+                      item?._id,
+                      "plus",
+                      "one-time",
+                      1,
+                      item?.unitPrices[0]?._id,
+                      ""
+                    )
+                  }
                   className="text-nowrap bg-teagreen-600 text-white px-5 py-2"
                 >
                   Add To Cart
@@ -115,6 +144,7 @@ function WishlistScreen() {
           <h3>Your wishlist is empty!</h3>
         </div>
       )}
+      <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />
     </div>
   );
 }

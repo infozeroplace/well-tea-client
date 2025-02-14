@@ -12,6 +12,7 @@ import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistA
 import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { toast } from "react-hot-toast";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -26,7 +27,7 @@ function ProductSlider({ product }) {
   const [selectedImage, setSelectedImage] = useState(product?.slideImages[0]);
   const [isZoomed, setIsZoomed] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
+  const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const wishlistItems = wishlist?.items;
   const productId = product?._id;
@@ -74,7 +75,7 @@ function ProductSlider({ product }) {
   }, [addToWishlistData]);
 
   return (
-    <div>
+    <>
       {product?.isMultiDiscount && (
         <div className="mb-2 uppercase text-brand__font__size__md font-brand__font__600 text-text__gray flex items-center gap-1.5">
           <span>
@@ -106,11 +107,14 @@ function ProductSlider({ product }) {
           }}
           className="w-full mb-4 relative group !overflow-visible"
         >
-          <button onClick={handleAddToWishlist} className="">
+          <button
+            onClick={handleAddToWishlist}
+            className="absolute top-5 right-10 z-30 overflow-hidden bg-white shadow-md border border-gray-200/50 rounded-full p-2"
+          >
             {wishlistItems?.some((item) => item?._id === productId) ? (
-              <MdFavorite className="absolute top-10 right-10 z-30 overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
+              <MdFavorite className="text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
             ) : (
-              <MdFavoriteBorder className="absolute top-10 right-10 z-30 overflow-hidden text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
+              <MdFavoriteBorder className="text-brand__font__size__md cursor-pointer text-gray-600 transition-all" />
             )}
           </button>
           {product?.slideImages?.map((image, idx) => (
@@ -204,7 +208,8 @@ function ProductSlider({ product }) {
           </div>
         )}
       </div>
-    </div>
+      <LoadingOverlay isLoading={addToWishlistLoading} />
+    </>
   );
 }
 

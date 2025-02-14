@@ -1,15 +1,18 @@
 import React from 'react'
-import { CiHeart } from 'react-icons/ci'
+import { useEffect, useState } from "react";
+import Link from 'next/link';
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { RxCross1 } from "react-icons/rx";
-import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
-import { env } from "@/config/env";
 import { toast } from "react-hot-toast";
+import { CiHeart } from 'react-icons/ci'
+import { RxCross1 } from "react-icons/rx";
+import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
+import { env } from "@/config/env";
 import { SectionLinkButton } from '../shared';
+import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppSelector } from '@/services/hook';
-import Link from 'next/link';
+import LoadingOverlay from '../shared/LoadingOverlay';
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -19,15 +22,42 @@ const toNumber = (value) => {
 function Wishlist({ buttonClass }) {
   const [isOpen, setIsOpen] = useState(false);
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
-  const [addToWishlist, { isLoading, data: addToWishlistData }] = useAddToWishlistMutation();
+  const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
+  const [addToCart, { isLoading: addToCartLoading, data: addToCartData }] = useAddToCartMutation();
   const { user } = useAppSelector(state => state.auth);
   const pathname = usePathname();
-
   const wishlistItems = wishlist?.items;
   const totalQuantity = wishlistItems?.length;
 
+  console.log(wishlistItems);
+
   const handleRemoveFromWishlist = async (productId) => {
     await addToWishlist({ data: { productId } });
+  };
+
+  const handleAddToCart = async (
+    productId,
+    actionType,
+    purchaseType,
+    quantity,
+    unitPriceId,
+    subscriptionId
+  ) => {
+    // console.log(productId, actionType, purchaseType, quantity, unitPriceId, subscriptionId);
+    await addToCart({
+      data: {
+        productId,
+        actionType,
+        purchaseType,
+        quantity,
+        unitPriceId,
+        subscriptionId,
+      },
+    });
+
+    if (addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
   };
 
   useEffect(() => {
@@ -41,7 +71,7 @@ function Wishlist({ buttonClass }) {
   }, [pathname]);
 
   return (
-    <div>
+    <>
       <button onClick={() => setIsOpen(true)} className={buttonClass}>
         <CiHeart />
         {totalQuantity > 0 && (
@@ -76,10 +106,13 @@ function Wishlist({ buttonClass }) {
               wishlistItems?.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
+                  className="flex items-center gap-2 justify-between px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
-                  <Link href={`/${item?.urlParameter}`} className="flex items-center gap-1">
-                    <div className="mr-3">
+                  <Link
+                    href={`/${item?.urlParameter}`}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="">
                       <Image
                         src={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
                         alt={item?.thumbnails[0]?.alternateText}
@@ -87,41 +120,50 @@ function Wishlist({ buttonClass }) {
                         height={80}
                       />
                     </div>
-                  <div className="flex-1 space-y-2">
-                    <h3 className="text-sm font-light">{item?.title}</h3>
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
-                        {item.unitPrices[0]?.unit}
-                      </p>
-                      <p className="text-sm font-normal">
-                        {item?.isSale ? (
-                          <span className="">
-                            £
-                            {toNumber(item?.unitPrices[0]?.salePrice).toFixed(
-                              2
-                            )}
-                          </span>
-                        ) : (
-                          <span>
-                            £{toNumber(item?.unitPrices[0]?.price).toFixed(2)}
-                          </span>
-                        )}
-                      </p>
+                    <div className="flex-1 space-y-2">
+                      <h3 className="text-sm font-light">{item?.title}</h3>
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
+                          {item.unitPrices[0]?.unit}
+                        </p>
+                        <p className="text-sm font-normal">
+                          {item?.isSale ? (
+                            <span className="">
+                              £
+                              {toNumber(item?.unitPrices[0]?.salePrice).toFixed(
+                                2
+                              )}
+                            </span>
+                          ) : (
+                            <span>
+                              £{toNumber(item?.unitPrices[0]?.price).toFixed(2)}
+                            </span>
+                          )}
+                        </p>
+                      </div>
                     </div>
-                  </div>
                   </Link>
                   <div className="flex items-center border text-base font-light">
                     <button
-                      onClick={() => console.log(item)}
+                      onClick={() =>
+                        handleAddToCart(
+                          item?._id,
+                          "plus",
+                          "one-time",
+                          1,
+                          item?.unitPrices[0]?._id,
+                          ""
+                        )
+                      }
                       className="px-2 py-2 bg-gray-50 hover:bg-gray-100"
                     >
-                      Cart
+                      <PiShoppingCartThin />
                     </button>
                     <button
                       onClick={() => handleRemoveFromWishlist(item?._id)}
                       className="px-2 py-2 bg-gray-50 hover:bg-gray-100"
                     >
-                      Remove
+                      <PiTrashSimpleLight className="" />
                     </button>
                   </div>
                 </div>
@@ -147,7 +189,8 @@ function Wishlist({ buttonClass }) {
           onClick={() => setIsOpen(false)}
         ></div>
       )}
-    </div>
+      <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />
+    </>
   );
 }
 

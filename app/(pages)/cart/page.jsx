@@ -4,9 +4,9 @@ import { CommonBanner, SectionButton } from "@/components";
 import { env } from "@/config/env";
 import { useEffect, useState } from "react";
 import { RelatedProducts } from "../tea/components";
-import { useAppSelector, useAppDispatch } from "@/services/hook";
 import Link from "next/link";
 import Image from "next/image";
+import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { toast } from "react-hot-toast";
 const toNumber = (value) => {
@@ -16,12 +16,32 @@ const toNumber = (value) => {
 };
 
 const CartPage = () => {
-  const [addToCart, { data: addToCartData, isLoading }] = useAddToCartMutation();
+  const [addToCart, { data: addToCartData, isLoading }] =
+    useAddToCartMutation();
   const carts = useAppSelector((state) => state.carts.carts);
   const dispatch = useAppDispatch();
   const totalQuantity = carts?.items?.length;
   const ids = carts?.items?.map((item) => item?.productId);
   const [relatedProductsData, setRelatedProductsData] = useState([]);
+  // const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [selectedQuantities, setSelectedQuantities] = useState({});
+
+  const getCartItemKey = (item) => {
+    return `${item.productId}-${item.unitPriceId}-${item.purchaseType}`;
+  };
+
+
+  useEffect(() => {
+    if (carts?.items?.length) {
+      const updatedQuantities = carts?.items?.reduce((acc, item) => {
+        const key = getCartItemKey(item);
+        acc[key] = item?.quantity || 1;
+        return acc;
+      }, {});
+      setSelectedQuantities(updatedQuantities);
+    }
+  }, [carts?.items]);
+
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
@@ -45,6 +65,13 @@ const CartPage = () => {
     unitPriceId,
     subscriptionId
   ) => {
+    console.log("productId: ", productId);
+    console.log("actionType: ", actionType);
+    console.log("purchaseType: ", purchaseType);
+    console.log("quantity: ", quantity);
+    console.log("unitPriceId: ", unitPriceId);
+    console.log("subscriptionId: ", subscriptionId);
+
     await addToCart({
       data: {
         productId,
@@ -57,8 +84,6 @@ const CartPage = () => {
     });
     if (addToCartData?.success) {
       toast.success(addToCartData?.message);
-    } else {
-      toast.error(addToCartData?.message);
     }
   };
 
@@ -86,75 +111,109 @@ const CartPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {carts?.items?.map((item, index) => (
-                      <tr
-                        key={index}
-                        className="border-b border-gray-200 hover:bg-teagreen-100"
-                      >
-                        <td className="py-4 flex items-center gap-1 md:gap-5 pl-2 sm:pl-5">
-                          <Link href={`/${item?.urlParameter}`} className="flex items-center group">
-                            <Image
-                              src={`${env.app_url}${item.thumbnail?.filepath}`}
-                              alt={item?.thumbnail?.alternateText}
-                              width={80}
-                              height={80}
-                          />
-                          <div>
-                            <h4 className="font-light group-hover:underline duration-300">{item?.title}</h4>
-                            <p className="text-sm text-gray-500">
-                              {item?.unit}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              £{item?.totalPrice}
-                            </p>
-                            {item.purchaseType === "subscribe" && (
-                              <p className="text-sm text-gray-500">
-                                Every {item?.subscription}
-                              </p>
-                            )}
-                          </div>
-                          </Link>
-                        </td>
-                        <td className="text-center font-light">
-                          <div className="flex items-center justify-center gap-2.5 bg-gray-100 border rounded">
-                            <button
-                              onClick={() =>
-                                handleUpdateQuantity(
-                                  item?.productId,
-                                  "minus",
-                                  item?.purchaseType,
-                                  1,
-                                  item?.unitPriceId,
-                                  item?.subscriptionId
-                                )
-                              }
-                              className="text-brand__font__size__lg"
+                    {carts?.items?.map((item, index) => {
+                      // const [selectedQuantity, setSelectedQuantity] = useState(item?.quantity);
+                      const itemKey = getCartItemKey(item);
+                      return (
+                        <tr
+                          key={index}
+                          className="border-b border-gray-200 hover:bg-teagreen-100"
+                        >
+                          <td className="py-4 flex items-center gap-1 md:gap-5 pl-2 sm:pl-5">
+                            <Link
+                              href={`/${item?.urlParameter}`}
+                              className="flex items-center group"
                             >
-                              -
-                            </button>
-                            <span>{item?.quantity}</span>
-                            <button
-                              onClick={() =>
-                                handleUpdateQuantity(
-                                  item?.productId,
-                                  "plus",
-                                  item?.purchaseType,
-                                  1,
-                                  item?.unitPriceId,
-                                  item?.subscriptionId
-                                )
-                              }
-                              className="text-brand__font__size__lg"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </td>
-                        <td className="py-4 text-right font-light pr-2 sm:pr-5">
-                          £{(item?.totalPrice * item?.quantity).toFixed(2)}
-                        </td>
-                      </tr>
-                    ))}
+                              <Image
+                                src={`${env.app_url}${item.thumbnail?.filepath}`}
+                                alt={item?.thumbnail?.alternateText}
+                                width={80}
+                                height={80}
+                              />
+                              <div>
+                                <h4 className="font-light group-hover:underline duration-300">
+                                  {item?.title}
+                                </h4>
+                                <p className="text-sm text-gray-500">
+                                  {item?.unit}
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  £{item?.totalPrice}
+                                </p>
+                                {item.purchaseType === "subscribe" && (
+                                  <p className="text-sm text-gray-500">
+                                    Every {item?.subscription}
+                                  </p>
+                                )}
+                              </div>
+                            </Link>
+                          </td>
+                          <td className="text-center font-light">
+                            <div className="flex items-center justify-center gap-2.5 bg-gray-100 border rounded">
+                              <button
+                                onClick={() =>
+                                  handleUpdateQuantity(
+                                    item?.productId,
+                                    "minus",
+                                    item?.purchaseType,
+                                    1,
+                                    item?.unitPriceId,
+                                    item?.subscriptionId
+                                  )
+                                }
+                                className="text-brand__font__size__lg"
+                              >
+                                -
+                              </button>
+                              <input
+                                type="text"
+                                value={selectedQuantities[itemKey] ?? ""}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  if (/^\d+$/.test(value) || value === "") {
+                                    setSelectedQuantities((prev) => ({
+                                      ...prev,
+                                      [itemKey]:
+                                        value === "" ? 1 : Number(value),
+                                    }));
+                                  }
+                                }}
+                                className="w-10 text-center bg-transparent border-none outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                onBlur={() => {
+                                  handleUpdateQuantity(
+                                    item?.productId,
+                                    "absolute",
+                                    item?.purchaseType,
+                                    selectedQuantities[itemKey] ?? 1,
+                                    item?.unitPriceId,
+                                    item?.subscriptionId
+                                  );
+                                }}
+                              />
+
+                              <button
+                                onClick={() =>
+                                  handleUpdateQuantity(
+                                    item?.productId,
+                                    "plus",
+                                    item?.purchaseType,
+                                    1,
+                                    item?.unitPriceId,
+                                    item?.subscriptionId
+                                  )
+                                }
+                                className="text-brand__font__size__lg"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </td>
+                          <td className="py-4 text-right font-light pr-2 sm:pr-5">
+                            £{(item?.totalPrice).toFixed(2)}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

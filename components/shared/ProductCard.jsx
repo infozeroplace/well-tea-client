@@ -1,7 +1,6 @@
 "use client";
 
 import { env } from "@/config/env";
-import { addToCart } from "@/services/features/cart/cartSlice";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { toast } from "react-hot-toast";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const ProductCard = ({ product }) => {
   const dispatch = useAppDispatch();
@@ -17,9 +17,8 @@ const ProductCard = ({ product }) => {
   const [addButtonClicked, setAddButtonClicked] = useState(false);
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const wishlistItems = wishlist?.items;
-  const [addToWishlist, { data: addToWishlistData, isLoading }] = useAddToWishlistMutation();
-  const [addToCart, { data: addToCartData, isLoading: isAddingToCartLoading }] = useAddToCartMutation();
-  // const { data: { data: { wishlist } = {} } = {} } = useGetWtwQuery();
+  const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
 
   const thumbnail1 = env.app_url + product?.thumbnails?.[0]?.filepath;
   const thumbnail2 = env.app_url + product?.thumbnails?.[1]?.filepath;
@@ -70,10 +69,11 @@ const ProductCard = ({ product }) => {
   }, []);
 
   return (
-    <div
-      ref={cardRef}
-      className="w-full bg-[#F8F8F8] relative overflow-hidden shadow-md flex flex-col justify-between"
-    >
+    <>
+      <div
+        ref={cardRef}
+        className="w-full bg-[#F8F8F8] relative overflow-hidden shadow-md flex flex-col justify-between"
+      >
       {/* Top Section: Labels & Wishlist */}
       <div className="h-16 flex justify-between items-center text-brand__font__size__xs px-3">
         {product?.isSale ? (
@@ -200,6 +200,8 @@ const ProductCard = ({ product }) => {
         </div>
       )}
     </div>
+      <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />
+    </>
   );
 };
 

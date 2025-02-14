@@ -16,6 +16,7 @@ import { addCart, removeCart } from "@/services/features/cart/cartSlices";
 import { useAppSelector, useAppDispatch } from "@/services/hook";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import LoadingOverlay from "../shared/LoadingOverlay";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -25,7 +26,7 @@ const toNumber = (value) => {
 
 const Cart = ({ buttonClass }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [addToCart, { data: addToCartData, isLoading }] = useAddToCartMutation();
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
   const carts = useAppSelector((state) => state.carts.carts);
   const dispatch = useAppDispatch();
   const totalQuantity = carts?.totalQuantity;
@@ -101,13 +102,13 @@ const Cart = ({ buttonClass }) => {
               carts?.items?.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
+                  className="flex items-center justify-between gap-2 px-2 py-3 border-b hover:bg-teagreen-100 duration-300"
                 >
                   <Link
                     href={`/${item?.urlParameter}`}
-                    className="flex items-center"
+                    className="flex items-center gap-3"
                   >
-                    <div className="mr-3">
+                    <div className="">
                       <Image
                         src={`${env.app_url}${item.thumbnail?.filepath}`}
                         alt={item?.thumbnail?.alternateText}
@@ -210,10 +211,11 @@ const Cart = ({ buttonClass }) => {
       {/* -------- Mask -------- */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 bg-black bg-opacity-50 z-30"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
+      <LoadingOverlay isLoading={addToCartLoading} />
     </div>
   );
 };
