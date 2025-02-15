@@ -38,9 +38,6 @@ const ProductCard = ({ product }) => {
       },
     });
 
-    if(addToCartData?.message) {
-      toast.success(addToCartData?.message);
-    }
 
   };
 
@@ -54,6 +51,12 @@ const ProductCard = ({ product }) => {
       toast.success(addToWishlistData?.message);
     }
   }, [addToWishlistData]);
+
+  useEffect(() => {
+    if (addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
+  }, [addToCartData]);
 
   const handleClickOutside = (event) => {
     if (cardRef.current && !cardRef.current.contains(event.target)) {
@@ -200,7 +203,7 @@ const ProductCard = ({ product }) => {
         </div>
       )}
     </div>
-      <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />
+    <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />
     </>
   );
 };

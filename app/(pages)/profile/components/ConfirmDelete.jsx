@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   Button,
   Input,
@@ -10,15 +10,23 @@ import {
   Spinner,
 } from "@heroui/react";
 import { useDeleteAddressMutation } from '@/services/features/address/addressApi';
+import { toast } from 'react-hot-toast';
+import LoadingOverlay from '@/components/shared/LoadingOverlay';
 
 function ConfirmDelete({ addressId, isOpen, onOpenChange }) {
     // const [deleteAddressId, setDeleteAddressId] = useState()
-    const [deleteAddress, { isLoading: deleteLoading }] = useDeleteAddressMutation();
+    const [deleteAddress, { isLoading: deleteLoading, data: deleteAddressData }] = useDeleteAddressMutation();
     const handleDeleteAddress = async () => {
       await deleteAddress(addressId);
     };
+    useEffect(() => {
+      if (deleteAddressData?.message) {
+        toast.success(deleteAddressData?.message);
+      }
+    }, [deleteAddressData]);
+
   return (
-    <div>
+    <>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -58,7 +66,8 @@ function ConfirmDelete({ addressId, isOpen, onOpenChange }) {
           )}
         </ModalContent>
       </Modal>
-    </div>
+      <LoadingOverlay isLoading={deleteLoading} />
+    </>
   );
 }
 

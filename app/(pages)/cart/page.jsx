@@ -9,6 +9,8 @@ import Image from "next/image";
 import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { toast } from "react-hot-toast";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
+
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -16,7 +18,7 @@ const toNumber = (value) => {
 };
 
 const CartPage = () => {
-  const [addToCart, { data: addToCartData, isLoading }] =
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
     useAddToCartMutation();
   const carts = useAppSelector((state) => state.carts.carts);
   const dispatch = useAppDispatch();
@@ -29,7 +31,6 @@ const CartPage = () => {
   const getCartItemKey = (item) => {
     return `${item.productId}-${item.unitPriceId}-${item.purchaseType}`;
   };
-
 
   useEffect(() => {
     if (carts?.items?.length) {
@@ -65,12 +66,6 @@ const CartPage = () => {
     unitPriceId,
     subscriptionId
   ) => {
-    console.log("productId: ", productId);
-    console.log("actionType: ", actionType);
-    console.log("purchaseType: ", purchaseType);
-    console.log("quantity: ", quantity);
-    console.log("unitPriceId: ", unitPriceId);
-    console.log("subscriptionId: ", subscriptionId);
 
     await addToCart({
       data: {
@@ -82,12 +77,16 @@ const CartPage = () => {
         subscriptionId,
       },
     });
-    if (addToCartData?.success) {
-      toast.success(addToCartData?.message);
-    }
   };
 
+  useEffect(() => {
+    if (addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
+  }, [addToCartData]);
+
   return (
+    <>
     <div>
       <CommonBanner bannerTitle="Cart" />
       {carts?.items?.length < 1 ? (
@@ -122,7 +121,7 @@ const CartPage = () => {
                           <td className="py-4 flex items-center gap-1 md:gap-5 pl-2 sm:pl-5">
                             <Link
                               href={`/${item?.urlParameter}`}
-                              className="flex items-center group"
+                              className="flex items-center gap-3 group"
                             >
                               <Image
                                 src={`${env.app_url}${item.thumbnail?.filepath}`}
@@ -130,7 +129,7 @@ const CartPage = () => {
                                 width={80}
                                 height={80}
                               />
-                              <div>
+                              <div className="space-y-1">
                                 <h4 className="font-light group-hover:underline duration-300">
                                   {item?.title}
                                 </h4>
@@ -290,6 +289,8 @@ const CartPage = () => {
         </div>
       )}
     </div>
+    <LoadingOverlay isLoading={addToCartLoading} />
+    </>
   );
 };
 

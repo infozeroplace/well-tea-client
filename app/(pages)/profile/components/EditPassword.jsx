@@ -155,17 +155,16 @@ const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
                   variant="bordered"
                 />
                 <div className="flex justify-end gap-2">
-                  <Button type="submit" className="bg-teagreen-600 text-white">
-                    {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
-                    {user?.isPasswordHas ? "Update" : "Set Password"}
-                  </Button>
                   <Button
                     onPress={onClose}
-                    color="danger"
                     type="reset"
                     variant="flat"
                   >
                     Cancel
+                  </Button>
+                  <Button type="submit" className="bg-teagreen-600 text-white">
+                    {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
+                    {user?.isPasswordHas ? "Update" : "Set Password"}
                   </Button>
                 </div>
               </form>

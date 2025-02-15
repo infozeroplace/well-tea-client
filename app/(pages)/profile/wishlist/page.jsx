@@ -40,7 +40,6 @@ function WishlistScreen() {
     unitPriceId,
     subscriptionId
   ) => {
-    // console.log(productId, actionType, purchaseType, quantity, unitPriceId, subscriptionId);
     await addToCart({
       data: {
         productId,
@@ -51,19 +50,19 @@ function WishlistScreen() {
         subscriptionId,
       },
     });
+  };
 
+  useEffect(() => {
     if (addToCartData?.message) {
       toast.success(addToCartData?.message);
     }
-  };
-
-  console.log(wishlistItems);
+  }, [addToCartData]);
 
   return (
     <div className="max-h-screen">
       <table className="w-full border-collapse">
         <thead className="w-full">
-          <tr className="border-b border-gray-200 text-center text-base">
+          <tr className="border-b border-gray-200 text-left text-base">
             <th className="py-3 font-medium">Product</th>
             <th className="py-3 font-medium">Unit</th>
             <th className="py-3 font-medium">Price</th>
@@ -73,12 +72,12 @@ function WishlistScreen() {
           {wishlistItems?.map((item, index) => (
             <tr
               key={index}
-              className="border-b border-gray-200 hover:bg-teagreen-100 text-center"
+              className="border-b border-gray-200 hover:bg-teagreen-100"
             >
               <td className="py-4">
                 <Link
                   href={`/${item?.urlParameter}`}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-3 group"
                 >
                   <img
                     // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
@@ -86,8 +85,8 @@ function WishlistScreen() {
                     alt={item?.title}
                     className="w-20 h-20 object-cover"
                   />
-                  <div className="text-left capitalize">
-                    <h4 className="font-light hover:underline">
+                  <div className="text-left capitalize space-y-1">
+                    <h4 className="font-light group-hover:underline">
                       {item?.title}
                     </h4>
                     <p className="text-sm text-gray-500">
@@ -118,7 +117,7 @@ function WishlistScreen() {
                     handleAddToCart(
                       item?._id,
                       "plus",
-                      "one-time",
+                      "one_time",
                       1,
                       item?.unitPrices[0]?._id,
                       ""

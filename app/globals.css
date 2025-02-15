@@ -249,6 +249,16 @@ a {
 }
 
 /* Modal z-index */
-.z-50 {
+/* .z-50 {
   z-index: 9999999 !important;
 }
+
+.heroui-select-dropdown {
+  z-index: 99999999 !important;
+}
+
+.heroui-select-dropdown .heroui-select-dropdown-menu {
+  z-index: 999999999 !important;
+} */
+
+

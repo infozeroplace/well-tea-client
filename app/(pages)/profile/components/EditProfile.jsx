@@ -37,8 +37,6 @@ const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData 
     }
   };
 
-  console.log(editProfileData);
-
   useEffect(() => {
     if (editProfileData?.data) {
       dispatch(
@@ -52,7 +50,7 @@ const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData 
 
   useEffect(() => {
     reset();
-  }, [auth?.user, isOpen]);
+  }, [auth?.user, isOpen, reset]);
 
   return (
     <Modal
@@ -143,11 +141,19 @@ const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData 
                   isClearable
                 />
                 <div className="flex justify-end gap-2">
+                  <Button
+                    color="danger"
+                    variant="light"
+                    onPress={onClose}
+                    className="bg-rose-100"
+                  >
+                    Close
+                  </Button>
+                  {/* <Button type="reset" variant="flat">
+                    Reset
+                  </Button> */}
                   <Button type="submit" className="bg-teagreen-600 text-white">
                     Update
-                  </Button>
-                  <Button type="reset" color="danger" variant="flat">
-                    Reset
                   </Button>
                 </div>
               </form>

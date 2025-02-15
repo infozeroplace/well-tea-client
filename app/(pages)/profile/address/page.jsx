@@ -6,7 +6,7 @@ import {
 } from "@/services/features/address/addressApi";
 import { useAppSelector } from "@/services/hook";
 import { useDisclosure } from "@heroui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GoKey } from "react-icons/go";
 import { useEditProfileMutation } from "@/services/features/profile/profileApi";
 import {
@@ -16,6 +16,8 @@ import {
   EditProfile,
   ConfirmDelete
 } from "../components";
+import { toast } from "react-hot-toast";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 function AddressScreen() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -32,8 +34,8 @@ function AddressScreen() {
   // console.log(user);
 
   const {
-    data: { data } = {},
-    isLoading,
+    data: { data: allAddressData } = {},
+    isLoading: addressLoading,
     error,
   } = useGetAddressQuery({}, { skip: !token });
 
@@ -41,6 +43,9 @@ function AddressScreen() {
     useDeleteAddressMutation();
 
   const handleEdit = (type, addressData) => {
+    if (type === "addAddress" && allAddressData.length >= 5) {
+      return toast.error("You can only add up to 5 addresses");
+    }
     setEditType(type);
     setSelectedAddress(addressData);
     onOpen();
@@ -51,6 +56,12 @@ function AddressScreen() {
     setAddressId(id);
     onOpen();
   };
+
+  useEffect(() => {
+    if (editProfileData?.message) {
+      toast.success(editProfileData?.message);
+    }
+  }, [editProfileData]);
 
   return (
     <div className="w-full p-4">
@@ -111,7 +122,7 @@ function AddressScreen() {
           </div>
         </div>
         <div className="">
-          {data
+          {allAddressData
             ?.slice()
             .sort((a, b) => (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0))
             .map((item, index) => (
@@ -168,7 +179,7 @@ function AddressScreen() {
           onOpenChange={onOpenChange}
           editProfile={editProfile}
           editProfileData={editProfileData}
-          auth={{user, token}}
+          auth={{ user, token }}
         />
       )}
 
@@ -206,6 +217,7 @@ function AddressScreen() {
           onOpenChange={onOpenChange}
         />
       )}
+      <LoadingOverlay isLoading={editProfileLoading || deleteLoading} />
     </div>
   );
 }

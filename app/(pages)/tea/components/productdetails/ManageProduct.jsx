@@ -18,7 +18,7 @@ const toNumber = (value) => {
 
 function ManageProduct({ product }) {
   const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
-  const [purchaseType, setPurchaseType] = useState("one-time");
+  const [purchaseType, setPurchaseType] = useState("one_time");
   const [quantity, setQuantity] = useState(1);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [selectedUnitObj, setSelectedUnitObj] = useState(
@@ -125,12 +125,15 @@ function ManageProduct({ product }) {
       await Promise.all(addOnPromises);
     }
 
+  };
+
+  useEffect(() => {
     if (addToCartData?.message) {
       toast.success(addToCartData?.message);
     }
     setSelectedAddOns([]);
     setQuantity(1);
-  };
+  }, [addToCartData]);
 
   return (
     <>
@@ -162,9 +165,9 @@ function ManageProduct({ product }) {
             <input
               type="radio"
               name="purchaseType"
-              value="one-time"
-              checked={purchaseType === "one-time"}
-              onChange={() => setPurchaseType("one-time")}
+              value="one_time"
+              checked={purchaseType === "one_time"}
+              onChange={() => setPurchaseType("one_time")}
               className="form-radio h-5 w-5 text-green-600 mr-3"
             />
             <span className="">One-Time Purchase</span>

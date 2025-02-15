@@ -32,7 +32,6 @@ const Cart = ({ buttonClass }) => {
   const totalQuantity = carts?.totalQuantity;
   const pathname = usePathname();
 
-
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
   const handleUpdateQuantity = async (
@@ -53,12 +52,13 @@ const Cart = ({ buttonClass }) => {
         subscriptionId,
       },
     });
-    if (addToCartData?.success) {
-      toast.success(addToCartData?.message);
-    } else {
-      toast.error(addToCartData?.message);
-    }
   };
+
+  useEffect(() => {
+    if (addToCartData?.message) {
+      toast.success(addToCartData?.message);
+    }
+  }, [addToCartData]);
 
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const Cart = ({ buttonClass }) => {
                 >
                   <Link
                     href={`/${item?.urlParameter}`}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-3 group"
                   >
                     <div className="">
                       <Image
@@ -117,7 +117,7 @@ const Cart = ({ buttonClass }) => {
                       />
                     </div>
                     <div className="flex-1 flex flex-col gap-2">
-                      <h3 className="text-sm font-light">{item?.title}</h3>
+                      <h3 className="text-sm font-light group-hover:underline">{item?.title}</h3>
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                           {item?.unit}

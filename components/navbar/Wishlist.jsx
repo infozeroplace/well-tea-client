@@ -29,8 +29,6 @@ function Wishlist({ buttonClass }) {
   const wishlistItems = wishlist?.items;
   const totalQuantity = wishlistItems?.length;
 
-  console.log(wishlistItems);
-
   const handleRemoveFromWishlist = async (productId) => {
     await addToWishlist({ data: { productId } });
   };
@@ -43,7 +41,6 @@ function Wishlist({ buttonClass }) {
     unitPriceId,
     subscriptionId
   ) => {
-    // console.log(productId, actionType, purchaseType, quantity, unitPriceId, subscriptionId);
     await addToCart({
       data: {
         productId,
@@ -110,7 +107,7 @@ function Wishlist({ buttonClass }) {
                 >
                   <Link
                     href={`/${item?.urlParameter}`}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-3 group"
                   >
                     <div className="">
                       <Image
@@ -121,7 +118,7 @@ function Wishlist({ buttonClass }) {
                       />
                     </div>
                     <div className="flex-1 space-y-2">
-                      <h3 className="text-sm font-light">{item?.title}</h3>
+                      <h3 className="text-sm font-light group-hover:underline">{item?.title}</h3>
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                           {item.unitPrices[0]?.unit}
@@ -149,7 +146,7 @@ function Wishlist({ buttonClass }) {
                         handleAddToCart(
                           item?._id,
                           "plus",
-                          "one-time",
+                          "one_time",
                           1,
                           item?.unitPrices[0]?._id,
                           ""
