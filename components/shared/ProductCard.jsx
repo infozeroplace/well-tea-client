@@ -203,7 +203,7 @@ const ProductCard = ({ product }) => {
         </div>
       )}
     </div>
-    <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />
+    {/* <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} /> */}
     </>
   );
 };

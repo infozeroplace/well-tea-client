@@ -8,6 +8,7 @@ import { useAppSelector } from "@/services/hook";
 import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -59,13 +60,14 @@ function WishlistScreen() {
   }, [addToCartData]);
 
   return (
-    <div className="max-h-screen">
+    <div className="max-h-[400px] overflow-y-auto">
       <table className="w-full border-collapse">
-        <thead className="w-full">
+        <thead className="">
           <tr className="border-b border-gray-200 text-left text-base">
             <th className="py-3 font-medium">Product</th>
             <th className="py-3 font-medium">Unit</th>
             <th className="py-3 font-medium">Price</th>
+            <th className="py-3 font-medium">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -77,7 +79,7 @@ function WishlistScreen() {
               <td className="py-4">
                 <Link
                   href={`/${item?.urlParameter}`}
-                  className="flex items-center gap-3 group"
+                  className="flex items-center gap-3 group w-fit"
                 >
                   <img
                     // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
@@ -86,7 +88,7 @@ function WishlistScreen() {
                     className="w-20 h-20 object-cover"
                   />
                   <div className="text-left capitalize space-y-1">
-                    <h4 className="font-light group-hover:underline">
+                    <h4 className="font-brand__font__light group-hover:underline">
                       {item?.title}
                     </h4>
                     <p className="text-sm text-gray-500">
@@ -95,8 +97,8 @@ function WishlistScreen() {
                   </div>
                 </Link>
               </td>
-              <td className="py-4 font-light">
-                <p className="text-sm text-gray-500">
+              <td className="py-4 font-brand__font__light">
+                <p className="text-brand__font__size__sm text-gray-500">
                   {item?.unitPrices[0]?.unit}
                 </p>
               </td>
@@ -111,7 +113,8 @@ function WishlistScreen() {
                   </span>
                 )}
               </td>
-              <td className="py-4 font-light space-x-5">
+              <td className="py-4 font-brand__font__light">
+                <div className="flex items-center gap-3">
                 <button
                   onClick={() =>
                     handleAddToCart(
@@ -123,16 +126,21 @@ function WishlistScreen() {
                       ""
                     )
                   }
-                  className="text-nowrap bg-teagreen-600 text-white px-5 py-2"
+                  className="text-nowrap bg-teagreen-600 text-white px-3 py-2 flex items-center gap-2"
+                  // className="text-nowrap bg-teagreen-200 border-[.5px] border-teagreen-600 hover:bg-teagreen-300 rounded-sm px-3 py-2"
                 >
-                  Add To Cart
+                  <PiShoppingCartThin className="text-brand__font__size__md" />
+                  <span className="text-brand__font__size__sm">Add To Cart</span>
                 </button>
                 <button
                   onClick={() => handleRemoveFromWishlist(item?._id)}
-                  className="text-nowrap bg-rose-600 text-white px-5 py-2"
+                  className="text-nowrap bg-red-600 text-white px-3 py-2 flex items-center gap-2"
+                  // className="text-nowrap text-rose-600 bg-rose-100 border-[.5px] border-rose-600 hover:bg-rose-200 rounded-sm px-3 py-2"
                 >
-                  Remove From Wishlist
+                  <PiTrashSimpleLight className="text-brand__font__size__md" />
+                  <span className="text-brand__font__size__sm">Remove From Wishlist</span>
                 </button>
+                </div>
               </td>
             </tr>
           ))}

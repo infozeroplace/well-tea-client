@@ -88,7 +88,7 @@ const Category = ({ initialProducts, teaTypes }) => {
                     setQueryParams((prev) => ({ ...prev, productType: item }))
                   }
                   className={
-                    "rounded-full p-2 md:px-5 text-sm md:text-base capitalize w-full " +
+                    "rounded-full p-2 md:px-5 text-sm md:text-base capitalize w-full text-nowrap " +
                     (queryParams.productType === item
                       ? activeClass
                       : "bg-teagreen-100 text-teagreen-600")
