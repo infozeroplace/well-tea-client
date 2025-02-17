@@ -3,6 +3,7 @@ import Link from "next/link";
 import ShortDescription from "../shortdescription";
 import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
+import { env } from "@/config/env";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -23,12 +24,12 @@ const ProductDetails = ({ product }) => {
 
   const isCurrentFormatIncluded = availableOptions.some(
     (item) =>
-      item.teaFormat?.toLowerCase() === currentFormat.teaFormat?.toLowerCase()
+      item.teaFormat?._id === currentFormat.teaFormat?._id
   );
 
   if (
     !isCurrentFormatIncluded &&
-    currentFormat.teaFormat &&
+    currentFormat.teaFormat?._id &&
     currentFormat.urlParameter
   ) {
     availableOptions.unshift(currentFormat);
@@ -38,7 +39,7 @@ const ProductDetails = ({ product }) => {
     <div>
       <div className="mb-6">
         <h4 className="text-teagreen-600 font-semibold capitalize">
-          {product?.productType?.join(", ")}
+          {product?.productType?.assortment}
         </h4>
         <h1 className="text-brand__font__size__lg2 font-brand__font__200 leading-tight">
           {product?.title}
@@ -48,7 +49,7 @@ const ProductDetails = ({ product }) => {
           <p className="mt-2">
             {product?.teaFlavor
               .map(
-                (flavor) => flavor?.charAt(0).toUpperCase() + flavor?.slice(1)
+                (flavor) => flavor?.assortment?.charAt(0).toUpperCase() + flavor?.assortment?.slice(1)
               )
               .join(", ")}
           </p>
@@ -78,24 +79,33 @@ const ProductDetails = ({ product }) => {
           <div className="flex flex-wrap gap-2">
             {availableOptions.map(({ teaFormat, urlParameter }) => {
               const isSelected =
-                teaFormat?.toLowerCase() ===
-                product?.teaFormat?.[0]?.toLowerCase();
+                teaFormat?._id ===
+                product?.teaFormat[0]?._id;
 
               return isSelected ? (
-                <span
-                  className="py-1.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 flex cursor-pointer"
-                  key={teaFormat}
+                <div
+                  className="flex items-center gap-3 py-1.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 cursor-pointer"
+                  key={teaFormat._id}
                 >
-                  {" "}
-                  {teaFormat}
-                </span>
+                  <img
+                    className="w-[12px] h-[12px]"
+                    src={env.app_url + teaFormat.thumbnail[0].filepath}
+                    alt={teaFormat?.thumbnail[0]?.alternateText || ""}
+                  />
+                  <span className=""> {teaFormat.assortment}</span>
+                </div>
               ) : (
                 <Link
                   href={`/${urlParameter}`}
-                  key={teaFormat}
-                  className="py-1.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-400 hover:border-teagreen-600 duration-300"
+                  key={teaFormat._id}
+                  className="flex items-center gap-3 py-1.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-400 hover:border-teagreen-600 duration-300"
                 >
-                  {teaFormat}
+                  <img
+                    className="w-[12px] h-[12px]"
+                    src={env.app_url + teaFormat.thumbnail[0].filepath}
+                    alt={teaFormat?.thumbnail[0]?.alternateText || ""}
+                  />
+                  {teaFormat.assortment}
                 </Link>
               );
             })}
