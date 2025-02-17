@@ -38,7 +38,7 @@ const ProductDetails = ({ product }) => {
     <div>
       <div className="mb-6">
         <h4 className="text-teagreen-600 font-semibold capitalize">
-          {product?.productType?.join(", ")}
+          {product?.productType?.assortment}
         </h4>
         <h1 className="text-brand__font__size__lg2 font-brand__font__200 leading-tight">
           {product?.title}
