@@ -90,17 +90,17 @@ const TeaFilters = ({ filters = [], category = "" }) => {
             }`}
           >
             <h3 className="font-semibold mb-2">{title}</h3>
-            <div>
+            <div className="flex flex-col gap-2">
               {options
                 .slice(0, showMore[key] ? options.length : 10)
                 .map((option) => (
-                  <label key={option.param} className="block">
+                  <label key={option.param} className="cursor-pointer w-fit flex items-center gap-1">
                     <input
                       type="checkbox"
                       checked={isChecked(key, option.param)}
                       onChange={() => handleCheckboxChange(key, option.param)}
                     />
-                    <span className="ml-2 text-sm capitalize">
+                    <span className="text-brand__font__size__sm capitalize">
                       {option.param}
                     </span>
                   </label>

@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import { useDispatch, useSelector } from 'react-redux';
-import Link from 'next/link';
-import { toast } from "react-hot-toast";
-import { useEffect } from "react";
-import { useAppSelector } from "@/services/hook";
-import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
-import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import { env } from "@/config/env";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import { useAppSelector } from "@/services/hook";
+import Link from "next/link";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
+import { useDispatch } from "react-redux";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -19,13 +20,17 @@ const toNumber = (value) => {
 function WishlistScreen() {
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const wishlistItems = wishlist?.items;
-  const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
-  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
+  const [
+    addToWishlist,
+    { data: addToWishlistData, isLoading: addToWishlistLoading },
+  ] = useAddToWishlistMutation();
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
+    useAddToCartMutation();
 
   const dispatch = useDispatch();
   const handleRemoveFromWishlist = async (productId) => {
-    await addToWishlist({ data: { productId } })
-  }
+    await addToWishlist({ data: { productId } });
+  };
 
   useEffect(() => {
     if (addToWishlistData?.message) {
@@ -82,8 +87,7 @@ function WishlistScreen() {
                   className="flex items-center gap-3 group w-fit"
                 >
                   <img
-                    // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
-                    src="/products/product_01.jpg"
+                    src={env.app_url + item?.thumbnails[0].filepath}
                     alt={item?.title}
                     className="w-20 h-20 object-cover"
                   />
@@ -92,7 +96,11 @@ function WishlistScreen() {
                       {item?.title}
                     </h4>
                     <p className="text-sm text-gray-500">
-                      {item?.teaFormat[0]}
+                      {item?.teaFormat.length
+                        ? item?.teaFormat[0].assortment
+                        : item?.category.length
+                        ? item?.category[0].assortment
+                        : ""}
                     </p>
                   </div>
                 </Link>
@@ -115,31 +123,35 @@ function WishlistScreen() {
               </td>
               <td className="py-4 font-brand__font__light">
                 <div className="flex items-center gap-3">
-                <button
-                  onClick={() =>
-                    handleAddToCart(
-                      item?._id,
-                      "plus",
-                      "one_time",
-                      1,
-                      item?.unitPrices[0]?._id,
-                      ""
-                    )
-                  }
-                  className="text-nowrap bg-teagreen-600 text-white px-3 py-2 flex items-center gap-2"
-                  // className="text-nowrap bg-teagreen-200 border-[.5px] border-teagreen-600 hover:bg-teagreen-300 rounded-sm px-3 py-2"
-                >
-                  <PiShoppingCartThin className="text-brand__font__size__md" />
-                  <span className="text-brand__font__size__sm">Add To Cart</span>
-                </button>
-                <button
-                  onClick={() => handleRemoveFromWishlist(item?._id)}
-                  className="text-nowrap bg-red-600 text-white px-3 py-2 flex items-center gap-2"
-                  // className="text-nowrap text-rose-600 bg-rose-100 border-[.5px] border-rose-600 hover:bg-rose-200 rounded-sm px-3 py-2"
-                >
-                  <PiTrashSimpleLight className="text-brand__font__size__md" />
-                  <span className="text-brand__font__size__sm">Remove From Wishlist</span>
-                </button>
+                  <button
+                    onClick={() =>
+                      handleAddToCart(
+                        item?._id,
+                        "plus",
+                        "one_time",
+                        1,
+                        item?.unitPrices[0]?._id,
+                        ""
+                      )
+                    }
+                    className="text-nowrap bg-teagreen-600 text-white px-3 py-2 flex items-center gap-2"
+                    // className="text-nowrap bg-teagreen-200 border-[.5px] border-teagreen-600 hover:bg-teagreen-300 rounded-sm px-3 py-2"
+                  >
+                    <PiShoppingCartThin className="text-brand__font__size__md" />
+                    <span className="text-brand__font__size__sm">
+                      Add To Cart
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => handleRemoveFromWishlist(item?._id)}
+                    className="text-nowrap bg-red-600 text-white px-3 py-2 flex items-center gap-2"
+                    // className="text-nowrap text-rose-600 bg-rose-100 border-[.5px] border-rose-600 hover:bg-rose-200 rounded-sm px-3 py-2"
+                  >
+                    <PiTrashSimpleLight className="text-brand__font__size__md" />
+                    <span className="text-brand__font__size__sm">
+                      Remove From Wishlist
+                    </span>
+                  </button>
                 </div>
               </td>
             </tr>

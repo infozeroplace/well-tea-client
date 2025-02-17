@@ -84,28 +84,28 @@ const ProductDetails = ({ product }) => {
 
               return isSelected ? (
                 <div
-                  className="flex items-center gap-3 py-1.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 cursor-pointer"
+                  className="flex items-center gap-3 py-2.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 cursor-pointer rounded"
                   key={teaFormat._id}
                 >
                   <img
-                    className="w-[12px] h-[12px]"
+                    className="w-[20px] h-[20px]"
                     src={env.app_url + teaFormat.thumbnail[0].filepath}
                     alt={teaFormat?.thumbnail[0]?.alternateText || ""}
                   />
-                  <span className=""> {teaFormat.assortment}</span>
+                  <span> {teaFormat.assortment}</span>
                 </div>
               ) : (
                 <Link
                   href={`/${urlParameter}`}
                   key={teaFormat._id}
-                  className="flex items-center gap-3 py-1.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-400 hover:border-teagreen-600 duration-300"
+                  className="flex items-center gap-3 py-2.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 rounded"
                 >
                   <img
                     className="w-[12px] h-[12px]"
                     src={env.app_url + teaFormat.thumbnail[0].filepath}
                     alt={teaFormat?.thumbnail[0]?.alternateText || ""}
                   />
-                  {teaFormat.assortment}
+                  <span>{teaFormat.assortment}</span>
                 </Link>
               );
             })}
