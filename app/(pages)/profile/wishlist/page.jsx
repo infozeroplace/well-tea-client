@@ -92,7 +92,7 @@ function WishlistScreen() {
                       {item?.title}
                     </h4>
                     <p className="text-sm text-gray-500">
-                      {item?.teaFormat[0]}
+                      {/* {item?.teaFormat[0]} */}
                     </p>
                   </div>
                 </Link>

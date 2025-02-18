@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
 import { Spinner } from "@heroui/react";
 
-function SearchQuery({ initialSearchTerm }) {
+function SearchQuery({ initialSearchTerm="" }) {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
