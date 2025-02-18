@@ -6,6 +6,7 @@ import {
   SocialImages,
 } from "@/components";
 import ClientWrapper from "@/components/ClientWrapper";
+import { env } from "@/config/env";
 import { layoutMetadata } from "@/data/staticMetaData";
 import "@/styles/quillstyle.css";
 import "boxicons/css/boxicons.min.css";
@@ -82,14 +83,14 @@ export default function RootLayout({ children }) {
       <head>
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-P3NE42QGRM"
+          src={`https://www.googletagmanager.com/gtag/js?id=${env.google_analytic_id}`}
         ></Script>
         <Script id="google-analytics">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-P3NE42QGRM');
+            gtag('config', '${env.google_analytic_id}');
           `}
         </Script>
       </head>

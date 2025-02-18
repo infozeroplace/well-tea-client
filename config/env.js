@@ -27,4 +27,5 @@ export const env = {
       : process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_DEV,
 
   google_client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+  google_analytic_id: process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_ID,
 };
