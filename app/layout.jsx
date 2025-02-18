@@ -10,6 +10,7 @@ import { layoutMetadata } from "@/data/staticMetaData";
 import "@/styles/quillstyle.css";
 import "boxicons/css/boxicons.min.css";
 import { Prompt, SUSE } from "next/font/google";
+import Script from "next/script";
 import "swiper/css/bundle";
 import "./globals.css";
 
@@ -78,6 +79,20 @@ export async function generateMetadata() {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-P3NE42QGRM"
+        ></Script>
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P3NE42QGRM');
+          `}
+        </Script>
+      </head>
       <body className={fonts}>
         <ClientWrapper>
           <Header />
