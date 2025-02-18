@@ -19,7 +19,7 @@ const WellteaRewards = () => {
       <div className="">
         <div className="section-gap bg-teagreen-100">
           <div className="container px-5 sm:px-10 md:px-14 lg:px-20 py-8">
-            <h2 className="text-3xl lg:text-5xl px-20 text-center content-gap">
+            <h2 className="text-3xl lg:text-5xl px-10 text-center content-gap">
               Sign up. <br />
               Earn points. <br />
               Get rewards.
@@ -35,7 +35,7 @@ const WellteaRewards = () => {
               </p>
             </div>
 
-            <div className="content-gap text-xl flex justify-center gap-8">
+            <div className="content-gap text-xl flex flex-col sm:flex-row justify-center gap-8">
               <div className="flex justify-center md:justify-center">
                 <SectionLinkButton
                   title="Sign up for free"
