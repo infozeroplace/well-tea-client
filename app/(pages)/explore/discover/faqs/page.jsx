@@ -15,10 +15,6 @@ const FAQs = async () => {
     data: { data: systemData },
   } = await axios.get("/public/system");
 
-  console.log("systemData");
-  console.log(systemData?.faqs);
-  console.log(systemData?.faqs.length);
-
   return (
     <div>
       <CommonBanner
@@ -29,7 +25,7 @@ const FAQs = async () => {
       <div className="container-narrow px-5 sm:px-10 md:px-14 lg:px-20 [column-count:1] lg:[column-count:2] gap-8 banner-gap section-gap">
         {systemData?.faqs.map((faqContent, index) => (
           <FAQsCollapse
-            key={faqContent?.id || index}
+            key={faqContent?._id || index}
             faqTitle={faqContent?.title}
             faqInfo={faqContent?.faqs}
           />

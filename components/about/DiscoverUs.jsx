@@ -22,7 +22,7 @@ const DiscoverUs = () => {
   return (
     <div className="container-narrow lg:pl-20 2xl:pl-0 section-gap">
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
-        <div className="lg:border-r px-20 lg:px-0 lg:pr-8 border-slate-200 font-light flex flex-col items-center lg:items-start content-gap lg:mb-0">
+        <div className="lg:border-r px-5 sm:px-10 md:px-20 lg:px-0 lg:pr-8 border-slate-200 font-light flex flex-col items-center lg:items-start content-gap lg:mb-0">
           <div className="w-full">
             <div className="text-sm text-center lg:text-base tracking-wide uppercase font-semibold mb-2">
               It all began in 2010
@@ -43,7 +43,7 @@ const DiscoverUs = () => {
             </div>
           </div>
           <div className="mt-3 w-full">
-            <div className="mb-2 lg:mb-5 font-bold">{choosOption?.description}</div>
+            <div className="content-gap font-bold">{choosOption?.description}</div>
             <div className="flex justify-center text-lg">
               <SectionLinkButton title="Contact" url="/contact" buttonClass="w-60" />
             </div>

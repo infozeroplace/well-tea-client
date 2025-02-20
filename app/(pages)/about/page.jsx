@@ -1,5 +1,6 @@
 import {
   AmazingPeople,
+  CommonBanner,
   DiscoverUs,
   MarqueeText,
   Subscription,
@@ -20,21 +21,11 @@ const About = () => {
   return (
     <div>
       {/* First Section */}
-      <div className="flex flex-col items-center mt-14 section-gap container px-5 sm:px-10 md:px-14 lg:px-20">
-        <div className="text-center content-gap">
-          <div className="text-sm lg:text-base tracking-wide uppercase font-semibold mb-2">
-            About Us
-          </div>
-          <h2 className="text-3xl lg:text-6xl px-20">
-            The Perfect Blend of Tea and Tranquility
-          </h2>
-        </div>
-        <Image
-          src="/images/about-image-1.jpg"
-          alt="Tea"
-          width={1730}
-          height={750}
-        />
+      <CommonBanner bannerTitle="About Us" />
+      <div className="container-narrow section-gap px-5 sm:px-10 md:px-14 lg:px-20">
+        <h2 className="text-3xl lg:text-6xl px-10 lg:px20 text-center mt-8">
+          The Perfect Blend of Tea and Tranquility
+        </h2>
       </div>
 
       {/* Second Section */}

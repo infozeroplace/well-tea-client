@@ -24,7 +24,7 @@ function FAQsCollapse({ key, faqTitle, faqInfo = [] }) {
         {faqTitle}
       </h2>
       {faqInfo?.map((info, index) => (
-        <div key={info?.id} className="w-full">
+        <div key={info?._id} className="w-full">
           <button
             onClick={() => handleOnClick(index)}
             className="w-full text-left bg-teagreen-200 px-10 py-5 flex justify-between overflow-hidden"
