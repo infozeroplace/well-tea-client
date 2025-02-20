@@ -29,7 +29,6 @@ const LoadInitialData = ({ children }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // console.log(wishlist);
 
   useEffect(() => {
     dispatch(addWishlist(wishlist));

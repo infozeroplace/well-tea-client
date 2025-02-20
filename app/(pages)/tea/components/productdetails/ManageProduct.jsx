@@ -1,14 +1,12 @@
 "use client";
 
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import { env } from "@/config/env";
-import { addToCart } from "@/services/features/cart/cartSlice";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import { useAppDispatch } from "@/services/hook";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useAppSelector, useAppDispatch } from "@/services/hook";
-import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { toast } from "react-hot-toast";
-import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -17,7 +15,8 @@ const toNumber = (value) => {
 };
 
 function ManageProduct({ product }) {
-  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
+    useAddToCartMutation();
   const [purchaseType, setPurchaseType] = useState("one_time");
   const [quantity, setQuantity] = useState(1);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
@@ -56,7 +55,6 @@ function ManageProduct({ product }) {
 
   // ---------- Handle Add-On Selection ---------- //
   const handleAddOnSelect = (addOn) => {
-
     setSelectedAddOns((prevAddOns) => {
       if (prevAddOns.some((a) => a._id === addOn._id)) {
         return prevAddOns.filter((a) => a._id !== addOn._id);
@@ -124,7 +122,6 @@ function ManageProduct({ product }) {
       );
       await Promise.all(addOnPromises);
     }
-
   };
 
   useEffect(() => {
@@ -146,7 +143,7 @@ function ManageProduct({ product }) {
             <button
               key={item?.unit}
               onClick={() => handleUnitSelect(item)}
-              className={`py-1.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 border ${
+              className={`py-2.5 px-10 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 border rounded ${
                 selectedUnitObj === item
                   ? "border-teagreen-800"
                   : "border-teagreen-400 hover:border-teagreen-600 duration-300"
@@ -228,9 +225,9 @@ function ManageProduct({ product }) {
         </div>
         {/* --------------- Subscribe and Save Description -------------- */}
         {purchaseType === "subscribe" && (
-          <div className="mt-5">
-            <h3 className="font-normal">Subscribe and Save</h3>
-            <p className="mt-4 text-brand__font__size__sm text-gray-600">
+          <div className="mt-4">
+            <h3 className="font-brand__font__500">Subscribe and save</h3>
+            <p className="mt-2 text-brand__font__size__sm text-gray-600">
               You're subscribing to receive this item multiple times, on a
               recurring basis (according to the frequency you select) with a
               discount on every recurring order. You may cancel or change your
@@ -242,7 +239,7 @@ function ManageProduct({ product }) {
 
       {/* --------------- Helpful Addons --------------- */}
       {product?.addOns?.length > 0 && (
-        <div className="mb-6">
+        <div className="mb-4">
           <h3 className="text-lg font-brand__font__regular mb-4">
             Helpful Add-Ons
           </h3>
@@ -297,8 +294,8 @@ function ManageProduct({ product }) {
         </div>
       )}
       {/* ------------ Add to cart Button ----------- */}
-      <div className="flex mb-6 gap-1 text-brand__font__size__base">
-        <div className="max-w-[100px] w-full flex items-center justify-center bg-teagreen-200 text-teagreen-800 py-2.5 border border-teagreen-600">
+      <div className="flex mb-4 gap-1 text-brand__font__size__base">
+        <div className="max-w-[100px] w-full flex items-center justify-center bg-teagreen-200 text-teagreen-800 py-2.5 border border-teagreen-600 rounded">
           <button
             className=" text-xl flex items-center justify-center"
             onClick={() => handleQuantityChange("decrement")}
@@ -329,13 +326,13 @@ function ManageProduct({ product }) {
           </button>
         </div>
         <button
-          className="w-full bg-teagreen-800 hover:bg-teagreen-600 duration-300 text-white py-2 px-6 border border-teagreen-600"
+          className="w-full bg-teagreen-800 hover:bg-teagreen-600 duration-300 text-white py-2 px-6 border border-teagreen-600 rounded"
           onClick={handleAddToCart}
         >
           Add to Cart - £{toNumber(totalPrice).toFixed(2)}
         </button>
       </div>
-      
+
       <LoadingOverlay isLoading={addToCartLoading} />
     </>
   );

@@ -6,8 +6,10 @@ import {
   SocialImages,
 } from "@/components";
 import ClientWrapper from "@/components/ClientWrapper";
+import { env } from "@/config/env";
 import { layoutMetadata } from "@/data/staticMetaData";
 import "@/styles/quillstyle.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "boxicons/css/boxicons.min.css";
 import { Prompt, SUSE } from "next/font/google";
 import "swiper/css/bundle";
@@ -88,6 +90,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </ClientWrapper>
       </body>
+      <GoogleAnalytics gaId={env.google_analytic_id} />
     </html>
   );
 }

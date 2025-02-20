@@ -28,9 +28,9 @@ const WhyChooseUs = ({ data }) => {
   };
 
   return (
-    <div className=" container section-gap px-5 sm:px-10 md:px-14 lg:px-10">
+    <div className="container section-gap px-5 sm:px-10 md:px-14 lg:px-10">
       <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-3 lg:col-span-1 lg:border-r border-slate-200 font-light flex flex-col justify-between items-center lg:items-start pr-2">
+        <div className="col-span-3 lg:col-span-1 border-slate-200 font-light flex flex-col justify-between items-center lg:items-start pr-2">
           <div>
             <p className="text-center lg:text-left uppercase text-2xl lg:text-base mb-3">
               why choose us
