@@ -15,6 +15,8 @@ import { Prompt, SUSE } from "next/font/google";
 import "swiper/css/bundle";
 import "./globals.css";
 
+export const revalidate = 0;
+
 const prompt = Prompt({
   variable: "--prompt",
   subsets: ["latin"],
