@@ -33,6 +33,7 @@ const TeaFilters = ({ filters = [], category = "" }) => {
         : params.delete(key);
     }
 
+    console.log(params);
     router.push(`?${params.toString()}`);
   };
 
@@ -41,17 +42,26 @@ const TeaFilters = ({ filters = [], category = "" }) => {
   };
 
   const resetFilters = () => {
-    router.push("?");
+    const params = new URLSearchParams(searchParams.toString());
+    const searchTerm = params.get('searchTerm');
+    
+    if (searchTerm) {
+      router.push(`?searchTerm=${searchTerm}`);
+    } else {
+      router.push("?");
+    }
   };
 
   const isChecked = (key, param) => {
     return searchParams.get(key)?.split(",").includes(param) || false;
   };
 
-  const hasFilters = useMemo(
-    () => Array.from(searchParams.entries()).length > 0,
-    [searchParams]
-  );
+  const hasFilters = useMemo(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    const entries = Array.from(params.entries());
+
+    return entries.filter(([key]) => key !== 'searchTerm').length > 0;
+  }, [searchParams]);
 
   const filteredFilterItems = filters.filter(
     (item) => item.category === category || item.category === "all"

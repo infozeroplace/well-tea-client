@@ -99,14 +99,14 @@ const SearchProduct = ({ buttonClass }) => {
                     className="flex gap-3"
                   >
                     <Image
-                      src={`${env.image_path}/${item?.thumbnails[0]}`}
-                      alt={item?.title}
+                      src={`${env.app_url}${item?.thumbnails[0].filepath}`}
+                      alt={item?.thumbnails[0].alternateText}
                       width={100}
                       height={100}
                     />
                     <div className="flex flex-col">
                       <p>{item?.title}</p>
-                      <p>{item?.teaFormat[0]}</p>
+                      {/* <p>{item?.teaFormat[0]}</p> */}
                       <div className="text-sm">
                         {item?.isSale ? (
                           <div className="flex gap-2 text-teagreen-800">
@@ -134,7 +134,7 @@ const SearchProduct = ({ buttonClass }) => {
             )}
           </div>
 
-          {products.length > 0 &&
+          {products.length > 0 && (
             <div className="p-4 border-t mt-auto">
               <SectionLinkButton
                 url={`/search?searchTerm=${searchTerm}`}
@@ -143,7 +143,7 @@ const SearchProduct = ({ buttonClass }) => {
                 textClass="!block !w-full"
               />
             </div>
-          }
+          )}
         </div>
       </div>
       {isOpen && (

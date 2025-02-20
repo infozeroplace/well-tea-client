@@ -11,7 +11,7 @@ import { ProductCard } from "../shared";
 
 const PAGE_LIMITS = [10, 20, 30, 50, 100];
 
-const ProductList = ({ products, category, meta }) => {
+const ProductList = ({ products, category, meta = {} }) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [productLimit, setProductLimit] = useState(
     meta.limit || PAGE_LIMITS[0]
