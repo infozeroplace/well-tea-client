@@ -41,24 +41,24 @@ const CheckoutScreen = () => {
 
   // Get user's geolocation if no saved address is available
   useEffect(() => {
-    if (!shippingAddress) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            const { latitude, longitude } = position.coords;
-            try {
-              const response = await fetch(
-                `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-              );
-              const data = await response.json();
-              setUserCountry(data?.countryName || "United Kingdom"); // Fallback if undefined
-            } catch (error) {
-              console.error("Error fetching geolocation:", error);
-            }
-          },
-          (error) => console.error("Geolocation error:", error)
-        );
-      }
+    if (typeof window === "undefined" || shippingAddress) return;
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const response = await fetch(
+              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+            );
+            const data = await response.json();
+            setUserCountry(data?.countryName || "United Kingdom");
+          } catch (error) {
+            console.error("Geolocation fetch failed:", error);
+          }
+        },
+        (error) => console.error("Geolocation error:", error)
+      );
     }
   }, [shippingAddress]);
 
@@ -90,6 +90,15 @@ const CheckoutScreen = () => {
         addresses.find((addr) => addr.isDefault) || addresses[0];
       setShippingAddress(defaultShipping);
     }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return; // Prevent SSR execution
+    const setupStripe = async () => {
+      await initializeStripe();
+      setStripe(stripePromise);
+    };
+    setupStripe();
   }, []);
 
   // Handle shipping address change
@@ -126,10 +135,11 @@ const CheckoutScreen = () => {
   }, []);
 
   useEffect(() => {
-    const loadPaymentIntent = async () => {
-      if (!carts?._id || effectExecuted.current) return;
+    if (!carts?._id || !user?.email || effectExecuted.current) return;
 
-      // Check if there's a stored payment intent
+    effectExecuted.current = true;
+
+    const loadPaymentIntent = async () => {
       const storedIntent = localStorage.getItem("paymentIntent");
       const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
 
@@ -142,45 +152,33 @@ const CheckoutScreen = () => {
         return;
       }
 
-      if (
-        user?.email &&
-        carts?._id &&
-        shippingAddress?._id &&
-        selectedMethod?._id &&
-        !effectExecuted.current
-      ) {
-        effectExecuted.current = true;
-        try {
-          const { data } = await createPaymentIntent({
-            data: {
-              email: user?.email,
-              cartId: carts._id,
-              shippingAddressId: shippingAddress._id,
-              shippingMethodId: selectedMethod._id,
-            },
-          }).unwrap();
+      try {
+        const { data } = await createPaymentIntent({
+          data: {
+            email: user.email,
+            cartId: carts._id,
+            shippingAddressId: shippingAddress?._id,
+            shippingMethodId: selectedMethod?._id,
+          },
+        }).unwrap();
 
-          // Store the new payment intent with an expiry (e.g., 30 minutes)
-          localStorage.setItem(
-            "paymentIntent",
-            JSON.stringify({
-              id: data.id,
-              clientSecret: data,
-              expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
-            })
-          );
+        localStorage.setItem(
+          "paymentIntent",
+          JSON.stringify({
+            id: data.id,
+            clientSecret: data,
+            expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
+          })
+        );
 
-          setClientSecret(data);
-        } catch (error) {
-          handleError(error?.data?.message || "Something went wrong!");
-        }
+        setClientSecret(data);
+      } catch (error) {
+        handleError(error?.data?.message || "Something went wrong!");
       }
     };
 
     loadPaymentIntent();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carts?._id, shippingAddress?._id, selectedMethod?._id]);
+  }, [carts?._id, user?.email, shippingAddress?._id, selectedMethod?._id]);
 
   if (addressLoading || paymentIntentLoading) {
     return "Loading...";
