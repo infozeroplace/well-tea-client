@@ -63,10 +63,11 @@ const CheckoutScreen = () => {
   }, [shippingAddress]);
 
   // Fetch shipping methods based on the country
-  const { data: { data: { methods = [] } = {} } = {} } =
-    useGetShippingMethodsQuery({
-      country: shippingAddress?.country || userCountry,
-    });
+  const { data: shippingMethodQuery } = useGetShippingMethodsQuery({
+    country: shippingAddress?.country || userCountry,
+  });
+
+  const methods = shippingMethodQuery?.data?.methods || [];
 
   // Selected shipping method
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -210,6 +211,7 @@ const CheckoutScreen = () => {
           )}
 
           <AddressSelection
+            user={user}
             methods={methods}
             selectedMethod={selectedMethod}
             addresses={addresses}

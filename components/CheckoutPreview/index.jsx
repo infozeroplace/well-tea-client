@@ -38,7 +38,7 @@ const CheckoutPreview = ({ carts, totalPrice, shippingCost, grandTotal }) => {
         <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
           <input
             type="text"
-            placeholder="Discount code or gift card"
+            placeholder="Not working now"
             className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
           />
           <button className="bg-gray-200 text-gray-500 px-4 py-2 text-sm font-semibold cursor-not-allowed">

@@ -1,6 +1,11 @@
-"use client"
+"use client";
+
+import { AddNewAddress } from "@/app/(pages)/profile/components";
+import { useDisclosure } from "@heroui/react";
+import { FiPlus } from "react-icons/fi";
 
 const AddressSelection = ({
+  user,
   methods = [],
   addresses = [],
   selectedMethod,
@@ -8,6 +13,8 @@ const AddressSelection = ({
   handleMethodChange,
   handleShippingAddressChange,
 }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
       {/* Shipping Method Selection */}
@@ -70,9 +77,16 @@ const AddressSelection = ({
             ))}
           </div>
         ) : (
-          <p>No saved shipping addresses. Please enter manually.</p>
+          <p
+            onClick={onOpen}
+            className="flex items-center gap-1 text-blue-600 font-brand__font__500 text-brand__font__size__sm cursor-pointer"
+          >
+            <FiPlus size={20} /> <span>Add a shipping address</span>
+          </p>
         )}
       </div>
+
+      <AddNewAddress user={user} isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 };
