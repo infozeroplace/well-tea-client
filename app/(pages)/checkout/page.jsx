@@ -62,20 +62,23 @@ const CheckoutScreen = () => {
     }
   }, [shippingAddress]);
 
-  // Fetch shipping methods based on the country
-  const {
-    data: { data: { methods = [] } = {} } = {},
-    isLoading: methodLoading,
-  } = useGetShippingMethodsQuery({
-    country: shippingAddress?.country || userCountry,
-  });
-
   // Selected shipping method
   const [selectedMethod, setSelectedMethod] = useState(null);
 
-  // Set default shipping method when methods are fetched
+  const { data, isLoading: methodLoading } = useGetShippingMethodsQuery({
+    country: shippingAddress?.country || userCountry,
+  });
+
+  const methods = data?.data?.methods || []; // Ensure methods is always an array
+
+  // Show loading state
+  if (methodLoading) {
+    return <p>Loading shipping methods...</p>;
+  }
+
+  // Ensure methods are set before using them
   useEffect(() => {
-    if (methods?.length > 0) {
+    if (Array.isArray(methods) && methods.length > 0) {
       setSelectedMethod(methods[0]);
     }
   }, [methods]);
@@ -179,7 +182,7 @@ const CheckoutScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carts?._id, shippingAddress?._id, selectedMethod?._id]);
 
-  if (addressLoading || methodLoading || paymentIntentLoading) {
+  if (addressLoading || paymentIntentLoading) {
     return "Loading...";
   }
 
