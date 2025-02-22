@@ -41,66 +41,51 @@ const CheckoutScreen = () => {
 
   // Get user's geolocation if no saved address is available
   useEffect(() => {
-    if (typeof window === "undefined" || shippingAddress) return; // ✅ Ensure this only runs client-side
-  
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const response = await fetch(
-              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-            );
-            const data = await response.json();
-            setUserCountry(data?.countryName || "United Kingdom");
-          } catch (error) {
-            console.error("Geolocation fetch failed:", error);
-          }
-        },
-        (error) => console.error("Geolocation error:", error)
-      );
+    if (!shippingAddress) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+              const response = await fetch(
+                `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+              );
+              const data = await response.json();
+              setUserCountry(data.countryName || "United Kingdom"); // Fallback if undefined
+            } catch (error) {
+              console.error("Error fetching geolocation:", error);
+            }
+          },
+          (error) => console.error("Geolocation error:", error)
+        );
+      }
     }
-  }, [shippingAddress]); // ✅ Depend on `shippingAddress`, so it doesn't change hook order
-  
+  }, [shippingAddress]);
+
+  // Fetch shipping methods based on the country
+  const { data: { data: { methods = [] } = {} } = {} } =
+    useGetShippingMethodsQuery({
+      country: shippingAddress?.country || userCountry,
+    });
 
   // Selected shipping method
   const [selectedMethod, setSelectedMethod] = useState(null);
 
-  const { data, isLoading: methodLoading } = useGetShippingMethodsQuery({
-    country: shippingAddress?.country || userCountry,
-  });
-
-  const methods = data?.data?.methods || []; // Ensure methods is always an array
-
-  // Show loading state
-  if (methodLoading) {
-    return <p>Loading shipping methods...</p>;
-  }
-
-  // Ensure methods are set before using them
+  // Set default shipping method when methods are fetched
   useEffect(() => {
-    if (Array.isArray(methods) && methods?.length > 0) {
+    if (methods?.length > 0) {
       setSelectedMethod(methods[0]);
     }
-  }, []);
+  }, [methods]);
 
+  // Set default shipping address
   useEffect(() => {
-    if (!addresses) return; // ✅ Always runs the effect, but exits early if data is unavailable
     if (addresses.length > 0) {
-      setShippingAddress(addresses.find((addr) => addr.isDefault) || addresses[0]);
+      const defaultShipping =
+        addresses.find((addr) => addr.isDefault) || addresses[0];
+      setShippingAddress(defaultShipping);
     }
-  }, [addresses]); // ✅ Correct dependency ensures consistent execution
-  
-  
-
-  useEffect(() => {
-    if (typeof window === "undefined") return; // Prevent SSR execution
-    const setupStripe = async () => {
-      await initializeStripe();
-      setStripe(stripePromise);
-    };
-    setupStripe();
-  }, []);
+  }, [addresses]);
 
   // Handle shipping address change
   const handleShippingAddressChange = (selectedId) => {
@@ -110,7 +95,7 @@ const CheckoutScreen = () => {
 
   // Handle shipping method change
   const handleMethodChange = (event) => {
-    const method = methods?.find((m) => m._id === event.target.value);
+    const method = methods.find((m) => m._id === event.target.value);
     setSelectedMethod(method);
   };
 
@@ -123,8 +108,7 @@ const CheckoutScreen = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [stripe, setStripe] = useState(null);
 
-  const [createPaymentIntent, { isLoading: paymentIntentLoading }] =
-    useCreatePaymentIntentMutation();
+  const [createPaymentIntent, { isLoading }] = useCreatePaymentIntentMutation();
 
   useEffect(() => {
     const setupStripe = async () => {
@@ -136,47 +120,61 @@ const CheckoutScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (!carts?._id || !user?.email || effectExecuted.current) return; // ❌ Condition before the hook
-    
-    effectExecuted.current = true;
-  
     const loadPaymentIntent = async () => {
+      if (!carts?._id || effectExecuted.current) return;
+
+      // Check if there's a stored payment intent
       const storedIntent = localStorage.getItem("paymentIntent");
       const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
-  
-      if (parsedIntent && parsedIntent.clientSecret && parsedIntent.expiry > Date.now()) {
+
+      if (
+        parsedIntent &&
+        parsedIntent.clientSecret &&
+        parsedIntent.expiry > Date.now()
+      ) {
         setClientSecret(parsedIntent.clientSecret);
         return;
       }
-  
-      try {
-        const { data } = await createPaymentIntent({
-          data: {
-            email: user.email,
-            cartId: carts._id,
-            shippingAddressId: shippingAddress?._id,
-            shippingMethodId: selectedMethod?._id,
-          },
-        }).unwrap();
-  
-        localStorage.setItem(
-          "paymentIntent",
-          JSON.stringify({ id: data.id, clientSecret: data, expiry: Date.now() + 7 * 24 * 60 * 60 * 1000 })
-        );
-  
-        setClientSecret(data);
-      } catch (error) {
-        handleError(error?.data?.message || "Something went wrong!");
+
+      if (
+        user?.email &&
+        carts?._id &&
+        shippingAddress?._id &&
+        selectedMethod?._id &&
+        !effectExecuted.current
+      ) {
+        effectExecuted.current = true;
+        try {
+          const { data } = await createPaymentIntent({
+            data: {
+              email: user?.email,
+              cartId: carts._id,
+              shippingAddressId: shippingAddress._id,
+              shippingMethodId: selectedMethod._id,
+            },
+          }).unwrap();
+
+          // Store the new payment intent with an expiry (e.g., 30 minutes)
+          localStorage.setItem(
+            "paymentIntent",
+            JSON.stringify({
+              id: data.id,
+              clientSecret: data,
+              expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
+            })
+          );
+
+          setClientSecret(data);
+        } catch (error) {
+          handleError(error?.data?.message || "Something went wrong!");
+        }
       }
     };
-  
-    loadPaymentIntent();
-  }, [carts?._id, user?.email, shippingAddress?._id, selectedMethod?._id]);
-  
 
-  if (addressLoading || paymentIntentLoading) {
-    return "Loading...";
-  }
+    loadPaymentIntent();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carts?._id, shippingAddress?._id, selectedMethod?._id]);
 
   return (
     <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-between gap-5 p-5">
