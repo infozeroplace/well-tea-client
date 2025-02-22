@@ -7,6 +7,7 @@ import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistA
 import { useAppSelector } from "@/services/hook";
 import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
@@ -100,7 +101,11 @@ function WishlistScreen() {
                       {item?.title}
                     </h4>
                     <p className="text-sm text-gray-500">
-                      {item?.teaFormat[0].assortment}
+                      {item?.teaFormat.length
+                        ? item?.teaFormat[0].assortment
+                        : item?.category.length
+                        ? item?.category[0].assortment
+                        : ""}
                     </p>
                   </div>
                 </Link>
