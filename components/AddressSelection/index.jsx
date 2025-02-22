@@ -11,7 +11,7 @@ const AddressSelection = ({
       {/* Shipping Method Selection */}
       <div className="flex flex-col gap-2 border-b pb-4">
         <span>Shipping Method</span>
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           {methods?.map((method) => (
             <label
               key={method._id}
@@ -34,7 +34,7 @@ const AddressSelection = ({
               </span>
             </label>
           ))}
-        </div>
+        </div> */}
       </div>
 
       <div>
