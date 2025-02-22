@@ -84,13 +84,13 @@ const CheckoutScreen = () => {
     }
   }, []);
 
-  // Set default shipping address
   useEffect(() => {
-    if (addresses?.length > 0) {
-      const defaultShipping = addresses.find((addr) => addr.isDefault) || addresses[0];
-      setShippingAddress(defaultShipping);
+    if (!addresses) return; // ✅ Always runs the effect, but exits early if data is unavailable
+    if (addresses.length > 0) {
+      setShippingAddress(addresses.find((addr) => addr.isDefault) || addresses[0]);
     }
-  }, [addresses]); // ✅ Always executes, ensuring state updates safely
+  }, [addresses]); // ✅ Correct dependency ensures consistent execution
+  
   
 
   useEffect(() => {
