@@ -51,7 +51,7 @@ const CheckoutScreen = () => {
                 `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
               );
               const data = await response.json();
-              setUserCountry(data.countryName || "United Kingdom"); // Fallback if undefined
+              setUserCountry(data?.countryName || "United Kingdom"); // Fallback if undefined
             } catch (error) {
               console.error("Error fetching geolocation:", error);
             }
@@ -63,24 +63,26 @@ const CheckoutScreen = () => {
   }, [shippingAddress]);
 
   // Fetch shipping methods based on the country
-  const { data: { data: { methods = [] } = {} } = {} } =
-    useGetShippingMethodsQuery({
-      country: shippingAddress?.country || userCountry,
-    });
+  const {
+    data: { data: { methods = [] } = {} } = {},
+    isLoading: methodLoading,
+  } = useGetShippingMethodsQuery({
+    country: shippingAddress?.country || userCountry,
+  });
 
   // Selected shipping method
   const [selectedMethod, setSelectedMethod] = useState(null);
 
   // Set default shipping method when methods are fetched
   useEffect(() => {
-    if (methods.length > 0) {
+    if (methods?.length > 0) {
       setSelectedMethod(methods[0]);
     }
   }, [methods]);
 
   // Set default shipping address
   useEffect(() => {
-    if (addresses.length > 0) {
+    if (addresses?.length > 0) {
       const defaultShipping =
         addresses.find((addr) => addr.isDefault) || addresses[0];
       setShippingAddress(defaultShipping);
@@ -95,7 +97,7 @@ const CheckoutScreen = () => {
 
   // Handle shipping method change
   const handleMethodChange = (event) => {
-    const method = methods.find((m) => m._id === event.target.value);
+    const method = methods?.find((m) => m._id === event.target.value);
     setSelectedMethod(method);
   };
 
@@ -108,7 +110,8 @@ const CheckoutScreen = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [stripe, setStripe] = useState(null);
 
-  const [createPaymentIntent, { isLoading }] = useCreatePaymentIntentMutation();
+  const [createPaymentIntent, { isLoading: paymentIntentLoading }] =
+    useCreatePaymentIntentMutation();
 
   useEffect(() => {
     const setupStripe = async () => {
@@ -175,6 +178,10 @@ const CheckoutScreen = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carts?._id, shippingAddress?._id, selectedMethod?._id]);
+
+  if (addressLoading || methodLoading || paymentIntentLoading) {
+    return "Loading...";
+  }
 
   return (
     <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-between gap-5 p-5">

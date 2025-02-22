@@ -1,6 +1,6 @@
 const AddressSelection = ({
-  methods,
-  addresses,
+  methods = [],
+  addresses = [],
   selectedMethod,
   shippingAddress,
   handleMethodChange,
@@ -12,7 +12,7 @@ const AddressSelection = ({
       <div className="flex flex-col gap-2 border-b pb-4">
         <span>Shipping Method</span>
         <div className="flex flex-col gap-2">
-          {methods.map((method) => (
+          {methods?.map((method) => (
             <label
               key={method._id}
               className={`flex items-center gap-2 cursor-pointer p-3 border rounded-md text-brand__font__size__sm ${
@@ -39,7 +39,7 @@ const AddressSelection = ({
 
       <div>
         <h2 className="mb-2">Shipping Address</h2>
-        {addresses.length > 0 ? (
+        {addresses?.length > 0 ? (
           <div className="flex flex-col gap-2">
             {addresses.map((address) => (
               <label
