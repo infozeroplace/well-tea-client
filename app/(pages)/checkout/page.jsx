@@ -41,8 +41,8 @@ const CheckoutScreen = () => {
 
   // Get user's geolocation if no saved address is available
   useEffect(() => {
-    if (typeof window === "undefined" || shippingAddress) return;
-
+    if (typeof window === "undefined" || shippingAddress) return; // ✅ Ensure this only runs client-side
+  
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -60,7 +60,8 @@ const CheckoutScreen = () => {
         (error) => console.error("Geolocation error:", error)
       );
     }
-  }, [shippingAddress]);
+  }, [shippingAddress]); // ✅ Depend on `shippingAddress`, so it doesn't change hook order
+  
 
   // Selected shipping method
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -86,11 +87,11 @@ const CheckoutScreen = () => {
   // Set default shipping address
   useEffect(() => {
     if (addresses?.length > 0) {
-      const defaultShipping =
-        addresses.find((addr) => addr.isDefault) || addresses[0];
+      const defaultShipping = addresses.find((addr) => addr.isDefault) || addresses[0];
       setShippingAddress(defaultShipping);
     }
-  }, []);
+  }, [addresses]); // ✅ Always executes, ensuring state updates safely
+  
 
   useEffect(() => {
     if (typeof window === "undefined") return; // Prevent SSR execution
@@ -135,23 +136,19 @@ const CheckoutScreen = () => {
   }, []);
 
   useEffect(() => {
-    if (!carts?._id || !user?.email || effectExecuted.current) return;
-
+    if (!carts?._id || !user?.email || effectExecuted.current) return; // ❌ Condition before the hook
+    
     effectExecuted.current = true;
-
+  
     const loadPaymentIntent = async () => {
       const storedIntent = localStorage.getItem("paymentIntent");
       const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
-
-      if (
-        parsedIntent &&
-        parsedIntent.clientSecret &&
-        parsedIntent.expiry > Date.now()
-      ) {
+  
+      if (parsedIntent && parsedIntent.clientSecret && parsedIntent.expiry > Date.now()) {
         setClientSecret(parsedIntent.clientSecret);
         return;
       }
-
+  
       try {
         const { data } = await createPaymentIntent({
           data: {
@@ -161,24 +158,21 @@ const CheckoutScreen = () => {
             shippingMethodId: selectedMethod?._id,
           },
         }).unwrap();
-
+  
         localStorage.setItem(
           "paymentIntent",
-          JSON.stringify({
-            id: data.id,
-            clientSecret: data,
-            expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
-          })
+          JSON.stringify({ id: data.id, clientSecret: data, expiry: Date.now() + 7 * 24 * 60 * 60 * 1000 })
         );
-
+  
         setClientSecret(data);
       } catch (error) {
         handleError(error?.data?.message || "Something went wrong!");
       }
     };
-
+  
     loadPaymentIntent();
   }, [carts?._id, user?.email, shippingAddress?._id, selectedMethod?._id]);
+  
 
   if (addressLoading || paymentIntentLoading) {
     return "Loading...";
