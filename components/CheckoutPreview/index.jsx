@@ -1,3 +1,5 @@
+"use client";
+
 import { env } from "@/config/env";
 
 const CheckoutPreview = ({ carts, totalPrice, shippingCost, grandTotal }) => {
