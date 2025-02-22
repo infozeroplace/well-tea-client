@@ -9,9 +9,9 @@ import ClientWrapper from "@/components/ClientWrapper";
 import { env } from "@/config/env";
 import { layoutMetadata } from "@/data/staticMetaData";
 import "@/styles/quillstyle.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "boxicons/css/boxicons.min.css";
 import { Prompt, SUSE } from "next/font/google";
-import Script from "next/script";
 import "swiper/css/bundle";
 import "./globals.css";
 
@@ -80,20 +80,6 @@ export async function generateMetadata() {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <Script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${env.google_analytic_id}`}
-        ></Script>
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${env.google_analytic_id}');
-          `}
-        </Script>
-      </head>
       <body className={fonts}>
         <ClientWrapper>
           <Header />
@@ -104,6 +90,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </ClientWrapper>
       </body>
+      <GoogleAnalytics gaId={env.google_analytic_id} />
     </html>
   );
 }
