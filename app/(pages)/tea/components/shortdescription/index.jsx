@@ -20,9 +20,9 @@ const ShortDescription = ({ desc }) => {
         {desc?.length > 150 && (
           <button
             onClick={toggleDescription}
-            className="text-teagreen-800 font-brand__font__500"
+            className="text-teagreen-800 font-brand__font__500 text-brand__font__size__xs"
           >
-            {showFullDescription ? "See less" : "See more"}
+            {showFullDescription ? "less" : "more"}
           </button>
         )}
       </p>
