@@ -188,7 +188,7 @@ const CheckoutScreen = () => {
 
   return (
     <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-between gap-5 p-5">
-      {/* <div className="w-full h-full md:flex justify-center md:justify-end items-center py-10">
+      <div className="w-full h-full md:flex justify-center md:justify-end items-center py-10">
         <CheckoutPreview
           carts={carts}
           totalPrice={totalPrice}
@@ -244,7 +244,7 @@ const CheckoutScreen = () => {
             </Elements>
           )}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
