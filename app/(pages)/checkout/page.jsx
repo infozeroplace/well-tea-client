@@ -78,10 +78,10 @@ const CheckoutScreen = () => {
 
   // Ensure methods are set before using them
   useEffect(() => {
-    if (Array.isArray(methods) && methods.length > 0) {
+    if (Array.isArray(methods) && methods?.length > 0) {
       setSelectedMethod(methods[0]);
     }
-  }, [methods]);
+  }, []);
 
   // Set default shipping address
   useEffect(() => {
@@ -90,7 +90,7 @@ const CheckoutScreen = () => {
         addresses.find((addr) => addr.isDefault) || addresses[0];
       setShippingAddress(defaultShipping);
     }
-  }, [addresses]);
+  }, []);
 
   // Handle shipping address change
   const handleShippingAddressChange = (selectedId) => {
