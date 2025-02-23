@@ -11,6 +11,8 @@ import {
   ModalHeader,
   Select,
   SelectItem,
+  Autocomplete,
+  AutocompleteItem,
 } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { countries } from "@/data/countries";
@@ -187,32 +189,33 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                       type="text"
                     />
 
-                    <Select
-                      {...register("country", { required: true })}
-                      variant="bordered"
+                    <Autocomplete
+                      {...register("country", {
+                        required: true,
+                      })}
                       isRequired
                       errorMessage={getAuthErrorMessage(errors, "country")}
                       isInvalid={!!getAuthErrorMessage(errors, "country")}
+                      variant="bordered"
+                      // defaultItems={countries}
                       label="Country"
                       name="country"
-                      onSelectionChange={(keys) =>
-                        setValue("country", [...keys][0])
-                      }
+                      // placeholder="Search a country"
                     >
                       {countries.map((country) => (
-                        <SelectItem key={country} name="country">
+                        <AutocompleteItem key={country}>
                           {country}
-                        </SelectItem>
+                        </AutocompleteItem>
                       ))}
-                    </Select>
+                    </Autocomplete>
 
                     <Input
                       {...register("postalCode", {
                         required: true,
-                        pattern: {
-                          value: /^[0-9]+$/,
-                          message: "Please enter only numbers",
-                        },
+                        // pattern: {
+                        //   value: /^[0-9]+$/,
+                        //   message: "Please enter only numbers",
+                        // },
                       })}
                       variant="bordered"
                       isRequired

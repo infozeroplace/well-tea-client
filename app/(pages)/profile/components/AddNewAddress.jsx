@@ -12,6 +12,8 @@ import {
   Select,
   SelectItem,
   Checkbox,
+  Autocomplete,
+  AutocompleteItem,
 } from "@heroui/react";
 import { useAddAddressMutation } from "@/services/features/address/addressApi";
 import { useForm } from "react-hook-form";
@@ -52,6 +54,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
 
   const onSubmit = async (formData) => {
     formData.isDefault = isDefault;
+    console.log(formData);
     await addAddress({
       data: formData,
     });
@@ -191,34 +194,32 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                       name="city"
                       type="text"
                     />
-                    <Select
+                    <Autocomplete
                       {...register("country", {
                         required: true,
                       })}
-                      variant="bordered"
                       isRequired
                       errorMessage={getAuthErrorMessage(errors, "country")}
                       isInvalid={!!getAuthErrorMessage(errors, "country")}
+                      variant="bordered"
+                      // defaultItems={countries}
                       label="Country"
                       name="country"
-                      onSelectionChange={(keys) =>
-                        setValue("country", [...keys][0])
-                      }
-                      // selectionMode="multiple"
+                      // placeholder="Search a country"
                     >
                       {countries.map((country) => (
-                        <SelectItem key={country} name="country">
+                        <AutocompleteItem key={country}>
                           {country}
-                        </SelectItem>
+                        </AutocompleteItem>
                       ))}
-                    </Select>
+                    </Autocomplete>
                     <Input
                       {...register("postalCode", {
                         required: true,
-                        pattern: {
-                          value: /^[0-9]+$/,
-                          message: "Please enter only numbers",
-                        },
+                        // pattern: {
+                        //   value: /^[0-9]+$/,
+                        //   message: "Please enter only numbers",
+                        // },
                       })}
                       variant="bordered"
                       isRequired
