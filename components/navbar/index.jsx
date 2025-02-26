@@ -5,8 +5,7 @@ import { env } from "@/config/env";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CiHeart } from "react-icons/ci";
-import { PiUser } from "react-icons/pi";
+import { useSearchParams } from "next/navigation";
 import Cart from "./Cart";
 import ExploreDropdown from "./ExploreDropdown";
 import GiftDropdown from "./GiftDropdown";
@@ -139,6 +138,29 @@ const dropdownData = [
   },
 ];
 
+const mobileNavItems = [
+  {
+    name: "tea",
+    url: "/tea",
+  },
+  {
+    name: "teaware",
+    url: "/teaware",
+  },
+  {
+    name: "gift",
+    url: "/gift",
+  },
+  {
+    name: "sales",
+    url: "/sales",
+  },
+  {
+    name: "explore",
+    url: "/explore",
+  },
+]
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -160,6 +182,13 @@ const Navbar = () => {
 
   const navIconsClasses =
     "flex items-center text-2xl border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
+
+    const [activeDropdown, setActiveDropdown] = useState(null);
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      setActiveDropdown(null);
+    }, [searchParams]);
 
   return (
     <nav className="bg-white sticky top-0 z-[9999999] shadow-sm">
@@ -183,12 +212,23 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Categories */}
+          {/* --------- Nav Items -------- */}
           <div className="hidden lg:flex items-center gap-5">
             {dropdownData.map((item) => (
-              <div key={item.name} className="group">
+              <div
+                key={item.name}
+                // className="group"
+                onMouseEnter={() => setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
                 <NavItem href={`/collection/${item.name}`} name={item.name} />
-                <NavDropdown extraClass="shadow">
+                <NavDropdown
+                  extraClass={`shadow ${
+                    activeDropdown === item.name
+                      ? "scale-y-100 opacity-100"
+                      : ""
+                  }`}
+                >
                   {item.name === "tea" ? (
                     <TeaDropdown dropdownItem={item} />
                   ) : item.name === "teaware" ? (
@@ -199,73 +239,32 @@ const Navbar = () => {
                 </NavDropdown>
               </div>
             ))}
-            {/* ------ Tea Dropdown Menu ------ */}
-            {/* <div className="group">
-              <NavItem href="/collection/tea" name="Tea" />
-              <NavDropdown extraClass="group-hover:h-[520px] shadow">
-                <TeaDropdown />
-              </NavDropdown>
-            </div> */}
-
-            {/* ------ Teaware Dropdown Menu ------ */}
-            {/* <div className="group">
-              <NavItem href="/collection/teaware" name="Teawares" />
-              <NavDropdown extraClass="group-hover:h-[300px] shadow">
-                <TeawareDropdown />
-              </NavDropdown>
-            </div> */}
-
-            {/* ------ Gift Dropdown Menu ------ */}
-            {/* <div className="group">
-              <NavItem href="/collection/gift" name="Gifts" />
-              <NavDropdown extraClass="group-hover:h-[300px] shadow">
-                <GiftDropdown />
-              </NavDropdown>
-            </div> */}
 
             <NavItem href="/collection/sale" name="Sales" />
-            {/* <NavItem href="/explore" name="Explore" /> */}
 
             {/* ------ Explore Dropdown Menu ------ */}
-            <div className="group">
+            <div
+              onMouseEnter={() => setActiveDropdown("explore")}
+              onMouseLeave={() => setActiveDropdown(null)}
+              // className="group"
+            >
               <NavItem href="/explore" name="Explore" />
-              <NavDropdown extraClass=" shadow">
+              <NavDropdown
+                extraClass={`shadow ${
+                  activeDropdown === "explore" ? "scale-y-100 opacity-100" : ""
+                }`}
+              >
                 <ExploreDropdown />
               </NavDropdown>
             </div>
-            {/* <NavItem href="/about" name="About" /> */}
           </div>
 
           <div className="flex">
-            {/* Nav Icons */}
-            {/* <NavbarIcon /> */}
-
+            {/* --------- Nav Icons --------- */}
             <div className="hidden md:flex items-center gap-1">
-              {/* <button className={`nav-button ${navIconsClasses}`}>
-                <CiSearch />
-                <svg className="circle" viewBox="0 0 50 50">
-                  <circle cx="25" cy="25" r="24" />
-                </svg>
-              </button> */}
               <SearchProduct buttonClass={`nav-button ${navIconsClasses}`} />
-
-              {/* <Link href="/profile">
-                <button className={`nav-button ${navIconsClasses}`}>
-                  <PiUser className="text-xl" />
-                  <svg className="circle" viewBox="0 0 50 50">
-                    <circle cx="25" cy="25" r="24" />
-                  </svg>
-                </button>
-              </Link> */}
               <Profile buttonClass={`nav-button ${navIconsClasses}`} />
-              {/* <button className={`nav-button ${navIconsClasses}`}>
-                <CiHeart />
-                <svg className="circle" viewBox="0 0 50 50">
-                  <circle cx="25" cy="25" r="24" />
-                </svg>
-              </button> */}
               <Wishlist buttonClass={`nav-button ${navIconsClasses}`} />
-
               <Cart buttonClass={`nav-button ${navIconsClasses}`} />
             </div>
 
@@ -313,26 +312,15 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="lg:hidden bg-teagreen-700">
-          <Link href="/ border-2 border-white">
-            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
-              Home
-            </p>
-          </Link>
-          <Link href="/about">
-            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
-              About
-            </p>
-          </Link>
-          <Link href="/services">
-            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
-              Services
-            </p>
-          </Link>
-          <Link href="/contact">
-            <p className="block px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer">
-              Contact
-            </p>
-          </Link>
+          {mobileNavItems.map((item) => (
+            <Link
+              key={item.name}
+              href={`/collection/${item.url}`}
+              className="block capitalize px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer"
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
       )}
     </nav>

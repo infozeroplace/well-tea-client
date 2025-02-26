@@ -41,6 +41,7 @@ const ProductCard = ({ product }) => {
         quantity: 1,
       },
     });
+    setAddButtonClicked(false);
   };
 
   const handleAddToWishlist = async () => {
@@ -75,7 +76,7 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <div
-        ref={cardRef}
+        // ref={cardRef}
         className="w-full bg-[#F8F8F8] relative overflow-hidden shadow-md flex flex-col justify-between"
       >
         {/* Top Section: Labels & Wishlist */}
@@ -128,6 +129,7 @@ const ProductCard = ({ product }) => {
 
         {/* Product Details */}
         <div
+          ref={cardRef}
           className={`px-3 py-3 transition-all duration-300 text-teagreen-700 ${
             addButtonClicked ? "opacity-0" : "opacity-100"
           }`}
@@ -140,7 +142,9 @@ const ProductCard = ({ product }) => {
               {product?.teaFormat[0]?.thumbnail?.length && (
                 <img
                   className="w-[12px] h-[12px]"
-                  src={env.app_url + product?.teaFormat[0]?.thumbnail[0].filepath}
+                  src={
+                    env.app_url + product?.teaFormat[0]?.thumbnail[0].filepath
+                  }
                   alt={product?.teaFormat[0]?.thumbnail[0]?.alternateText || ""}
                 />
               )}
