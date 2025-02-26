@@ -3,6 +3,7 @@
 import AddressSelection from "@/components/AddressSelection";
 import CheckoutForm from "@/components/CheckoutForm";
 import CheckoutPreview from "@/components/CheckoutPreview";
+import EmptyBasket from "@/components/EmptyBasket";
 import { env } from "@/config/env";
 import useToast from "@/hooks/useToast";
 import { useGetAddressQuery } from "@/services/features/address/addressApi";
@@ -33,7 +34,7 @@ const CheckoutScreen = () => {
 
   // Billing & Shipping Address State
   const [shippingAddress, setShippingAddress] = useState(null);
-  const [userCountry, setUserCountry] = useState("united kingdom"); // Default fallback
+  const [userCountry, setUserCountry] = useState(""); // Default fallback
 
   // Fetch saved addresses
   const { data: { data: addresses = [] } = {}, isLoading: addressLoading } =
@@ -51,7 +52,7 @@ const CheckoutScreen = () => {
                 `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
               );
               const data = await response.json();
-              setUserCountry(data.countryName || "United Kingdom"); // Fallback if undefined
+              setUserCountry(data.countryName || ""); // Fallback if undefined
             } catch (error) {
               console.error("Error fetching geolocation:", error);
             }
@@ -122,6 +123,12 @@ const CheckoutScreen = () => {
 
   useEffect(() => {
     const loadPaymentIntent = async () => {
+      // predefined ids/email
+      const email = user?.email || null;
+      const cartId = carts?._id || null;
+      const shippingMethodId = selectedMethod?._id || null;
+      const shippingAddressId = shippingAddress?._id || null;
+
       if (!carts?._id || effectExecuted.current) return;
 
       // Check if there's a stored payment intent
@@ -137,38 +144,66 @@ const CheckoutScreen = () => {
         return;
       }
 
-      if (
-        user?.email &&
-        carts?._id &&
-        shippingAddress?._id &&
-        selectedMethod?._id &&
-        !effectExecuted.current
-      ) {
-        effectExecuted.current = true;
-        try {
-          const { data } = await createPaymentIntent({
-            data: {
-              email: user?.email,
-              cartId: carts._id,
-              shippingAddressId: shippingAddress._id,
-              shippingMethodId: selectedMethod._id,
-            },
-          }).unwrap();
+      // if (
+      //   user?.email &&
+      //   carts?._id &&
+      //   shippingAddress?._id &&
+      //   selectedMethod?._id &&
+      //   !effectExecuted.current
+      // ) {
+      //   effectExecuted.current = true;
+      //   try {
+      //     const { data } = await createPaymentIntent({
+      //       data: {
+      //         email: user?.email,
+      //         cartId: carts._id,
+      //         shippingAddressId: shippingAddress._id,
+      //         shippingMethodId: selectedMethod._id,
+      //       },
+      //     }).unwrap();
 
-          // Store the new payment intent with an expiry (e.g., 30 minutes)
-          localStorage.setItem(
-            "paymentIntent",
-            JSON.stringify({
-              id: data.id,
-              clientSecret: data,
-              expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
-            })
-          );
+      //     // Store the new payment intent with an expiry (e.g., 30 minutes)
+      //     localStorage.setItem(
+      //       "paymentIntent",
+      //       JSON.stringify({
+      //         id: data.id,
+      //         clientSecret: data,
+      //         expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      //       })
+      //     );
 
-          setClientSecret(data);
-        } catch (error) {
-          handleError(error?.data?.message || "Something went wrong!");
-        }
+      //     setClientSecret(data);
+      //   } catch (error) {
+      //     handleError(error?.data?.message || "Something went wrong!");
+      //   }
+      // }
+
+      effectExecuted.current = true;
+
+      try {
+        const { data } = await createPaymentIntent({
+          data: {
+            email,
+            cartId,
+            shippingMethodId,
+            shippingAddressId,
+          },
+        }).unwrap();
+
+        // Store the new payment intent with an expiry (e.g., 30 minutes)
+        localStorage.setItem(
+          "paymentIntent",
+          JSON.stringify({
+            id: data.id,
+            clientSecret: data,
+            expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
+          })
+        );
+
+        setClientSecret(data);
+      } catch (error) {
+        console.log(error);
+        handleError(error?.data?.message || "Something went wrong!");
       }
     };
 
@@ -179,64 +214,70 @@ const CheckoutScreen = () => {
 
   return (
     <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-between gap-5 p-5">
-      <div className="w-full h-full md:flex justify-center md:justify-end items-center py-10">
-        <CheckoutPreview
-          carts={carts}
-          totalPrice={totalPrice}
-          shippingCost={shippingCost}
-          grandTotal={grandTotal}
-        />
-      </div>
+      {carts?._id && carts?.items?.length ? (
+        <>
+          <div className="w-full h-full md:flex justify-center md:justify-end items-center py-10">
+            <CheckoutPreview
+              carts={carts}
+              totalPrice={totalPrice}
+              shippingCost={shippingCost}
+              grandTotal={grandTotal}
+            />
+          </div>
 
-      <div className="hidden xl:block w-px bg-gray-300"></div>
+          <div className="hidden xl:block w-px bg-gray-300"></div>
 
-      <div className="w-full h-full py-10 flex flex-col gap-4">
-        <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
-          {user?.email ? (
-            <div className="flex flex-col text-brand__font__size__sm border-b pb-2">
-              <span className="text-gray-500">Account</span>
-              <span>{user?.email}</span>
+          <div className="w-full h-full py-10 flex flex-col gap-4">
+            <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
+              {user?.email ? (
+                <div className="flex flex-col text-brand__font__size__sm border-b pb-2">
+                  <span className="text-gray-500">Account</span>
+                  <span>{user?.email}</span>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold">Contact</span>
+                  <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <AddressSelection
+                user={user}
+                methods={methods}
+                selectedMethod={selectedMethod}
+                addresses={addresses}
+                shippingAddress={shippingAddress}
+                handleMethodChange={handleMethodChange}
+                handleShippingAddressChange={handleShippingAddressChange}
+              />
+
+              {clientSecret && stripe && (
+                <Elements
+                  stripe={stripe}
+                  options={{
+                    clientSecret,
+                    appearance: {
+                      variables: {
+                        colorPrimary: "#13a800",
+                      },
+                    },
+                  }}
+                >
+                  <CheckoutForm grandTotal={grandTotal} />
+                </Elements>
+              )}
             </div>
-          ) : (
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold">Contact</span>
-              <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
-                />
-              </div>
-            </div>
-          )}
-
-          <AddressSelection
-            user={user}
-            methods={methods}
-            selectedMethod={selectedMethod}
-            addresses={addresses}
-            shippingAddress={shippingAddress}
-            handleMethodChange={handleMethodChange}
-            handleShippingAddressChange={handleShippingAddressChange}
-          />
-
-          {clientSecret && stripe && (
-            <Elements
-              stripe={stripe}
-              options={{
-                clientSecret,
-                appearance: {
-                  variables: {
-                    colorPrimary: "#13a800",
-                  },
-                },
-              }}
-            >
-              <CheckoutForm grandTotal={grandTotal} />
-            </Elements>
-          )}
-        </div>
-      </div>
+          </div>
+        </>
+      ) : (
+        <EmptyBasket />
+      )}
     </div>
   );
 };

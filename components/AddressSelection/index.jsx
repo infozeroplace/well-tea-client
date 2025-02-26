@@ -79,7 +79,7 @@ const AddressSelection = ({
         ) : (
           <p
             onClick={onOpen}
-            className="flex items-center gap-1 text-blue-600 font-brand__font__500 text-brand__font__size__sm cursor-pointer"
+            className="flex items-center gap-1 text-blue-600 font-brand__font__500 text-brand__font__size__sm cursor-pointer w-fit"
           >
             <FiPlus size={20} /> <span>Add a shipping address</span>
           </p>
