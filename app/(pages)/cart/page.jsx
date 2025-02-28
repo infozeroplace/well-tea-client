@@ -1,6 +1,7 @@
 "use client";
 import axios from "@/api/axios";
 import { CommonBanner, SectionButton } from "@/components";
+import EmptyBasket from "@/components/EmptyBasket";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
@@ -88,9 +89,7 @@ const CartPage = () => {
       <div>
         <CommonBanner bannerTitle="Cart" />
         {carts?.items?.length < 1 ? (
-          <div className="flex items-center justify-center h-60 text-brand__font__size__lg2">
-            <h3>Your cart is empty!</h3>
-          </div>
+          <EmptyBasket />
         ) : (
           <div className="py-10 lg:py-20">
             <div className="container flex flex-col lg:flex-row gap-10 px-5 sm:px-10 md:px-14 lg:px-10">
