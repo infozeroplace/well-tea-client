@@ -20,7 +20,7 @@ const AddressSelection = ({
     <>
       <div className="flex flex-col gap-2 mb-2">
         <h2 className="mb-2">Shipping Address</h2>
-        {user && addresses.length && (
+        {user && addresses.length > 0 && (
           <select
             defaultValue={shippingAddress?._id || ""}
             onChange={onChangeShippingAddress}
