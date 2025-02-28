@@ -1,87 +1,132 @@
 import Link from "next/link";
 import Image from "next/image";
-
+import BackToTopButton from "./BacktoTopButton";
+import Newsletter from "./Newsletter";
 function Footer() {
+  const socialIconsExtraClasses =
+    "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
+
+  const FooterBar = () => {
+    return <div className="w-full h-[1px] bg-teagreen-100"></div>;
+  };
+  const FooterTitle = ({ name }) => {
+    return (
+      <h4 className="mb-2 md:mb-5 text-white uppercase text-lg">{name}</h4>
+    );
+  };
+  const FooterListItem = ({ name, href }) => {
+    return (
+      <Link
+        href={href}
+        className="text-teagreen-100 hover:text-teagreen-200 text-sm"
+      >
+        {name}
+      </Link>
+    );
+  };
+
   return (
-    <div className="w-full bg-primary">
-      <div className="max-w-screen-xl mx-auto py-10">
-        <div className="grid grid-cols-7 gap-5 justify-around py-10">
-          <div className="text-white flex flex-col gap-2">
-            <h4 className="mb-5 text-gray-300 uppercase">About</h4>
-            <Link href="/" className="hover:text-gray-200">Company</Link>
-            <Link href="/">Company</Link>
+    <div className="bg-[#194A34]">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-20 py-10">
+        <div className=" mx-auto grid grid-cols-6 lg:grid-cols-7 gap-5 justify-around py-10 section-gap">
+          <div className="col-span-2 lg:col-span-1 text-white flex flex-col gap-2 lg:mb-0">
+            <FooterTitle name="About" />
+            <FooterListItem name="Company Info" href="/about" />
+            <FooterListItem name="Goal" href="/" />
+            <FooterListItem name="Location" href="/" />
+
+            {/* Socials Icons */}
+            <div className="text-white flex items-center gap-2 mt-4">
+              <i
+                className={"text-lg 2xl:text-2xl bx bxl-facebook-circle " + socialIconsExtraClasses}
+              ></i>
+              <i className={"text-lg 2xl:text-2xl bx bxl-instagram " + socialIconsExtraClasses}></i>
+              <i
+                className={"text-lg 2xl:text-2xl bx bxl-linkedin-square " + socialIconsExtraClasses}
+              ></i>
+              <i className={"text-lg 2xl:text-2xl bx bxl-twitter " + socialIconsExtraClasses}></i>
+              <i className={"text-lg 2xl:text-2xl bx bxl-tiktok " + socialIconsExtraClasses}></i>
+            </div>
           </div>
-          <div className="text-white flex flex-col gap-2">
-            <h4 className="mb-5 text-gray-300 uppercase">Shop</h4>
-            <Link href="/">Company</Link>
-            <Link href="/">Company</Link>
+          <div className="col-span-2 lg:col-span-1 text-center lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
+            <FooterTitle name="Shop" />
+            <FooterListItem name="Shop" href="/" />
+            <FooterListItem name="Shop" href="/" />
+            <FooterListItem name="Shop" href="/" />
           </div>
-          <div className="text-white flex flex-col gap-2">
-            <h4 className="mb-5 text-gray-300 uppercase">Help Center</h4>
-            <Link href="/">Company</Link>
-            <Link href="/">Company</Link>
+          <div className="col-span-2 lg:col-span-1 text-right lg:text-left text-white flex flex-col gap-2 content-gap lg:mb-0">
+            <FooterTitle name="Help Center" />
+            <FooterListItem name="Customer Care" href="/" />
+            <FooterListItem
+              name="Terms & Conditions"
+              href="/terms-conditions"
+            />
+            <FooterListItem name="Privacy Policy" href="/privacy-policy" />
+            <FooterListItem name="Return & Refund" href="/return-refund" />
+            <FooterListItem name="Cookie Policy" href="/cookie-policy" />
+            <FooterListItem name="Delivery" href="/delivery" />
+            <FooterListItem name="Blog" href="/blog" />
           </div>
-          <div className="col-span-2 mr-10">
+          <div className="col-span-6 md:col-span-3 lg:col-span-2 text-center md:text-left md:mr-10 content-gap md:mb-0">
             <div className="text-white flex flex-col gap-2 mb-5">
-              <h4 className="mb-5 text-gray-300 uppercase">Get in touch</h4>
-              <p className="text-justify">
+              <FooterTitle name="Get in touch" />
+              <p>
                 Dolor eiusmod velit occaecat in adipisicing proident aliqua
                 deserunt eu enim pariatur.
               </p>
             </div>
             <div className="text-white flex flex-col gap-2">
-              <h4 className="text-gray-300 uppercase">About</h4>
-              <Link href="tel:+88012349732497">+440347934739</Link>
+              <p>
+                Phone: <Link href="tel:+88012349732497">+440347934739</Link>
+              </p>
+              <p>
+                Email: <Link href="tel:+88012349732497">example@gmail.com</Link>
+              </p>
             </div>
           </div>
-          <div className="col-span-1 lg:col-span-2 text-white flex flex-col gap-2 mb-5">
-            <h4 className="mb-5 text-gray-300 uppercase">Newsletter</h4>
+          <div className="col-span-6 md:col-span-3 lg:col-span-2 text-white flex flex-col gap-2 mb-5">
+            <FooterTitle name="Newsletter" />
             <p className="text-justify">
               Dolor eiusmod velit occaecat in adipisicing proident aliqua
               deserunt eu enim pariatur.
             </p>
-            <div className="flex mt-3">
-              <input
-                type="text"
-                className="w-full px-5 py-3"
-                placeholder="Your Email"
-              />
-              <button className="bg-secondary text-white px-4 uppercase">
-                Subscribe
-              </button>
-            </div>
+            <Newsletter />
           </div>
         </div>
         {/* Footer Bottom */}
         <div>
-          <div className="grid grid-cols-5 items-center mx-auto gap-10 py-10">
-            <div className="col-span-2 h-1 bg-[#13432C] "></div>
-            <div className="col-span-1 flex items center justify-center">
+          {/* <div className="flex items-center justify-center gap-10 py-10">
+            <FooterBar />
+            <div className="flex-none">
               <Link href="/">
                 <Image
-                  src="/images/welltea_logo.png"
+                  src="/logo/welltea_logo_white_color.png"
                   alt="Brand Logo"
-                  width={70}
-                  height={70}
+                  width={200}
+                  height={100}
                 />
               </Link>
             </div>
-            <div className="col-span-2 h-1 bg-[#13432C] "></div>
-          </div>
-          <div className="flex justify-between">
-            <p className="text-white">
+            <FooterBar />
+          </div> */}
+
+          <div className="flex flex-col-reverse md:flex-row gap-10 md:gap-2 justify-between items-center">
+            <p className="text-white text-center">
               Copyright © {new Date().getFullYear()}{" "}
-              <span className="text-secondary">Welltea.</span> All rights
+              <span className="text-teagreen-500">Welltea.</span> All rights
               reserved
             </p>
-            <div>Payment cards</div>
-            <div className="flex gap-3">
-              <div>Social icons</div>
-              <div className="text-gray-300 flex">
-                <p className="uppercase">Back to top</p>
-                icon
-              </div>
+
+            <div className="">
+              <Image
+                src="/images/payment_methods.png"
+                alt="Payment Methods"
+                width={350}
+                height={50}
+                className="mx-auto"
+              />
             </div>
+            <BackToTopButton />
           </div>
         </div>
       </div>
@@ -89,4 +134,4 @@ function Footer() {
   );
 }
 
-export default Footer
+export default Footer;

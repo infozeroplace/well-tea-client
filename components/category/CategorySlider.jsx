@@ -1,68 +1,71 @@
-"use client"
-import Slider from "react-slick";
-import CategoryCard from "./CategoryCard";
+"use client";
+import { useRef, useState } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { ProductCard } from "../shared";
 
-function CategorySlider() {
-  const categoryCardDetails = [
-    {
-        image: "/images/green_tea.png",
-        title: "Green Tea",
-        price: "$15",
-    },
-    {
-        image: "/images/organic_white_tea.png",
-        title: "Organic White Tea",
-        price: "$20",
-    },
-];
+function CategorySlider({ products }) {
+  const [isLastSlide, setIsLastSlide] = useState(false);
+  const [isFirstSlide, setIsFirstSlide] = useState(true);
+  const swiperInstance = useRef(null); // Store Swiper instance
 
-  var settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: false,
-    speed: 500,
-    cssEase: "linear",
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+  const handleSlideChange = (swiper) => {
+    setIsFirstSlide(swiper.isBeginning);
+    setIsLastSlide(swiper.isEnd);
   };
 
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "gray" }}
-        onClick={onClick}
-      />
-    );
-  }
-
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "gray" }}
-        onClick={onClick}
-      />
-    );
-  }
-
   return (
-    <div>
-      <Slider {...settings}>
-        {categoryCardDetails.map((item, index) => (
-          <div key={index} className="p-4">
-            <CategoryCard
-              image={item.image}
-              title={item.title}
-              price={item.price}
-            />
-          </div>
+    <div className="relative">
+      {/* Navigation Buttons */}
+      <button
+        className={`absolute top-1/2 left-2 transform -translate-y-1/2 bg-teagreen-300 hover:bg-teagreen-400 text-gray-800 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg z-10 ${
+          isFirstSlide
+            ? "opacity-30 cursor-not-allowed"
+            : "opacity-100 hover:bg-gray-200"
+        }`}
+        onClick={() => swiperInstance.current?.slidePrev()}
+      >
+        &#x276E;
+      </button>
+      <button
+        className={`absolute top-1/2 right-2 transform -translate-y-1/2 bg-teagreen-300 hover:bg-teagreen-400 text-gray-800 duration-300 py-2 px-3 text-2xl rounded-lg shadow-lg z-10 ${
+          isLastSlide
+            ? "opacity-30 cursor-not-allowed"
+            : "opacity-100 hover:bg-gray-200"
+        }`}
+        onClick={() => swiperInstance.current?.slideNext()}
+      >
+        &#x276F;
+      </button>
+
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay, A11y]}
+        slidesPerView={1.2}
+        spaceBetween={15}
+        speed={1000}
+        slidesPerGroup={1}
+        onSlideChange={handleSlideChange}
+        onSwiper={(swiper) => (swiperInstance.current = swiper)} // Store instance
+        breakpoints={{
+          520: {
+            slidesPerView: 1.5,
+            spaceBetween: 10,
+          },
+          768: { slidesPerView: 2.5, spaceBetween: 15 },
+          1024: { slidesPerView: 3.5, spaceBetween: 15 },
+          1280: { slidesPerView: 4.5, spaceBetween: 25 },
+          1536: { slidesPerView: 5.5, spaceBetween: 25 },
+        }}
+      >
+        {products.map((product, idx) => (
+          <SwiperSlide key={idx}>
+            <ProductCard product={product} />
+          </SwiperSlide>
         ))}
-      </Slider>
+      </Swiper>
     </div>
   );
 }
