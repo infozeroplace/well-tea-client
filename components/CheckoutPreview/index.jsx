@@ -17,7 +17,7 @@ const CheckoutPreview = ({
     <div className="xl:max-w-[500px] w-full h-full">
       <div className="flex flex-col gap-4">
         {/* Cart Items */}
-        <div className="flex flex-col gap-5 border-b pb-5">
+        <div className="flex flex-col gap-5">
           {cartItems.map((item, idx) => (
             <div key={idx} className="flex gap-4">
               <div className="max-w-[64px] max-h-[64px] h-full w-full border rounded relative bg-teagreen-200">

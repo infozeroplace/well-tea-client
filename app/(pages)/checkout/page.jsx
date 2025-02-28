@@ -156,11 +156,11 @@ const CheckoutScreen = () => {
       const shippingMethodId = selectedMethod?._id || null;
       console.log("ok1")
       if (
-        // addressLoading ||
-        // methodLoading ||
-        // !email ||
-        // !billingAddress ||
-        // !shippingAddress ||
+        addressLoading ||
+        methodLoading ||
+        !email ||
+        !billingAddress ||
+        !shippingAddress ||
         !shippingMethodId ||
         !cartId ||
         effectExecuted.current
