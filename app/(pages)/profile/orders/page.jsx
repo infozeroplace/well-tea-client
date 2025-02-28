@@ -10,109 +10,113 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { useState } from "react";
+import { useGetOrderListQuery } from "@/services/features/orders/ordersApi";
 
 function OrderScreen() {
-  const OrderList = [
-    {
-      orderId: "3232",
-      date: "06-02-2025",
-      totalProducts: 100,
-      totalPrice: 20.99,
-      status: "Pending",
-      products: [
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 1",
-          duration: "3 weeks",
-          quantity: "5",
-          totalPrice: "57.49",
-        },
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 2",
-          duration: "No Subscription",
-          quantity: "3",
-          totalPrice: "63.42",
-        },
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 3",
-          duration: "6 weeks",
-          quantity: "3",
-          totalPrice: "76.88",
-        },
-      ],
-    },
-    {
-      orderId: "4567",
-      date: "09-03-2025",
-      totalProducts: 150,
-      totalPrice: 30.99,
-      status: "Delivered",
-      products: [
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Sencha Tea",
-          duration: "3 weeks",
-          quantity: "5",
-          totalPrice: "77.67",
-        },
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Earl Grey Tea",
-          duration: "6 weeks",
-          quantity: "3",
-          totalPrice: "46.95",
-        },
-      ],
-    },
-    {
-      orderId: "5678",
-      date: "12-04-2025",
-      totalProducts: 200,
-      totalPrice: 40.99,
-      status: "Delivered",
-      products: [
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 1",
-          duration: "No Subscription",
-          quantity: "5",
-          totalPrice: "77.67",
-        },
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 2",
-          duration: "3 weeks",
-          quantity: "3",
-          totalPrice: "46.95",
-        },
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 3",
-          duration: "6 weeks",
-          quantity: "3",
-          totalPrice: "46.95",
-        },
-        {
-          _id: "",
-          image: "/products/product_01.jpg",
-          title: "Product 4",
-          duration: "No Subscription",
-          quantity: "3",
-          totalPrice: "46.95",
-        },
-      ],
-    },
-  ];
+  // const orderList = [
+  //   {
+  //     orderId: "3232",
+  //     date: "06-02-2025",
+  //     totalProducts: 100,
+  //     totalPrice: 20.99,
+  //     status: "Pending",
+  //     products: [
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 1",
+  //         duration: "3 weeks",
+  //         quantity: "5",
+  //         totalPrice: "57.49",
+  //       },
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 2",
+  //         duration: "No Subscription",
+  //         quantity: "3",
+  //         totalPrice: "63.42",
+  //       },
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 3",
+  //         duration: "6 weeks",
+  //         quantity: "3",
+  //         totalPrice: "76.88",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     orderId: "4567",
+  //     date: "09-03-2025",
+  //     totalProducts: 150,
+  //     totalPrice: 30.99,
+  //     status: "Delivered",
+  //     products: [
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Sencha Tea",
+  //         duration: "3 weeks",
+  //         quantity: "5",
+  //         totalPrice: "77.67",
+  //       },
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Earl Grey Tea",
+  //         duration: "6 weeks",
+  //         quantity: "3",
+  //         totalPrice: "46.95",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     orderId: "5678",
+  //     date: "12-04-2025",
+  //     totalProducts: 200,
+  //     totalPrice: 40.99,
+  //     status: "Delivered",
+  //     products: [
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 1",
+  //         duration: "No Subscription",
+  //         quantity: "5",
+  //         totalPrice: "77.67",
+  //       },
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 2",
+  //         duration: "3 weeks",
+  //         quantity: "3",
+  //         totalPrice: "46.95",
+  //       },
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 3",
+  //         duration: "6 weeks",
+  //         quantity: "3",
+  //         totalPrice: "46.95",
+  //       },
+  //       {
+  //         _id: "",
+  //         image: "/products/product_01.jpg",
+  //         title: "Product 4",
+  //         duration: "No Subscription",
+  //         quantity: "3",
+  //         totalPrice: "46.95",
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  const { data:{data: orderData = []} = [] } = useGetOrderListQuery();
+  const orderList = orderData?.data;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -121,6 +125,10 @@ function OrderScreen() {
     setSelectedOrder(order);
     onOpen();
   };
+
+  // console.log(data);
+  console.log(orderData);
+  // console.log(orderList);
 
   return (
     <div>
@@ -135,7 +143,7 @@ function OrderScreen() {
           </tr>
         </thead>
         <tbody>
-          {OrderList.map((order, index) => (
+          {orderList?.map((order, index) => (
             <tr
               key={index}
               className="border-b border-gray-200 hover:bg-teagreen-100 text-center cursor-pointer"

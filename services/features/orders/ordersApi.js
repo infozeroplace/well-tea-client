@@ -19,10 +19,22 @@ const ordersApi = api.injectEndpoints({
       }),
       invalidatesTags: ["orders"],
     }),
+    getOrderList: builder.query({
+      query: (query) => {
+        const url = generateServiceUrl("/secure/order/list", query);
+
+        return {
+          url,
+          method: "GET",
+        };
+      },
+      providesTags: ["orders"],
+    }),
   }),
 });
 
 export const {
   useUpdatePaymentIntentMutation,
   useCreatePaymentIntentMutation,
+  useGetOrderListQuery,
 } = ordersApi;
