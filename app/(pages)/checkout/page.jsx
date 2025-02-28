@@ -1,15 +1,10 @@
 "use client";
 
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useRef, useState } from "react";
-
 import AddressSelection from "@/components/AddressSelection";
 import CheckoutForm from "@/components/CheckoutForm";
 import CheckoutPreview from "@/components/CheckoutPreview";
 import EmailSelection from "@/components/EmailSelection";
 import EmptyBasket from "@/components/EmptyBasket";
-import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import { env } from "@/config/env";
 import useToast from "@/hooks/useToast";
 import { useGetAddressQuery } from "@/services/features/address/addressApi";
@@ -19,6 +14,10 @@ import {
 } from "@/services/features/orders/ordersApi";
 import { useGetShippingMethodsQuery } from "@/services/features/shipping/shippingApi";
 import { useAppSelector } from "@/services/hook";
+import { Alert } from "@heroui/react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useEffect, useRef, useState } from "react";
 
 let stripePromise;
 
@@ -35,15 +34,16 @@ const CheckoutScreen = () => {
     auth: { user, token },
     carts: { carts },
   } = useAppSelector((state) => state);
-
+  const title = "This is an alert";
+  const description = "Thanks for subscribing to our newsletter!";
   const [email, setEmail] = useState(user?.email || "");
   const [useSameShipping, setUseSameShipping] = useState(true);
   const [shippingAddress, setShippingAddress] = useState(null);
   const [billingAddress, setBillingAddress] = useState(null);
-  const [userCountry, setUserCountry] = useState("");
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [stripe, setStripe] = useState(null);
+  const [alertData, setAlertData] = useState({ isShow: false, message: "" });
   const effectExecuted = useRef(false);
 
   // Fetch saved addresses
@@ -53,29 +53,10 @@ const CheckoutScreen = () => {
   // Fetch shipping methods based on the country
   const { data: shippingMethodQuery, isLoading: methodLoading } =
     useGetShippingMethodsQuery({
-      country: shippingAddress?.country || userCountry,
+      country: shippingAddress?.country,
     });
 
   const methods = shippingMethodQuery?.data?.methods || [];
-
-  // Fetch user location if no saved address
-  useEffect(() => {
-    if (!shippingAddress && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async ({ coords: { latitude, longitude } }) => {
-          try {
-            const res = await fetch(
-              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-            );
-            const data = await res.json();
-            setUserCountry(data.countryName || "");
-          } catch (error) {
-            console.error("Geolocation error:", error);
-          }
-        }
-      );
-    }
-  }, [shippingAddress]);
 
   // Set default shipping address
   useEffect(() => {
@@ -130,7 +111,7 @@ const CheckoutScreen = () => {
             id: parsedIntent.id,
             email,
             cartId,
-            billingAddress,
+            billingAddress: useSameShipping ? shippingAddress : billingAddress,
             shippingAddress,
             shippingMethodId,
           },
@@ -142,6 +123,7 @@ const CheckoutScreen = () => {
   }, [
     email,
     selectedMethod,
+    useSameShipping,
     billingAddress ? Object.values(billingAddress).join() : null,
     shippingAddress ? Object.values(shippingAddress).join() : null,
   ]);
@@ -154,22 +136,10 @@ const CheckoutScreen = () => {
       // predefined ids/email
       const cartId = carts?._id || null;
       const shippingMethodId = selectedMethod?._id || null;
-      console.log("ok1")
-      if (
-        addressLoading ||
-        methodLoading ||
-        !email ||
-        !billingAddress ||
-        !shippingAddress ||
-        !shippingMethodId ||
-        !cartId ||
-        effectExecuted.current
-      ) {
+
+      if (!shippingMethodId || !cartId || effectExecuted.current) {
         return;
       }
-
-      console.log("ok")
-
       // Ensure the selected method is actually loaded
       if (!methods.length || !selectedMethod) return;
 
@@ -194,7 +164,7 @@ const CheckoutScreen = () => {
           data: {
             email,
             cartId,
-            billingAddress,
+            billingAddress: useSameShipping ? shippingAddress : billingAddress,
             shippingAddress,
             shippingMethodId,
           },
@@ -245,6 +215,14 @@ const CheckoutScreen = () => {
 
   const handleChangeSameShipping = (val) => setUseSameShipping(val);
 
+  const handleShowAlert = (message) => {
+    setAlertData({ isShow: true, message });
+
+    setTimeout(() => {
+      setAlertData({ isShow: false, message: "" });
+    }, 5000);
+  };
+
   // Calculate total price
   const totalPrice = carts?.totalPrice || 0;
   const shippingCost = selectedMethod?.cost || 0;
@@ -264,11 +242,24 @@ const CheckoutScreen = () => {
                 methods={methods}
                 selectedMethod={selectedMethod}
                 onChangeMethod={handleMethodChange}
+                loading={
+                  addressLoading ||
+                  methodLoading ||
+                  createPaymentIntentFetch ||
+                  updatePaymentIntentFetch
+                }
               />
             </div>
 
             <div className="w-full h-full py-10 flex flex-col gap-4">
               <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
+                {alertData.isShow && (
+                  <Alert
+                    color="danger"
+                    description={alertData.message}
+                    title="Warning!"
+                  />
+                )}
                 <EmailSelection email={email} onChangeEmail={setEmail} />
 
                 <AddressSelection
@@ -295,7 +286,19 @@ const CheckoutScreen = () => {
                       },
                     }}
                   >
-                    <CheckoutForm grandTotal={grandTotal} />
+                    <CheckoutForm
+                      grandTotal={grandTotal}
+                      shippingAddress={shippingAddress}
+                      billingAddress={billingAddress}
+                      useSameShipping={useSameShipping}
+                      onShowAlert={handleShowAlert}
+                      loading={
+                        addressLoading ||
+                        methodLoading ||
+                        createPaymentIntentFetch ||
+                        updatePaymentIntentFetch
+                      }
+                    />
                   </Elements>
                 )}
               </div>
@@ -305,15 +308,6 @@ const CheckoutScreen = () => {
           <EmptyBasket />
         )}
       </div>
-
-      <LoadingOverlay
-        isLoading={
-          addressLoading ||
-          methodLoading ||
-          createPaymentIntentFetch ||
-          updatePaymentIntentFetch
-        }
-      />
     </>
   );
 };

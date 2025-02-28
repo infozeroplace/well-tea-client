@@ -22,7 +22,7 @@ const AddressSelection = ({
         <h2 className="mb-2">Shipping Address</h2>
         {user && addresses.length > 0 && (
           <select
-            defaultValue={shippingAddress?._id || ""}
+            value={shippingAddress?._id || ""}
             onChange={onChangeShippingAddress}
             className="border rounded p-2 w-full text-brand__font__size__sm outline-none"
           >
@@ -34,6 +34,7 @@ const AddressSelection = ({
             ))}
           </select>
         )}
+
         <div className="flex flex-col gap-2">
           <div>
             <select
@@ -55,7 +56,7 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="firstName"
-                onChange={onChangeShippingFields}
+                onBlur={onChangeShippingFields}
                 defaultValue={shippingAddress?.firstName || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="First name"
@@ -65,7 +66,7 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="lastName"
-                onChange={onChangeShippingFields}
+                onBlur={onChangeShippingFields}
                 defaultValue={shippingAddress?.lastName || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Last name"
@@ -76,7 +77,7 @@ const AddressSelection = ({
             <input
               type="text"
               name="address1"
-              onChange={onChangeShippingFields}
+              onBlur={onChangeShippingFields}
               defaultValue={shippingAddress?.address1 || ""}
               className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
               placeholder="Address 1"
@@ -86,10 +87,10 @@ const AddressSelection = ({
             <input
               type="text"
               name="address2"
-              onChange={onChangeShippingFields}
+              onBlur={onChangeShippingFields}
               defaultValue={shippingAddress?.address2 || ""}
               className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
-              placeholder="Address 2"
+              placeholder="Address 2 (Optional)"
             />
           </div>
           <div className="flex justify-between gap-2 w-full">
@@ -97,7 +98,7 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="city"
-                onChange={onChangeShippingFields}
+                onBlur={onChangeShippingFields}
                 defaultValue={shippingAddress?.city || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="City"
@@ -107,7 +108,7 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="postalCode"
-                onChange={onChangeShippingFields}
+                onBlur={onChangeShippingFields}
                 defaultValue={shippingAddress?.postalCode || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Postal Code"
@@ -118,7 +119,7 @@ const AddressSelection = ({
             <input
               type="text"
               name="phone"
-              onChange={onChangeShippingFields}
+              onBlur={onChangeShippingFields}
               defaultValue={shippingAddress?.phone || ""}
               className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
               placeholder="Phone"
@@ -163,7 +164,7 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="firstName"
-                  onChange={onChangeBillingFields}
+                  onBlur={onChangeBillingFields}
                   defaultValue={billingAddress?.firstName || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="First name"
@@ -173,7 +174,7 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="lastName"
-                  onChange={onChangeBillingFields}
+                  onBlur={onChangeBillingFields}
                   defaultValue={billingAddress?.lastName || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="Last name"
@@ -184,7 +185,7 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="address1"
-                onChange={onChangeBillingFields}
+                onBlur={onChangeBillingFields}
                 defaultValue={billingAddress?.address1 || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Address 1"
@@ -194,10 +195,10 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="address2"
-                onChange={onChangeBillingFields}
+                onBlur={onChangeBillingFields}
                 defaultValue={billingAddress?.address2 || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
-                placeholder="Address 2"
+                placeholder="Address 2 (Optional)"
               />
             </div>
             <div className="flex justify-between gap-2 w-full">
@@ -205,7 +206,7 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="city"
-                  onChange={onChangeBillingFields}
+                  onBlur={onChangeBillingFields}
                   defaultValue={billingAddress?.city || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="City"
@@ -215,7 +216,7 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="postalCode"
-                  onChange={onChangeBillingFields}
+                  onBlur={onChangeBillingFields}
                   defaultValue={billingAddress?.postalCode || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="Postal Code"
@@ -226,7 +227,7 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="phone"
-                onChange={onChangeBillingFields}
+                onBlur={onChangeBillingFields}
                 defaultValue={billingAddress?.phone || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Phone"
