@@ -2,7 +2,15 @@
 
 import { env } from "@/config/env";
 
-const CheckoutPreview = ({ carts, totalPrice, shippingCost, grandTotal }) => {
+const CheckoutPreview = ({
+  carts,
+  totalPrice,
+  shippingCost,
+  grandTotal,
+  methods,
+  selectedMethod,
+  onChangeMethod
+}) => {
   const cartItems = carts?.items || [];
 
   return (
@@ -61,6 +69,31 @@ const CheckoutPreview = ({ carts, totalPrice, shippingCost, grandTotal }) => {
           <div className="flex gap-2 justify-between items-center text-brand__font__size__md font-brand__font__500">
             <span>Total</span>
             <span>£{grandTotal}</span>
+          </div>
+        </div>
+
+        {/* Shipping Method Selection */}
+        <div className="flex flex-col gap-2 border-t pt-4">
+          <span>Shipping Method</span>
+          <div className="flex flex-col gap-2">
+            {methods?.map((method) => (
+              <label
+                key={method._id}
+                className={`flex items-center gap-2 cursor-pointer text-brand__font__size__sm`}
+              >
+                <input
+                  type="radio"
+                  name="shippingMethod"
+                  value={method._id}
+                  checked={selectedMethod?._id === method._id}
+                  onChange={onChangeMethod}
+                  className="cursor-pointer"
+                />
+                <span>
+                  {method.title} - £{method.cost.toFixed(2)}
+                </span>
+              </label>
+            ))}
           </div>
         </div>
       </div>

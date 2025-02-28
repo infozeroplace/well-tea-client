@@ -52,10 +52,9 @@ export const api = createApi({
     "system",
     "address",
     "profile",
-    "wishlist",
-    "cart",
     "shipping",
     "orders",
+    "wt",
   ],
   endpoints: () => ({}),
 });

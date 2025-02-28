@@ -1,34 +1,30 @@
-import { useEffect, useState } from "react";
-import axios from "@/api/axios";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import { countries } from "@/data/countries";
+import { useAddAddressMutation } from "@/services/features/address/addressApi";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import {
+  Autocomplete,
+  AutocompleteItem,
   Button,
+  Checkbox,
+  Form,
   Input,
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalHeader,
-  Form,
-  Select,
-  SelectItem,
-  Checkbox,
-  Autocomplete,
-  AutocompleteItem,
 } from "@heroui/react";
-import { useAddAddressMutation } from "@/services/features/address/addressApi";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { countries } from "@/data/countries";
-import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { toast } from "react-hot-toast";
-import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
   const [action, setAction] = useState();
   const [isDefault, setIsDefault] = useState(false);
- 
-  const [addAddress, { data: addAddressData, isLoading: addAddressLoading, isError, isSuccess, error }] =
+
+  const [addAddress, { data: addressData, isLoading: addressLoading }] =
     useAddAddressMutation();
-  
+
   const {
     register,
     handleSubmit,
@@ -54,7 +50,7 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
 
   const onSubmit = async (formData) => {
     formData.isDefault = isDefault;
-    console.log(formData);
+
     await addAddress({
       data: formData,
     });
@@ -64,10 +60,10 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
   };
 
   useEffect(() => {
-    if (addAddressData?.message) {
-      toast.success(addAddressData?.message);
+    if (addressData?.message) {
+      toast.success(addressData?.message);
     }
-  }, [addAddressData]);
+  }, [addressData]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -75,7 +71,6 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
       setIsDefault(false);
     }
   }, [isOpen, reset]);
-
 
   return (
     <>
@@ -288,7 +283,8 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
           )}
         </ModalContent>
       </Modal>
-      <LoadingOverlay isLoading={addAddressLoading} />
+
+      <LoadingOverlay isLoading={addressLoading} />
     </>
   );
 };

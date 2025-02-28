@@ -5,20 +5,13 @@ const cartApi = api.injectEndpoints({
   endpoints: (builder) => ({
     addToCart: builder.mutation({
       query: ({ data }) => ({
-        url: generateServiceUrl("/public/cart/add-to-cart"),
+        url: generateServiceUrl("/public/common/cart/add-to-cart"),
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["cart"],
-    }),
-    getCart: builder.query({
-      query: (query) => ({
-        url: generateServiceUrl("/public/cart/wtc", query),
-        method: "GET",
-      }),
-      providesTags: ["cart"],
+      invalidatesTags: ["wt"],
     }),
   }),
 });
 
-export const { useAddToCartMutation, useGetCartQuery } = cartApi;
+export const { useAddToCartMutation } = cartApi;

@@ -1,22 +1,12 @@
-import { useGetCartQuery } from "@/services/features/cart/cartApi";
 import { addCart } from "@/services/features/cart/cartSlices";
-import { useGetWtwQuery } from "@/services/features/wishlist/wishlistApi";
+import { useGetWtQuery } from "@/services/features/common/commonApi";
 import { addWishlist } from "@/services/features/wishlist/wishlistSlice";
 import { useAppDispatch } from "@/services/hook";
 import { useEffect } from "react";
 
 const LoadInitialData = ({ children }) => {
-  const {
-    data: { data: { wishlist } = {} } = {},
-    refetch: refetchWishlist,
-    isLoading: wishlistLoading,
-  } = useGetWtwQuery(undefined);
-
-  const {
-    data: { data: { cart } = {} } = {},
-    refetch: refetchCart,
-    isLoading: cartLoading,
-  } = useGetCartQuery(undefined);
+  const { data: { data: { wishlist, cart } = {} } = {}, refetch } =
+    useGetWtQuery(undefined);
 
   const dispatch = useAppDispatch();
 
@@ -24,8 +14,7 @@ const LoadInitialData = ({ children }) => {
     let isMounted = true;
 
     const fetchData = async () => {
-      await refetchWishlist();
-      await refetchCart();
+      await refetch();
     };
 
     fetchData();
@@ -38,12 +27,9 @@ const LoadInitialData = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(addWishlist(wishlist));
-  }, [wishlist?.items]);
-
-  useEffect(() => {
     dispatch(addCart(cart));
-  }, [cart?.items]);
+    dispatch(addWishlist(wishlist));
+  }, [cart?.items, wishlist?.items]);
 
   return children;
 };
