@@ -34,9 +34,8 @@ const CheckoutScreen = () => {
     auth: { user, token },
     carts: { carts },
   } = useAppSelector((state) => state);
-  const title = "This is an alert";
-  const description = "Thanks for subscribing to our newsletter!";
-  const [email, setEmail] = useState(user?.email || "");
+
+  const [email, setEmail] = useState(user?.email || null);
   const [useSameShipping, setUseSameShipping] = useState(true);
   const [shippingAddress, setShippingAddress] = useState(null);
   const [billingAddress, setBillingAddress] = useState(null);
@@ -242,12 +241,6 @@ const CheckoutScreen = () => {
                 methods={methods}
                 selectedMethod={selectedMethod}
                 onChangeMethod={handleMethodChange}
-                loading={
-                  addressLoading ||
-                  methodLoading ||
-                  createPaymentIntentFetch ||
-                  updatePaymentIntentFetch
-                }
               />
             </div>
 
@@ -260,7 +253,12 @@ const CheckoutScreen = () => {
                     title="Warning!"
                   />
                 )}
-                <EmailSelection email={email} onChangeEmail={setEmail} />
+
+                <EmailSelection
+                  user={user}
+                  email={email}
+                  onChangeEmail={setEmail}
+                />
 
                 <AddressSelection
                   user={user}
@@ -288,6 +286,8 @@ const CheckoutScreen = () => {
                   >
                     <CheckoutForm
                       grandTotal={grandTotal}
+                      user={user}
+                      email={email}
                       shippingAddress={shippingAddress}
                       billingAddress={billingAddress}
                       useSameShipping={useSameShipping}

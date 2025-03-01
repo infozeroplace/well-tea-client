@@ -10,7 +10,6 @@ const CheckoutPreview = ({
   methods,
   selectedMethod,
   onChangeMethod,
-  loading,
 }) => {
   const cartItems = carts?.items || [];
 
@@ -69,13 +68,7 @@ const CheckoutPreview = ({
 
           <div className="flex gap-2 justify-between items-center text-brand__font__size__md font-brand__font__500">
             <span>Total</span>
-            <span>
-              {loading ? (
-                <span className="text-brand__font__size__xs">Fetching...</span>
-              ) : (
-                `£${grandTotal}`
-              )}
-            </span>
+            <span>£{grandTotal}</span>
           </div>
         </div>
 

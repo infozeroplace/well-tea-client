@@ -10,6 +10,8 @@ import { FaStripe } from "react-icons/fa";
 
 export default function CheckoutForm({
   grandTotal = 0,
+  user,
+  email,
   shippingAddress,
   billingAddress,
   useSameShipping,
@@ -27,6 +29,7 @@ export default function CheckoutForm({
 
     if (
       !shippingAddress ||
+      !email ||
       !shippingAddress.country ||
       !shippingAddress.city ||
       !shippingAddress.firstName ||
@@ -35,10 +38,11 @@ export default function CheckoutForm({
       !shippingAddress.postalCode ||
       !shippingAddress.phone
     ) {
-      onShowAlert("Please fill out required fields");
+      return onShowAlert("Please fill out required fields");
     } else if (
       !useSameShipping &&
       (!billingAddress ||
+        !email ||
         !billingAddress.country ||
         !billingAddress.city ||
         !billingAddress.firstName ||
@@ -47,13 +51,12 @@ export default function CheckoutForm({
         !billingAddress.postalCode ||
         !billingAddress.phone)
     ) {
-      onShowAlert("Please fill out required fields");
+      return onShowAlert("Please fill out required fields");
     }
 
     // Ensure Stripe.js has loaded before proceeding
     if (!stripe || !elements) {
-      setMessage("Stripe has not loaded yet. Please try again.");
-      return;
+      return setMessage("Stripe has not loaded yet. Please try again.");
     }
 
     // Set processing state
@@ -66,7 +69,9 @@ export default function CheckoutForm({
         confirmParams: {
           return_url:
             typeof window !== "undefined"
-              ? `${window.location.origin}/profile`
+              ? user
+                ? `${window.location.origin}/profile`
+                : `${window.location.origin}/`
               : undefined,
         },
         redirect: "if_required",
