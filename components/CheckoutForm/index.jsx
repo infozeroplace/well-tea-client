@@ -69,9 +69,7 @@ export default function CheckoutForm({
         confirmParams: {
           return_url:
             typeof window !== "undefined"
-              ? user
-                ? `${window.location.origin}/profile`
-                : `${window.location.origin}/`
+              ? `${window.location.origin}/order-placed`
               : undefined,
         },
         redirect: "if_required",

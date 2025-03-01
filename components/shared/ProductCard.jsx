@@ -76,7 +76,7 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <div
-        // ref={cardRef}
+        ref={cardRef}
         className="w-full bg-[#F8F8F8] relative overflow-hidden shadow-md flex flex-col justify-between"
       >
         {/* Top Section: Labels & Wishlist */}
@@ -129,7 +129,7 @@ const ProductCard = ({ product }) => {
 
         {/* Product Details */}
         <div
-          ref={cardRef}
+          // ref={cardRef}
           className={`px-3 py-3 transition-all duration-300 text-teagreen-700 ${
             addButtonClicked ? "opacity-0" : "opacity-100"
           }`}
@@ -137,9 +137,9 @@ const ProductCard = ({ product }) => {
           <h4 className="text-brand__font__size__base font-brand__font__500 truncate">
             {product?.title}
           </h4>
-          {product?.teaFormat?.length ? (
+          {product?.teaFormat?.length > 0 ? (
             <p className="text-brand__font__size__xs font-brand__font__500 capitalize flex items-center gap-1">
-              {product?.teaFormat[0]?.thumbnail?.length && (
+              {product?.teaFormat[0]?.thumbnail?.length > 0 && (
                 <img
                   className="w-[12px] h-[12px]"
                   src={
