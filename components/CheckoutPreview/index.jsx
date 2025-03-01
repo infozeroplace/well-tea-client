@@ -9,7 +9,7 @@ const CheckoutPreview = ({
   grandTotal,
   methods,
   selectedMethod,
-  onChangeMethod
+  onChangeMethod,
 }) => {
   const cartItems = carts?.items || [];
 
@@ -79,7 +79,7 @@ const CheckoutPreview = ({
             {methods?.map((method) => (
               <label
                 key={method._id}
-                className={`flex items-center gap-2 cursor-pointer text-brand__font__size__sm`}
+                className={`flex items-center gap-2 cursor-pointer text-brand__font__size__sm w-fit`}
               >
                 <input
                   type="radio"

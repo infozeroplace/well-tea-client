@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-const EmailSelection = ({ email, onChangeEmail, handleBlur }) => {
+const EmailSelection = ({ user, email, onChangeEmail }) => {
   return (
     <>
-      {email ? (
+      {user && email ? (
         <div className="flex flex-col text-brand__font__size__sm border-b pb-2">
           <span className="text-gray-500">Account</span>
           <span>{email}</span>
@@ -22,9 +22,8 @@ const EmailSelection = ({ email, onChangeEmail, handleBlur }) => {
             <input
               type="text"
               placeholder="Email"
-              value={email || ""}
-              onChange={(e) => onChangeEmail(e.target.value)}
-              onBlur={handleBlur} // Trigger effect when input loses focus
+              defaultValue={email || ""}
+              onBlur={(e) => onChangeEmail(e.target.value)}
               className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
             />
           </div>
