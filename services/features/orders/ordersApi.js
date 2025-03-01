@@ -3,6 +3,14 @@ import generateServiceUrl from "@/utils/generateServiceUrl";
 
 const ordersApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    applyCoupon: builder.mutation({
+      query: ({ data }) => ({
+        url: generateServiceUrl("/secure/order/apply-coupon"),
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["orders"],
+    }),
     updatePaymentIntent: builder.mutation({
       query: ({ data }) => ({
         url: generateServiceUrl("/public/payment/update-payment-intent"),
@@ -34,6 +42,7 @@ const ordersApi = api.injectEndpoints({
 });
 
 export const {
+  useApplyCouponMutation,
   useUpdatePaymentIntentMutation,
   useCreatePaymentIntentMutation,
   useGetOrderListQuery,

@@ -9,6 +9,7 @@ import { env } from "@/config/env";
 import useToast from "@/hooks/useToast";
 import { useGetAddressQuery } from "@/services/features/address/addressApi";
 import {
+  useApplyCouponMutation,
   useCreatePaymentIntentMutation,
   useUpdatePaymentIntentMutation,
 } from "@/services/features/orders/ordersApi";
@@ -18,6 +19,7 @@ import { Alert } from "@heroui/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 
 let stripePromise;
 
@@ -40,6 +42,8 @@ const CheckoutScreen = () => {
   const [shippingAddress, setShippingAddress] = useState(null);
   const [billingAddress, setBillingAddress] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState(null);
+  const [coupon, setCoupon] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
   const [clientSecret, setClientSecret] = useState("");
   const [stripe, setStripe] = useState(null);
   const [alertData, setAlertData] = useState({ isShow: false, message: "" });
@@ -87,6 +91,29 @@ const CheckoutScreen = () => {
     setEmail(user?.email || null);
   }, [user?.email]);
 
+  const [
+    applyCoupon,
+    {
+      data: applyCouponData,
+      error: applyCouponError,
+      isLoading: applyCouponFetch,
+    },
+  ] = useApplyCouponMutation();
+
+  useEffect(() => {
+    if (applyCouponData?.data) {
+      toast.success(applyCouponData?.message);
+      setDiscountAmount(applyCouponData?.data || 0);
+    }
+  }, [applyCouponData?.data, applyCouponData?.message]);
+
+  useEffect(() => {
+    if (applyCouponError?.data?.message) {
+      toast.error(applyCouponError?.data?.message);
+      setCoupon("");
+    }
+  }, [applyCouponError?.data?.message]);
+
   const [updatePaymentIntent, { isLoading: updatePaymentIntentFetch }] =
     useUpdatePaymentIntentMutation();
 
@@ -108,6 +135,7 @@ const CheckoutScreen = () => {
         await updatePaymentIntent({
           data: {
             id: parsedIntent.id,
+            coupon,
             email,
             cartId,
             billingAddress: useSameShipping ? shippingAddress : billingAddress,
@@ -123,6 +151,8 @@ const CheckoutScreen = () => {
     email,
     selectedMethod,
     useSameShipping,
+    applyCouponData?.data,
+    applyCouponError?.data?.message,
     billingAddress ? Object.values(billingAddress).join() : null,
     shippingAddress ? Object.values(shippingAddress).join() : null,
   ]);
@@ -222,10 +252,26 @@ const CheckoutScreen = () => {
     }, 5000);
   };
 
+  const handleSetCoupon = (val) => setCoupon(val);
+
+  const handleApplyCoupon = async () => {
+    const storedIntent = localStorage.getItem("paymentIntent");
+    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+
+    if (parsedIntent.id && !coupon || !discountAmount) {
+      await applyCoupon({
+        data: {
+          coupon,
+          paymentIntent: parsedIntent.id,
+        },
+      });
+    }
+  };
+
   // Calculate total price
   const totalPrice = carts?.totalPrice || 0;
   const shippingCost = selectedMethod?.cost || 0;
-  const grandTotal = (totalPrice + shippingCost).toFixed(2);
+  const grandTotal = (totalPrice + shippingCost - discountAmount).toFixed(2);
 
   return (
     <>
@@ -234,13 +280,19 @@ const CheckoutScreen = () => {
           <>
             <div className="w-full h-full md:flex justify-center md:justify-end items-center py-10">
               <CheckoutPreview
+                user={user}
                 carts={carts}
                 totalPrice={totalPrice}
                 shippingCost={shippingCost}
                 grandTotal={grandTotal}
                 methods={methods}
                 selectedMethod={selectedMethod}
+                coupon={coupon}
+                discountAmount={discountAmount}
+                applyCouponLoading={applyCouponFetch}
                 onChangeMethod={handleMethodChange}
+                onChangeCoupon={handleSetCoupon}
+                onApplyCoupon={handleApplyCoupon}
               />
             </div>
 
