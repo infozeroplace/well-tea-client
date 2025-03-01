@@ -95,16 +95,64 @@
     }
   
     /* Lists */
-    ol,
-    ul {
-      margin: 1em 0;
-      padding-left: 40px;
-    }
-  
-    li {
-      margin: 0.5em 0;
-    }
-  
+   
+     ol {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        counter-reset: list-counter;
+      }
+      
+       ol li {
+        position: relative;
+        padding-left: 1em !important;
+        margin: 0.5em 0 !important;
+      }
+      
+      /* Style for bullet list items */
+       ol li[data-list="bullet"] {
+        list-style: none !important;
+      }
+      
+       ol li[data-list="bullet"]::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: currentColor;
+      }
+      
+      /* Style for ordered list items */
+       ol li[data-list="ordered"] {
+        counter-increment: list-counter;
+      }
+      
+       ol li[data-list="ordered"]::before {
+        content: counter(list-counter) ".";
+        position: absolute;
+        left: 0;
+        color: currentColor;
+      }
+      
+      /* Nested list styles */
+       ol li[data-list="bullet"] ol,
+       ol li[data-list="ordered"] ol {
+        margin-left: 1em !important;
+      }
+      
+      /* Fix for list spacing */
+       ol li + li {
+        margin-top: 0.25em !important;
+      }
+      
+      /* Preserve text colors */
+       ol li span {
+        color: inherit;
+      }
+      
+      
+      
+      
+
     /* Code block */
     pre {
       background-color: #f5f5f5;
