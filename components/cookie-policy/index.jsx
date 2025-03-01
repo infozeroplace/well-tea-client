@@ -1,13 +1,13 @@
 "use client";
 
-import "@/styles/quillstyle.css";
+import "@/styles/editor.css";
 import DOMPurify from "dompurify";
 
 const CookiePolicyContents = ({ data }) => {
   const sanitizedContent = DOMPurify.sanitize(data);
 
   return (
-    <div className="liststyle">
+    <div className='liststyle'>
       <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
     </div>
   );

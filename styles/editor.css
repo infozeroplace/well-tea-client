@@ -1,0 +1,182 @@
+/* Scope all styles under a specific class to avoid global conflicts */
+.quill-classNames {
+  
+    /* Image Styles */
+    .ql-editor img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    /* Center aligned images */
+    .ql-align-center img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    /* Right aligned images */
+    .ql-align-right img {
+      display: block;
+      margin-left: auto;
+      margin-right: 0;
+    }
+  
+    /* Left aligned images */
+    .ql-align-left img {
+      display: block;
+      margin-left: 0;
+      margin-right: auto;
+    }
+  
+    /* Text formatting styles */
+    strong {
+      font-weight: bold; /* Bold text */
+    }
+  
+    u {
+      text-decoration: underline; /* Underlined text */
+    }
+  
+    s {
+      text-decoration: line-through; /* Strikethrough text */
+    }
+  
+    /* Headings */
+    h1 {
+      font-size: 2em;
+      margin: 0.67em 0;
+      /* font-weight: bold; */
+    }
+  
+    h2 {
+      font-size: 1.75em;
+      margin: 0.75em 0;
+      /* font-weight: bold; */
+    }
+  
+    h3 {
+      font-size: 1.5em;
+      margin: 0.83em 0;
+      /* font-weight: bold; */
+    }
+  
+    h4 {
+      font-size: 1.25em;
+      margin: 1.12em 0;
+      /* font-weight: bold; */
+    }
+  
+    h5 {
+      font-size: 1em;
+      margin: 1.5em 0;
+      /* font-weight: bold; */
+    }
+  
+    h6 {
+      font-size: 0.875em;
+      margin: 1.67em 0;
+      /* font-weight: bold; */
+    }
+
+    span {
+      font-size: 0.875em;
+      margin: 1.67em 0;
+       font-weight: 400; 
+    }
+  
+    /* Blockquote */
+    blockquote {
+      border-left: 4px solid #ddd;
+      margin: 1.5em 10px;
+      padding: 0.5em 10px;
+      color: #555;
+      font-style: italic;
+      background-color: #f9f9f9;
+    }
+  
+    /* Lists */
+    ol,
+    ul {
+      margin: 1em 0;
+      padding-left: 40px;
+    }
+  
+    li {
+      margin: 0.5em 0;
+    }
+  
+    /* Code block */
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: "Courier New", Courier, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  
+    code {
+      background-color: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: "Courier New", Courier, monospace;
+    }
+  
+    /* Text alignment */
+    .ql-align-center {
+      text-align: center;
+    }
+  
+    .ql-align-right {
+      text-align: right;
+    }
+  
+    .ql-align-left {
+      text-align: left;
+    }
+  
+    /* Font Size Classes */
+    .ql-size-huge {
+      font-size: 2.5em;
+    }
+  
+    .ql-size-large {
+      font-size: 1.5em;
+    }
+  
+    .ql-size-small {
+      font-size: 0.875em;
+    }
+  
+    .ql-size-normal {
+      font-size: 1em;
+    }
+  
+    /* Table Styling */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  
+    /* Link Styling */
+    a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+  
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  

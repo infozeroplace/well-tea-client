@@ -378,33 +378,7 @@ a {
 } */
 
 
-.ql-editor img {
-  max-width: 100%;
-}
 
-/* Center aligned images */
- .ql-align-center img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-/* Right aligned images */
- .ql-align-right img {
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-}
-
-/* Left aligned images (if needed) */
- .ql-align-left img {
-  display: block;
-  margin-left: 0;
-  margin-right: auto;
-}
- .ql-align-center img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+ 
 
