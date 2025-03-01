@@ -44,37 +44,37 @@
     /* Headings */
     h1 {
       font-size: 2em;
-      margin: 0.67em 0;
+      margin: 0.4em 0;
       /* font-weight: bold; */
     }
   
     h2 {
       font-size: 1.75em;
-      margin: 0.75em 0;
+      margin: 0.375em 0;
       /* font-weight: bold; */
     }
   
     h3 {
       font-size: 1.5em;
-      margin: 0.83em 0;
+      margin: 0.3em 0;
       /* font-weight: bold; */
     }
   
     h4 {
       font-size: 1.25em;
-      margin: 1.12em 0;
+      margin: 0.25em 0;
       /* font-weight: bold; */
     }
   
     h5 {
       font-size: 1em;
-      margin: 1.5em 0;
+      margin: 0.2em 0;
       /* font-weight: bold; */
     }
   
     h6 {
       font-size: 0.875em;
-      margin: 1.67em 0;
+      margin: 0.15em 0;
       /* font-weight: bold; */
     }
 
@@ -106,7 +106,7 @@
        ol li {
         position: relative;
         padding-left: 1em !important;
-        margin: 0.5em 0 !important;
+        margin: 0.1em 0 !important;
       }
       
       /* Style for bullet list items */
@@ -119,6 +119,7 @@
         position: absolute;
         left: 0;
         color: currentColor;
+        font-weight: bold;
       }
       
       /* Style for ordered list items */
@@ -141,7 +142,7 @@
       
       /* Fix for list spacing */
        ol li + li {
-        margin-top: 0.25em !important;
+        margin-top: 0.1em !important;
       }
       
       /* Preserve text colors */
