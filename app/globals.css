@@ -158,6 +158,122 @@ a {
   stroke-opacity: 1;
 }
 
+h1 {
+  font-weight: 100;
+  /* letter-spacing: 1px; */
+}
+
+h3 {
+  font-weight: 100;
+  /* letter-spacing: 1px; */
+}
+
+h4 {
+  font-weight: 100;
+  /* letter-spacing: 1px; */
+}
+
+p {
+  font-weight: 200;
+  /* letter-spacing: 1px; */
+}
+a {
+  font-weight: 200;
+  /* letter-spacing: 1px; */
+}
+
+/* Utilities */
+@layer utilities {
+  .container {
+    max-width: 1800px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .container-narrow {
+    max-width: 1340px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .section-gap {
+    margin-bottom: 4.5rem;
+  }
+  .content-gap {
+    margin-bottom: 2rem;
+  }
+  .banner-gap {
+    margin-top: 4.5rem;
+  }
+}
+
+.custom-shadow {
+  -webkit-box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.5);
+}
+
+.scroll-text-left {
+  writing-mode: vertical-rl;
+}
+
+/* .custom-gradient {
+  background: var(--teagreen-800);
+  background: linear-gradient(to top, var(--teagreen-800) 0%, var(--teagreen-400) 80%);
+} */
+
+.custom-gradient {
+  background: rgb(35, 71, 40);
+  background: linear-gradient(
+    to top,
+    rgba(35, 71, 40, 1) 0%,
+    rgba(68, 147, 64, 1) 45%,
+    rgba(129, 231, 60, 0.1461178221288515) 80%
+  );
+}
+
+/* Navbar Icon Circle Hover */
+.nav-button {
+  position: relative;
+  display: inline-block;
+  /* width: 40px;
+  height: 40px; */
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.nav-button svg {
+  font-size: 24px;
+  color: black;
+}
+
+.nav-button .circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(180deg), translateX(-100%);
+}
+
+.nav-button circle {
+  fill: none;
+  stroke: var(--teagreen-300);
+  stroke-width: 2;
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+  stroke-opacity: 0;
+  transition: stroke-dashoffset 0.8s ease-in-out, stroke-opacity 0.2s;
+}
+
+.nav-button:hover circle {
+  stroke-dashoffset: 0;
+  stroke-opacity: 1;
+}
+
 .nav-button:not(:hover) circle {
   stroke-dashoffset: 150;
   stroke-opacity: 0;
@@ -261,4 +377,8 @@ a {
   z-index: 999999999 !important;
 } */
 
+
+
+
+ 
 

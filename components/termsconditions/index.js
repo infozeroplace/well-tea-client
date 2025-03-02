@@ -1,16 +1,11 @@
 "use client";
-
-import "@/styles/quillstyle.css";
 import DOMPurify from "dompurify";
+import HtmlParser from "react-html-parser";
 
 const TermsConditionsContents = ({ data }) => {
   const sanitizedContent = DOMPurify.sanitize(data);
 
-  return (
-    <div className="liststyle">
-      <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
-    </div>
-  );
+  return <div className='quill-classNames'>{HtmlParser(sanitizedContent)}</div>;
 };
 
 export default TermsConditionsContents;
