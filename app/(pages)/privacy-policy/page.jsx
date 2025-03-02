@@ -1,28 +1,5 @@
-import axios from "@/api/axios";
-import { CommonBanner, PrivacyPolicyContents } from "@/components";
-import { privacyPolicyMetadata } from "@/data/staticMetaData";
+import PrivacyPolicy from "./_components/page-contents";
 
-export const revalidate = 0;
-
-// export const metadata = privacyPolicyMetadata;
-
-export async function generateMetadata() {
-  return privacyPolicyMetadata;
+export default function PrivacyPage() {
+  return <PrivacyPolicy />;
 }
-
-const PrivacyPolicy = async () => {
-  const { data: { data: systemData = {} } = {} } = await axios.get(
-    "/public/system"
-  );
-
-  return (
-    <div>
-      <CommonBanner bannerTitle="Privacy Policy" />
-      <div className="container px-4 lg:px-10 py-10 section-gap">
-        <PrivacyPolicyContents data={systemData.privacyPolicy || ""} />
-      </div>
-    </div>
-  );
-};
-
-export default PrivacyPolicy;

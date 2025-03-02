@@ -1,29 +1,31 @@
 "use client";
 
-import { useAppSelector } from "@/services/hook";
-import { GoArrowRight } from "react-icons/go";
-import { usePostRewardsMutation } from "@/services/features/reward/rewardApi";
-import { toast } from "react-hot-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
-import { useEffect } from "react";
+import { usePostRewardsMutation } from "@/services/features/reward/rewardApi";
+import { useAppSelector } from "@/services/hook";
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Tooltip,
   useDisclosure,
 } from "@heroui/react";
-import { FaRegCopy, FaCopy } from "react-icons/fa";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
+import { FaRegCopy } from "react-icons/fa";
 
 const ProfileScreen = () => {
   const {
     auth: { user },
   } = useAppSelector((state) => state);
 
-  const [postRewards, {data: redeemData, isLoading: rewardsLoading, isSuccess}] = usePostRewardsMutation();
+  const [
+    postRewards,
+    { data: redeemData, isLoading: rewardsLoading, isSuccess },
+  ] = usePostRewardsMutation();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const rewardsData = [
@@ -42,11 +44,11 @@ const ProfileScreen = () => {
     {
       discount: 20,
       points: 400,
-    }
-  ]
+    },
+  ];
 
-  const handleRedeem = async(points) => {
-    await postRewards({data: {points}});
+  const handleRedeem = async (points) => {
+    await postRewards({ data: { points } });
   };
 
   useEffect(() => {
@@ -63,8 +65,6 @@ const ProfileScreen = () => {
       toast.success("Coupon code copied to clipboard!");
     }
   };
-
-  console.log(redeemData);
 
   return (
     <div className="w-full p-4">
@@ -92,6 +92,10 @@ const ProfileScreen = () => {
         </div>
       </div>
       <div className=" bg-teagreen-100 p-10 rounded-lg space-y-10">
+        <p className="text-center">
+          Redeeming your points is easy! Click Redeem My Points and copy & paste
+          your code at checkout.
+        </p>
         <p className="text-center font-medium">
           You have{" "}
           <span className="text-teagreen-600">{user?.rewardPoints}</span> points

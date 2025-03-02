@@ -1,5 +1,3 @@
-import YouMayAlsoLike from "./youmayalsolike";
-
 export * from "./about";
 export * from "./auth";
 export { default as Banner } from "./banner";
