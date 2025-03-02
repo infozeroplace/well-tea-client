@@ -152,7 +152,6 @@ const CheckoutScreen = () => {
     selectedMethod,
     useSameShipping,
     applyCouponData?.data,
-    applyCouponError?.data?.message,
     billingAddress ? Object.values(billingAddress).join() : null,
     shippingAddress ? Object.values(shippingAddress).join() : null,
   ]);
