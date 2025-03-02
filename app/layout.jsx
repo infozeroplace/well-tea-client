@@ -8,7 +8,6 @@ import {
 import ClientWrapper from "@/components/ClientWrapper";
 import { env } from "@/config/env";
 import { layoutMetadata } from "@/data/staticMetaData";
-import "@/styles/quillstyle.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "boxicons/css/boxicons.min.css";
 import "swiper/css/bundle";
@@ -80,7 +79,7 @@ export async function generateMetadata() {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang='en' suppressHydrationWarning={true}>
       <body /* className={fonts} */>
         <ClientWrapper>
           <Header />
