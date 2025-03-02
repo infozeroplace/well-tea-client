@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   PaymentElement,
@@ -8,7 +8,16 @@ import {
 import { useState } from "react";
 import { FaStripe } from "react-icons/fa";
 
-export default function CheckoutForm({ grandTotal = 0 }) {
+export default function CheckoutForm({
+  grandTotal = 0,
+  user,
+  email,
+  shippingAddress,
+  billingAddress,
+  useSameShipping,
+  onShowAlert,
+  loading,
+}) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -18,10 +27,36 @@ export default function CheckoutForm({ grandTotal = 0 }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      !shippingAddress ||
+      !email ||
+      !shippingAddress.country ||
+      !shippingAddress.city ||
+      !shippingAddress.firstName ||
+      !shippingAddress.lastName ||
+      !shippingAddress.address1 ||
+      !shippingAddress.postalCode ||
+      !shippingAddress.phone
+    ) {
+      return onShowAlert("Please fill out required fields");
+    } else if (
+      !useSameShipping &&
+      (!billingAddress ||
+        !email ||
+        !billingAddress.country ||
+        !billingAddress.city ||
+        !billingAddress.firstName ||
+        !billingAddress.lastName ||
+        !billingAddress.address1 ||
+        !billingAddress.postalCode ||
+        !billingAddress.phone)
+    ) {
+      return onShowAlert("Please fill out required fields");
+    }
+
     // Ensure Stripe.js has loaded before proceeding
     if (!stripe || !elements) {
-      setMessage("Stripe has not loaded yet. Please try again.");
-      return;
+      return setMessage("Stripe has not loaded yet. Please try again.");
     }
 
     // Set processing state
@@ -34,7 +69,7 @@ export default function CheckoutForm({ grandTotal = 0 }) {
         confirmParams: {
           return_url:
             typeof window !== "undefined"
-              ? `${window.location.origin}/profile`
+              ? `${window.location.origin}/order-placed`
               : undefined,
         },
         redirect: "if_required",
@@ -74,7 +109,7 @@ export default function CheckoutForm({ grandTotal = 0 }) {
         <form onSubmit={handleSubmit}>
           <PaymentElement />
           <button
-            disabled={isProcessing || !stripe || !elements}
+            disabled={loading || isProcessing || !stripe || !elements}
             className="bg-teagreen-800 hover:bg-teagreen-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out w-full mt-3"
           >
             <span>

@@ -28,7 +28,7 @@ const authApi = api.injectEndpoints({
           method: "GET",
         };
       },
-      // providesTags: ["user"],
+      providesTags: ["user"],
     }),
     googleSignIn: builder.mutation({
       query: ({ data }) => ({

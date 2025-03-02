@@ -3,13 +3,19 @@
 import { env } from "@/config/env";
 
 const CheckoutPreview = ({
+  user,
   carts,
   totalPrice,
   shippingCost,
   grandTotal,
   methods,
   selectedMethod,
-  onChangeMethod
+  coupon,
+  discountAmount,
+  applyCouponLoading,
+  onChangeMethod,
+  onChangeCoupon,
+  onApplyCoupon,
 }) => {
   const cartItems = carts?.items || [];
 
@@ -43,16 +49,28 @@ const CheckoutPreview = ({
           ))}
         </div>
 
-        <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
-          <input
-            type="text"
-            placeholder="Not working now"
-            className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
-          />
-          <button className="bg-gray-200 text-gray-500 px-4 py-2 text-sm font-semibold cursor-not-allowed">
-            Apply
-          </button>
-        </div>
+        {user && (
+          <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
+            <input
+              value={coupon}
+              onChange={(e) => onChangeCoupon(e.target.value)}
+              type="text"
+              placeholder="Discount code or gift card"
+              className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
+            />
+            <button
+              onClick={onApplyCoupon}
+              disabled={!coupon || discountAmount}
+              className={`w-[100px] px-4 py-2 text-sm font-semibold ${
+                !coupon || discountAmount
+                  ? "cursor-not-allowed bg-gray-200 text-gray-500 "
+                  : "bg-blue-500 text-white"
+              } `}
+            >
+              {applyCouponLoading ? "Loading..." : "Apply"}
+            </button>
+          </div>
+        )}
 
         {/* Summary Section */}
         <div className="flex flex-col gap-2 text-sm">
@@ -79,7 +97,7 @@ const CheckoutPreview = ({
             {methods?.map((method) => (
               <label
                 key={method._id}
-                className={`flex items-center gap-2 cursor-pointer text-brand__font__size__sm`}
+                className={`flex items-center gap-2 cursor-pointer text-brand__font__size__sm w-fit`}
               >
                 <input
                   type="radio"
