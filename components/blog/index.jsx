@@ -1,14 +1,13 @@
+"use client"
 import React from "react";
 import "@/styles/editor.css";
+import DOMPurify from "dompurify";
+import HtmlParser from "react-html-parser";
 
-const BlogContents = ({ systemData }) => {
-  return (
-    <div className='liststyle'>
-      <div
-        dangerouslySetInnerHTML={{ __html: systemData?.blogContents || "" }}
-      />
-    </div>
-  );
+const BlogContents = ({ articleData }) => {
+  const sanitizedContent = DOMPurify.sanitize(articleData);
+  
+    return <div className='quill-classNames'>{HtmlParser(sanitizedContent)}</div>;
 };
 
 export default BlogContents;

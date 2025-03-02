@@ -17,4 +17,4 @@ const blogApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetBlogListQuery } = productApi;
+export const { useGetBlogListQuery } = blogApi;
