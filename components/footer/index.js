@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import BackToTopButton from "./BacktoTopButton";
-
+import Newsletter from "./Newsletter";
 function Footer() {
   const socialIconsExtraClasses =
     "text-[25px] cursor-pointer hover:scale-110 transition-all duration-300";
@@ -90,16 +90,7 @@ function Footer() {
               Dolor eiusmod velit occaecat in adipisicing proident aliqua
               deserunt eu enim pariatur.
             </p>
-            <div className="flex mt-3">
-              <input
-                type="text"
-                className="w-full px-5 py-3 max-w-96 text-black"
-                placeholder="Your Email"
-              />
-              <button className="bg-teagreen-600 text-white px-4 uppercase">
-                Subscribe
-              </button>
-            </div>
+            <Newsletter />
           </div>
         </div>
         {/* Footer Bottom */}

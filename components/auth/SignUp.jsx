@@ -9,7 +9,7 @@ import {
 import { setAuth } from "@/services/features/auth/authSlice";
 import { useAppDispatch } from "@/services/hook";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
-import { Input, Spinner } from "@heroui/react";
+import { Input, Spinner, Checkbox } from "@heroui/react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -32,6 +32,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
     lastName: "",
     email: "",
     password: "",
+    newsletter: false,
   });
 
   // Defined Api function
@@ -78,6 +79,7 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
       lastName: "",
       email: "",
       password: "",
+      newsletter: false,
     }));
   };
 
@@ -196,6 +198,12 @@ const SignUp = ({ showForm, handleShowForm = () => {} }) => {
           label="Password"
           variant="bordered"
         />
+        <Checkbox
+          onChange={(e) => handleInput("newsletter", e.target.checked)}
+          className="custom-checkbox"
+        >
+          Newsletter
+        </Checkbox>
         <button
           type="submit"
           className="text-center text-white w-full bg-teagreen-600 hover:bg-teagreen-700 duration-400 p-4 rounded-xl flex justify-center items-center gap-2 uppercase tracking-wider mt-3"

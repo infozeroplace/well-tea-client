@@ -1,9 +1,9 @@
 import { StarRatingDisplay } from "@/components/shared/";
+import { env } from "@/config/env";
 import Link from "next/link";
 import ShortDescription from "../shortdescription";
 import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
-import { env } from "@/config/env";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -23,8 +23,7 @@ const ProductDetails = ({ product }) => {
   };
 
   const isCurrentFormatIncluded = availableOptions.some(
-    (item) =>
-      item.teaFormat?._id === currentFormat.teaFormat?._id
+    (item) => item.teaFormat?._id === currentFormat.teaFormat?._id
   );
 
   if (
@@ -49,7 +48,9 @@ const ProductDetails = ({ product }) => {
           <p className="mt-2">
             {product?.teaFlavor
               .map(
-                (flavor) => flavor?.assortment?.charAt(0).toUpperCase() + flavor?.assortment?.slice(1)
+                (flavor) =>
+                  flavor?.assortment?.charAt(0).toUpperCase() +
+                  flavor?.assortment?.slice(1)
               )
               .join(", ")}
           </p>
@@ -78,33 +79,35 @@ const ProductDetails = ({ product }) => {
           </h3>
           <div className="flex flex-wrap gap-2">
             {availableOptions.map(({ teaFormat, urlParameter }) => {
-              const isSelected =
-                teaFormat?._id ===
-                product?.teaFormat[0]?._id;
+              const isSelected = teaFormat?._id === product?.teaFormat[0]?._id;
 
               return isSelected ? (
                 <div
                   className="flex items-center gap-3 py-2.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 cursor-pointer rounded"
                   key={teaFormat._id}
                 >
-                  <img
-                    className="w-[20px] h-[20px]"
-                    src={env.app_url + teaFormat.thumbnail[0].filepath}
-                    alt={teaFormat?.thumbnail[0]?.alternateText || ""}
-                  />
+                  {teaFormat?.thumbnail[0]?.filepath && (
+                    <img
+                      className="w-[20px] h-[20px]"
+                      src={env.app_url + teaFormat?.thumbnail[0]?.filepath}
+                      alt={teaFormat?.thumbnail[0]?.alternateText || ""}
+                    />
+                  )}
                   <span> {teaFormat.assortment}</span>
                 </div>
               ) : (
                 <Link
                   href={`/${urlParameter}`}
                   key={teaFormat._id}
-                  className="flex items-center gap-3 py-2.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-800 rounded"
+                  className="flex items-center gap-3 py-2.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-400 rounded"
                 >
-                  <img
-                    className="w-[12px] h-[12px]"
-                    src={env.app_url + teaFormat.thumbnail[0].filepath}
-                    alt={teaFormat?.thumbnail[0]?.alternateText || ""}
-                  />
+                  {teaFormat?.thumbnail[0]?.filepath && (
+                    <img
+                      className="w-[12px] h-[12px]"
+                      src={env.app_url + teaFormat?.thumbnail[0]?.filepath}
+                      alt={teaFormat?.thumbnail[0]?.alternateText || ""}
+                    />
+                  )}
                   <span>{teaFormat.assortment}</span>
                 </Link>
               );

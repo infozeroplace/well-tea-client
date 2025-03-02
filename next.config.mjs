@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api.welltea.zeroplace.co",
+        hostname: "api.welltea.bikolpo.com",
         pathname: "**",
       },
       {

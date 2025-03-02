@@ -5,6 +5,7 @@ import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { useAppSelector } from "@/services/hook";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
@@ -64,6 +65,8 @@ function WishlistScreen() {
     }
   }, [addToCartData]);
 
+  console.log(wishlistItems);
+
   return (
     <div className="max-h-[400px] overflow-y-auto">
       <table className="w-full border-collapse">
@@ -86,10 +89,11 @@ function WishlistScreen() {
                   href={`/${item?.urlParameter}`}
                   className="flex items-center gap-3 group w-fit"
                 >
-                  <img
-                    src={env.app_url + item?.thumbnails[0].filepath}
-                    alt={item?.title}
-                    className="w-20 h-20 object-cover"
+                  <Image
+                    src={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
+                    alt={item?.thumbnails[0]?.alternateText}
+                    width={80}
+                    height={80}
                   />
                   <div className="text-left capitalize space-y-1">
                     <h4 className="font-brand__font__light group-hover:underline">
