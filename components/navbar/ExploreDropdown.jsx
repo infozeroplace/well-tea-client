@@ -3,57 +3,57 @@ import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
 function ExploreDropdown() {
-  const productTypes = [
-    {
-      image: "/images/Teanav_Organic_Tea.webp",
-      name: "Black Tea",
-    },
-    {
-      image: "/images/Teanav_Flowering_tea.webp",
-      name: "Green Tea",
-    },
-    {
-      image: "/images/Teanav_Herbal_tea.webp",
-      name: "White Tea",
-    },
-    {
-      image: "/images/Teanav_Flowering_tea.webp",
-      name: "Oolong Tea",
-    },
-    {
-      image: "/images/Teanav_Herbal_tea.webp",
-      name: "Herbal Tea",
-    },
-    {
-      image: "/images/Teanav_Flowering_tea.webp",
-      name: "Pu-erh Tea",
-    },
-    {
-      image: "/images/product_one.jpg",
-      name: "Black Tea",
-    },
-    {
-      image: "/images/product_two.jpg",
-      name: "Green Tea",
-    },
-    {
-      image: "/images/product_three.jpg",
-      name: "White Tea",
-    },
-    {
-      image: "/images/product_one.jpg",
-      name: "Black Tea",
-    },
-  ];
+  // const productTypes = [
+  //   {
+  //     image: "/images/Teanav_Organic_Tea.webp",
+  //     name: "Black Tea",
+  //   },
+  //   {
+  //     image: "/images/Teanav_Flowering_tea.webp",
+  //     name: "Green Tea",
+  //   },
+  //   {
+  //     image: "/images/Teanav_Herbal_tea.webp",
+  //     name: "White Tea",
+  //   },
+  //   {
+  //     image: "/images/Teanav_Flowering_tea.webp",
+  //     name: "Oolong Tea",
+  //   },
+  //   {
+  //     image: "/images/Teanav_Herbal_tea.webp",
+  //     name: "Herbal Tea",
+  //   },
+  //   {
+  //     image: "/images/Teanav_Flowering_tea.webp",
+  //     name: "Pu-erh Tea",
+  //   },
+  //   {
+  //     image: "/images/product_one.jpg",
+  //     name: "Black Tea",
+  //   },
+  //   {
+  //     image: "/images/product_two.jpg",
+  //     name: "Green Tea",
+  //   },
+  //   {
+  //     image: "/images/product_three.jpg",
+  //     name: "White Tea",
+  //   },
+  //   {
+  //     image: "/images/product_one.jpg",
+  //     name: "Black Tea",
+  //   },
+  // ];
 
-  const allGiftList = [
+  const articleList = [
     {
       name: "Tea Knowledge",
-      url: "/",
+      url: "/articles",
     },
   ];
 
-  const giftInspirationList = [
+  const howToBrewList = [
     {
       name: "How to make tea",
       url: "/explore/how-to-brew/how-to-make-tea",
@@ -68,7 +68,7 @@ function ExploreDropdown() {
     },
   ];
 
-  const seasonalGiftList = [
+  const discoverList = [
     {
       name: "About Us",
       url: "/about",
@@ -93,7 +93,7 @@ function ExploreDropdown() {
         <div className="basis-[60%] flex justify-evenly w-full border-r p-5">
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">Articles</h3>
-            {allGiftList.map((item, index) => (
+            {articleList.map((item, index) => (
               <Link
                 key={index}
                 href={item.url}
@@ -105,7 +105,7 @@ function ExploreDropdown() {
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl capitalize">How to Brew</h3>
-            {giftInspirationList.map((item, index) => (
+            {howToBrewList.map((item, index) => (
               <Link
                 key={index}
                 href={item.url}
@@ -117,7 +117,7 @@ function ExploreDropdown() {
           </div>
           <div className="flex flex-col gap-2">
             <h3 className="font-extralight text-xl">Discover</h3>
-            {seasonalGiftList.map((item, index) => (
+            {discoverList.map((item, index) => (
               <Link
                 key={index}
                 href={item.url}
@@ -130,7 +130,10 @@ function ExploreDropdown() {
         </div>
 
         <div className="basis-[40%] w-full flex justify-evenly pt-5">
-          <Link href="/" className="group flex flex-col items-center gap-5">
+          <Link
+            href="/explore/how-to-brew/how-to-make-tea"
+            className="group flex flex-col items-center gap-5"
+          >
             <Image
               src="/whychooseus/slide_banner_09.jpg"
               alt="gifts"

@@ -16,9 +16,6 @@ async function Articles({ searchParams: rawSearchParams }) {
     `/public/blog/blog-list?${queryParams}`
   );
 
-  console.log("articleList: ", articleList);
-  console.log("meta: ", meta);
-
   return (
     <div>
       <CommonBanner bannerTitle="Articles" bannerDescription="Articles" />
