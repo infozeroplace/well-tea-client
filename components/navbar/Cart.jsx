@@ -1,21 +1,16 @@
 "use client";
 
 import { env } from "@/config/env";
-import {
-  removeFromCart,
-  updateQuantity,
-} from "@/services/features/cart/cartSlice";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import { useAppDispatch, useAppSelector } from "@/services/hook";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { SectionLinkButton } from "../shared";
-import { useAddToCartMutation } from "@/services/features/cart/cartApi";
-import { addCart, removeCart } from "@/services/features/cart/cartSlices";
-import { useAppSelector, useAppDispatch } from "@/services/hook";
-import Link from "next/link";
-import { toast } from "react-hot-toast";
 import LoadingOverlay from "../shared/LoadingOverlay";
 
 const toNumber = (value) => {
@@ -26,7 +21,8 @@ const toNumber = (value) => {
 
 const Cart = ({ buttonClass }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
+    useAddToCartMutation();
   const carts = useAppSelector((state) => state.carts.carts);
   const dispatch = useAppDispatch();
   const totalQuantity = carts?.totalQuantity;
@@ -42,8 +38,30 @@ const Cart = ({ buttonClass }) => {
     unitPriceId,
     subscriptionId
   ) => {
+    const storedIntent = localStorage.getItem("paymentIntent");
+    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+
+    let paymentIntentId = "";
+    let shippingMethodId = "";
+    let coupon = "";
+
+    if (
+      parsedIntent &&
+      parsedIntent.shippingMethodId &&
+      parsedIntent.id &&
+      parsedIntent.clientSecret &&
+      parsedIntent.expiry > Date.now()
+    ) {
+      paymentIntentId = parsedIntent.id;
+      shippingMethodId = parsedIntent.shippingMethodId;
+      coupon = parsedIntent.coupon;
+    }
+
     await addToCart({
       data: {
+        paymentIntentId,
+        shippingMethodId,
+        coupon,
         productId,
         actionType,
         purchaseType,
@@ -59,7 +77,6 @@ const Cart = ({ buttonClass }) => {
       toast.success(addToCartData?.message);
     }
   }, [addToCartData]);
-
 
   useEffect(() => {
     setIsOpen(false);
@@ -117,7 +134,9 @@ const Cart = ({ buttonClass }) => {
                       />
                     </div>
                     <div className="flex-1 flex flex-col gap-2">
-                      <h3 className="text-sm font-light group-hover:underline">{item?.title}</h3>
+                      <h3 className="text-sm font-light group-hover:underline">
+                        {item?.title}
+                      </h3>
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                           {item?.unit}

@@ -137,12 +137,20 @@ const CheckoutScreen = () => {
             id: parsedIntent.id,
             coupon,
             email,
-            cartId,
             billingAddress: useSameShipping ? shippingAddress : billingAddress,
             shippingAddress,
             shippingMethodId,
           },
         });
+
+        localStorage.setItem(
+          "paymentIntent",
+          JSON.stringify({
+            ...parsedIntent,
+            coupon,
+            shippingMethodId,
+          })
+        );
       }
     };
 
@@ -163,9 +171,15 @@ const CheckoutScreen = () => {
     const loadPaymentIntent = async () => {
       // predefined ids/email
       const cartId = carts?._id || null;
+      const isItemsExists = carts?.items?.length > 0;
       const shippingMethodId = selectedMethod?._id || null;
 
-      if (!shippingMethodId || !cartId || effectExecuted.current) {
+      if (
+        !shippingMethodId ||
+        !cartId ||
+        !isItemsExists ||
+        effectExecuted.current
+      ) {
         return;
       }
       // Ensure the selected method is actually loaded
@@ -203,6 +217,7 @@ const CheckoutScreen = () => {
           "paymentIntent",
           JSON.stringify({
             id: data.id,
+            shippingMethodId,
             clientSecret: data.clientSecret,
             expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
           })
@@ -257,7 +272,7 @@ const CheckoutScreen = () => {
     const storedIntent = localStorage.getItem("paymentIntent");
     const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
 
-    if (parsedIntent.id && !coupon || !discountAmount) {
+    if ((parsedIntent.id && !coupon) || !discountAmount) {
       await applyCoupon({
         data: {
           coupon,
