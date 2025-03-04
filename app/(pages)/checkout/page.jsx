@@ -304,6 +304,12 @@ const CheckoutScreen = () => {
                 coupon={coupon}
                 discountAmount={discountAmount}
                 applyCouponLoading={applyCouponFetch}
+                loading={
+                  addressLoading ||
+                  methodLoading ||
+                  createPaymentIntentFetch ||
+                  updatePaymentIntentFetch
+                }
                 onChangeMethod={handleMethodChange}
                 onChangeCoupon={handleSetCoupon}
                 onApplyCoupon={handleApplyCoupon}

@@ -13,6 +13,7 @@ const CheckoutPreview = ({
   coupon,
   discountAmount,
   applyCouponLoading,
+  loading,
   onChangeMethod,
   onChangeCoupon,
   onApplyCoupon,
@@ -86,7 +87,13 @@ const CheckoutPreview = ({
 
           <div className="flex gap-2 justify-between items-center text-brand__font__size__md font-brand__font__500">
             <span>Total</span>
-            <span>£{grandTotal}</span>
+            <span>
+              {loading ? (
+                <span className="text-brand__font__size__xs">Updating...</span>
+              ) : (
+                `£${grandTotal}`
+              )}
+            </span>
           </div>
         </div>
 
