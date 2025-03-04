@@ -16,15 +16,21 @@ function ProductTabs({ product }) {
           color="default"
           radius="full"
         >
-          <Tab key="1" title="Description">
-            <Description description={product?.longDescription} />
-          </Tab>
-          <Tab key="2" title="Ingredients">
-            <Ingredients teaIngredient={product?.teaIngredient} />
-          </Tab>
-          <Tab key="3" title="How to brew">
-            <BrewInstructions brewInstruction={product?.brewInstruction} />
-          </Tab>
+          {product?.teaIngredient &&
+            <Tab key="1" title="Description">
+              <Description description={product?.longDescription} />
+            </Tab>
+          }
+          {product?.teaIngredient &&
+            <Tab key="2" title="Ingredients">
+              <Ingredients teaIngredient={product?.teaIngredient} />
+            </Tab>
+          }
+          {product?.brewInstruction &&
+            <Tab key="3" title="How to brew">
+              <BrewInstructions brewInstruction={product?.brewInstruction} />
+            </Tab>
+          }
           <Tab key="4" title="Review">
             <Reviews
               productData={{
