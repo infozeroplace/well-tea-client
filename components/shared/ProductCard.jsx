@@ -1,6 +1,6 @@
 "use client";
 
-import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import axios from "@/api/axios";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
@@ -12,11 +12,18 @@ import { toast } from "react-hot-toast";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 const ProductCard = ({ product }) => {
+  const {
+    wishlist: { wishlist },
+    carts: { carts },
+  } = useAppSelector((state) => state);
+
   const dispatch = useAppDispatch();
   const cardRef = useRef(null);
+
   const [addButtonClicked, setAddButtonClicked] = useState(false);
-  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
+
   const wishlistItems = wishlist?.items;
+
   const [
     addToWishlist,
     { data: addToWishlistData, isLoading: addToWishlistLoading },
@@ -31,23 +38,26 @@ const ProductCard = ({ product }) => {
   const productId = product?._id;
 
   const handleAddToCart = async (unitPriceId) => {
-    const storedIntent = localStorage.getItem("paymentIntent");
-    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+    const cartId = carts?._id || null;
 
+    const {
+      data: { data: paymentIntent },
+    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
+
+    let coupon = "";
     let paymentIntentId = "";
     let shippingMethodId = "";
-    let coupon = "";
 
     if (
-      parsedIntent &&
-      parsedIntent.shippingMethodId &&
-      parsedIntent.id &&
-      parsedIntent.clientSecret &&
-      parsedIntent.expiry > Date.now()
+      paymentIntent &&
+      paymentIntent.id &&
+      paymentIntent.coupon &&
+      paymentIntent.clientSecret &&
+      paymentIntent.shippingMethodId
     ) {
-      paymentIntentId = parsedIntent.id;
-      shippingMethodId = parsedIntent.shippingMethodId;
-      coupon = parsedIntent.coupon;
+      coupon = paymentIntent.coupon;
+      paymentIntentId = paymentIntent.id;
+      shippingMethodId = paymentIntent.shippingMethodId;
     }
 
     await addToCart({

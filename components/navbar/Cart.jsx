@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "@/api/axios";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
@@ -20,13 +21,19 @@ const toNumber = (value) => {
 };
 
 const Cart = ({ buttonClass }) => {
+  const {
+    carts: { carts },
+  } = useAppSelector((state) => state);
+  
+  const dispatch = useAppDispatch();
+  const pathname = usePathname();
+
   const [isOpen, setIsOpen] = useState(false);
+
   const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
     useAddToCartMutation();
-  const carts = useAppSelector((state) => state.carts.carts);
-  const dispatch = useAppDispatch();
+
   const totalQuantity = carts?.totalQuantity;
-  const pathname = usePathname();
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
@@ -38,23 +45,26 @@ const Cart = ({ buttonClass }) => {
     unitPriceId,
     subscriptionId
   ) => {
-    const storedIntent = localStorage.getItem("paymentIntent");
-    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+    const cartId = carts?._id || null;
 
+    const {
+      data: { data: paymentIntent },
+    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
+
+    let coupon = "";
     let paymentIntentId = "";
     let shippingMethodId = "";
-    let coupon = "";
 
     if (
-      parsedIntent &&
-      parsedIntent.shippingMethodId &&
-      parsedIntent.id &&
-      parsedIntent.clientSecret &&
-      parsedIntent.expiry > Date.now()
+      paymentIntent &&
+      paymentIntent.id &&
+      paymentIntent.coupon &&
+      paymentIntent.clientSecret &&
+      paymentIntent.shippingMethodId
     ) {
-      paymentIntentId = parsedIntent.id;
-      shippingMethodId = parsedIntent.shippingMethodId;
-      coupon = parsedIntent.coupon;
+      coupon = paymentIntent.coupon;
+      paymentIntentId = paymentIntent.id;
+      shippingMethodId = paymentIntent.shippingMethodId;
     }
 
     await addToCart({
