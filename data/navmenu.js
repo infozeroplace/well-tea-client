@@ -1,4 +1,34 @@
-export const navmenu = [
+const menuItems = [
+  {
+    id: "1",
+    title: "tea",
+    url: "",
+    children: teaMenus,
+  },
+  {
+    id: "2",
+    title: "teaware",
+    url: "",
+    children: [
+      {
+        id: "1",
+        columnName: "All teaware",
+        items: [
+          { name: "teapots", route: "/type/green-tea", icon: null },
+          { name: "cups & mugs", route: "/type/white-tea", icon: null },
+          { name: "tea strainers", route: "/type/black-tea", icon: null },
+          {
+            name: "loose leaf tea essentials",
+            route: "/type/herbal-tea",
+            icon: null,
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const teaMenus = [
   {
     id: "1",
     columnName: "Type",
