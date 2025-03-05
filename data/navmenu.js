@@ -1,24 +1,107 @@
-const menuItems = [
+export const menuItems = [
   {
     id: "1",
     title: "tea",
-    url: "",
-    children: teaMenus,
+    route: "/collection/tea",
+    children: [
+      {
+        id: "1",
+        columnTitle: "Type",
+        items: [
+          {
+            title: "green tea",
+            route: "/collection/productType=green tea",
+            icon: null,
+          },
+          {
+            title: "white tea",
+            route: "/collection/productType=white tea",
+            icon: null,
+          },
+          {
+            title: "flowering tea",
+            route: "/collection/productType=flowering tea",
+            icon: null,
+          },
+          {
+            title: "black tea",
+            route: "/collection/productType=black tea",
+            icon: null,
+          },
+          {
+            title: "herbal tea",
+            route: "/collection/productType=herbal tea",
+            icon: null,
+          },
+          {
+            title: "pureh tea",
+            route: "/collection/productType=pureh tea",
+            icon: null,
+          },
+          {
+            title: "fruit tea",
+            route: "/collection/productType=fruit tea",
+            icon: null,
+          },
+          {
+            title: "oolong tea",
+            route: "/collection/productType=oolong tea",
+            icon: null,
+          },
+          {
+            title: "jasmine tea",
+            route: "/collection/productType=jasmine tea",
+            icon: null,
+          },
+        ],
+      },
+      {
+        id: "2",
+        columnTitle: "flavor",
+        items: [
+          {
+            title: "citrus",
+            route: "/collection/flavor=citrus",
+            icon: null,
+          },
+          {
+            title: "fruity",
+            route: "/collection/flavor=fruity",
+            icon: null,
+          },
+          {
+            title: "malty",
+            route: "/collection/flavor=malty",
+            icon: null,
+          },
+          {
+            title: "roasted",
+            route: "/collection/flavor=roasted",
+            icon: null,
+          },
+          {
+            title: "floral",
+            route: "/collection/flavor=floral",
+            icon: null,
+          },
+        ],
+      },
+    ],
   },
   {
     id: "2",
     title: "teaware",
-    url: "",
+    route: "/collection/teaware",
     children: [
       {
         id: "1",
-        columnName: "All teaware",
+        columnTitle: "All teaware",
         items: [
-          { name: "teapots", route: "/type/green-tea", icon: null },
-          { name: "cups & mugs", route: "/type/white-tea", icon: null },
-          { name: "tea strainers", route: "/type/black-tea", icon: null },
+          { title: "teapots", route: "/type/green-tea", icon: null },
+          { title: "cups & mugs", route: "/type/white-tea", icon: null },
+          { title: "tea strainers", route: "/type/black-tea", icon: null },
           {
-            name: "loose leaf tea essentials",
+            title: "loose leaf tea essentials",
             route: "/type/herbal-tea",
             icon: null,
           },
