@@ -12,6 +12,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "boxicons/css/boxicons.min.css";
 import "swiper/css/bundle";
 import "./globals.css";
+import { Prompt, SUSE } from "next/font/google";
 
 export const revalidate = 0;
 
