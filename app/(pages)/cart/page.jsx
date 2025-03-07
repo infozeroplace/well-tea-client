@@ -49,8 +49,30 @@ const CartPage = () => {
     unitPriceId,
     subscriptionId
   ) => {
+    const storedIntent = localStorage.getItem("paymentIntent");
+    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+
+    let paymentIntentId = "";
+    let shippingMethodId = "";
+    let coupon = "";
+
+    if (
+      parsedIntent &&
+      parsedIntent.shippingMethodId &&
+      parsedIntent.id &&
+      parsedIntent.clientSecret &&
+      parsedIntent.expiry > Date.now()
+    ) {
+      paymentIntentId = parsedIntent.id;
+      shippingMethodId = parsedIntent.shippingMethodId;
+      coupon = parsedIntent.coupon;
+    }
+
     await addToCart({
       data: {
+        paymentIntentId,
+        shippingMethodId,
+        coupon,
         productId,
         actionType,
         purchaseType,

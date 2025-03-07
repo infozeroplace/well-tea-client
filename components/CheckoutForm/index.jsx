@@ -63,42 +63,37 @@ export default function CheckoutForm({
     setIsProcessing(true);
 
     try {
-      // Attempt to confirm the payment
+      // 🔹 Confirm payment, but don't redirect immediately
       const { paymentIntent, error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url:
-            typeof window !== "undefined"
-              ? `${window.location.origin}/order-placed`
-              : undefined,
+          return_url: `${window.location.origin}/`,
         },
         redirect: "if_required",
       });
-      // Handle errors from Stripe
+
       if (error) {
         const errorMessage =
           error.type === "card_error" || error.type === "validation_error"
             ? error.message
             : "An unexpected error occurred. Please try again.";
         setMessage(errorMessage);
-      } else if (paymentIntent?.status === "succeeded") {
-        // If payment is successful, clear local storage and show success message
-        localStorage.removeItem("paymentIntent");
+        return;
+      }
+
+      if (paymentIntent?.status === "succeeded") {
         setMessage("Payment successful! Redirecting...");
         setTimeout(() => {
-          window.location.href = "/profile";
+          window.location.href = "/";
         }, 2000);
       } else {
-        setMessage(
-          "Payment is still pending. Please wait or check your email for updates."
-        );
+        setMessage("Payment is still processing. Check later.");
       }
     } catch (err) {
       setMessage(
         "An unexpected error occurred while processing the payment. Please try again."
       );
     } finally {
-      // Reset processing state
       setIsProcessing(false);
     }
   };

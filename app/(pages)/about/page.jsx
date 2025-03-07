@@ -144,14 +144,14 @@ const About = () => {
       </div>
 
       {/* Fourth Section */}
-      <AmazingPeople />
+      {/* <AmazingPeople /> */}
 
       {/* Fifth Section */}
-      <div className="section-gap">
-        <MarqueeText />
+      {/* <div className="section-gap"> */}
+        {/* <MarqueeText /> */}
         {/* Company Services */}
         {/* <CompanyServices /> */}
-      </div>
+      {/* </div> */}
 
       {/* Sixth Section */}
       <Subscription />
