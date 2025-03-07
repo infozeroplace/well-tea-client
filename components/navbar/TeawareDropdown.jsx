@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
-function TeawareDropdown({ dropdownItem }) {
+function TeawareDropdown({ dropdownItem, category }) {
   const productType = dropdownItem["productType"];
   const productTypeTitle = productType?.columnTitle || "";
   const productTypeChildren = productType?.children || [];
@@ -23,7 +23,7 @@ function TeawareDropdown({ dropdownItem }) {
         <h3 className="font-extralight text-xl">
           {" "}
           <Link
-            href="/collection/teaware"
+            href={`/collection/${category}`}
             className="flex items-center gap-2 max-w-[150px] w-full"
           >
             {productTypeTitle}
@@ -34,7 +34,7 @@ function TeawareDropdown({ dropdownItem }) {
           {productTypeChildren.map((item) => (
             <Link
               key={item?._id}
-              href={`/collection/teaware?productType=${item?.assortment}`}
+              href={`/collection/${category}?productType=${item?.assortment}`}
               className="hover:text-teagreen-600 flex items-center gap-1"
             >
               {item?.assortment}
@@ -48,7 +48,7 @@ function TeawareDropdown({ dropdownItem }) {
         {attributeChildren.map((item) => (
           <Link
             key={item?._id}
-            href={`/collection/teaware?attribute=${item?.assortment}`}
+            href={`/collection/${category}?attribute=${item?.assortment}`}
             className="hover:text-teagreen-600"
           >
             {item?.assortment}

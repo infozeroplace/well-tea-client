@@ -98,7 +98,10 @@ const Navbar = () => {
                           : ""
                       }`}
                     >
-                      <SelectedPattern dropdownItem={item?.dropdown} />
+                      <SelectedPattern
+                        dropdownItem={item?.dropdown}
+                        category={item?.category?.assortment}
+                      />
                     </NavDropdown>
                   )}
                 </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
-function TeaDropdown({ dropdownItem }) {
+function TeaDropdown({ dropdownItem, category }) {
   const productType = dropdownItem["productType"];
   const productTypeTitle = productType?.columnTitle || "";
   const productTypeChildren = productType?.children || [];
@@ -42,7 +42,7 @@ function TeaDropdown({ dropdownItem }) {
               {productTypeTitle}
             </h3>
             <Link
-              href="/collection/tea"
+              href={`/collection/${category}`}
               className="flex items-center justify-end gap-2 max-w-[150px] w-full"
             >
               <span>All Teas</span>
@@ -53,7 +53,7 @@ function TeaDropdown({ dropdownItem }) {
             {productTypeChildren.map((item) => (
               <Link
                 key={item?._id}
-                href={`/collection/tea?productType=${item?.assortment}`}
+                href={`/collection/${category}?productType=${item?.assortment}`}
                 className="hover:text-teagreen-600 flex items-center gap-1"
               >
                 {item?.thumbnail?.filepath && (
@@ -75,7 +75,7 @@ function TeaDropdown({ dropdownItem }) {
           {teaFlavorChildren.map((item) => (
             <Link
               key={item?._id}
-              href={`/collection/tea?teaFlavor=${item?.assortment}`}
+              href={`/collection/${category}?teaFlavor=${item?.assortment}`}
               className="hover:text-teagreen-600"
             >
               {item?.assortment}
@@ -88,7 +88,7 @@ function TeaDropdown({ dropdownItem }) {
           {attributeChildren.map((item) => (
             <Link
               key={item?._id}
-              href={`/collection/tea?attribute=${item?.assortment}`}
+              href={`/collection/${category}?attribute=${item?.assortment}`}
               className="hover:text-teagreen-600"
             >
               {item?.assortment}
@@ -103,7 +103,7 @@ function TeaDropdown({ dropdownItem }) {
           {teaFormatChildren.map((item) => (
             <Link
               key={item?._id}
-              href={`/collection/tea?teaFormat=${item?.assortment}`}
+              href={`/collection/${category}?teaFormat=${item?.assortment}`}
               className="hover:text-teagreen-600 flex items-center gap-3"
             >
               {item?.thumbnail?.filepath && (
@@ -122,7 +122,7 @@ function TeaDropdown({ dropdownItem }) {
           {originChildren.map((item) => (
             <Link
               key={item}
-              href={`/collection/tea?origin=${item}`}
+              href={`/collection/${category}?origin=${item}`}
               className="hover:text-teagreen-600"
             >
               {item}
@@ -139,7 +139,7 @@ function TeaDropdown({ dropdownItem }) {
               {teaBenefitChildren.map((item) => (
                 <Link
                   key={item?._id}
-                  href={`/collection/tea?teaBenefit=${item?.assortment}`}
+                  href={`/collection/${category}?teaBenefit=${item?.assortment}`}
                   className="hover:text-teagreen-600"
                 >
                   {item?.assortment}
