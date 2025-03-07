@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import { CommonBanner } from "@/components";
 import ProductList from "@/components/ProductList";
+import { Skeleton } from "@heroui/react";
+// import { Suspense } from "react";
 
 export const revalidate = 0;
 

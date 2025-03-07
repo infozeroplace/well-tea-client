@@ -119,15 +119,7 @@ const Category = ({ initialProducts, teaTypes }) => {
         </div>
 
         <div className="pb-10">
-          {isLoading ? (
-            <div className="w-1/2 mx-auto flex justify-center flex-col gap-2">
-              <Skeleton className="h-3 w-4/6 rounded-lg" />
-              <Skeleton className="h-3 w-4/5 rounded-lg" />
-              <Skeleton className="h-3 w-3/5 rounded-lg" />
-            </div>
-          ) : (
-            <CategorySlider products={products} />
-          )}
+          <CategorySlider products={products} isLoading={isLoading}/>
         </div>
 
         <div className="flex justify-center mx-auto">

@@ -6,8 +6,9 @@ import "swiper/css/pagination";
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ProductCard } from "../shared";
+import { Skeleton } from "@heroui/react";
 
-function CategorySlider({ products }) {
+function CategorySlider({ products, isLoading }) {
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
   const swiperInstance = useRef(null); // Store Swiper instance
@@ -60,11 +61,26 @@ function CategorySlider({ products }) {
           1536: { slidesPerView: 5.5, spaceBetween: 25 },
         }}
       >
-        {products.map((product, idx) => (
+        {/* {products.map((product, idx) => (
           <SwiperSlide key={idx}>
             <ProductCard product={product} />
           </SwiperSlide>
-        ))}
+        ))} */}
+        {(isLoading ? Array.from(new Array(8)) : products)
+          ?.slice(0, 7)
+          .map((product, idx) => (
+            <SwiperSlide key={idx}>
+              {product ? (
+                <ProductCard product={product} />
+              ) : (
+                <Skeleton
+                  key={idx}
+                  className="h-[350px]"
+                />
+              )}
+            </SwiperSlide>
+            )
+          )}
       </Swiper>
     </div>
   );

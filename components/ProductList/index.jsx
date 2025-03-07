@@ -8,6 +8,7 @@ import { FaChevronLeft } from "react-icons/fa6";
 import TeaFilters from "../TeaFilters";
 import TeaSort from "../TeaSort";
 import { ProductCard } from "../shared";
+import { Skeleton } from "@heroui/react";
 
 const PAGE_LIMITS = [10, 20, 30, 50, 100];
 
@@ -16,6 +17,7 @@ const ProductList = ({ products, category, meta = {} }) => {
   const [productLimit, setProductLimit] = useState(
     meta.limit || PAGE_LIMITS[0]
   );
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -39,6 +41,10 @@ const ProductList = ({ products, category, meta = {} }) => {
     params.set("limit", productLimit);
     router.push(`?${params.toString()}`, { scroll: false });
   };
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [products]);
 
   const handleLimitChange = (newLimit) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -72,7 +78,16 @@ const ProductList = ({ products, category, meta = {} }) => {
               <TeaSort onToggleFilter={toggleFilterVisibility} />
             </div>
 
-            {products.length > 0 ? (
+            {isLoading ? (
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+                {Array.from({ length: productLimit }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-full h-[450px]"
+                  />
+                ))}
+              </div>
+            ) : products.length > 0 ? (
               <div className="flex flex-col gap-10 w-full mb-10">
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                   {products.slice(0, productLimit).map((product) => (
