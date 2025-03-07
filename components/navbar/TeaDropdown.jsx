@@ -1,96 +1,68 @@
+import { env } from "@/config/env";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
 function TeaDropdown({ dropdownItem }) {
-  const productTypes = [
-    "green tea",
-    "white tea",
-    "flowering tea",
-    "black tea",
-    "herbal tea",
-    "pureh tea",
-    "fruit tea",
-    "oolong tea",
-    "jasmine tea",
-  ];
+  const productType = dropdownItem["productType"];
+  const productTypeTitle = productType?.columnTitle || "";
+  const productTypeChildren = productType?.children || [];
 
-  const formatItems = [
-    {
-      title: "loose leaf",
-      image: "/icons/leaf.svg",
-    },
-    {
-      title: "tea bag",
-      image: "/icons/tea-bage.svg",
-    },
-    {
-      title: "tea caddy",
-      image: "/icons/tea-caddies.svg",
-    },
-  ];
+  const teaFlavor = dropdownItem["teaFlavor"];
+  const teaFlavorTitle = teaFlavor?.columnTitle || "";
+  const teaFlavorChildren = teaFlavor?.children || [];
 
-  const originList = ["china", "bangldesh", "japan", "sri lanka"];
+  const attribute = dropdownItem["attribute"];
+  const attributeTitle = attribute?.columnTitle || "";
+  const attributeChildren = attribute?.children || [];
 
-  const flavourList = ["citrus", "fruity", "malty", "roasted", "floral"];
+  const teaFormat = dropdownItem["teaFormat"];
+  const teaFormatTitle = teaFormat?.columnTitle || "";
+  const teaFormatChildren = teaFormat?.children || [];
 
-  const discoverList = [
-    "caffeine free",
-    "organic",
-    "gluten free",
-    "vegan",
-    "sustainable",
-  ];
+  const origin = dropdownItem["origin"];
+  const originTitle = origin?.columnTitle || "";
+  const originChildren = origin?.children || [];
 
-  const healthList = [
-    "Immune System",
-    "Digestion & Inflammation",
-    "Sleep & Relaxation",
-    "Energy & Focus",
-    "Metabolism & Weight Loss",
-  ];
+  const teaBenefit = dropdownItem["teaBenefit"];
+  const teaBenefitTitle = teaBenefit?.columnTitle || "";
+  const teaBenefitChildren = teaBenefit?.children || [];
 
-  const caffeineFreeTea = [
-    {
-      name: "⁠Fruity Tea",
-      url: "/",
-    },
-    {
-      name: "⁠Herbal Tea",
-      url: "/",
-    },
-    {
-      name: "⁠Ice Tea",
-      url: "/",
-    },
-    {
-      name: "⁠Rooibos Tea",
-      url: "/",
-    },
-  ];
+  const featured1 = dropdownItem["featured1"];
+  const featured1Title = featured1?.title || "";
+  const featured1Route = featured1?.route || "/";
+  const featured1Thumbnail = featured1?.thumbnail || {};
 
   return (
     <div className="container-narrow px-4 w-full mx-auto flex justify-between capitalize">
       <div className="flex flex-col gap-5 p-5 basis-[30%] w-full border-r">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
-            <h3 className="font-extralight text-xl w-full">Type</h3>
+            <h3 className="font-extralight text-xl w-full">
+              {productTypeTitle}
+            </h3>
             <Link
-              href="/product-category?category=tea"
-              className="flex items-center justify-end gap-1 max-w-[150px] w-full"
+              href="/collection/tea"
+              className="flex items-center justify-end gap-2 max-w-[150px] w-full"
             >
               <span>All Teas</span>
-              <BsArrowRight />
+              <BsArrowRight size={16} />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-5 py-5">
-            {productTypes.map((item) => (
+            {productTypeChildren.map((item) => (
               <Link
-                key={item}
-                href={`/product-category?type=${item}`}
-                className="hover:text-teagreen-600"
+                key={item?._id}
+                href={`/collection/tea?productType=${item?.assortment}`}
+                className="hover:text-teagreen-600 flex items-center gap-1"
               >
-                {item}
+                {item?.thumbnail?.filepath && (
+                  <img
+                    className="w-8 h-8"
+                    src={env.app_url + item?.thumbnail?.filepath}
+                  />
+                )}
+                {item?.assortment}
               </Link>
             ))}
           </div>
@@ -99,56 +71,58 @@ function TeaDropdown({ dropdownItem }) {
 
       <div className="flex flex-col gap-5 p-5 basis-[25%] w-full border-r">
         <div className="flex flex-col gap-2">
-          <h3 className="font-extralight text-xl">Flavour</h3>
-          {flavourList.map((item) => (
+          <h3 className="font-extralight text-xl">{teaFlavorTitle}</h3>
+          {teaFlavorChildren.map((item) => (
             <Link
-              key={item}
-              href={`/product-category?flavour=${item}`}
+              key={item?._id}
+              href={`/collection/tea?teaFlavor=${item?.assortment}`}
               className="hover:text-teagreen-600"
             >
-              {item}
+              {item?.assortment}
             </Link>
           ))}
         </div>
         <hr />
         <div className="flex flex-col gap-2">
-          <h3 className="font-extralight text-xl">Discover</h3>
-          {discoverList.map((item) => (
+          <h3 className="font-extralight text-xl">{attributeTitle}</h3>
+          {attributeChildren.map((item) => (
             <Link
-              key={item}
-              href={`/product-category?keyword=${item}`}
+              key={item?._id}
+              href={`/collection/tea?attribute=${item?.assortment}`}
               className="hover:text-teagreen-600"
             >
-              {item}
+              {item?.assortment}
             </Link>
           ))}
         </div>
       </div>
 
       <div className="flex flex-col gap-5 p-5 basis-[25%] w-full border-r">
-        <h3 className="font-extralight text-xl">Format</h3>
+        <h3 className="font-extralight text-xl">{teaFormatTitle}</h3>
         <div className="flex flex-col gap-5">
-          {formatItems.map((item) => (
+          {teaFormatChildren.map((item) => (
             <Link
-              href={`/product-category?format=${item}`}
-              key={item.title}
+              key={item?._id}
+              href={`/collection/tea?teaFormat=${item?.assortment}`}
               className="hover:text-teagreen-600 flex items-center gap-3"
             >
-              <img
-                src={item.image}
-                className="w-5 text-teagreen-400 hover:text-teagreen-600"
-              />
-              {item.title}
+              {item?.thumbnail?.filepath && (
+                <img
+                  className="w-5 h-5"
+                  src={env.app_url + item?.thumbnail?.filepath}
+                />
+              )}
+              {item?.assortment}
             </Link>
           ))}
         </div>
         <hr />
         <div className="flex flex-col gap-2">
-          <h3 className="font-extralight text-xl">Origin</h3>
-          {originList.map((item) => (
+          <h3 className="font-extralight text-xl">{originTitle}</h3>
+          {originChildren.map((item) => (
             <Link
               key={item}
-              href={`/product-category?originName=${item}`}
+              href={`/collection/tea?origin=${item}`}
               className="hover:text-teagreen-600"
             >
               {item}
@@ -161,28 +135,37 @@ function TeaDropdown({ dropdownItem }) {
         <div className="flex flex-col gap-5">
           <div className="basis-1/2">
             <div className="flex flex-col gap-2">
-              <h3 className="font-extralight text-xl">Health</h3>
-              {healthList.map((item) => (
+              <h3 className="font-extralight text-xl">{teaBenefitTitle}</h3>
+              {teaBenefitChildren.map((item) => (
                 <Link
-                  key={item}
-                  href={`/product-category?benefit=${item}`}
+                  key={item?._id}
+                  href={`/collection/tea?teaBenefit=${item?.assortment}`}
                   className="hover:text-teagreen-600"
                 >
-                  {item}
+                  {item?.assortment}
                 </Link>
               ))}
             </div>
           </div>
           <hr />
 
-          <div className="my-auto border">
-            <Image
-              src="/images/teatypesidebar.jpg"
-              alt="Tea Types"
-              width={100}
-              height={100}
-              className="w-full max-h-[230px] h-full object-cover"
-            />
+          <div className="my-auto">
+            <Link href={featured1Route}>
+              <div className="flex flex-col items-center justify-center gap-2 text-center">
+                <Image
+                  src={
+                    featured1Thumbnail?.filepath
+                      ? `${env.app_url}${featured1Thumbnail?.filepath}`
+                      : "/placeholder.jpg"
+                  }
+                  alt={featured1Thumbnail?.alternateText || "image"}
+                  width={100}
+                  height={100}
+                  className="w-full max-h-[230px] h-full object-cover"
+                />
+                {featured1Title && <p>{featured1Title}</p>}
+              </div>
+            </Link>
           </div>
         </div>
       </div>

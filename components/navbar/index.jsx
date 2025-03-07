@@ -1,194 +1,55 @@
 "use client";
 
-import axios from "@/api/axios";
 import { env } from "@/config/env";
+import {
+  useGetMenuListQuery,
+  useGetSystemConfigQuery,
+} from "@/services/features/system/systemApi";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Cart from "./Cart";
 import ExploreDropdown from "./ExploreDropdown";
 import GiftDropdown from "./GiftDropdown";
 import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
+import Profile from "./Profile";
 import SearchProduct from "./SearchProduct";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
-import Profile from "./Profile";
 import Wishlist from "./Wishlist";
 
-const dropdownData = [
-  {
-    name: "tea",
-    sections: [
-      {
-        title: "all teas",
-        items: [
-          { name: "green tea" },
-          { name: "white tea" },
-          { name: "flowering tea" },
-          { name: "black tea" },
-          { name: "herbal tea" },
-          { name: "pureh tea" },
-          { name: "fruit tea" },
-          { name: "oolong tea" },
-          { name: "jasmine tea" },
-        ],
-      },
-      {
-        title: "flavour",
-        items: [
-          { name: "citrus" },
-          { name: "fruity" },
-          { name: "malty" },
-          { name: "roasted" },
-          { name: "floral" },
-        ],
-      },
-      {
-        title: "format",
-        items: [
-          { name: "loose leaf" },
-          { name: "tea bag" },
-          { name: "tea caddy" },
-        ],
-      },
-      {
-        title: "discover",
-        items: [
-          { name: "caffeine free" },
-          { name: "organic" },
-          { name: "gluten free" },
-          { name: "vegan" },
-          { name: "sustainable" },
-        ],
-      },
-      {
-        title: "health",
-        items: [
-          { name: "immune system" },
-          { name: "digestion & inflammation" },
-          { name: "sleep & relaxation" },
-          { name: "energy & focus" },
-          { name: "metabolism & weight loss" },
-        ],
-      },
-      {
-        title: "origin",
-        items: [
-          { name: "china" },
-          { name: "bangladesh" },
-          { name: "japan" },
-          { name: "sri lanka" },
-        ],
-      },
-    ],
-    featured: [
-      {
-        image: "/images/teapot.jpg",
-        title: "Special Tea Blends",
-        url: "/special-tea-blends",
-      },
-    ],
-  },
-  {
-    name: "teaware",
-    sections: [
-      {
-        title: "all teaware",
-        items: [
-          { name: "teapots" },
-          { name: "cups & mugs" },
-          { name: "tea strainers" },
-          { name: "loose leaf tea essentials" },
-        ],
-      },
-    ],
-    featured: [
-      {
-        image: "/images/teaware.jpg",
-        title: "Exclusive Teaware",
-        url: "/exclusive-teaware",
-      },
-    ],
-  },
-  {
-    name: "gift",
-    sections: [
-      {
-        title: "all gifts",
-        items: [
-          { name: "tea gifts" },
-          { name: "gift boxes" },
-          { name: "tea scented candles" },
-        ],
-      },
-      {
-        title: "gift inspirations",
-        items: [{ name: "gifts under £30" }, { name: "gifts under £50" }],
-      },
-    ],
-    featured: [
-      {
-        image: "/images/gift.jpg",
-        title: "Holiday Gift Shop",
-        url: "/holiday-gift-shop",
-      },
-    ],
-  },
+const dropdownPatterns = [
+  { value: "pattern-1", Pattern: TeaDropdown },
+  { value: "pattern-2", Pattern: TeawareDropdown },
+  { value: "pattern-3", Pattern: GiftDropdown },
 ];
-
-const mobileNavItems = [
-  {
-    name: "tea",
-    url: "/tea",
-  },
-  {
-    name: "teaware",
-    url: "/teaware",
-  },
-  {
-    name: "gift",
-    url: "/gift",
-  },
-  {
-    name: "sales",
-    url: "/sales",
-  },
-  {
-    name: "explore",
-    url: "/explore",
-  },
-]
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [logo, setLogo] = useState("");
+  const [logo, setLogo] = useState({});
+  const [menus, setMenus] = useState([]);
+
+  const { data: { data: menuList = [] } = {} } = useGetMenuListQuery();
+  const { data: { data: system = {} } = {} } = useGetSystemConfigQuery();
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const {
-          data: { data },
-        } = await axios.get("/public/system");
-        setLogo(data.logo);
-      } catch (error) {}
-    };
-
-    loadData();
-  }, []);
+    setLogo(system?.logo?.length > 0 ? system.logo[0] : {});
+    setMenus(menuList);
+  }, [system?.systemId, menuList?.length]);
 
   const navIconsClasses =
     "flex items-center text-2xl border-1 rounded-full border-white hover:border-teagreen-500 p-1 duration-200";
 
-    const [activeDropdown, setActiveDropdown] = useState(null);
-    const searchParams = useSearchParams();
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const searchParams = useSearchParams();
 
-    useEffect(() => {
-      setActiveDropdown(null);
-    }, [searchParams]);
+  useEffect(() => {
+    setActiveDropdown(null);
+  }, [searchParams]);
 
   return (
     <nav className="bg-white sticky top-0 z-[9999999] shadow-sm">
@@ -199,11 +60,11 @@ const Navbar = () => {
             <Link href="/">
               <Image
                 src={
-                  logo[0]?.filepath
-                    ? `${env.app_url}${logo[0]?.filepath}`
+                  logo?.filepath
+                    ? env.app_url + logo?.filepath
                     : "/logo/welltea_logo_color.png"
                 }
-                alt={logo[0]?.alternateText || "welltea"}
+                alt={logo?.alternateText || "welltea"}
                 width={150}
                 height={100}
                 quality={100}
@@ -213,34 +74,36 @@ const Navbar = () => {
           </div>
 
           {/* --------- Nav Items -------- */}
-          <div className="hidden lg:flex items-center gap-5">
-            {dropdownData.map((item) => (
-              <div
-                key={item.name}
-                // className="group"
-                onMouseEnter={() => setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <NavItem href={`/collection/${item.name}`} name={item.name} />
-                <NavDropdown
-                  extraClass={`shadow ${
-                    activeDropdown === item.name
-                      ? "scale-y-100 opacity-100"
-                      : ""
-                  }`}
-                >
-                  {item.name === "tea" ? (
-                    <TeaDropdown dropdownItem={item} />
-                  ) : item.name === "teaware" ? (
-                    <TeawareDropdown dropdownItem={item} />
-                  ) : (
-                    <GiftDropdown dropdownItem={item} />
-                  )}
-                </NavDropdown>
-              </div>
-            ))}
+          <div className="hidden sm:flex items-center gap-5">
+            {menus.map((item) => {
+              const SelectedPattern = dropdownPatterns.find(
+                (item2) => item?.dropdown?.pattern === item2?.value
+              )?.Pattern;
 
-            <NavItem href="/collection/sale" name="Sales" />
+              return (
+                <div
+                  key={item._id}
+                  onMouseEnter={() => setActiveDropdown(item._id)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <NavItem
+                    href={`/collection/${item?.category?.assortment}`}
+                    name={item?.category?.assortment || ""}
+                  />
+                  {SelectedPattern && (
+                    <NavDropdown
+                      extraClass={`shadow ${
+                        activeDropdown === item._id
+                          ? "scale-y-100 opacity-100"
+                          : ""
+                      }`}
+                    >
+                      <SelectedPattern dropdownItem={item?.dropdown} />
+                    </NavDropdown>
+                  )}
+                </div>
+              );
+            })}
 
             {/* ------ Explore Dropdown Menu ------ */}
             <div

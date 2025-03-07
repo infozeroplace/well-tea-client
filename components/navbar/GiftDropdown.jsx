@@ -1,8 +1,8 @@
+import { env } from "@/config/env";
 import Image from "next/image";
 import Link from "next/link";
-import { BsArrowRight } from "react-icons/bs";
 
-function GiftDropdown() {
+function GiftDropdown({ dropdownItem }) {
   const productTypes = [
     {
       image: "/images/Teanav_Organic_Tea.webp",
@@ -58,184 +58,125 @@ function GiftDropdown() {
     {
       name: "Gift Boxes & Hampers",
       url: "/",
-    }
-  ]
+    },
+  ];
 
   const giftInspirationList = [
     {
       name: "Gifts under £30",
-      url: "/"
+      url: "/",
     },
     {
       name: "Gifts under £50",
-      url: "/"
+      url: "/",
     },
     {
       name: "Starter kits",
-      url: "/"
+      url: "/",
     },
     {
       name: "Popular gifts",
-      url: "/"
-    }
-  ]
+      url: "/",
+    },
+  ];
 
   const seasonalGiftList = [
     {
       name: "Christmas Gifts",
-      url: "/"
+      url: "/",
     },
     {
       name: "Anniversary Gifts",
-      url: "/"
+      url: "/",
     },
     {
       name: "Birthday Gifts",
-      url: "/"
+      url: "/",
     },
     {
       name: "Festive Teas",
-      url: "/"
-    }
-  ]
+      url: "/",
+    },
+  ];
+
+  console.log(dropdownItem);
+  const productType = dropdownItem["productType"];
+  const productTypeTitle = productType?.columnTitle || "";
+  const productTypeChildren = productType?.children || [];
+
+  const attribute = dropdownItem["attribute"];
+  const attributeTitle = attribute?.columnTitle || "";
+  const attributeChildren = attribute?.children || [];
+
+  const teaFormat = dropdownItem["teaFormat"];
+  const teaFormatTitle = teaFormat?.columnTitle || "";
+  const teaFormatChildren = teaFormat?.children || [];
+
+  const featured1 = dropdownItem["featured1"];
+  const featured1Title = featured1?.title || "";
+  const featured1Route = featured1?.route || "/";
+  const featured1Thumbnail = featured1?.thumbnail || {};
 
   return (
-    <div>
-      <div className="w-full mx-auto flex justify-between">
-        <div className="basis-[50%] flex justify-evenly w-full border-r p-5">
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">All Gifts</h3>
-            {allGiftList.map((item, index) => (
-              <Link
-                key={index}
-                href={item.url}
-                className="hover:text-teagreen-600"
-              >
-                <p>{item.name}</p>
-              </Link>
-            ))}
-          </div>
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Gift Inspirations</h3>
-            {giftInspirationList.map((item, index) => (
-              <Link
-                key={index}
-                href={item.url}
-                className="hover:text-teagreen-600"
-              >
-                <p>{item.name}</p>
-              </Link>
-            ))}
-          </div>
-          <div className="flex flex-col gap-2">
-            <h3 className="font-extralight text-xl">Seasonal Gifts</h3>
-            {seasonalGiftList.map((item, index) => (
-              <Link
-                key={index}
-                href={item.url}
-                className="hover:text-teagreen-600"
-              >
-                <p>{item.name}</p>
-              </Link>
-            ))}
-          </div>
+    <div className="max-w-[1024px] w-full mx-auto flex justify-between capitalize">
+      <div className="flex justify-evenly w-full border-r p-5">
+        <div className="flex flex-col gap-2">
+          <h3 className="font-extralight text-xl">{productTypeTitle}</h3>
+          {productTypeChildren.map((item) => (
+            <Link
+              key={item?._id}
+              href={`/collection/tea?teaFlavor=${item?.assortment}`}
+              className="hover:text-teagreen-600"
+            >
+              {item?.assortment}
+            </Link>
+          ))}
         </div>
-
-        <div className="basis-[50%] w-full flex justify-evenly pt-5">
-          <Link href="/" className="group flex flex-col items-center gap-5">
-            <Image
-              src="/whychooseus/slide_banner_09.jpg"
-              alt="gifts"
-              width={300}
-              height={250}
-            />
-            <h4 className="uppercase font-extralight text-teagreen-600">
-              Christmas Gift Shop
-            </h4>
-          </Link>
-          <Link href="/" className="flex flex-col items-center gap-5">
-            <Image
-              src="/whychooseus/slide_banner_09.jpg"
-              alt="gifts"
-              width={300}
-              height={250}
-            />
-            <h4 className="uppercase font-extralight text-teagreen-600">
-              Egift cards
-            </h4>
-          </Link>
+        <div className="flex flex-col gap-2">
+          <h3 className="font-extralight text-xl">{teaFormatTitle}</h3>
+          {teaFormatChildren.map((item) => (
+            <Link
+              key={item?._id}
+              href={`/collection/tea?teaFormat=${item?.assortment}`}
+              className="hover:text-teagreen-600 flex items-center gap-3"
+            >
+              {item?.assortment}
+            </Link>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2">
+          <h3 className="font-extralight text-xl">{attributeTitle}</h3>
+          {attributeChildren.map((item) => (
+            <Link
+              key={item?._id}
+              href={`/collection/tea?attribute=${item?.assortment}`}
+              className="hover:text-teagreen-600"
+            >
+              {item?.assortment}
+            </Link>
+          ))}
         </div>
       </div>
+
+      <div className="w-full">
+        <Link href={featured1Route}>
+          <div className="flex flex-col gap-2 p-4">
+            <Image
+              src={
+                featured1Thumbnail?.filepath
+                  ? `${env.app_url}${featured1Thumbnail?.filepath}`
+                  : "/placeholder.jpg"
+              }
+              alt={featured1Thumbnail?.alternateText || "image"}
+              width={300}
+              height={250}
+              className="max-w-[300px] w-full max-h-[200px] h-full object-cover"
+            />
+            {featured1Title && <p>{featured1Title}</p>}
+          </div>
+        </Link>
+      </div>
     </div>
-    // <div className="w-full grid grid-cols-3 mt-10">
-
-    //   <div className="border-r-1">
-    //     <Image
-    //       src="/images/welltea_hero.png"
-    //       alt=""
-    //       width={200}
-    //       height={200}
-    //       style={{
-    //         width: "100%",
-    //         height: "100%",
-    //       }}
-    //     />
-    //   </div>
-
-    //   <div className="w-full mx-auto border-r-1">
-    //     <div className="flex justify-between mb-10 mx-5">
-    //       <h3>Type</h3>
-    //       <Link href="/tea" className="flex items-center gap-1">
-    //         All Teas
-    //         <BsArrowRight />
-    //       </Link>
-    //     </div>
-    //     <div className="grid grid-cols-2 gap-5 ml-10">
-    //       {productTypes.map((product, index) => (
-    //         <Link
-    //           href="#"
-    //           key={index}
-    //           className="flex items-center gap-3 hover:brightness-125"
-    //         >
-    //           <Image
-    //             src={product.image}
-    //             alt={product.name}
-    //             width={50}
-    //             height={50}
-    //           />
-    //           <p>{product.name}</p>
-    //         </Link>
-    //       ))}
-    //     </div>
-    //   </div>
-
-    //   <div className="border-r-1 flex flex-col gap-5">
-    //     <div>
-    //       <Image
-    //         src="/images/welltea_hero.png"
-    //         alt=""
-    //         width={200}
-    //         height={200}
-    //         style={{
-    //           width: "100%",
-    //           height: "auto",
-    //         }}
-    //       />
-    //     </div>
-    //     <div>
-    //       <Image
-    //         src="/images/welltea_hero.png"
-    //         alt=""
-    //         width={200}
-    //         height={200}
-    //         style={{
-    //           width: "100%",
-    //           height: "auto",
-    //         }}
-    //       />
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 
