@@ -21,22 +21,26 @@ function Header() {
   }, []);
 
   return (
-    <div className="w-full bg-teagreen-800 text-white p-3 text-center">
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay, A11y]}
-        slidesPerView={1}
-        autoplay
-        loop
-        speed={2000}
-        slidesPerGroup={1}
-      >
-        {notifications.map((item, idx) => (
-          <SwiperSlide key={idx}>
-            <h3>{item}</h3>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+    <>
+    {notifications.length > 0 && (
+      <div className="w-full bg-teagreen-800 text-white p-3 text-center">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay, A11y]}
+          slidesPerView={1}
+          autoplay
+          loop
+          speed={2000}
+          slidesPerGroup={1}
+        >
+          {notifications.map((item, idx) => (
+            <SwiperSlide key={idx}>
+              <h3>{item}</h3>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    )}
+    </>
   );
 }
 
