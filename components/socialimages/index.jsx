@@ -1,54 +1,17 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { env } from "@/config/env";
 import { FaInstagram } from "react-icons/fa";
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SectionLinkButton } from "../shared";
+import { useGetSocialPostListQuery } from "@/services/features/social/socialApi";
 
 function SocialImages() {
-  const socialImages = [
-    {
-      image: "/insta/insta1.jpg",
-      url: "https://facebook.com",
-      title: "Tea 1",
-    },
-    {
-      image: "/insta/insta2.jpg",
-      url: "https://linkedin.com",
-      title: "Tea 2",
-    },
-    {
-      image: "/insta/insta3.jpg",
-      url: "https://x.com",
-      title: "Tea 3",
-    },
-    {
-      image: "/insta/insta4.jpg",
-      url: "https://instagram.com",
-      title: "Tea 4",
-    },
-    {
-      image: "/insta/insta5.jpg",
-      url: "https://facebook.com",
-      title: "Tea 5",
-    },
-    {
-      image: "/insta/insta1.jpg",
-      url: "https://facebook.com",
-      title: "Tea 6",
-    },
-    {
-      image: "/insta/insta2.jpg",
-      url: "https://facebook.com",
-      title: "Tea 7",
-    },
-    {
-      image: "/insta/insta3.jpg",
-      url: "https://facebook.com",
-      title: "Tea 8",
-    },
-  ];
+  const { data: { data: socialPosts = [], meta = {}} = {} } = useGetSocialPostListQuery();
+
   return (
     <div className="section-gap">
       <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
@@ -99,15 +62,19 @@ function SocialImages() {
             },
           }}
         >
-          {socialImages.map((item, index) => (
+          {socialPosts.slice(0, 4).map((item, index) => (
             <SwiperSlide key={index}>
               <Link
-                href={item?.url}
+                href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block w-[350px] h-[350px]"
               >
-                <Image src={item?.image} alt={item?.title} fill={true} />
+                <Image
+                  src={`${env.app_url}${item?.thumbnail[0].filepath}`}
+                  alt={item?.thumbnail[0].alternateText}
+                  fill={true}
+                />
               </Link>
             </SwiperSlide>
           ))}

@@ -57,6 +57,7 @@ export const api = createApi({
     "wt",
     "reward",
     "blog",
+    "social",
   ],
   endpoints: () => ({}),
 });

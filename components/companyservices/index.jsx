@@ -29,10 +29,12 @@ const CompanyServices = async () => {
                 />
               )}
             </div>
-            <div className="uppercase text-xs text-teagreen-600 mb-2 font-semibold">
+            <h4 className="uppercase text-xs text-teagreen-600 mb-2 font-semibold">
               {item?.title}
-            </div>
-            <div className="tracking-tight">{item?.description}</div>
+            </h4>
+            <p className="w-72 tracking-tight mx-auto text-center">
+              {item?.description}
+            </p>
           </div>
         ))}
       </div>
