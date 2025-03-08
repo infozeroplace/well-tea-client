@@ -28,7 +28,7 @@ export async function generateMetadata({
   //   : "All Products";
 
   const title = `${capitalizeEachWord(decodedCategory)} Products`;
-  const imageUrl = "/images/chooseus-1.jpg";
+  const imageUrl = "/images/about-image-5.jpg";
   const siteUrl = "welltea.zeroplace.co/";
 
   const queryString = queryParams ? `?${queryParams}` : "";

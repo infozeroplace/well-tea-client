@@ -41,7 +41,7 @@ const CategoryCard = ({ item, url }) => {
       {/* Sell and Favorite Section */}
       <div className="flex justify-between text-sm px-3">
         <div className="w-8">
-          <img src="/products/label-sale.png" alt="Sale" />
+          <img src="" alt="Sale" />
         </div>
         {isFavorite ? (
           <div className="relative text-3xl cursor-pointer mr-3">
@@ -61,14 +61,14 @@ const CategoryCard = ({ item, url }) => {
           {/* Product Image */}
           <div className="relative group">
             <Image
-              src="/products/product-front.png"
+              src=""
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
               height={316}
               width={316}
               alt="Product Front"
             />
             <Image
-              src="/products/product-back2.png"
+              src=""
               className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
               height={316}
               width={316}

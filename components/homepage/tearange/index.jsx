@@ -5,15 +5,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const discoverItems = [
-  { title: "Harbal", image: "/discover/slide_banner_01.jpg" },
-  { title: "Blac Tea", image: "/discover/slide_banner_02.jpg" },
-  { title: "Green Tea", image: "/discover/slide_banner_03.jpg" },
-  { title: "White Tea", image: "/discover/slide_banner_04.jpg" },
-  { title: "Oolong Tea", image: "/discover/slide_banner_05.jpg" },
-  { title: "Matcha", image: "/discover/slide_banner_06.jpg" },
+  { title: "Harbal", image: "" },
+  { title: "Blac Tea", image: "" },
+  { title: "Green Tea", image: "" },
+  { title: "White Tea", image: "" },
+  { title: "Oolong Tea", image: "" },
+  { title: "Matcha", image: "" },
 ];
 const TeaRange = () => {
-  const [bgimage, setBgimage] = useState("/discover/slide_banner_01.jpg");
+  const [bgimage, setBgimage] = useState("");
 
   const handleImage = (image) => {
     setBgimage(image);

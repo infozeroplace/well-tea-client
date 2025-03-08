@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
 
   const siteUrl = "welltea.zeroplace.co/";
   const imageUrl =
-    `${env.image_path}/${product?.thumbnails[0]}` || "/images/product_one.jpg";
+    `${env.image_path}/${product?.thumbnails[0]}` || "/images/teatypeimage.jpg";
   const title = `${capitalizeEachWord(product?.metaTitle)} | Well Tea`;
 
   return {
