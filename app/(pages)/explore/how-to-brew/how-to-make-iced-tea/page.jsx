@@ -1,6 +1,6 @@
 import { CommonBanner, IcedTeaRecipe } from "@/components";
+import NextImage from "@/components/shared/NextImage";
 import { icedTeaMetadata } from "@/data/staticMetaData";
-import Image from "next/image";
 
 export const revalidate = 0;
 
@@ -15,7 +15,6 @@ const MakeIcedTea = () => {
     <div>
       <CommonBanner bannerTitle="How to make iced tea" />
       <div className="container px-4 lg:px-20 mt-20">
-
         {/* Heading Section */}
         <div className="section-gap text-2xl text-center lg:text-left tracking-tight font-medium">
           Welcome to the WellTea iced tea guide. With years of iced tea brewing
@@ -55,11 +54,10 @@ const MakeIcedTea = () => {
           </p>
           <br />
           <div className="flex gap-2 mb-1">
-            <Image
-              width={100}
-              height={123}
-              src="/images/sommeliertip.gif"
+            <NextImage
+              img="/images/sommeliertip.gif"
               alt="tip pic"
+              presets={{ width: "100", height: "123" }}
               className="w-5"
             />
             <div className="text-xl font-semibold text-teagreen-600">
@@ -103,11 +101,10 @@ const MakeIcedTea = () => {
           </p>
           <br />
           <div className="flex gap-2 mb-1">
-            <Image
-              width={100}
-              height={123}
-              src="/images/sommeliertip.gif"
+            <NextImage
+              img="/images/sommeliertip.gif"
               alt="tip pic"
+              presets={{ width: "100", height: "123" }}
               className="w-5"
             />
             <div className="text-xl font-semibold text-teagreen-600">

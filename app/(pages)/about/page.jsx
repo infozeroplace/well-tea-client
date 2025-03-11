@@ -1,10 +1,10 @@
 import {
-  AmazingPeople,
   CommonBanner,
   DiscoverUs,
   MarqueeText,
   Subscription,
 } from "@/components";
+import NextImage from "@/components/shared/NextImage";
 import { aboutMetadata } from "@/data/staticMetaData";
 
 import Image from "next/image";
@@ -29,7 +29,6 @@ const About = () => {
       </div>
 
       {/* Second Section */}
-      {/* <OurStory /> */}
       <DiscoverUs />
 
       {/* Third Section */}
@@ -46,11 +45,10 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="md:border-r border-slate-200 mb-8 lg:mb-0">
               <div className="relative aspect-[720/350] md:aspect-[410/350] w-full overflow-hidden lg:overflow-visible content-gap">
-                <Image
-                  src="/images/about-image-4.jpg"
+                <NextImage
+                  img="/images/about-image-4.jpg"
                   alt="Tea"
-                  width={410}
-                  height={350}
+                  presets={{ width: "410", height: "350" }}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -69,11 +67,10 @@ const About = () => {
             </div>
             <div className="lg:border-r border-slate-200 mb-8 lg:mb-0">
               <div className="relative aspect-[720/350] md:aspect-[410/350] w-full overflow-hidden lg:overflow-visible content-gap">
-                <Image
-                  src="/images/about-image-5.jpg"
+                <NextImage
+                  img="/images/about-image-5.jpg"
                   alt="Tea"
-                  width={410}
-                  height={350}
+                  presets={{ width: "410", height: "350" }}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -93,11 +90,10 @@ const About = () => {
             </div>
             <div className="md:border-r border-slate-200 mb-8 lg:mb-0">
               <div className="relative aspect-[720/350] md:aspect-[410/350] w-full overflow-hidden lg:overflow-visible content-gap">
-                <Image
-                  src="/images/about-image-6.jpg"
+                <NextImage
+                  img="/images/about-image-6.jpg"
                   alt="Tea"
-                  width={410}
-                  height={350}
+                  presets={{ width: "410", height: "350" }}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -117,11 +113,10 @@ const About = () => {
             </div>
             <div className="mb-8 lg:mb-0">
               <div className="relative aspect-[720/350] md:aspect-[410/350] w-full overflow-hidden lg:overflow-visible content-gap">
-                <Image
-                  src="/images/about-image-7.jpg"
+                <NextImage
+                  img="/images/about-image-7.jpg"
                   alt="Tea"
-                  width={410}
-                  height={350}
+                  presets={{ width: "410", height: "350" }}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -144,16 +139,13 @@ const About = () => {
       </div>
 
       {/* Fourth Section */}
-      {/* <AmazingPeople /> */}
+      <div className="section-gap">
+        <MarqueeText />
+        {/* Company Services
+        <CompanyServices /> */}
+      </div>
 
       {/* Fifth Section */}
-      {/* <div className="section-gap"> */}
-        {/* <MarqueeText /> */}
-        {/* Company Services */}
-        {/* <CompanyServices /> */}
-      {/* </div> */}
-
-      {/* Sixth Section */}
       <Subscription />
     </div>
   );
