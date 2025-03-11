@@ -1,50 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BsArrowRight } from "react-icons/bs";
 
 function ExploreDropdown() {
-  // const productTypes = [
-  //   {
-  //     image: "/images/Teanav_Organic_Tea.webp",
-  //     name: "Black Tea",
-  //   },
-  //   {
-  //     image: "/images/Teanav_Flowering_tea.webp",
-  //     name: "Green Tea",
-  //   },
-  //   {
-  //     image: "/images/Teanav_Herbal_tea.webp",
-  //     name: "White Tea",
-  //   },
-  //   {
-  //     image: "/images/Teanav_Flowering_tea.webp",
-  //     name: "Oolong Tea",
-  //   },
-  //   {
-  //     image: "/images/Teanav_Herbal_tea.webp",
-  //     name: "Herbal Tea",
-  //   },
-  //   {
-  //     image: "/images/Teanav_Flowering_tea.webp",
-  //     name: "Pu-erh Tea",
-  //   },
-  //   {
-  //     image: "/images/product_one.jpg",
-  //     name: "Black Tea",
-  //   },
-  //   {
-  //     image: "/images/product_two.jpg",
-  //     name: "Green Tea",
-  //   },
-  //   {
-  //     image: "/images/product_three.jpg",
-  //     name: "White Tea",
-  //   },
-  //   {
-  //     image: "/images/product_one.jpg",
-  //     name: "Black Tea",
-  //   },
-  // ];
 
   const articleList = [
     {

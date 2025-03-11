@@ -40,7 +40,7 @@ const AccessoriesCard = ({ item, url }) => {
             </div>
           ) : (
             <div className="w-8">
-              <img src="/products/label-sale.png" alt="Sale" />
+              <img src="" alt="Sale" />
             </div>
           )}
         </div>
@@ -62,14 +62,14 @@ const AccessoriesCard = ({ item, url }) => {
           {/* Product Image */}
           <div className="relative group">
             <Image
-              src="/products/product-front.png"
+              src=""
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
               height={316}
               width={316}
               alt="Product Front"
             />
             <Image
-              src="/products/product-back2.png"
+              src=""
               className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
               height={316}
               width={316}

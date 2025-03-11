@@ -47,7 +47,7 @@ export const discoverItems = [
     },
     {
       title: "Our Values",
-      image: "/whychooseus/slide_banner_08.jpg",
+      image: "/whychooseus/about-image-2.jpg",
       description: (
         <div className="text-sm text-justify">
           <h5 className="font-semibold">Quality and Sourcing</h5> <br />
@@ -96,7 +96,7 @@ export const discoverItems = [
     },
     {
       title: "Our Teas",
-      image: "/whychooseus/slide_banner_09.jpg",
+      image: "/whychooseus/about-image-2.jpg",
       description: (
         <Accordion className="w-full accordiontitle font-medium">
           <AccordionItem key="1" aria-label="Black Tea" title="Black Tea">

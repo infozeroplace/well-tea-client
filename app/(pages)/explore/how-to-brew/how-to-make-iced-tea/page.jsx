@@ -14,13 +14,7 @@ const MakeIcedTea = () => {
   return (
     <div>
       <CommonBanner bannerTitle="How to make iced tea" />
-      <div className="container px-4 lg:px-20">
-        <div className="section-gap mt-20">
-          <div className="text-5xl font-semibold tracking-tight content-gap">
-            How to make <br />
-            iced tea
-          </div>
-        </div>
+      <div className="container px-4 lg:px-20 mt-20">
 
         {/* Heading Section */}
         <div className="section-gap text-2xl text-center lg:text-left tracking-tight font-medium">
