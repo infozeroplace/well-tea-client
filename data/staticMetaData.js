@@ -1,10 +1,10 @@
 export const layoutMetadata = {
   title: "Well Tea",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Well Tea",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -17,7 +17,7 @@ export const layoutMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Well Tea",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
@@ -50,11 +50,11 @@ export const aboutMetadata = {
 
 export const articleListMetadata = {
   title: "Articles",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Articles",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -67,18 +67,18 @@ export const articleListMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Articles",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const cookiePolicyMetadata = {
   title: "Cookie Policy",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Cookie Policy",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -91,18 +91,18 @@ export const cookiePolicyMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Cookie Policy",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const deliveryMetadata = {
   title: "Delivery",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Delivery",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -115,18 +115,18 @@ export const deliveryMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Delivery",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const faqMetadata = {
   title: "FAQs",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "FAQs",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -139,7 +139,7 @@ export const faqMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "FAQs",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -153,11 +153,11 @@ export const faqMetadata = {
 
 export const subscriptionMetadata = {
   title: "Subscription",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Subscription",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -170,18 +170,18 @@ export const subscriptionMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Subscription",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const rewardsMetadata = {
   title: "Rewards",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Rewards",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -194,18 +194,18 @@ export const rewardsMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Rewards",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const icedTeaMetadata = {
   title: "How to make iced tea",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "How to make iced tea",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -218,18 +218,18 @@ export const icedTeaMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "How to make iced tea",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const makeMatchaMetadata = {
   title: "How to make traditional matcha",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "How to make traditional matcha",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -242,18 +242,18 @@ export const makeMatchaMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "How to make traditional matcha",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const makeTeaMetadata = {
   title: "How to make tea",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "How to make tea",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -266,18 +266,18 @@ export const makeTeaMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "How to make tea",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const privacyPolicyMetadata = {
   title: "Privacy Policy",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Privacy Policy",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -290,18 +290,18 @@ export const privacyPolicyMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const returnRefundMetadata = {
   title: "Return & Refund",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Return & Refund",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -314,18 +314,18 @@ export const returnRefundMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Return & Refund",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
 
 export const termsConditionsMetadata = {
   title: "Terms & Conditions",
-  description: "",
-  keywords: "",
+  description: "Well Tea is a UK Based online tea retailer",
+  keywords: "well, tea, welltea",
   openGraph: {
     title: "Terms & Conditions",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [
       {
         url: "",
@@ -338,7 +338,7 @@ export const termsConditionsMetadata = {
   twitter: {
     card: "summary_large_image",
     title: "Terms & Conditions",
-    description: "",
+    description: "Well Tea is a UK Based online tea retailer",
     images: [""],
   },
 };
