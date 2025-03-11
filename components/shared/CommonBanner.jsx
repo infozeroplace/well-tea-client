@@ -1,4 +1,4 @@
-import Image from "next/image";
+import NextImage from "./NextImage";
 
 function CommonBanner({
   bannerImage,
@@ -8,10 +8,9 @@ function CommonBanner({
 }) {
   return (
     <div className="relative w-full h-[200px]">
-      <Image
-        src={bannerImage || "/images/about-image-1.jpg"}
+      <NextImage
+        img={bannerImage || "/images/about-image-1.jpg"}
         alt="banner"
-        objectFit="cover"
         fill
       />
       <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex flex-col items-center justify-center text-white text-brand__font__size__lg lg:text-brand__font__size__lg2 capitalize">

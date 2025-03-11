@@ -4,15 +4,15 @@ import axios from "@/api/axios";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { SectionLinkButton } from "../shared";
 import LoadingOverlay from "../shared/LoadingOverlay";
+import NextImage from "../shared/NextImage";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -21,6 +21,9 @@ const toNumber = (value) => {
 };
 
 const Cart = ({ buttonClass }) => {
+  const wishlistRef = useRef(null);
+  const buttonRef = useRef(null);
+
   const {
     carts: { carts },
   } = useAppSelector((state) => state);
@@ -94,10 +97,25 @@ const Cart = ({ buttonClass }) => {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)} className={buttonClass}>
+      <button
+        ref={buttonRef}
+        onClick={() => setIsOpen(true)}
+        className={buttonClass}
+        aria-label={
+          totalQuantity > 0
+            ? `Cart with ${totalQuantity} items`
+            : "Your Cart is empty"
+        }
+        aria-expanded={isOpen}
+        aria-controls="cart-panel"
+      >
         <PiShoppingCartThin />
         {totalQuantity > 0 && (
-          <span className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
+          <span
+            aria-live="polite"
+            role="status"
+            className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center"
+          >
             {totalQuantity}
           </span>
         )}
@@ -108,6 +126,12 @@ const Cart = ({ buttonClass }) => {
 
       {/* ------ Cart -------- */}
       <div
+        id="cart-panel"
+        ref={wishlistRef}
+        role="dialog"
+        tabIndex={-1}
+        aria-labelledby="cart-title"
+        aria-modal="true"
         className={`fixed top-0 right-0 h-[100vh] w-[450px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -136,11 +160,11 @@ const Cart = ({ buttonClass }) => {
                     className="flex items-center gap-3 group"
                   >
                     <div className="">
-                      <Image
-                        src={`${env.app_url}${item.thumbnail?.filepath}`}
+                      <NextImage
+                        img={`${env.app_url}${item.thumbnail?.filepath}`}
                         alt={item?.thumbnail?.alternateText}
-                        width={80}
-                        height={80}
+                        presets={{ width: 80, height: 80 }}
+                        className="w-[80]"
                       />
                     </div>
                     <div className="flex-1 flex flex-col gap-2">
@@ -242,6 +266,7 @@ const Cart = ({ buttonClass }) => {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30"
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
         ></div>
       )}
       <LoadingOverlay isLoading={addToCartLoading} />

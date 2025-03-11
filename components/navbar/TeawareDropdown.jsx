@@ -1,7 +1,7 @@
 import { env } from "@/config/env";
-import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
+import NextImage from "../shared/NextImage";
 
 function TeawareDropdown({ dropdownItem, category }) {
   const productType = dropdownItem["productType"];
@@ -58,8 +58,8 @@ function TeawareDropdown({ dropdownItem, category }) {
 
       <Link href={featured1Route}>
         <div className="flex flex-col gap-2">
-          <Image
-            src={
+          <NextImage
+            img={
               featured1Thumbnail?.filepath
                 ? `${env.app_url}${featured1Thumbnail?.filepath}`
                 : "/placeholder.jpg"
@@ -67,6 +67,7 @@ function TeawareDropdown({ dropdownItem, category }) {
             alt={featured1Thumbnail?.alternateText || "image"}
             width={300}
             height={250}
+            presets={{width: 300, height: 250}}
             className="max-w-[300px] w-full max-h-[250px] h-full object-cover"
           />
           {featured1Title && <p>{featured1Title}</p>}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import ShortDescription from "../shortdescription";
 import ManageProduct from "./ManageProduct";
 import SocialShare from "./SocialShare";
+import NextImage from "@/components/shared/NextImage";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -87,10 +88,11 @@ const ProductDetails = ({ product }) => {
                   key={teaFormat._id}
                 >
                   {teaFormat?.thumbnail[0]?.filepath && (
-                    <img
-                      className="w-[20px] h-[20px]"
-                      src={env.app_url + teaFormat?.thumbnail[0]?.filepath}
+                    <NextImage
+                      img={env.app_url + teaFormat?.thumbnail[0]?.filepath}
                       alt={teaFormat?.thumbnail[0]?.alternateText || ""}
+                      presets={{width: 20, height: 20}}
+                      className="w-[20px] h-[20px]"
                     />
                   )}
                   <span> {teaFormat.assortment}</span>
@@ -102,10 +104,11 @@ const ProductDetails = ({ product }) => {
                   className="flex items-center gap-3 py-2.5 px-5 text-teagreen-600 text-brand__font__size__sm font-brand__font__500 capitalize border border-teagreen-400 rounded"
                 >
                   {teaFormat?.thumbnail[0]?.filepath && (
-                    <img
-                      className="w-[12px] h-[12px]"
-                      src={env.app_url + teaFormat?.thumbnail[0]?.filepath}
+                    <NextImage
+                      img={env.app_url + teaFormat?.thumbnail[0]?.filepath}
                       alt={teaFormat?.thumbnail[0]?.alternateText || ""}
+                      presets={{width: 12, height: 12}}
+                      className="w-[12px] h-[12px]"
                     />
                   )}
                   <span>{teaFormat.assortment}</span>

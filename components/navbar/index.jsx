@@ -5,7 +5,6 @@ import {
   useGetMenuListQuery,
   useGetSystemConfigQuery,
 } from "@/services/features/system/systemApi";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -19,6 +18,7 @@ import SearchProduct from "./SearchProduct";
 import TeaDropdown from "./TeaDropdown";
 import TeawareDropdown from "./TeawareDropdown";
 import Wishlist from "./Wishlist";
+import NextImage from "../shared/NextImage";
 
 const dropdownPatterns = [
   { value: "pattern-1", Pattern: TeaDropdown },
@@ -58,17 +58,14 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 w-28 md:w-36">
             <Link href="/">
-              <Image
-                src={
+              <NextImage
+                img={
                   logo?.filepath
                     ? env.app_url + logo?.filepath
                     : "/logo/welltea_logo_color.png"
                 }
                 alt={logo?.alternateText || "welltea"}
-                width={150}
-                height={100}
-                quality={100}
-                className="w-full"
+                presets={{width: 150, height: 100}}
               />
             </Link>
           </div>
