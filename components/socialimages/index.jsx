@@ -71,8 +71,8 @@ function SocialImages() {
                 className="inline-block w-[350px] h-[350px]"
               >
                 <Image
-                  src={`${env.app_url}${item?.thumbnail[0].filepath}`}
-                  alt={item?.thumbnail[0].alternateText}
+                  src={`${env.app_url}${item?.thumbnail?.filepath}`}
+                  alt={item?.thumbnail?.alternateText}
                   fill={true}
                 />
               </Link>
