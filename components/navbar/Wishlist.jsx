@@ -1,7 +1,6 @@
 import React from 'react'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from 'next/link';
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { CiHeart } from 'react-icons/ci'
@@ -13,6 +12,7 @@ import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wi
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppSelector } from '@/services/hook';
 import LoadingOverlay from '../shared/LoadingOverlay';
+import NextImage from '../shared/NextImage';
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -21,6 +21,8 @@ const toNumber = (value) => {
 
 function Wishlist({ buttonClass }) {
   const [isOpen, setIsOpen] = useState(false);
+  const wishlistRef = useRef(null);
+  const buttonRef = useRef(null);
   const wishlist = useAppSelector((state) => state.wishlist.wishlist);
   const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
   const [addToCart, { isLoading: addToCartLoading, data: addToCartData }] = useAddToCartMutation();
@@ -69,10 +71,25 @@ function Wishlist({ buttonClass }) {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className={buttonClass}>
+      <button
+        ref={buttonRef}
+        onClick={() => setIsOpen(true)}
+        className={buttonClass}
+        aria-label={
+          totalQuantity > 0
+            ? `Wishlist with ${totalQuantity} items`
+            : "Your wishlist is empty"
+        }
+        aria-expanded={isOpen}
+        aria-controls="wishlist-panel"
+      >
         <CiHeart />
         {totalQuantity > 0 && (
-          <span className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
+          <span
+            aria-live="polite"
+            role="status"
+            className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center"
+          >
             {totalQuantity}
           </span>
         )}
@@ -82,6 +99,12 @@ function Wishlist({ buttonClass }) {
       </button>
 
       <div
+        id="wishlist-panel"
+        ref={wishlistRef}
+        role="dialog"
+        tabIndex={-1}
+        aria-labelledby="wishlist-title"
+        aria-modal="true"
         className={`fixed top-0 right-0 h-[100vh] w-[450px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -110,15 +133,19 @@ function Wishlist({ buttonClass }) {
                     className="flex items-center gap-3 group"
                   >
                     <div className="">
-                      <Image
-                        src={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
+                      <NextImage
+                        img={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
                         alt={item?.thumbnails[0]?.alternateText}
                         width={80}
                         height={80}
+                        presets={{ width: 80, height: 80 }}
+                        className="w-[80px]"
                       />
                     </div>
                     <div className="flex-1 space-y-2">
-                      <h3 className="text-sm font-light group-hover:underline">{item?.title}</h3>
+                      <h3 className="text-sm font-light group-hover:underline">
+                        {item?.title}
+                      </h3>
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                           {item.unitPrices[0]?.unit}
@@ -184,6 +211,7 @@ function Wishlist({ buttonClass }) {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
         ></div>
       )}
       <LoadingOverlay isLoading={addToCartLoading || addToWishlistLoading} />

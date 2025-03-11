@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { env } from "@/config/env";
 import { FaInstagram } from "react-icons/fa";
@@ -8,6 +7,7 @@ import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SectionLinkButton } from "../shared";
 import { useGetSocialPostListQuery } from "@/services/features/social/socialApi";
+import NextImage from "../shared/NextImage";
 
 function SocialImages() {
   const { data: { data: socialPosts = [], meta = {}} = {} } = useGetSocialPostListQuery();
@@ -70,8 +70,8 @@ function SocialImages() {
                 rel="noopener noreferrer"
                 className="inline-block w-[350px] h-[350px]"
               >
-                <Image
-                  src={`${env.app_url}${item?.thumbnail?.filepath}`}
+                <NextImage
+                  img={`${env.app_url}${item?.thumbnail?.filepath}`}
                   alt={item?.thumbnail?.alternateText}
                   fill={true}
                 />

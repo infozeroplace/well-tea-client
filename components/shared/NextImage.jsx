@@ -12,10 +12,12 @@ export default function NextImage({
       title={props.title}
       src={img}
       alt={alt ?? "zero-place-image"}
-      height={presets?.height ?? 350}
-      width={presets?.width ?? 350}
+      height={presets?.height}
+      width={presets?.width}
+      fill={props?.fill}
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      className={cn("w-full h-full object-cover", props.className)}
+      className={cn("w-full h-full object-cover", props?.className)}
+      style={props.style}
       priority={true}
     />
   );

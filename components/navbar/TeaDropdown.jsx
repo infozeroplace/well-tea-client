@@ -1,7 +1,7 @@
 import { env } from "@/config/env";
-import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
+import NextImage from "../shared/NextImage";
 
 function TeaDropdown({ dropdownItem, category }) {
   const productType = dropdownItem["productType"];
@@ -57,9 +57,11 @@ function TeaDropdown({ dropdownItem, category }) {
                 className="hover:text-teagreen-600 flex items-center gap-1"
               >
                 {item?.thumbnail?.filepath && (
-                  <img
+                  <NextImage
+                    img={env.app_url + item?.thumbnail?.filepath}
+                    alt={item?.thumbnail?.alternateText}
+                    presets={{ width: 15, height: 15 }}
                     className="w-8 h-8"
-                    src={env.app_url + item?.thumbnail?.filepath}
                   />
                 )}
                 {item?.assortment}
@@ -107,9 +109,11 @@ function TeaDropdown({ dropdownItem, category }) {
               className="hover:text-teagreen-600 flex items-center gap-3"
             >
               {item?.thumbnail?.filepath && (
-                <img
+                <NextImage
+                  img={env.app_url + item?.thumbnail?.filepath}
+                  alt={item?.thumbnail?.alternateText}
+                  presets={{ width: 15, height: 15 }}
                   className="w-5 h-5"
-                  src={env.app_url + item?.thumbnail?.filepath}
                 />
               )}
               {item?.assortment}
@@ -152,15 +156,14 @@ function TeaDropdown({ dropdownItem, category }) {
           <div className="my-auto">
             <Link href={featured1Route}>
               <div className="flex flex-col items-center justify-center gap-2 text-center">
-                <Image
-                  src={
+                <NextImage
+                  img={
                     featured1Thumbnail?.filepath
                       ? `${env.app_url}${featured1Thumbnail?.filepath}`
                       : "/placeholder.jpg"
                   }
                   alt={featured1Thumbnail?.alternateText || "image"}
-                  width={100}
-                  height={100}
+                  presets={{ width: 100, height: 100 }}
                   className="w-full max-h-[230px] h-full object-cover"
                 />
                 {featured1Title && <p>{featured1Title}</p>}

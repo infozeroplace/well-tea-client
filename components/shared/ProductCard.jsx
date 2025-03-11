@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import NextImage from "./NextImage";
 
 const ProductCard = ({ product }) => {
   const {
@@ -142,19 +143,17 @@ const ProductCard = ({ product }) => {
         {/* Product Image Section */}
         <Link href={`/${product?.urlParameter}`} className="px-3 block">
           <div className="relative w-full aspect-square group overflow-hidden">
-            <Image
-              src={thumbnail1}
-              className="mx-auto transition-opacity duration-300 group-hover:opacity-0 object-contain w-full h-full"
-              height={316}
-              width={316}
+            <NextImage
+              img={thumbnail1}
               alt={alt1}
+              presets={{ width: "316", height: "316" }}
+              className="mx-auto transition-opacity duration-300 group-hover:opacity-0 object-contain w-full h-full"
             />
-            <Image
-              src={thumbnail2}
-              className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 object-contain w-full h-full"
-              height={316}
-              width={316}
+            <NextImage
+              img={thumbnail2}
               alt={alt2}
+              presets={{ width: "316", height: "316" }}
+              className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 object-contain w-full h-full"
             />
           </div>
         </Link>
