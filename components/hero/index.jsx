@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SectionLinkButton } from "../shared";
+import NextImage from "../shared/NextImage";
 
 function Hero({ data }) {
   const router = useRouter();
@@ -47,14 +48,10 @@ function Hero({ data }) {
           {data.map((item, idx) => (
             <SwiperSlide key={idx} className="relative">
               <div className="w-full h-[450px] md:h-[500px] 2xl:h-[636px]">
-                <Image
-                  src={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
+                <NextImage
+                  img={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
                   alt={item?.bannerImagePath[0]?.alternateText}
-                  width={1900}
-                  height={750}
-                  className="object-cover h-full w-full"
-                  priority={true}
-                  // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  presets={{width: "1900", height: "750"}}
                 />
               </div>
 
