@@ -24,7 +24,8 @@ const CompanyServices = async () => {
                 <NextImage
                   img={`${env.app_url}${item?.iconPath[0]?.filepath}`}
                   alt={item?.iconPath[0]?.alternateText || ""}
-                  presets={{ width: 20, height: 20 }}
+                  presets={{width: 20, height: 20}}
+                  className="w-5 h-5"
                 />
               )}
             </div>
@@ -42,4 +43,3 @@ const CompanyServices = async () => {
 };
 
 export default CompanyServices;
-
