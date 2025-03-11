@@ -53,6 +53,7 @@ function Hero({ data }) {
                   width={1900}
                   height={750}
                   className="object-cover h-full w-full"
+                  priority
                 />
               </div>
 
