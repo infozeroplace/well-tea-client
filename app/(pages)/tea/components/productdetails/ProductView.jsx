@@ -1,5 +1,6 @@
 "use client";
 
+import NextImage from "@/components/shared/NextImage";
 import { env } from "@/config/env";
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@heroui/react";
 import { useState } from "react";
@@ -56,9 +57,10 @@ const ProductView = ({
                     onClick={toggleZoom}
                     style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
                   >
-                    <img
-                      src={`${env.app_url}${selectedImage.filepath}`}
+                    <NextImage
+                      img={`${env.app_url}${selectedImage.filepath}`}
                       alt={selectedImage.alternateText || ""}
+                      presets={{width: 500, height: 500}}
                       className={`max-w-[500px] w-full mx-auto transition-transform duration-300 ${
                         isZoomed ? "scale-[2.5]" : "scale-100"
                       }`}
@@ -92,15 +94,16 @@ const ProductView = ({
                   {/* Images */}
                   <div className="flex flex-wrap gap-2">
                     {product?.slideImages.map((image, index) => (
-                      <img
+                      <NextImage
                         key={index}
-                        src={`${env.app_url}${selectedImage.filepath}`}
-                        alt={selectedImage.alternateText || ""}
+                        img={`${env.app_url}${selectedImage.filepath}`}
+                        aimglt={selectedImage.alternateText || ""}
                         className={`w-[50px] h-[50px] mx-2 border rounded-lg hover:border hover:border-teagreen-600 cursor-pointer ${
                           image === selectedImage
                             ? "border-teagreen-500"
                             : "border-teagreen-300"
                         }`}
+                        presets={{width: 50, height: 50}}
                         onClick={() => setSelectedImage(image)}
                       />
                     ))}

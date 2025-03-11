@@ -12,6 +12,9 @@ const SectionLinkButton = ({
     <Link
       href={url}
       target={target}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
+      role="button"
+      aria-label={title}
       className={
         "inline-block relative h-12 group overflow-hidden border-1 border-teagreen-500 hover:border-teagreen-800 text-lg rounded-full text-center transition-all duration-300 " +
         buttonClass

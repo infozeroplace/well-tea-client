@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+// import { useSearchParams } from "next/navigation";
+// import Link from "next/link";
 import { useAppSelector } from "@/services/hook";
 import { SectionLinkButton } from "@/components";
 import { CiCircleCheck } from "react-icons/ci";

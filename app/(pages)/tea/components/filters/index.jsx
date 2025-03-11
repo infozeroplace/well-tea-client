@@ -3,7 +3,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import axios from "@/api/axios";
 
 export const revalidate = 0;
 
@@ -18,60 +17,6 @@ async function Filters() {
     benefit: false,
     flavour: false,
   });
-
-  // const [filtersData, setFiltersData] = useState([
-  //   {
-  //     category: "Types",
-  //     options: [
-  //       { param: "green tea" },
-  //       { param: "white tea" },
-  //       { param: "black tea" },
-  //       { param: "oolong tea" },
-  //       { param: "herbal tea" },
-  //       { param: "flowering tea" },
-  //       { param: "jasmine tea" },
-  //       { param: "yellow tea" },
-  //       { param: "matcha" },
-  //     ],
-  //     key: "type",
-  //   },
-  //   {
-  //     category: "Tea Format",
-  //     options: [
-  //       { param: "loose leaf" },
-  //       { param: "tea caddy" },
-  //       { param: "tea bag" },
-  //     ],
-  //     key: "format",
-  //   },
-  //   {
-  //     category: "Price",
-  //     options: [{ param: "0-25" }, { param: "26-40" }, { param: "41-65" }],
-  //     key: "price",
-  //   },
-  //   {
-  //     category: "Health Benefit",
-  //     options: [
-  //       { param: "energy" },
-  //       { param: "gut health" },
-  //       { param: "immunity" },
-  //     ],
-  //     key: "benefit",
-  //   },
-  //   {
-  //     category: "Flavour",
-  //     options: [
-  //       { param: "citrus" },
-  //       { param: "flavoured" },
-  //       { param: "floral" },
-  //       { param: "fruity" },
-  //       { param: "smoke" },
-  //       { param: "spice" },
-  //       { param: "sweet" },
-  //     ],
-  //     key: "flavour",
-  //   },
-  // ]);
 
   const handleCheckboxChange = (key, param) => {
     const params = new URLSearchParams(searchParams.toString());

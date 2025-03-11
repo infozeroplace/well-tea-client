@@ -1,6 +1,7 @@
 "use client";
 
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import NextImage from "@/components/shared/NextImage";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
@@ -88,11 +89,10 @@ function WishlistScreen() {
                   href={`/${item?.urlParameter}`}
                   className="flex items-center gap-3 group w-fit"
                 >
-                  <Image
-                    src={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
+                  <NextImage
+                    img={`${env.app_url}${item?.thumbnails[0]?.filepath}`}
                     alt={item?.thumbnails[0]?.alternateText}
-                    width={80}
-                    height={80}
+                    presets={{ width: 80, height: 80 }}
                   />
                   <div className="text-left capitalize space-y-1">
                     <h4 className="font-brand__font__light group-hover:underline">

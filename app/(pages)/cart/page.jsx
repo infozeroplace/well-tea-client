@@ -1,6 +1,6 @@
 "use client";
 import axios from "@/api/axios";
-import { CommonBanner, SectionButton } from "@/components";
+import { CommonBanner, SectionButton, SectionLinkButton } from "@/components";
 import EmptyBasket from "@/components/EmptyBasket";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import { env } from "@/config/env";
@@ -8,10 +8,11 @@ import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { RelatedProducts } from "../tea/components";
+import NextImage from "@/components/shared/NextImage";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -24,7 +25,7 @@ const CartPage = () => {
     useAddToCartMutation();
   const carts = useAppSelector((state) => state.carts.carts);
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  // const router = useRouter();
   const ids = carts?.items?.map((item) => item?.productId);
   const [relatedProductsData, setRelatedProductsData] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
@@ -83,7 +84,7 @@ const CartPage = () => {
     });
   };
 
-  const handleNavigate = () => router.push("/checkout");
+  // const handleNavigate = () => router.push("/checkout");
 
   useEffect(() => {
     if (carts?.items?.length) {
@@ -146,11 +147,10 @@ const CartPage = () => {
                                 href={`/${item?.urlParameter}`}
                                 className="flex items-center gap-3 group"
                               >
-                                <Image
-                                  src={`${env.app_url}${item.thumbnail?.filepath}`}
+                                <NextImage
+                                  img={`${env.app_url}${item.thumbnail?.filepath}`}
                                   alt={item?.thumbnail?.alternateText}
-                                  width={80}
-                                  height={80}
+                                  presets={{ width: 80, height: 80 }}
                                 />
                                 <div className="space-y-1">
                                   <h4 className="font-light group-hover:underline duration-300">
@@ -274,11 +274,12 @@ const CartPage = () => {
                     <span>£{toNumber(carts?.totalPrice).toFixed(2)}</span>
                   </div>
                   <div className="w-full mt-10">
-                    <SectionButton
+                    <SectionLinkButton
                       title="PROCEED TO CHECKOUT"
+                      url="/checkout"
                       buttonClass="!w-full"
                       textClass="text-brand__font__size__sm"
-                      onClick={handleNavigate}
+                      // onClick={handleNavigate}
                     />
                   </div>
                 </div>

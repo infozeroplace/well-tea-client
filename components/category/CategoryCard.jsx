@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/services/features/cart/cartSlice";
 import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import NextImage from "../shared/NextImage";
 
 const CategoryCard = ({ item, url }) => {
   if (!item) return null;
@@ -41,7 +42,7 @@ const CategoryCard = ({ item, url }) => {
       {/* Sell and Favorite Section */}
       <div className="flex justify-between text-sm px-3">
         <div className="w-8">
-          <img src="" alt="Sale" />
+          <NextImage img="" alt="Sale" presets={{ width: 50, height: 50 }} />
         </div>
         {isFavorite ? (
           <div className="relative text-3xl cursor-pointer mr-3">
@@ -54,28 +55,27 @@ const CategoryCard = ({ item, url }) => {
           </div>
         )}
       </div>
-     
+
       <div className="">
         {/* Product image and descriptions */}
         <Link href={CardUrl}>
           {/* Product Image */}
           <div className="relative group">
-            <Image
-              src=""
+            <NextImage
+              img=""
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
-              height={316}
-              width={316}
+              presets={{ width: 316, height: 316 }}
               alt="Product Front"
             />
-            <Image
-              src=""
-              className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-              height={316}
-              width={316}
+
+            <NextImage
+              img=""
+              className="mx-auto transition-opacity duration-300 group-hover:opacity-0"
+              presets={{ width: 316, height: 316 }}
               alt="Product Back"
             />
           </div>
-          
+
           {/* Product Content */}
           <div
             style={{ display: addButtonClicked ? "none" : "block" }}

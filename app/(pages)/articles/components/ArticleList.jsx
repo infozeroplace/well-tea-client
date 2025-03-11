@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { env } from "@/config/env";
 import LoadingOverlay from '@/components/shared/LoadingOverlay';
+import NextImage from '@/components/shared/NextImage';
 
 function ArticleList({ articleList = [], meta = {} }) {
     const router = useRouter();
@@ -35,11 +36,10 @@ function ArticleList({ articleList = [], meta = {} }) {
             // <ArticleCard key={article.title} article={article} />
             <Link href={`articles/${article.urlParameter}`} key={article._id}>
               <div className="h-[540px] bg-white rounded-lg border border-gray-100 shadow-md hover:shadow-lg hover:scale-105 duration-300 overflow-hidden">
-                <Image
-                  src={`${env.app_url}${article.thumbnail[0].filepath}`}
+                <NextImage
+                  img={`${env.app_url}${article.thumbnail[0].filepath}`}
                   alt={article.thumbnail[0].alternateText}
-                  width={500}
-                  height={500}
+                  presets={{ width: 500, height: 500 }}
                 />
                 <div className="p-4 space-y-2">
                   <h2 className="text-brand__font__size__lg font-brand__font__light">

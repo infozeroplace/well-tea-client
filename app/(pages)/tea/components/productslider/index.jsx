@@ -133,7 +133,7 @@ function ProductSlider({ product }) {
                 <NextImage
                   img={`${env.app_url}${image?.filepath}`}
                   alt={image?.alternateText || ""}
-                  presets={{ width: "700", height: "700" }}
+                  presets={{ width: 700, height: 700 }}
                   className={`w-full h-full bg-white max-h-[700px] max-w-[700px] object-contain transition-transform duration-300 ${
                     isZoomed ? "scale-[2.5]" : "scale-100"
                   }`}
@@ -204,7 +204,7 @@ function ProductSlider({ product }) {
                 <NextImage
                   img={`${env.app_url}${image?.filepath}`}
                   alt={image?.alternateText || ""}
-                  presets={{ width: "100", height: "100" }}
+                  presets={{ width: 100, height: 100 }}
                   className="w-[100px] h-[100px] rounded-lg"
                 />
               </div>

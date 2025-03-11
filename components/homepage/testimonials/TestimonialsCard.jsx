@@ -1,4 +1,5 @@
 import { StarRating } from '@/components/shared/';
+import NextImage from '@/components/shared/NextImage';
 import React from 'react'
 
 const TestimonialsCard = ({ item }) => {
@@ -6,10 +7,11 @@ const TestimonialsCard = ({ item }) => {
       <div className="border border-slate-200 rounded-lg p-6 max-w-sm shadow-sm">
         {/* Avatar and Name */}
         <div className="flex items-center space-x-4">
-          <img
-            src={item.avatar}
+          <NextImage
+            img={item.avatar}
             alt={`${item.name}'s avatar`}
             className="w-12 h-12 rounded-full border border-slate-200"
+            presets={{ width: 48, height: 48 }}
           />
           <div>
             <h3 className="text-lg font-semibold text-slate-800">

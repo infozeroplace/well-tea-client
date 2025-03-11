@@ -1,6 +1,7 @@
 "use client";
 
 import { env } from "@/config/env";
+import NextImage from "../shared/NextImage";
 
 const CheckoutPreview = ({
   user,
@@ -28,8 +29,9 @@ const CheckoutPreview = ({
           {cartItems.map((item, idx) => (
             <div key={idx} className="flex gap-4">
               <div className="max-w-[64px] max-h-[64px] h-full w-full border rounded relative bg-teagreen-200">
-                <img
-                  src={env.app_url + item.thumbnail.filepath}
+                <NextImage
+                  img={env.app_url + item.thumbnail.filepath}
+                  presets={{ width: 50, height: 50 }}
                   alt={item.thumbnail.alternateText}
                   className="h-full w-full"
                 />

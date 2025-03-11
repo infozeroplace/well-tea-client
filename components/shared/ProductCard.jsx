@@ -13,17 +13,20 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import NextImage from "./NextImage";
 
 const ProductCard = ({ product }) => {
-  const {
-    wishlist: { wishlist },
-    carts: { carts },
-  } = useAppSelector((state) => state);
+  // const {
+  //   wishlist: { wishlist },
+  //   carts: { carts },
+  // } = useAppSelector((state) => state);
+
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+  const carts = useAppSelector((state) => state.carts);
 
   const dispatch = useAppDispatch();
   const cardRef = useRef(null);
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  const wishlistItems = wishlist?.items;
+  // const wishlistItems = wishlist?.items;
 
   const [
     addToWishlist,
@@ -146,13 +149,13 @@ const ProductCard = ({ product }) => {
             <NextImage
               img={thumbnail1}
               alt={alt1}
-              presets={{ width: "316", height: "316" }}
+              presets={{ width: 316, height: 316 }}
               className="mx-auto transition-opacity duration-300 group-hover:opacity-0 object-contain w-full h-full"
             />
             <NextImage
               img={thumbnail2}
               alt={alt2}
-              presets={{ width: "316", height: "316" }}
+              presets={{ width: 316, height: 316 }}
               className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 object-contain w-full h-full"
             />
           </div>
@@ -171,11 +174,12 @@ const ProductCard = ({ product }) => {
           {product?.teaFormat?.length > 0 ? (
             <p className="text-brand__font__size__xs font-brand__font__500 capitalize flex items-center gap-1">
               {product?.teaFormat[0]?.thumbnail?.length > 0 && (
-                <img
+                <NextImage
                   className="w-[12px] h-[12px]"
-                  src={
+                  img={
                     env.app_url + product?.teaFormat[0]?.thumbnail[0].filepath
                   }
+                  presets={{ width: 12, height: 12 }}
                   alt={product?.teaFormat[0]?.thumbnail[0]?.alternateText || ""}
                 />
               )}
@@ -198,9 +202,10 @@ const ProductCard = ({ product }) => {
             onClick={() => setAddButtonClicked(true)}
             className="relative text-sm py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
           >
-            <img
-              src="/icons/shopping-bag.svg"
-              className="absolute top-1/2 left-4 -translate-y-1/2 w-5"
+            <NextImage
+              img="/icons/shopping-bag.svg"
+              className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5"
+              presets={{ width: 5, height: 5 }}
               alt="Cart Icon"
             />
             {product?.isSale ? (

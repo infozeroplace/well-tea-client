@@ -51,7 +51,8 @@ function Hero({ data }) {
                 <NextImage
                   img={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
                   alt={item?.bannerImagePath[0]?.alternateText}
-                  presets={{width: "1900", height: "750"}}
+                  presets={{width: 1900, height: 750}}
+                  quality={50}
                 />
               </div>
 

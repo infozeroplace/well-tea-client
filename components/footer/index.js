@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import BackToTopButton from "./BacktoTopButton";
 import Newsletter from "./Newsletter";
+import NextImage from "../shared/NextImage";
 function Footer() {
   const aboutLinks = [
     {
@@ -199,11 +200,10 @@ function Footer() {
 
             {/* ------- Payment Methods ------- */}
             <div className="">
-              <Image
-                src="/images/payment_methods.png"
+              <NextImage
+                img="/images/payment_methods.png"
                 alt="Payment Methods"
-                width={350}
-                height={50}
+                presets={{ width: 350, height: 50 }}
                 className="mx-auto"
               />
             </div>
