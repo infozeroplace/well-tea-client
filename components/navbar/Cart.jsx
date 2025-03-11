@@ -24,9 +24,12 @@ const Cart = ({ buttonClass }) => {
   const wishlistRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const {
-    carts: { carts },
-  } = useAppSelector((state) => state);
+  // const {
+  //   carts: { carts },
+  // } = useAppSelector((state) => state);
+
+  const carts = useAppSelector((state) => state.carts.carts);
+  
   
   const dispatch = useAppDispatch();
   const pathname = usePathname();

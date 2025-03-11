@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 
 const PersistLogin = ({ children }) => {
   const dispatch = useAppDispatch();
-  const { auth } = useAppSelector((state) => state);
+  // const { auth } = useAppSelector((state) => state);
+  const auth = useAppSelector((state)=> state.auth);
   const [isLoading, setIsLoading] = useState(true);
 
   const { data, refetch } = useGetRefreshTokenQuery(undefined, {

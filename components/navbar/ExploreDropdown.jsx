@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NextImage from "../shared/NextImage";
 
 function ExploreDropdown() {
 
@@ -91,11 +92,11 @@ function ExploreDropdown() {
             href="/explore/how-to-brew/how-to-make-tea"
             className="group flex flex-col items-center gap-5"
           >
-            <Image
-              src="/whychooseus/slide_banner_09.jpg"
+            <NextImage
+              img="/whychooseus/slide_banner_09.jpg"
               alt="gifts"
-              width={300}
-              height={250}
+              presets={{width: 300, height: 250}}
+              style={{ width: "auto", height: "auto" }}
             />
             <h4 className="uppercase font-extralight text-teagreen-600">
               Learn how to brew

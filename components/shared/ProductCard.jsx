@@ -13,17 +13,20 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import NextImage from "./NextImage";
 
 const ProductCard = ({ product }) => {
-  const {
-    wishlist: { wishlist },
-    carts: { carts },
-  } = useAppSelector((state) => state);
+  // const {
+  //   wishlist: { wishlist },
+  //   carts: { carts },
+  // } = useAppSelector((state) => state);
+
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+  const carts = useAppSelector((state) => state.carts);
 
   const dispatch = useAppDispatch();
   const cardRef = useRef(null);
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  const wishlistItems = wishlist?.items;
+  // const wishlistItems = wishlist?.items;
 
   const [
     addToWishlist,

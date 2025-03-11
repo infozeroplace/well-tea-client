@@ -57,7 +57,7 @@ const WhyChooseUs = ({ data }) => {
                 <NextImage
                   img={`${env.app_url}${chooseOption?.iconPath}`}
                   alt={selected}
-                  presets={{ width: "30", height: "30" }}
+                  presets={{ width: 30, height: 30 }}
                   className="w-[30px]"
                 />
               )}

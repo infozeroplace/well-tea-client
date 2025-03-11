@@ -9,6 +9,7 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+import NextImage from "@/components/shared/NextImage";
 
 function SubscriptionScreen() {
   const subscriptionList = [
@@ -57,10 +58,11 @@ function SubscriptionScreen() {
               onClick={() => handleRowClick(item)}
             >
               <td className="py-4 flex items-center gap-1 md:gap-5">
-                <img
+                <NextImage
                   // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
-                  src="/products/product_01.jpg"
+                  img="/products/product_01.jpg"
                   alt={item?.title}
+                  presets={{width: 30, height: 30}}
                   className="w-20 h-20 object-cover"
                 />
                 <div>

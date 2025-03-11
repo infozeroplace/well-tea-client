@@ -39,9 +39,12 @@ function profile({ buttonClass }) {
     ]
     const pathname = usePathname();
     const [signOut, { isLoading }] = useSignOutMutation();
-    const {
-      auth: { user, token },
-    } = useAppSelector((state) => state);
+    // const {
+    //   auth: { user, token },
+    // } = useAppSelector((state) => state);
+    const user = useAppSelector((state) => state.auth.user);
+    const token = useAppSelector((state) => state.auth.token);
+
     const dispatch = useDispatch();
     const router = useRouter();
 
