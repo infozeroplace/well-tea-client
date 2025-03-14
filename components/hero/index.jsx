@@ -49,7 +49,7 @@ function Hero({ data }) {
             <SwiperSlide key={idx} className="relative">
               <div className="w-full h-[450px] md:h-[500px] 2xl:h-[636px]">
                 <NextImage
-                  img={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
+                  img={`https://res.cloudinary.com/dqlxcdlce/image/upload/v1741931015/about-image-1_nfjxbk.webp`}
                   alt={item?.bannerImagePath[0]?.alternateText}
                   presets={{width: 1900, height: 750}}
                   quality={50}
