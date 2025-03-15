@@ -90,6 +90,10 @@ export default function RootLayout({ children }) {
           <CompanyServices />
           <Footer />
         </ClientWrapper>
+        <script
+          src="//code.tidio.co/op9ndxaruvct93xqrns2w8jrfgit2buh.js"
+          async
+        ></script>
       </body>
       <GoogleAnalytics gaId={env.google_analytic_id} />
     </html>
