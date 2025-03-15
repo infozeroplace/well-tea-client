@@ -13,7 +13,7 @@ function layout({ children }) {
     <>
       <CommonBanner bannerTitle={`Hello ${user?.firstName}`} breadcrumb="Profile"/>
       <div className="px-5 sm:px-10 md:px-14 lg:px-20 xl:px-32 my-20">
-        <div className="flex gap-20">
+        <div className="flex flex-col md:flex-row gap-14 md:gap-20">
           <ProfileSidebar />
           <div className="w-full">{children}</div>
         </div>

@@ -84,7 +84,7 @@ function ProfileSidebar() {
 
   return (
     <div className="">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-row md:flex-col flex-wrap gap-5 md:gap-3">
         {sidebarItems.map((item, index) => (
           <Link key={index} href={item.href}>
             <div className={`flex items-center space-x-2 `}>
