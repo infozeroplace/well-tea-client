@@ -91,7 +91,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </ClientWrapper>
         <script
-          src="//code.tidio.co/ukz1e1zbvwkghdkie6abqjgmgo4rtdki.js"
+          src={`//code.tidio.co/${env.tidio_id}.js`}
           async
         ></script>
       </body>
