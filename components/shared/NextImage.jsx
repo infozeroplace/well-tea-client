@@ -1,5 +1,7 @@
-import Image from "next/image";
+
 import { cn } from "@/utils/cn";
+import Image from "next/image";
+
 
 export default function NextImage({
   img,
@@ -12,18 +14,17 @@ export default function NextImage({
       title={props.title}
       src={img}
       alt={alt ?? "well-tea-image"}
-      // height={presets?.height}
-      // width={presets?.width}
-      // fill={props?.fill}
-      // unoptimized={img.startsWith("http")}
-      {...(props.fill
-        ? { fill: true }
-        : { width: presets?.width, height: presets?.height })}
+      height={presets?.height ?? "400"}
+      width={presets?.width ?? "400"}
+      layout="intrinsic"
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      className={cn("w-full h-full object-cover", props?.className)}
+      className={cn("w-full h-full object-contain", props?.className)}
       style={props.style}
-      priority={true}
-      quality={props.quality ?? 75}
+      priority={props.priority ?? false}
+      quality={props.quality ??  80 }
+      placeholder="blur" 
+      blurDataURL="/public/images/newproduct_one.jpg"
+      loading={props.priority ? "eager" : "lazy"}
     />
   );
 }
