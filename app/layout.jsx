@@ -16,19 +16,19 @@ import { Prompt, SUSE } from "next/font/google";
 
 export const revalidate = 0;
 
-// const prompt = Prompt({
-//   variable: "--prompt",
-//   subsets: ["latin"],
-//   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-// });
+const prompt = Prompt({
+  variable: "--prompt",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+});
 
-// const suse = SUSE({
-//   variable: "--suse",
-//   subsets: ["latin"],
-//   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-// });
+const suse = SUSE({
+  variable: "--suse",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+});
 
-// const fonts = `${prompt.variable} ${suse.variable} antialiased`;
+const fonts = `${prompt.variable} ${suse.variable} antialiased`;
 
 // export const metadata = {
 //   title: "Well Tea",

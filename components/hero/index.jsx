@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SectionLinkButton } from "../shared";
+import NextImage from "../shared/NextImage";
 
 function Hero({ data }) {
   const [activeSlide, setActiveSlide] = useState(0);
