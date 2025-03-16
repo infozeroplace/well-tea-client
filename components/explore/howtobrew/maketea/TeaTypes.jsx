@@ -1,3 +1,4 @@
+import NextImage from "@/components/shared/NextImage";
 import Link from "next/link";
 import React from "react";
 import { IoMdArrowForward } from "react-icons/io";
@@ -54,19 +55,19 @@ const TeaTypes = () => {
       url: "fruit tea",
     },
     {
-        title: "Oolong Tea",
-        description:
-          "The least processed of all teas, white tea is the closest tea comes to its natural state.",
-        image: "/images/teatypeimage.png",
-        url: "oolong tea",
-      },
-      {
-        title: "Jasmine Tea",
-        description:
-          "The least processed of all teas, white tea is the closest tea comes to its natural state.",
-        image: "/images/teatypeimage.png",
-        url: "jasmine tea",
-      },
+      title: "Oolong Tea",
+      description:
+        "The least processed of all teas, white tea is the closest tea comes to its natural state.",
+      image: "/images/teatypeimage.png",
+      url: "oolong tea",
+    },
+    {
+      title: "Jasmine Tea",
+      description:
+        "The least processed of all teas, white tea is the closest tea comes to its natural state.",
+      image: "/images/teatypeimage.png",
+      url: "jasmine tea",
+    },
   ];
   return (
     <div className="section-gap">
@@ -84,8 +85,20 @@ const TeaTypes = () => {
               <h2 className="text-xl font-medium">{data.title}</h2>
               <p className="text-sm">{data.description}</p>
             </div>
-            <div className="col-span-5 mx-auto"><img src={data?.image} alt="type image" className="max-w-36" /></div>
-            <Link href={`/product-category?type=${data?.url}`} className="col-span-12 text-2xl w-fit border border-teagreen-500 hover:border-teagreen-600 py-1 px-3 rounded-2xl"><IoMdArrowForward /></Link>
+            <div className="col-span-5 mx-auto">
+              <NextImage
+                img={data?.image}
+                alt="type image"
+                presets={{ width: 100, height: 100 }}
+                className="max-w-36"
+              />
+            </div>
+            <Link
+              href={`/product-category?type=${data?.url}`}
+              className="col-span-12 text-2xl w-fit border border-teagreen-500 hover:border-teagreen-600 py-1 px-3 rounded-2xl"
+            >
+              <IoMdArrowForward />
+            </Link>
           </div>
         ))}
       </div>

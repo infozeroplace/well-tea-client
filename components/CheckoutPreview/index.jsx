@@ -1,6 +1,7 @@
 "use client";
 
 import { env } from "@/config/env";
+import NextImage from "../shared/NextImage";
 
 const CheckoutPreview = ({
   user,
@@ -13,6 +14,7 @@ const CheckoutPreview = ({
   coupon,
   discountAmount,
   applyCouponLoading,
+  loading,
   onChangeMethod,
   onChangeCoupon,
   onApplyCoupon,
@@ -27,8 +29,9 @@ const CheckoutPreview = ({
           {cartItems.map((item, idx) => (
             <div key={idx} className="flex gap-4">
               <div className="max-w-[64px] max-h-[64px] h-full w-full border rounded relative bg-teagreen-200">
-                <img
-                  src={env.app_url + item.thumbnail.filepath}
+                <NextImage
+                  img={env.app_url + item.thumbnail.filepath}
+                  presets={{ width: 50, height: 50 }}
                   alt={item.thumbnail.alternateText}
                   className="h-full w-full"
                 />
@@ -86,7 +89,13 @@ const CheckoutPreview = ({
 
           <div className="flex gap-2 justify-between items-center text-brand__font__size__md font-brand__font__500">
             <span>Total</span>
-            <span>£{grandTotal}</span>
+            <span>
+              {loading ? (
+                <span className="text-brand__font__size__xs">Updating...</span>
+              ) : (
+                `£${grandTotal}`
+              )}
+            </span>
           </div>
         </div>
 

@@ -9,7 +9,7 @@ const rewardApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["reward"],
+      invalidatesTags: ["reward", "user"],
     }),
   }),
 });

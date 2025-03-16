@@ -1,9 +1,9 @@
 "use client";
 
 import { SectionLinkButton } from "@/components/shared";
-import Image from "next/image";
 import React, { useState } from "react";
 import { discoverItems } from "./discoverUsData";
+import NextImage from "../shared/NextImage";
 
 const DiscoverUs = () => {
   const [choosOption, setChoosOption] = useState({
@@ -43,20 +43,25 @@ const DiscoverUs = () => {
             </div>
           </div>
           <div className="mt-3 w-full">
-            <div className="content-gap font-bold">{choosOption?.description}</div>
+            <div className="content-gap font-bold">
+              {choosOption?.description}
+            </div>
             <div className="flex justify-center text-lg">
-              <SectionLinkButton title="Contact" url="/contact" buttonClass="w-60" />
+              <SectionLinkButton
+                title="Contact"
+                url="/contact"
+                buttonClass="w-60"
+              />
             </div>
           </div>
         </div>
 
         {/* Discover Us Image */}
         <div className="relative aspect-[758/450] lg:aspect-[630/800] w-full overflow-hidden lg:overflow-visible">
-          <Image
-            src="/images/about-image-2.jpg"
+          <NextImage
+            img="/images/about-image-2.jpg"
             alt="Tea"
-            width={630}
-            height={800}
+            presets={{ width: "630", height: "800" }}
             className="w-full h-full object-cover"
           />
         </div>

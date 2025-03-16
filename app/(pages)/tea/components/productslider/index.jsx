@@ -13,6 +13,7 @@ import { useAppSelector, useAppDispatch } from "@/services/hook";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import NextImage from "@/components/shared/NextImage";
 
 function ProductSlider({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -129,10 +130,11 @@ function ProductSlider({ product }) {
                 onClick={toggleZoom}
                 style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
               >
-                <img
-                  src={`${env.app_url}${image?.filepath}`}
+                <NextImage
+                  img={`${env.app_url}${image?.filepath}`}
                   alt={image?.alternateText || ""}
-                  className={`w-full h-full max-h-[700px] max-w-[700px] object-contain transition-transform duration-300 ${
+                  presets={{ width: 700, height: 700 }}
+                  className={`w-full h-full bg-white max-h-[700px] max-w-[700px] object-contain transition-transform duration-300 ${
                     isZoomed ? "scale-[2.5]" : "scale-100"
                   }`}
                   style={{
@@ -179,9 +181,10 @@ function ProductSlider({ product }) {
                     activeIndex === idx ? "border border-teagreen-500" : ""
                   }`}
                 >
-                  <img
-                    src={`${env.app_url}${image?.filepath}`}
+                  <NextImage
+                    img={`${env.app_url}${image?.filepath}`}
                     alt={image?.alternateText || ""}
+                    presets={{width: 100, height: 100}}
                     className="w-[100px] h-[100px] rounded-lg"
                   />
                 </div>
@@ -198,9 +201,10 @@ function ProductSlider({ product }) {
                   activeIndex === idx ? "border border-teagreen-500" : ""
                 }`}
               >
-                <img
-                  src={`${env.app_url}${image?.filepath}`}
+                <NextImage
+                  img={`${env.app_url}${image?.filepath}`}
                   alt={image?.alternateText || ""}
+                  presets={{ width: 100, height: 100 }}
                   className="w-[100px] h-[100px] rounded-lg"
                 />
               </div>

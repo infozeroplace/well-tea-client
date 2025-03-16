@@ -1,6 +1,6 @@
 "use client";
 
-import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import axios from "@/api/axios";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
@@ -10,13 +10,24 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import NextImage from "./NextImage";
 
 const ProductCard = ({ product }) => {
+  // const {
+  //   wishlist: { wishlist },
+  //   carts: { carts },
+  // } = useAppSelector((state) => state);
+
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+  const carts = useAppSelector((state) => state.carts);
+
   const dispatch = useAppDispatch();
   const cardRef = useRef(null);
+
   const [addButtonClicked, setAddButtonClicked] = useState(false);
-  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
-  const wishlistItems = wishlist?.items;
+
+  // const wishlistItems = wishlist?.items;
+
   const [
     addToWishlist,
     { data: addToWishlistData, isLoading: addToWishlistLoading },
@@ -31,8 +42,33 @@ const ProductCard = ({ product }) => {
   const productId = product?._id;
 
   const handleAddToCart = async (unitPriceId) => {
+    const cartId = carts?._id || null;
+
+    const {
+      data: { data: paymentIntent },
+    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
+
+    let coupon = "";
+    let paymentIntentId = "";
+    let shippingMethodId = "";
+
+    if (
+      paymentIntent &&
+      paymentIntent.id &&
+      paymentIntent.coupon &&
+      paymentIntent.clientSecret &&
+      paymentIntent.shippingMethodId
+    ) {
+      coupon = paymentIntent.coupon;
+      paymentIntentId = paymentIntent.id;
+      shippingMethodId = paymentIntent.shippingMethodId;
+    }
+
     await addToCart({
       data: {
+        paymentIntentId,
+        shippingMethodId,
+        coupon,
         productId,
         unitPriceId,
         actionType: "plus",
@@ -110,19 +146,17 @@ const ProductCard = ({ product }) => {
         {/* Product Image Section */}
         <Link href={`/${product?.urlParameter}`} className="px-3 block">
           <div className="relative w-full aspect-square group overflow-hidden">
-            <Image
-              src={thumbnail1}
-              className="mx-auto transition-opacity duration-300 group-hover:opacity-0 object-contain w-full h-full"
-              height={316}
-              width={316}
+            <NextImage
+              img={thumbnail1}
               alt={alt1}
+              presets={{ width: 316, height: 316 }}
+              className="mx-auto transition-opacity duration-300 group-hover:opacity-0 object-contain w-full h-full"
             />
-            <Image
-              src={thumbnail2}
-              className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 object-contain w-full h-full"
-              height={316}
-              width={316}
+            <NextImage
+              img={thumbnail2}
               alt={alt2}
+              presets={{ width: 316, height: 316 }}
+              className="mx-auto absolute top-0 left-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 object-contain w-full h-full"
             />
           </div>
         </Link>
@@ -140,11 +174,12 @@ const ProductCard = ({ product }) => {
           {product?.teaFormat?.length > 0 ? (
             <p className="text-brand__font__size__xs font-brand__font__500 capitalize flex items-center gap-1">
               {product?.teaFormat[0]?.thumbnail?.length > 0 && (
-                <img
+                <NextImage
                   className="w-[12px] h-[12px]"
-                  src={
+                  img={
                     env.app_url + product?.teaFormat[0]?.thumbnail[0].filepath
                   }
+                  presets={{ width: 12, height: 12 }}
                   alt={product?.teaFormat[0]?.thumbnail[0]?.alternateText || ""}
                 />
               )}
@@ -167,9 +202,10 @@ const ProductCard = ({ product }) => {
             onClick={() => setAddButtonClicked(true)}
             className="relative text-sm py-3 px-5 w-full flex items-center justify-center text-teagreen-800 hover:bg-teagreen-400 transition-all duration-400 gap-2"
           >
-            <img
-              src="/icons/shopping-bag.svg"
-              className="absolute top-1/2 left-4 -translate-y-1/2 w-5"
+            <NextImage
+              img="/icons/shopping-bag.svg"
+              className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5"
+              presets={{ width: 5, height: 5 }}
               alt="Cart Icon"
             />
             {product?.isSale ? (

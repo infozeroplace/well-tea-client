@@ -1,16 +1,17 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import axios from "@/api/axios";
 import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import NavDropdown from './NavDropdown';
 import { env } from '@/config/env';
-import Image from 'next/image';
 import Link from 'next/link';
 import { SectionLinkButton } from '../shared';
 import { usePathname } from 'next/navigation';
 import { Spinner } from "@heroui/react";
+import NextImage from '../shared/NextImage';
 
 const SearchProduct = ({ buttonClass }) => {
+  const wishlistRef = useRef(null);
+  const buttonRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState([]);
@@ -55,13 +56,30 @@ const SearchProduct = ({ buttonClass }) => {
 
   return (
     <div className="">
-      <button onClick={() => setIsOpen(true)} className={`${buttonClass} `}>
+      <button
+        ref={buttonRef}
+        onClick={() => setIsOpen(true)}
+        className={`${buttonClass} `}
+        aria-label={
+          products?.length > 0
+            ? `Search with ${products?.length} items`
+            : "No products found for search"
+        }
+        aria-expanded={isOpen}
+        aria-controls="search-panel"
+      >
         <CiSearch />
         <svg className="circle" viewBox="0 0 50 50">
           <circle cx="25" cy="25" r="24" />
         </svg>
       </button>
       <div
+        id="search-panel"
+        ref={wishlistRef}
+        role="dialog"
+        tabIndex={-1}
+        aria-labelledby="search-title"
+        aria-modal="true"
         className={`fixed top-0 right-0 h-[100vh] w-[450px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -96,13 +114,13 @@ const SearchProduct = ({ buttonClass }) => {
                   <Link
                     key={item._id}
                     href={`/${item?.urlParameter}`}
-                    className="flex gap-3"
+                    className="flex gap-3 items-center"
                   >
-                    <Image
-                      src={`${env.app_url}${item?.thumbnails[0].filepath}`}
+                    <NextImage
+                      img={`${env.app_url}${item?.thumbnails[0].filepath}`}
                       alt={item?.thumbnails[0].alternateText}
-                      width={100}
-                      height={100}
+                      presets={{ width: 100, height: 100 }}
+                      className="w-[100px]"
                     />
                     <div className="flex flex-col">
                       <p>{item?.title}</p>
@@ -150,6 +168,7 @@ const SearchProduct = ({ buttonClass }) => {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={handleClose}
+          aria-hidden="true"
         ></div>
       )}
     </div>

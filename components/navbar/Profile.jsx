@@ -8,7 +8,7 @@ import { logOut } from "@/services/features/auth/authSlice";
 import { useSignOutMutation } from "@/services/features/auth/authApi";
 import { usePathname, useRouter } from "next/navigation";
 import { CiLogout } from "react-icons/ci";
-import Image from "next/image";
+import NextImage from '../shared/NextImage';
 
 function profile({ buttonClass }) {
     const profileItems = [
@@ -39,9 +39,12 @@ function profile({ buttonClass }) {
     ]
     const pathname = usePathname();
     const [signOut, { isLoading }] = useSignOutMutation();
-    const {
-      auth: { user, token },
-    } = useAppSelector((state) => state);
+    // const {
+    //   auth: { user, token },
+    // } = useAppSelector((state) => state);
+    const user = useAppSelector((state) => state.auth.user);
+    const token = useAppSelector((state) => state.auth.token);
+
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -64,7 +67,7 @@ function profile({ buttonClass }) {
       <Link href="/profile">
         <button className={`${buttonClass}`}>
           {/* <PiUser className="text-xl" /> */}
-          <Image src="/icons/user icon.svg" alt="user" width={20} height={20} />
+          <NextImage img="/icons/user icon.svg" alt="user" presets={{width: 20, height: 20}} className="w-[20px]" />
         </button>
       </Link>
       {user &&

@@ -1,6 +1,6 @@
 import { CommonBanner, FindoutMore, SectionLinkButton } from "@/components";
+import NextImage from "@/components/shared/NextImage";
 import { rewardsMetadata } from "@/data/staticMetaData";
-import Image from "next/image";
 import Link from "next/link";
 import { MdRealEstateAgent } from "react-icons/md";
 
@@ -60,14 +60,6 @@ const WellteaRewards = () => {
                 Sign in
               </Link>
             </p>
-
-            {/* <Image
-              src={"/images/about-image-1.jpg"}
-              alt="Rewards Image"
-              height={1730}
-              width={750}
-              className="w-full"
-            /> */}
           </div>
         </div>
 
@@ -191,11 +183,10 @@ const WellteaRewards = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 content-gap">
             <div className="flex flex-col items-center">
               <div>
-                <Image
-                  src={"/images/about-image-1.jpg"}
+                <NextImage
+                  img="/images/about-image-1.jpg"
                   alt="Rewards Image"
-                  height={1730}
-                  width={750}
+                  presets={{ width: "1730", height: "750" }}
                   className="w-full content-gap"
                 />
               </div>
@@ -208,11 +199,10 @@ const WellteaRewards = () => {
             </div>
             <div className="flex flex-col items-center">
               <div>
-                <Image
-                  src={"/images/about-image-1.jpg"}
+                <NextImage
+                  img="/images/about-image-1.jpg"
                   alt="Rewards Image"
-                  height={1730}
-                  width={750}
+                  presets={{ width: "1730", height: "750" }}
                   className="w-full content-gap"
                 />
               </div>

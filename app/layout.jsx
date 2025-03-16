@@ -80,7 +80,7 @@ export async function generateMetadata() {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en' suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={fonts}>
         <ClientWrapper>
           <Header />

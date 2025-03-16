@@ -11,6 +11,7 @@ import {
   Autoplay,
 } from "swiper/modules";
 import { FaStar } from "react-icons/fa6";
+import NextImage from '../shared/NextImage';
 
 function SelectedTeaSlider() {
     const selectedItems = [
@@ -71,7 +72,7 @@ function SelectedTeaSlider() {
         {selectedItems.map((item, index) => (
           <SwiperSlide key={index}>
             <div className="relative group w-[500px] h-[80vh] overflow-hidden mx-auto">
-              <Image src={item.image} alt="Offer" layout="fill" />
+              <NextImage img={item.image} alt="Offer" fill />
               <div className="absolute bottom-0 z-30 bg-[#131B14] bg-opacity-60 p-3 w-full flex flex-col justify-center text-center text-teagreen-100">
                 <div className="z-20">
                   <h4 className="uppercase text-md font-semibold tracking-widest">

@@ -1,12 +1,12 @@
-import Image from "next/image";
 import Empty_Cart from "../../public/images/empty_cart.jpg";
 import { SectionLinkButton } from "../shared";
+import NextImage from "../shared/NextImage";
 
 const EmptyBasket = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-3 mx-auto w-fit p-16">
       <div>
-        <Image src={Empty_Cart} alt="empty_cart" />
+        <NextImage img={Empty_Cart} alt="empty_cart" presets={{ width: 50, height: 50 }} />
       </div>
       <div className="text-center">
         <p className="text-teagreen-600 text-brand__font__size__md font-brand__font__500">

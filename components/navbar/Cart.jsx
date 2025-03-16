@@ -1,22 +1,18 @@
 "use client";
 
+import axios from "@/api/axios";
 import { env } from "@/config/env";
-import {
-  removeFromCart,
-  updateQuantity,
-} from "@/services/features/cart/cartSlice";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useAddToCartMutation } from "@/services/features/cart/cartApi";
+import { useAppDispatch, useAppSelector } from "@/services/hook";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState, useRef } from "react";
+import { toast } from "react-hot-toast";
 import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import { SectionLinkButton } from "../shared";
-import { useAddToCartMutation } from "@/services/features/cart/cartApi";
-import { addCart, removeCart } from "@/services/features/cart/cartSlices";
-import { useAppSelector, useAppDispatch } from "@/services/hook";
-import Link from "next/link";
-import { toast } from "react-hot-toast";
 import LoadingOverlay from "../shared/LoadingOverlay";
+import NextImage from "../shared/NextImage";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -25,12 +21,25 @@ const toNumber = (value) => {
 };
 
 const Cart = ({ buttonClass }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] = useAddToCartMutation();
+  const wishlistRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  // const {
+  //   carts: { carts },
+  // } = useAppSelector((state) => state);
+
   const carts = useAppSelector((state) => state.carts.carts);
+  
+  
   const dispatch = useAppDispatch();
-  const totalQuantity = carts?.totalQuantity;
   const pathname = usePathname();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
+    useAddToCartMutation();
+
+  const totalQuantity = carts?.totalQuantity;
 
   const shippingCost = totalQuantity > 0 ? 20.0 : 0;
 
@@ -42,8 +51,33 @@ const Cart = ({ buttonClass }) => {
     unitPriceId,
     subscriptionId
   ) => {
+    const cartId = carts?._id || null;
+
+    const {
+      data: { data: paymentIntent },
+    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
+
+    let coupon = "";
+    let paymentIntentId = "";
+    let shippingMethodId = "";
+
+    if (
+      paymentIntent &&
+      paymentIntent.id &&
+      paymentIntent.coupon &&
+      paymentIntent.clientSecret &&
+      paymentIntent.shippingMethodId
+    ) {
+      coupon = paymentIntent.coupon;
+      paymentIntentId = paymentIntent.id;
+      shippingMethodId = paymentIntent.shippingMethodId;
+    }
+
     await addToCart({
       data: {
+        paymentIntentId,
+        shippingMethodId,
+        coupon,
         productId,
         actionType,
         purchaseType,
@@ -60,17 +94,31 @@ const Cart = ({ buttonClass }) => {
     }
   }, [addToCartData]);
 
-
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)} className={buttonClass}>
+      <button
+        ref={buttonRef}
+        onClick={() => setIsOpen(true)}
+        className={buttonClass}
+        aria-label={
+          totalQuantity > 0
+            ? `Cart with ${totalQuantity} items`
+            : "Your Cart is empty"
+        }
+        aria-expanded={isOpen}
+        aria-controls="cart-panel"
+      >
         <PiShoppingCartThin />
         {totalQuantity > 0 && (
-          <span className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
+          <span
+            aria-live="polite"
+            role="status"
+            className="absolute top-2 right-2 z-10 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center"
+          >
             {totalQuantity}
           </span>
         )}
@@ -81,6 +129,12 @@ const Cart = ({ buttonClass }) => {
 
       {/* ------ Cart -------- */}
       <div
+        id="cart-panel"
+        ref={wishlistRef}
+        role="dialog"
+        tabIndex={-1}
+        aria-labelledby="cart-title"
+        aria-modal="true"
         className={`fixed top-0 right-0 h-[100vh] w-[450px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -109,15 +163,17 @@ const Cart = ({ buttonClass }) => {
                     className="flex items-center gap-3 group"
                   >
                     <div className="">
-                      <Image
-                        src={`${env.app_url}${item.thumbnail?.filepath}`}
+                      <NextImage
+                        img={`${env.app_url}${item.thumbnail?.filepath}`}
                         alt={item?.thumbnail?.alternateText}
-                        width={80}
-                        height={80}
+                        presets={{ width: 80, height: 80 }}
+                        className="w-[80]"
                       />
                     </div>
                     <div className="flex-1 flex flex-col gap-2">
-                      <h3 className="text-sm font-light group-hover:underline">{item?.title}</h3>
+                      <h3 className="text-sm font-light group-hover:underline">
+                        {item?.title}
+                      </h3>
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-light border-r-1 border-gray-600 pr-2">
                           {item?.unit}
@@ -213,6 +269,7 @@ const Cart = ({ buttonClass }) => {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30"
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
         ></div>
       )}
       <LoadingOverlay isLoading={addToCartLoading} />

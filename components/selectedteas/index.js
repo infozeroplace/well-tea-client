@@ -1,6 +1,6 @@
 import React from 'react';
-import Image from 'next/image';
 import SelectedTeaSlider from './SelectedTeaSlider';
+import NextImage from '../shared/NextImage';
 
 function SelectedTeas() {
 
@@ -30,7 +30,7 @@ function SelectedTeas() {
           </div> */}
 
           <div className="w-full h-[80vh]">
-            <Image src="/images/selected_tea.jpg" alt="Offer" fill />
+            <NextImage img="/images/selected_tea.jpg" alt="Offer" fill />
           </div>
           <div className="w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
             <h4 className="uppercase text-xs font-semibold mb-3 tracking-widest">

@@ -3,18 +3,21 @@ import generateServiceUrl from "@/utils/generateServiceUrl";
 
 const systemApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    getMenuList: builder.query({
+      query: () => ({
+        url: generateServiceUrl("/public/menu/list"),
+        method: "GET",
+      }),
+      providesTags: ["system"],
+    }),
     getSystemConfig: builder.query({
-      query: () => {
-        const url = generateServiceUrl("/public/system");
-
-        return {
-          url,
-          method: "GET",
-        };
-      },
+      query: () => ({
+        url: generateServiceUrl("/public/system"),
+        method: "GET",
+      }),
       providesTags: ["system"],
     }),
   }),
 });
 
-export const { useGetSystemConfigQuery } = systemApi;
+export const { useGetMenuListQuery, useGetSystemConfigQuery } = systemApi;

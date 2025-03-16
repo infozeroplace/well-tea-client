@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import NextImage from "../shared/NextImage";
 
 const NewItemCard = ({ item }) => {
   if (!item) return null;
@@ -21,16 +22,19 @@ const NewItemCard = ({ item }) => {
       </div>
       <div className="bg-white flex flex-col text-center items-center relative mb-12 group px-6 overflow-hidden">
         {/* Background Image */}
-        <Link href={`/tea/${item?.type}/${item?.id}`}
+        <Link
+          href={`/tea/${item?.type}/${item?.id}`}
           className="absolute inset-0 z-0 bg-cover bg-center h-full transition-transform duration-500 ease-out transform scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100"
           style={{ backgroundImage: `url(${item?.hoverImage})` }}
         ></Link>
         {/* Product Image */}
-        <Link href={`/tea/${item?.type}/${item?.id}`} className="aspect-square lg:mt-5 xl:mt-6">
-          <Image
-          width={220}
-          height={220}
-            src={item?.image}
+        <Link
+          href={`/tea/${item?.type}/${item?.id}`}
+          className="aspect-square lg:mt-5 xl:mt-6"
+        >
+          <NextImage
+            presets={{ width: 220, height: 220 }}
+            img={item?.image}
             alt="New Product"
             className="w-full opacity-100 group-hover:opacity-0 group-hover:scale-110 duration-400"
           />

@@ -1,6 +1,7 @@
 "use client";
 
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import NextImage from "@/components/shared/NextImage";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch } from "@/services/hook";
@@ -256,9 +257,10 @@ function ManageProduct({ product }) {
                 href={addOn?.urlParameter || ""}
                 className="flex items-center"
               >
-                <img
-                  src={`${env.app_url}${addOn?.thumbnails[0]?.filepath}`}
+                <NextImage
+                  img={`${env.app_url}${addOn?.thumbnails[0]?.filepath}`}
                   alt={addOn?.thumbnails[0]?.alternateText}
+                  presets={{width: 80, height: 80}}
                   className="max-w-[80px] w-full h-[80px] object-cover mr-4"
                 />
                 <div>

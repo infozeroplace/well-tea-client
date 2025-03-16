@@ -3,10 +3,10 @@
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 import { FaXTwitter } from "react-icons/fa6";
 import { GrFacebookOption } from "react-icons/gr";
-import { env } from "@/config/env";
+// import { env } from "@/config/env";
 
 function SocialShare({ productUrl }) {
-  const siteUrl = "https://welltea.zeroplace.co/";
+  const siteUrl = "https://welltea.bikolpo.com/";
 
   // console.log(env.app_url);
 

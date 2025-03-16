@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState } from "react";
 import { RxPerson } from "react-icons/rx";
 import { matchaData } from "./matchaData";
+import NextImage from "@/components/shared/NextImage";
 
 const MatchaTeaRecipe = () => {
   const [choosOption, setChoosOption] = useState({
@@ -63,11 +63,10 @@ const MatchaTeaRecipe = () => {
             {/* Fruit Tisanes */}
             <div className="flex gap-3 mb-1">
               <div>
-                <Image
-                  width={100}
-                  height={123}
-                  src="/images/sommeliertip.gif"
+                <NextImage
+                  img="/images/sommeliertip.gif"
                   alt="tip pic"
+                  presets={{ width: "100", height: "123" }}
                   className="w-12 my-auto"
                 />
               </div>

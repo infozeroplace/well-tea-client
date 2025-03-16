@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SectionTitle } from "../shared";
+import NextImage from "../shared/NextImage";
 
 function ChooseTea() {
   const teaTypes = [
@@ -45,20 +46,18 @@ function ChooseTea() {
             >
               <div className="relative">
                 <div className="w-[150px] h-[150px] rounded-full overflow-hidden group-hover:opacity-0 transition-opacity duration-400">
-                  <Image
-                    src={item.image}
+                  <NextImage
+                    img={item.image}
                     alt="Tea Type"
-                    width={200}
-                    height={200}
+                    presets={{ width: 200, height: 200 }}
                     className="w-full group-hover:scale-110 transition-transform duration-400"
                   />
                 </div>
                 <div className="w-[150px] h-[150px] rounded-full overflow-hidden absolute top-0 left-0 opacity-0 hover:opacity-100 transition-opacity duration-400 group-hover:opacity-100">
-                  <Image
-                    src={item.hoverImage}
+                  <NextImage
+                    img={item.hoverImage}
                     alt="Tea Type"
-                    width={200}
-                    height={200}
+                    presets={{ width: 200, height: 200 }}
                     className="w-full group-hover:scale-110 transition-transform duration-400"
                   />
                 </div>

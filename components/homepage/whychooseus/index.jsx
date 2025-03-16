@@ -4,6 +4,7 @@ import { SectionLinkButton } from "@/components/shared";
 import { env } from "@/config/env";
 import Image from "next/image";
 import { useState } from "react";
+import NextImage from "@/components/shared/NextImage";
 
 const WhyChooseUs = ({ data }) => {
   const discoverItems = data;
@@ -53,11 +54,11 @@ const WhyChooseUs = ({ data }) => {
           <div className="mt-8 lg:mt-3">
             <div className="mb-3 flex justify-center lg:justify-start">
               {chooseOption?.iconPath && (
-                <Image
-                  src={`${env.app_url}${chooseOption?.iconPath}`}
+                <NextImage
+                  img={`${env.app_url}${chooseOption?.iconPath}`}
                   alt={selected}
-                  width={30}
-                  height={30}
+                  presets={{ width: 30, height: 30 }}
+                  className="w-[30px]"
                 />
               )}
             </div>
@@ -74,12 +75,10 @@ const WhyChooseUs = ({ data }) => {
           </div>
         </div>
         <div className="col-span-3 lg:col-span-2 aspect-[1000/500] lg:aspect-[1180/730] w-full overflow-hidden lg:overflow-visible">
-          <Image
-            src={`${env.app_url}${chooseOption?.imagePath}`}
+          <NextImage
+            img={`${env.app_url}${chooseOption?.imagePath}`}
             alt={selected}
-            width={1180}
-            height={730}
-            className="w-full h-full object-cover"
+            presets={{ width: "1180", height: "730" }}
           />
         </div>
       </div>

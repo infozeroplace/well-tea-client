@@ -42,14 +42,13 @@ function Hero({ data }) {
         >
           {data.map((item, idx) => (
             <SwiperSlide key={idx} className="relative">
+
               <div className="w-full">
                 <NextImage
                   img={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
                   alt={item?.bannerImagePath[0]?.alternateText}
                   quality={100}
                   className="w-full object-cover max-2xl:h-full"
-                />
-              </div>
 
               <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 

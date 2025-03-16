@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "@/api/axios";
 import AddressSelection from "@/components/AddressSelection";
 import CheckoutForm from "@/components/CheckoutForm";
 import CheckoutPreview from "@/components/CheckoutPreview";
@@ -120,24 +121,23 @@ const CheckoutScreen = () => {
   // Need to run every data change UseEffect
   useEffect(() => {
     const load = async () => {
-      const storedIntent = localStorage.getItem("paymentIntent");
-      const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+      const cartId = carts?._id || null;
 
-      if (
-        parsedIntent &&
-        parsedIntent.id &&
-        parsedIntent.clientSecret &&
-        parsedIntent.expiry > Date.now()
-      ) {
-        const cartId = carts?._id || null;
+      const {
+        data: { data: paymentIntent },
+      } = await axios.get(
+        `/public/payment/get-payment-intent?cartId=${cartId}`
+      );
+
+      if (paymentIntent && paymentIntent.id && paymentIntent.clientSecret) {
         const shippingMethodId = selectedMethod?._id || null;
 
         await updatePaymentIntent({
           data: {
-            id: parsedIntent.id,
+            cartId,
+            id: paymentIntent.id,
             coupon,
             email,
-            cartId,
             billingAddress: useSameShipping ? shippingAddress : billingAddress,
             shippingAddress,
             shippingMethodId,
@@ -152,7 +152,6 @@ const CheckoutScreen = () => {
     selectedMethod,
     useSameShipping,
     applyCouponData?.data,
-    applyCouponError?.data?.message,
     billingAddress ? Object.values(billingAddress).join() : null,
     shippingAddress ? Object.values(shippingAddress).join() : null,
   ]);
@@ -164,25 +163,28 @@ const CheckoutScreen = () => {
     const loadPaymentIntent = async () => {
       // predefined ids/email
       const cartId = carts?._id || null;
+      const isItemsExists = carts?.items?.length > 0;
       const shippingMethodId = selectedMethod?._id || null;
 
-      if (!shippingMethodId || !cartId || effectExecuted.current) {
+      if (
+        !cartId ||
+        !isItemsExists ||
+        !shippingMethodId ||
+        effectExecuted.current
+      ) {
         return;
       }
       // Ensure the selected method is actually loaded
       if (!methods.length || !selectedMethod) return;
 
-      // Check if there's a stored payment intent
-      const storedIntent = localStorage.getItem("paymentIntent");
-      const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+      const {
+        data: { data: paymentIntent },
+      } = await axios.get(
+        `/public/payment/get-payment-intent?cartId=${cartId}`
+      );
 
-      if (
-        parsedIntent &&
-        parsedIntent.id &&
-        parsedIntent.clientSecret &&
-        parsedIntent.expiry > Date.now()
-      ) {
-        setClientSecret(parsedIntent.clientSecret);
+      if (paymentIntent && paymentIntent.id && paymentIntent.clientSecret) {
+        setClientSecret(paymentIntent.clientSecret);
         return;
       }
 
@@ -199,17 +201,7 @@ const CheckoutScreen = () => {
           },
         }).unwrap();
 
-        // Store the new payment intent with an expiry (e.g., 7 days)
-        localStorage.setItem(
-          "paymentIntent",
-          JSON.stringify({
-            id: data.id,
-            clientSecret: data.clientSecret,
-            expiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
-          })
-        );
-
-        setClientSecret(data.clientSecret);
+        setClientSecret(data);
       } catch (error) {
         handleError(error?.data?.message || "Something went wrong!");
       }
@@ -255,14 +247,17 @@ const CheckoutScreen = () => {
   const handleSetCoupon = (val) => setCoupon(val);
 
   const handleApplyCoupon = async () => {
-    const storedIntent = localStorage.getItem("paymentIntent");
-    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+    const {
+      data: { data },
+    } = await axios.get("/public/payment/get-payment-intent");
 
-    if (parsedIntent.id && !coupon || !discountAmount) {
+    const paymentIntent = JSON.parse(data);
+
+    if ((paymentIntent.id && !coupon) || !discountAmount) {
       await applyCoupon({
         data: {
           coupon,
-          paymentIntent: parsedIntent.id,
+          paymentIntent: paymentIntent.id,
         },
       });
     }
@@ -290,6 +285,12 @@ const CheckoutScreen = () => {
                 coupon={coupon}
                 discountAmount={discountAmount}
                 applyCouponLoading={applyCouponFetch}
+                loading={
+                  addressLoading ||
+                  methodLoading ||
+                  createPaymentIntentFetch ||
+                  updatePaymentIntentFetch
+                }
                 onChangeMethod={handleMethodChange}
                 onChangeCoupon={handleSetCoupon}
                 onApplyCoupon={handleApplyCoupon}

@@ -7,6 +7,7 @@ import { A11y, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SectionLinkButton, SectionTitle } from "../shared";
 import CategorySlider from "./CategorySlider";
+import { Skeleton } from "@heroui/react";
 
 const Category = ({ initialProducts, teaTypes }) => {
   const router = useRouter();
@@ -20,9 +21,11 @@ const Category = ({ initialProducts, teaTypes }) => {
   const [isLastSlide, setIsLastSlide] = useState(false);
   const [isFirstSlide, setIsFirstSlide] = useState(true);
 
-  const { data } = useGetProductListQuery(queryParams, {
+  const { data, isLoading } = useGetProductListQuery(queryParams, {
     refetchOnMountOrArgChange: true,
   });
+
+  // const isLoading = true;
 
   useEffect(() => {
     if (data?.data) {
@@ -116,7 +119,7 @@ const Category = ({ initialProducts, teaTypes }) => {
         </div>
 
         <div className="pb-10">
-          <CategorySlider products={products} />
+          <CategorySlider products={products} isLoading={isLoading}/>
         </div>
 
         <div className="flex justify-center mx-auto">

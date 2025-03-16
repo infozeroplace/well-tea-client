@@ -56,8 +56,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="firstName"
-                onBlur={onChangeShippingFields}
-                defaultValue={shippingAddress?.firstName || ""}
+                onChange={onChangeShippingFields}
+                value={shippingAddress?.firstName || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="First name"
               />
@@ -66,8 +66,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="lastName"
-                onBlur={onChangeShippingFields}
-                defaultValue={shippingAddress?.lastName || ""}
+                onChange={onChangeShippingFields}
+                value={shippingAddress?.lastName || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Last name"
               />
@@ -77,8 +77,8 @@ const AddressSelection = ({
             <input
               type="text"
               name="address1"
-              onBlur={onChangeShippingFields}
-              defaultValue={shippingAddress?.address1 || ""}
+              onChange={onChangeShippingFields}
+              value={shippingAddress?.address1 || ""}
               className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
               placeholder="Address 1"
             />
@@ -87,8 +87,8 @@ const AddressSelection = ({
             <input
               type="text"
               name="address2"
-              onBlur={onChangeShippingFields}
-              defaultValue={shippingAddress?.address2 || ""}
+              onChange={onChangeShippingFields}
+              value={shippingAddress?.address2 || ""}
               className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
               placeholder="Address 2 (Optional)"
             />
@@ -98,8 +98,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="city"
-                onBlur={onChangeShippingFields}
-                defaultValue={shippingAddress?.city || ""}
+                onChange={onChangeShippingFields}
+                value={shippingAddress?.city || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="City"
               />
@@ -108,8 +108,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="postalCode"
-                onBlur={onChangeShippingFields}
-                defaultValue={shippingAddress?.postalCode || ""}
+                onChange={onChangeShippingFields}
+                value={shippingAddress?.postalCode || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Postal Code"
               />
@@ -119,8 +119,8 @@ const AddressSelection = ({
             <input
               type="text"
               name="phone"
-              onBlur={onChangeShippingFields}
-              defaultValue={shippingAddress?.phone || ""}
+              onChange={onChangeShippingFields}
+              value={shippingAddress?.phone || ""}
               className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
               placeholder="Phone"
             />
@@ -164,8 +164,8 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="firstName"
-                  onBlur={onChangeBillingFields}
-                  defaultValue={billingAddress?.firstName || ""}
+                  onChange={onChangeBillingFields}
+                  value={billingAddress?.firstName || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="First name"
                 />
@@ -174,8 +174,8 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="lastName"
-                  onBlur={onChangeBillingFields}
-                  defaultValue={billingAddress?.lastName || ""}
+                  onChange={onChangeBillingFields}
+                  value={billingAddress?.lastName || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="Last name"
                 />
@@ -185,8 +185,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="address1"
-                onBlur={onChangeBillingFields}
-                defaultValue={billingAddress?.address1 || ""}
+                onChange={onChangeBillingFields}
+                value={billingAddress?.address1 || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Address 1"
               />
@@ -195,8 +195,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="address2"
-                onBlur={onChangeBillingFields}
-                defaultValue={billingAddress?.address2 || ""}
+                onChange={onChangeBillingFields}
+                value={billingAddress?.address2 || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Address 2 (Optional)"
               />
@@ -206,8 +206,8 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="city"
-                  onBlur={onChangeBillingFields}
-                  defaultValue={billingAddress?.city || ""}
+                  onChange={onChangeBillingFields}
+                  value={billingAddress?.city || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="City"
                 />
@@ -216,8 +216,8 @@ const AddressSelection = ({
                 <input
                   type="text"
                   name="postalCode"
-                  onBlur={onChangeBillingFields}
-                  defaultValue={billingAddress?.postalCode || ""}
+                  onChange={onChangeBillingFields}
+                  value={billingAddress?.postalCode || ""}
                   className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                   placeholder="Postal Code"
                 />
@@ -227,8 +227,8 @@ const AddressSelection = ({
               <input
                 type="text"
                 name="phone"
-                onBlur={onChangeBillingFields}
-                defaultValue={billingAddress?.phone || ""}
+                onChange={onChangeBillingFields}
+                value={billingAddress?.phone || ""}
                 className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
                 placeholder="Phone"
               />

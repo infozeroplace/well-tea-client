@@ -14,6 +14,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useGetOrderListQuery } from "@/services/features/orders/ordersApi";
 import { env } from "@/config/env";
+import NextImage from "@/components/shared/NextImage";
 
 function OrderScreen() {
   
@@ -91,9 +92,10 @@ function OrderScreen() {
                             href={item?.urlParameter}
                             className="group flex items-center gap-1 md:gap-5"
                           >
-                            <img
-                              src={`${env.app_url}${item.thumbnail.filepath}`}
+                            <NextImage
+                              img={`${env.app_url}${item.thumbnail.filepath}`}
                               alt={item?.title}
+                              presets={{width: 30, height: 30}}
                               className="w-20 h-20 object-cover"
                             />
                             <div>

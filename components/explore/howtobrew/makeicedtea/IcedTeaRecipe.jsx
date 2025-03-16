@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { RxPerson } from "react-icons/rx";
 import { icedTeaRecipeData } from "./icedTeaRecipeData";
+import NextImage from "@/components/shared/NextImage";
 
 const IcedTeaRecipe = () => {
   const [choosOption, setChoosOption] = useState({
@@ -63,10 +64,9 @@ const IcedTeaRecipe = () => {
             {/* Fruit Tisanes */}
             <div className="flex gap-3 mb-1">
               <div>
-                <Image
-                  width={100}
-                  height={123}
-                  src="/images/sommeliertip.gif"
+                <NextImage
+                  presets={{ width: 100, height: 123 }}
+                  img="/images/sommeliertip.gif"
                   alt="tip pic"
                   className="w-12 my-auto"
                 />

@@ -58,14 +58,20 @@ function Reviews({ productData }) {
             {[...reviews]
               .reverse()
               .slice(0, showReviews)
-              .map((review) => (
+              .map((review) => {
+
+                const colors = ["bg-red-500", "bg-blue-500", "bg-green-500", "bg-yellow-500", "bg-purple-400"];
+                const hash = review?.firstName.charCodeAt(0) % colors.length;
+                const color = colors[hash];
+
+                return (
                 <div key={review?._id} className="border-b py-5">
                   <div className="flex gap-5">
-                    <img
-                      src={review?.photo}
-                      alt={`${review?.firstName} ${review?.lastName}`}
-                      className="w-14 h-14 rounded-full"
-                    />
+                    <div
+                      className={`${color} text-white flex items-center justify-center rounded-full w-14 h-14 `}
+                    >
+                      {review?.firstName.charAt(0)}
+                    </div>
                     <div className="flex flex-col gap-1 font-thin">
                       <span className="font-extralight">{`${review?.firstName} ${review?.lastName}`}</span>
                       <span>
@@ -85,33 +91,26 @@ function Reviews({ productData }) {
                     </div>
                   </div>
                 </div>
-              ))}
+                )}
+              )}
           </div>
-          {/* {showReviews < reviews?.length && (
+
+          {reviews?.length > 3 && (
             <div className="text-center w-full mt-5">
               <button
-                onClick={() => setShowReviews(showReviews + 3)}
-                className="bg-gray-200 text-teagreen-700 py-2 px-5 rounded-lg"
+                onClick={() =>
+                  setShowReviews(
+                    showReviews < reviews?.length ? showReviews + 3 : 3
+                  )
+                }
+                className="bg-teagreen-200 text-teagreen-700 py-2 px-5 rounded-lg"
               >
-                See More Reviews
+                {showReviews < reviews?.length
+                  ? "See More Reviews"
+                  : "See Less Reviews"}
               </button>
             </div>
-          )} */}
-
-          <div className="text-center w-full mt-5">
-            <button
-              onClick={() =>
-                setShowReviews(
-                  showReviews < reviews?.length ? showReviews + 3 : 3
-                )
-              }
-              className="bg-teagreen-200 text-teagreen-700 py-2 px-5 rounded-lg"
-            >
-              {showReviews < reviews?.length
-                ? "See More Reviews"
-                : "See Less Reviews"}
-            </button>
-          </div>
+          )}
         </div>
       ) : (
         <p>No Reviews Yet</p>
