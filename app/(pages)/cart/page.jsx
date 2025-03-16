@@ -151,6 +151,7 @@ const CartPage = () => {
                                   img={`${env.app_url}${item.thumbnail?.filepath}`}
                                   alt={item?.thumbnail?.alternateText}
                                   presets={{ width: 80, height: 80 }}
+                                  className="max-w-[80px] w-full max-h-[80px] h-full object-cover"
                                 />
                                 <div className="space-y-1">
                                   <h4 className="font-light group-hover:underline duration-300">

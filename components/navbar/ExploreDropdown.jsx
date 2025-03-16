@@ -95,8 +95,9 @@ function ExploreDropdown() {
             <NextImage
               img="/whychooseus/slide_banner_09.jpg"
               alt="gifts"
-              presets={{width: 300, height: 250}}
+              presets={{ width: 300, height: 250 }}
               style={{ width: "auto", height: "auto" }}
+              className="max-w-[300px] w-full max-h-[200px] h-full object-cover"
             />
             <h4 className="uppercase font-extralight text-teagreen-600">
               Learn how to brew

@@ -91,7 +91,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </ClientWrapper>
         <script
-          src="//code.tidio.co/op9ndxaruvct93xqrns2w8jrfgit2buh.js"
+          src="//code.tidio.co/ukz1e1zbvwkghdkie6abqjgmgo4rtdki.js"
           async
         ></script>
       </body>
