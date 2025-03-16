@@ -12,6 +12,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "boxicons/css/boxicons.min.css";
 import "swiper/css/bundle";
 import "./globals.css";
+import { Prompt, SUSE } from "next/font/google";
 
 export const revalidate = 0;
 
@@ -80,7 +81,7 @@ export async function generateMetadata() {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning={true}>
-      <body /* className={fonts} */>
+      <body className={fonts}>
         <ClientWrapper>
           <Header />
           <Navbar />

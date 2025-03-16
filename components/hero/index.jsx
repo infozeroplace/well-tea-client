@@ -1,16 +1,12 @@
 "use client";
-
 import { env } from "@/config/env";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SectionLinkButton } from "../shared";
 
 function Hero({ data }) {
-  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0);
 
   const textAnimation = {
@@ -23,9 +19,8 @@ function Hero({ data }) {
     exit: { opacity: 0, y: -50, transition: { duration: 0.2, delay: 0 } },
   };
 
-  // const handleNavigation = (url) => {
-  //   router.push(url);
-  // };
+
+  if(!data) return null
 
   return (
     <div className="relative overflow-hidden">
@@ -33,10 +28,10 @@ function Hero({ data }) {
         <Swiper
           modules={[Autoplay, EffectFade]}
           effect={"fade"}
-          speed={1000}
+          speed={800}
           grabCursor={true}
           autoplay={{
-            delay: 5000,
+            delay: 2000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
@@ -46,19 +41,18 @@ function Hero({ data }) {
         >
           {data.map((item, idx) => (
             <SwiperSlide key={idx} className="relative">
-              <div className="w-full h-[450px] md:h-[500px] 2xl:h-[636px]">
-                <Image
-                  src={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
+              <div className="w-full">
+                <NextImage
+                  img={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
                   alt={item?.bannerImagePath[0]?.alternateText}
-                  width={1900}
-                  height={750}
-                  className="object-cover h-full w-full"
+                  quality={100}
+                  className="w-full object-cover max-2xl:h-full"
                 />
               </div>
 
-              <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+              <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
-              <div className="container px-5 sm:px-10 md:px-14 lg:px-10 2xl:px-24 absolute text-center md:text-left top-1/2 transform -translate-y-1/2 text-white">
+              <div className="container absolute text-center md:text-left top-1/2 transform left-24 -translate-y-1/2 text-white">
                 <div>
                   <motion.h1
                     key={`title-${idx}`}
