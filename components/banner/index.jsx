@@ -11,13 +11,13 @@ function Banner({ data }) {
           backgroundImage: `url(${env.app_url}${data.bannerImage[0].filepath})`,
         }}
       >
-        <NextImage
+        {/* <NextImage
           img={`${env.app_url}${data.bannerImage[0]?.filepath}`}
           alt={`${data.bannerImage[0]?.alternateText}`}
           presets={{ width: 1500, height: 400 }}
           quality={50}
           className="absolute top-0 left-0 object-cover w-full h-full"
-        />
+        /> */}
         <div className="absolute top-1/2 left-1/2 lg:left-0 -translate-y-1/2 -translate-x-1/2 lg:translate-x-0 max-w-[450px] w-full flex flex-col justify-center px-20 gap-5 py-10 text-center lg:text-left bg-teagreen-500">
           <h1 className="text-2xl xl:text-3xl font-semibold text-white">
             {data?.title || ""}
