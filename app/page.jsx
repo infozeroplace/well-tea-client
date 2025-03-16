@@ -48,12 +48,12 @@ const Home = async () => {
     return (
       <>
         <Hero data={systemData?.hero || []} />
-        {/* <CategoryOffer data={systemData?.offer || {}} />
+        <CategoryOffer data={systemData?.offer || {}} />
         <Category initialProducts={categoryData || []} teaTypes={teaTypes} />
         <Banner data={systemData?.featured || []} />
         <VariableCategoryProducts initialProducts={featuredProducts || []} />
         <WhyChooseUs data={systemData?.whyChooseUs || []} />
-        <BestSellers initialProducts={bestSellerData || []} /> */}
+        <BestSellers initialProducts={bestSellerData || []} />
       </>
     );
   } catch (error) {
