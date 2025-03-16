@@ -51,12 +51,13 @@ const Navbar = () => {
     setActiveDropdown(null);
   }, [searchParams]);
 
+  console.log("menus", menus);
   return (
     <nav className="bg-white sticky top-0 z-[9999999] shadow-sm">
       <div className="container px-5 sm:px-10 md:px-14 lg:px-10">
         <div className="flex justify-between items-center h-[70px]">
           {/* Logo */}
-          <div className="flex-shrink-0 w-28 md:w-36">
+          <div className="flex-shrink-0 w-28 lg:w-36">
             <Link href="/">
               <NextImage
                 img={
@@ -65,13 +66,13 @@ const Navbar = () => {
                     : "/logo/welltea_logo_color.png"
                 }
                 alt={logo?.alternateText || "welltea"}
-                presets={{width: 150, height: 100}}
+                presets={{ width: 150, height: 100 }}
               />
             </Link>
           </div>
 
           {/* --------- Nav Items -------- */}
-          <div className="hidden sm:flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-2 lg:gap-5">
             {menus.map((item) => {
               const SelectedPattern = dropdownPatterns.find(
                 (item2) => item?.dropdown?.pattern === item2?.value
@@ -124,7 +125,7 @@ const Navbar = () => {
 
           <div className="flex">
             {/* --------- Nav Icons --------- */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="flex items-center lg:gap-1">
               <SearchProduct buttonClass={`nav-button ${navIconsClasses}`} />
               <Profile buttonClass={`nav-button ${navIconsClasses}`} />
               <Wishlist buttonClass={`nav-button ${navIconsClasses}`} />
@@ -134,7 +135,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden ml-4 text-gray-600 hover:text-white focus:outline-none"
+              className="md:hidden ml-4 text-gray-600 hover:text-gray-700 focus:outline-none"
             >
               {isOpen ? (
                 <svg
@@ -174,14 +175,14 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-teagreen-700">
-          {mobileNavItems.map((item) => (
+        <div className="md:hidden bg-teagreen-700">
+          {menus?.map((item) => (
             <Link
-              key={item.name}
-              href={`/collection/${item.url}`}
+              key={item?.category?.assortment}
+              href={`/collection/${item?.category?.assortment}`}
               className="block capitalize px-4 py-3 md:py-4 md:text-xl text-white hover:bg-teagreen-600 cursor-pointer"
             >
-              {item.name}
+              {item?.category?.assortment || ""}
             </Link>
           ))}
         </div>
