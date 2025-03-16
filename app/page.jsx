@@ -45,6 +45,8 @@ const Home = async () => {
       data: { data: systemData },
     } = await axios.get("/public/system");
 
+
+
     return (
       <>
         <Hero data={systemData?.hero || []} />
