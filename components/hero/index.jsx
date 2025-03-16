@@ -2,7 +2,6 @@
 
 import { env } from "@/config/env";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
@@ -51,7 +50,7 @@ function Hero({ data }) {
                 <NextImage
                   img={`${env.app_url}${item?.bannerImagePath[0]?.filepath}`}
                   alt={item?.bannerImagePath[0]?.alternateText}
-                  presets={{width: 1900, height: 750}}
+                  presets={{ width: 1900, height: 750 }}
                   quality={50}
                 />
               </div>
