@@ -42,8 +42,6 @@ const Blog = async ({ params }) => {
     `/public/blog/${article}`
   );
 
-  console.log(articleData);
-
   return (
     <div>
       <CommonBanner bannerTitle="Blog" />

@@ -7,8 +7,6 @@ import {
 import NextImage from "@/components/shared/NextImage";
 import { aboutMetadata } from "@/data/staticMetaData";
 
-import Image from "next/image";
-
 export const revalidate = 0;
 
 export async function generateMetadata() {

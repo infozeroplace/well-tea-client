@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
 }
 
 const ProductDetail = async ({ params }) => {
-  const { slug } = await params; // Await the params object
+  const { slug } = await params; 
   const decodedSlug = decodeURIComponent(slug);
 
   try {

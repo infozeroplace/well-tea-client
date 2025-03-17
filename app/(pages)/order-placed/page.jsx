@@ -12,8 +12,6 @@ export default function OrderPlacedPage() {
 
   const { auth: { user } } = useAppSelector((state) => state);
 
-  console.log(user);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white shadow-md rounded-lg p-8 max-w-lg w-full text-center space-y-5">

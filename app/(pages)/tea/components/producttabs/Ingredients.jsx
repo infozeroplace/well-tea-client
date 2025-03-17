@@ -1,6 +1,4 @@
-function Ingredients({ teaIngredient=[] }) {
-  console.log("teaIngredient", teaIngredient);
-  
+function Ingredients({ teaIngredient = [] }) {
   return (
     <div className="p-5">
       {teaIngredient?.map((item, index) => (

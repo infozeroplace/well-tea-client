@@ -33,7 +33,6 @@ const TeaFilters = ({ filters = [], category = "" }) => {
         : params.delete(key);
     }
 
-    console.log(params);
     router.push(`?${params.toString()}`);
   };
 

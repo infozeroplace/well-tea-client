@@ -36,8 +36,6 @@ export async function generateMetadata({
   const queryString = queryParams ? `?${queryParams}` : "";
   const fullUrl = `${siteUrl}collection/${decodedCategory}${queryString}`;
 
-  // console.log(fullUrl);
-
   return {
     title: title,
     description: `Explore products under ${decodedCategory}.`,

@@ -35,8 +35,6 @@ function AddressScreen() {
     auth: { user, token },
   } = useAppSelector((state) => state);
 
-  // console.log(user);
-
   const {
     data: { data: allAddressData } = {},
     isLoading: addressLoading,

@@ -11,7 +11,7 @@ function CommonBanner({
       <NextImage
         img={bannerImage || "/images/about-image-1.jpg"}
         alt="banner"
-        fill
+        className="w-full max-h-[200px] object-cover"
       />
       <div className="absolute top-0 left-0 w-full h-full bg-opacity-50 flex flex-col items-center justify-center text-white text-brand__font__size__lg lg:text-brand__font__size__lg2 capitalize">
         <p>{bannerTitle}</p>

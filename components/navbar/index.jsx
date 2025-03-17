@@ -51,7 +51,6 @@ const Navbar = () => {
     setActiveDropdown(null);
   }, [searchParams]);
 
-  console.log("menus", menus);
   return (
     <nav className="bg-white sticky top-0 z-[9999999] shadow-sm">
       <div className="container px-5 sm:px-10 md:px-14 lg:px-10">

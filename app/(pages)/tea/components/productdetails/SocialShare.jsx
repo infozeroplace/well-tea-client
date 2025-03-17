@@ -8,8 +8,6 @@ import { GrFacebookOption } from "react-icons/gr";
 function SocialShare({ productUrl }) {
   const siteUrl = "https://welltea.bikolpo.com/";
 
-  // console.log(env.app_url);
-
   // const socialSites = [
   //   {
   //     name: "Facebook",

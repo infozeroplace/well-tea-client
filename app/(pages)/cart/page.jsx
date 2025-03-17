@@ -6,7 +6,6 @@ import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
-import Image from "next/image";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

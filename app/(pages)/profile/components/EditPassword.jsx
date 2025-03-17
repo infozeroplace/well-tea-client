@@ -49,8 +49,6 @@ const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
         : { newPassword: e.newPassword },
     };
 
-    console.log("options", options);
-
     try {
       const res = user?.isPasswordHas
         ? await editPassword(options)
