@@ -270,10 +270,38 @@ const CheckoutScreen = () => {
 
   return (
     <>
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-between gap-5 p-5">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-center gap-5 p-5">
         {carts?._id && carts?.items?.length ? (
-          <>
-            <div className="w-full h-full md:flex justify-center md:justify-end items-center py-10">
+          <div className="w-full flex justify-center gap-4 py-10">
+            <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
+              {alertData.isShow && (
+                <Alert
+                  color="danger"
+                  description={alertData.message}
+                  title="Warning!"
+                />
+              )}
+
+              <EmailSelection
+                user={user}
+                email={email}
+                onChangeEmail={setEmail}
+              />
+
+              <AddressSelection
+                user={user}
+                addresses={addresses}
+                shippingAddress={shippingAddress}
+                billingAddress={billingAddress}
+                useSameShipping={useSameShipping}
+                onSameShipping={handleChangeSameShipping}
+                onChangeShippingFields={handleChangeShippingAddressFields}
+                onChangeBillingFields={handleChangeBillingAddressFields}
+                onChangeShippingAddress={handleShippingAddressChange}
+              />
+            </div>
+
+            <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
               <CheckoutPreview
                 user={user}
                 carts={carts}
@@ -295,68 +323,38 @@ const CheckoutScreen = () => {
                 onChangeCoupon={handleSetCoupon}
                 onApplyCoupon={handleApplyCoupon}
               />
-            </div>
 
-            <div className="w-full h-full py-10 flex flex-col gap-4">
-              <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
-                {alertData.isShow && (
-                  <Alert
-                    color="danger"
-                    description={alertData.message}
-                    title="Warning!"
-                  />
-                )}
-
-                <EmailSelection
-                  user={user}
-                  email={email}
-                  onChangeEmail={setEmail}
-                />
-
-                <AddressSelection
-                  user={user}
-                  addresses={addresses}
-                  shippingAddress={shippingAddress}
-                  billingAddress={billingAddress}
-                  useSameShipping={useSameShipping}
-                  onSameShipping={handleChangeSameShipping}
-                  onChangeShippingFields={handleChangeShippingAddressFields}
-                  onChangeBillingFields={handleChangeBillingAddressFields}
-                  onChangeShippingAddress={handleShippingAddressChange}
-                />
-
-                {clientSecret && stripe && (
-                  <Elements
-                    stripe={stripe}
-                    options={{
-                      clientSecret,
-                      appearance: {
-                        variables: {
-                          colorPrimary: "#13a800",
-                        },
+              {clientSecret && stripe && (
+                <Elements
+                  stripe={stripe}
+                  options={{
+                    clientSecret,
+                    appearance: {
+                      variables: {
+                        colorPrimary: "#13a800",
                       },
-                    }}
-                  >
-                    <CheckoutForm
-                      grandTotal={grandTotal}
-                      user={user}
-                      email={email}
-                      shippingAddress={shippingAddress}
-                      billingAddress={billingAddress}
-                      useSameShipping={useSameShipping}
-                      onShowAlert={handleShowAlert}
-                      loading={
-                        addressLoading ||
-                        methodLoading ||
-                        createPaymentIntentFetch ||
-                        updatePaymentIntentFetch
-                      }
-                    />
-                  </Elements>
-                )}
-              </div>
+                    },
+                  }}
+                >
+                  <CheckoutForm
+                    grandTotal={grandTotal}
+                    user={user}
+                    email={email}
+                    shippingAddress={shippingAddress}
+                    billingAddress={billingAddress}
+                    useSameShipping={useSameShipping}
+                    onShowAlert={handleShowAlert}
+                    loading={
+                      addressLoading ||
+                      methodLoading ||
+                      createPaymentIntentFetch ||
+                      updatePaymentIntentFetch
+                    }
+                  />
+                </Elements>
+              )}
             </div>
-          </>
+          </div>
         ) : (
           <EmptyBasket />
         )}
