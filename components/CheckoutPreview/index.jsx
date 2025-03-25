@@ -4,7 +4,6 @@ import { env } from "@/config/env";
 import NextImage from "../shared/NextImage";
 
 const CheckoutPreview = ({
-  user,
   carts,
   totalPrice,
   shippingCost,
@@ -12,7 +11,6 @@ const CheckoutPreview = ({
   methods,
   selectedMethod,
   coupon,
-  discountAmount,
   applyCouponLoading,
   loading,
   onChangeMethod,
@@ -23,28 +21,26 @@ const CheckoutPreview = ({
 
   return (
     <div className="flex flex-col gap-4">
-      {user && (
-        <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
-          <input
-            value={coupon}
-            onChange={(e) => onChangeCoupon(e.target.value)}
-            type="text"
-            placeholder="Discount code or gift card"
-            className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
-          />
-          <button
-            onClick={onApplyCoupon}
-            disabled={!coupon || discountAmount}
-            className={`w-[100px] px-4 py-2 text-sm font-semibold ${
-              !coupon || discountAmount
-                ? "cursor-not-allowed bg-gray-200 text-gray-500 "
-                : "bg-blue-500 text-white"
-            } `}
-          >
-            {applyCouponLoading ? "Loading..." : "Apply"}
-          </button>
-        </div>
-      )}
+      <div className="flex border border-gray-300 rounded-md overflow-hidden w-full">
+        <input
+          value={coupon}
+          onChange={(e) => onChangeCoupon(e.target.value)}
+          type="text"
+          placeholder="Discount code or gift card"
+          className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
+        />
+        <button
+          onClick={onApplyCoupon}
+          disabled={!coupon}
+          className={`w-[100px] px-4 py-2 text-sm font-semibold ${
+            !coupon
+              ? "cursor-not-allowed bg-gray-200 text-gray-500 "
+              : "bg-blue-500 text-white"
+          } `}
+        >
+          {applyCouponLoading ? "Loading..." : "Apply"}
+        </button>
+      </div>
 
       {/* Cart Items */}
       <div className="flex flex-col gap-5">

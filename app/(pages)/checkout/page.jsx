@@ -9,11 +9,11 @@ import EmptyBasket from "@/components/EmptyBasket";
 import { env } from "@/config/env";
 import useToast from "@/hooks/useToast";
 import { useGetAddressQuery } from "@/services/features/address/addressApi";
+import { useApplyCouponMutation } from "@/services/features/coupon/couponApi";
 import {
-  useApplyCouponMutation,
   useCreatePaymentIntentMutation,
   useUpdatePaymentIntentMutation,
-} from "@/services/features/orders/ordersApi";
+} from "@/services/features/payment/paymentApi";
 import { useGetShippingMethodsQuery } from "@/services/features/shipping/shippingApi";
 import { useAppSelector } from "@/services/hook";
 import { Alert } from "@heroui/react";
@@ -38,17 +38,17 @@ const CheckoutScreen = () => {
     carts: { carts },
   } = useAppSelector((state) => state);
 
+  const effectExecuted = useRef(false);
   const [email, setEmail] = useState(user?.email || null);
   const [useSameShipping, setUseSameShipping] = useState(true);
   const [shippingAddress, setShippingAddress] = useState(null);
   const [billingAddress, setBillingAddress] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [coupon, setCoupon] = useState("");
-  const [discountAmount, setDiscountAmount] = useState(0);
+  const [discount, setDiscount] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [stripe, setStripe] = useState(null);
   const [alertData, setAlertData] = useState({ isShow: false, message: "" });
-  const effectExecuted = useRef(false);
 
   // Fetch saved addresses
   const { data: { data: addresses = [] } = {}, isLoading: addressLoading } =
@@ -104,14 +104,13 @@ const CheckoutScreen = () => {
   useEffect(() => {
     if (applyCouponData?.data) {
       toast.success(applyCouponData?.message);
-      setDiscountAmount(applyCouponData?.data || 0);
+      setDiscount(applyCouponData?.data);
     }
   }, [applyCouponData?.data, applyCouponData?.message]);
 
   useEffect(() => {
     if (applyCouponError?.data?.message) {
       toast.error(applyCouponError?.data?.message);
-      setCoupon("");
     }
   }, [applyCouponError?.data?.message]);
 
@@ -247,13 +246,13 @@ const CheckoutScreen = () => {
   const handleSetCoupon = (val) => setCoupon(val);
 
   const handleApplyCoupon = async () => {
+    const cartId = carts?._id || null;
+
     const {
-      data: { data },
-    } = await axios.get("/public/payment/get-payment-intent");
+      data: { data: paymentIntent },
+    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
 
-    const paymentIntent = JSON.parse(data);
-
-    if ((paymentIntent.id && !coupon) || !discountAmount) {
+    if (paymentIntent.id) {
       await applyCoupon({
         data: {
           coupon,
@@ -263,16 +262,24 @@ const CheckoutScreen = () => {
     }
   };
 
-  // Calculate total price
-  const totalPrice = carts?.totalPrice || 0;
-  const shippingCost = selectedMethod?.cost || 0;
-  const grandTotal = (totalPrice + shippingCost - discountAmount).toFixed(2);
+  let discountPrice = 0;
+
+  if (discount) {
+    discountPrice =
+      discount?.discountType === "percent"
+        ? (carts?.totalPrice / 100) * discount.discount
+        : discount.discount;
+  }
+
+  const subtotal = carts?.totalPrice - discountPrice;
+  const shipping = selectedMethod?.cost || 0;
+  const grandTotal = (subtotal + shipping).toFixed(2);
 
   return (
     <>
-      <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full flex flex-col xl:flex-row justify-center gap-5 p-5">
+      <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full">
         {carts?._id && carts?.items?.length ? (
-          <div className="w-full flex justify-center gap-4 py-10">
+          <div className="w-full flex flex-col xl:flex-row justify-center gap-4 py-10">
             <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
               {alertData.isShow && (
                 <Alert
@@ -303,15 +310,13 @@ const CheckoutScreen = () => {
 
             <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
               <CheckoutPreview
-                user={user}
                 carts={carts}
-                totalPrice={totalPrice}
-                shippingCost={shippingCost}
+                totalPrice={subtotal}
+                shippingCost={shipping}
                 grandTotal={grandTotal}
                 methods={methods}
                 selectedMethod={selectedMethod}
                 coupon={coupon}
-                discountAmount={discountAmount}
                 applyCouponLoading={applyCouponFetch}
                 loading={
                   addressLoading ||
