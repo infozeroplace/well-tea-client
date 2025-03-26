@@ -23,7 +23,7 @@ const EmailSelection = ({ user, email, onChangeEmail }) => {
               type="text"
               placeholder="Email"
               defaultValue={email || ""}
-              onBlur={(e) => onChangeEmail(e.target.value)}
+              onChange={(e) => onChangeEmail(e.target.value)}
               className="flex-grow px-3 py-2 text-gray-700 outline-none placeholder:text-brand__font__size__sm"
             />
           </div>
