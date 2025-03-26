@@ -6,7 +6,6 @@ import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { useAppSelector } from "@/services/hook";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
@@ -20,16 +19,23 @@ const toNumber = (value) => {
 };
 
 function WishlistScreen() {
-  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
-  const wishlistItems = wishlist?.items;
+  const {
+    carts: { carts },
+    wishlist: { wishlist },
+  } = useAppSelector((state) => state);
+
+  const wishlistItems = wishlist?.items || [];
+
   const [
     addToWishlist,
     { data: addToWishlistData, isLoading: addToWishlistLoading },
   ] = useAddToWishlistMutation();
+
   const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
     useAddToCartMutation();
 
   const dispatch = useDispatch();
+
   const handleRemoveFromWishlist = async (productId) => {
     await addToWishlist({ data: { productId } });
   };
@@ -48,16 +54,21 @@ function WishlistScreen() {
     unitPriceId,
     subscriptionId
   ) => {
-    await addToCart({
-      data: {
-        productId,
-        actionType,
-        purchaseType,
-        quantity,
-        unitPriceId,
-        subscriptionId,
-      },
-    });
+    const cartId = carts?._id || null;
+
+    if (cartId) {
+      await addToCart({
+        data: {
+          cartId,
+          productId,
+          actionType,
+          purchaseType,
+          quantity,
+          unitPriceId,
+          subscriptionId,
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -65,7 +76,6 @@ function WishlistScreen() {
       toast.success(addToCartData?.message);
     }
   }, [addToCartData]);
-
 
   return (
     <div className="max-h-[400px] overflow-y-auto">

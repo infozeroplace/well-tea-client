@@ -4,7 +4,7 @@ import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import NextImage from "@/components/shared/NextImage";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
-import { useAppDispatch } from "@/services/hook";
+import { useAppDispatch, useAppSelector } from "@/services/hook";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -18,6 +18,11 @@ const toNumber = (value) => {
 function ManageProduct({ product }) {
   const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
     useAddToCartMutation();
+
+  const {
+    carts: { carts },
+  } = useAppSelector((state) => state);
+
   const [purchaseType, setPurchaseType] = useState("one_time");
   const [quantity, setQuantity] = useState(1);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
@@ -35,6 +40,7 @@ function ManageProduct({ product }) {
   const [totalPrice, setTotalPrice] = useState(productPrice);
 
   const dispatch = useAppDispatch();
+
   // ---------- Handle Quantity Change ---------- //
   const handleQuantityChange = (type) => {
     setQuantity((prevQuantity) =>
@@ -97,31 +103,35 @@ function ManageProduct({ product }) {
   // ---------- Handle Add To Cart ---------- //
 
   const handleAddToCart = async () => {
-    await addToCart({
-      data: {
-        productId: product?._id,
-        unitPriceId: selectedUnitObj?._id,
-        actionType: "plus",
-        purchaseType: purchaseType,
-        subscriptionId: selectedSubObj?._id ? selectedSubObj?._id : "",
-        quantity: quantity,
-      },
-    });
+    const cartId = carts?._id || null;
 
-    if (selectedAddOns.length > 0) {
-      const addOnPromises = selectedAddOns.map((addOn) =>
-        addToCart({
-          data: {
-            productId: addOn?._id,
-            unitPriceId: addOn?.unitPrices[0]?._id,
-            actionType: "plus",
-            purchaseType: purchaseType,
-            subscriptionId: selectedSubObj?._id || "",
-            quantity: 1,
-          },
-        })
-      );
-      await Promise.all(addOnPromises);
+    if (cartId) {
+      await addToCart({
+        data: {
+          productId: product?._id,
+          actionType: "plus",
+          purchaseType: purchaseType,
+          quantity: quantity,
+          unitPriceId: selectedUnitObj?._id,
+          subscriptionId: selectedSubObj?._id ? selectedSubObj?._id : "",
+        },
+      });
+
+      if (selectedAddOns.length > 0) {
+        const addOnPromises = selectedAddOns.map((addOn) =>
+          addToCart({
+            data: {
+              productId: addOn?._id,
+              actionType: "plus",
+              purchaseType: purchaseType,
+              quantity: 1,
+              unitPriceId: addOn?.unitPrices[0]?._id,
+              subscriptionId: selectedSubObj?._id || "",
+            },
+          })
+        );
+        await Promise.all(addOnPromises);
+      }
     }
   };
 
@@ -260,7 +270,7 @@ function ManageProduct({ product }) {
                 <NextImage
                   img={`${env.app_url}${addOn?.thumbnails[0]?.filepath}`}
                   alt={addOn?.thumbnails[0]?.alternateText}
-                  presets={{width: 80, height: 80}}
+                  presets={{ width: 80, height: 80 }}
                   className="max-w-[80px] w-full h-[80px] object-cover mr-4"
                 />
                 <div>

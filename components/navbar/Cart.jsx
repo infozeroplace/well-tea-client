@@ -1,12 +1,11 @@
 "use client";
 
-import axios from "@/api/axios";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
@@ -24,13 +23,10 @@ const Cart = ({ buttonClass }) => {
   const wishlistRef = useRef(null);
   const buttonRef = useRef(null);
 
-  // const {
-  //   carts: { carts },
-  // } = useAppSelector((state) => state);
+  const {
+    carts: { carts },
+  } = useAppSelector((state) => state);
 
-  const carts = useAppSelector((state) => state.carts.carts);
-  
-  
   const dispatch = useAppDispatch();
   const pathname = usePathname();
 
@@ -53,39 +49,19 @@ const Cart = ({ buttonClass }) => {
   ) => {
     const cartId = carts?._id || null;
 
-    const {
-      data: { data: paymentIntent },
-    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
-
-    let coupon = "";
-    let paymentIntentId = "";
-    let shippingMethodId = "";
-
-    if (
-      paymentIntent &&
-      paymentIntent.id &&
-      paymentIntent.coupon &&
-      paymentIntent.clientSecret &&
-      paymentIntent.shippingMethodId
-    ) {
-      coupon = paymentIntent.coupon;
-      paymentIntentId = paymentIntent.id;
-      shippingMethodId = paymentIntent.shippingMethodId;
+    if (cartId) {
+      await addToCart({
+        data: {
+          cartId,
+          productId,
+          actionType,
+          purchaseType,
+          quantity,
+          unitPriceId,
+          subscriptionId,
+        },
+      });
     }
-
-    await addToCart({
-      data: {
-        paymentIntentId,
-        shippingMethodId,
-        coupon,
-        productId,
-        actionType,
-        purchaseType,
-        quantity,
-        unitPriceId,
-        subscriptionId,
-      },
-    });
   };
 
   useEffect(() => {

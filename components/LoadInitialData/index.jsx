@@ -29,7 +29,7 @@ const LoadInitialData = ({ children }) => {
   useEffect(() => {
     dispatch(addCart(cart));
     dispatch(addWishlist(wishlist));
-  }, [cart?.items, wishlist?.items]);
+  }, [cart, wishlist]);
 
   return children;
 };

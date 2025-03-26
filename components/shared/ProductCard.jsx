@@ -1,11 +1,9 @@
 "use client";
 
-import axios from "@/api/axios";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -13,25 +11,23 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import NextImage from "./NextImage";
 
 const ProductCard = ({ product }) => {
-  // const {
-  //   wishlist: { wishlist },
-  //   carts: { carts },
-  // } = useAppSelector((state) => state);
-
-  const wishlistItems = useAppSelector((state) => state.wishlist.items);
-  const carts = useAppSelector((state) => state.carts);
+  const {
+    wishlist: { wishlist },
+    carts: { carts },
+  } = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
   const cardRef = useRef(null);
 
   const [addButtonClicked, setAddButtonClicked] = useState(false);
 
-  // const wishlistItems = wishlist?.items;
+  const wishlistItems = wishlist?.items || [];
 
   const [
     addToWishlist,
     { data: addToWishlistData, isLoading: addToWishlistLoading },
   ] = useAddToWishlistMutation();
+
   const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
     useAddToCartMutation();
 
@@ -44,40 +40,20 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = async (unitPriceId) => {
     const cartId = carts?._id || null;
 
-    const {
-      data: { data: paymentIntent },
-    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
-
-    let coupon = "";
-    let paymentIntentId = "";
-    let shippingMethodId = "";
-
-    if (
-      paymentIntent &&
-      paymentIntent.id &&
-      paymentIntent.coupon &&
-      paymentIntent.clientSecret &&
-      paymentIntent.shippingMethodId
-    ) {
-      coupon = paymentIntent.coupon;
-      paymentIntentId = paymentIntent.id;
-      shippingMethodId = paymentIntent.shippingMethodId;
+    if (cartId) {
+      await addToCart({
+        data: {
+          cartId,
+          productId,
+          actionType: "plus",
+          purchaseType: "one_time",
+          quantity: 1,
+          unitPriceId,
+          subscriptionId: "",
+        },
+      });
+      setAddButtonClicked(false);
     }
-
-    await addToCart({
-      data: {
-        paymentIntentId,
-        shippingMethodId,
-        coupon,
-        productId,
-        unitPriceId,
-        actionType: "plus",
-        purchaseType: "one_time",
-        subscriptionId: "",
-        quantity: 1,
-      },
-    });
-    setAddButtonClicked(false);
   };
 
   const handleAddToWishlist = async () => {

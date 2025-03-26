@@ -1,17 +1,16 @@
 "use client";
 import axios from "@/api/axios";
-import { CommonBanner, SectionButton, SectionLinkButton } from "@/components";
+import { CommonBanner, SectionLinkButton } from "@/components";
 import EmptyBasket from "@/components/EmptyBasket";
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import NextImage from "@/components/shared/NextImage";
 import { env } from "@/config/env";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
 import { useAppDispatch, useAppSelector } from "@/services/hook";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { RelatedProducts } from "../tea/components";
-import NextImage from "@/components/shared/NextImage";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;
@@ -22,9 +21,13 @@ const toNumber = (value) => {
 const CartPage = () => {
   const [addToCart, { data: addToCartData, isLoading: addToCartLoading }] =
     useAddToCartMutation();
-  const carts = useAppSelector((state) => state.carts.carts);
+
+  const {
+    carts: { carts },
+  } = useAppSelector((state) => state);
+
   const dispatch = useAppDispatch();
-  // const router = useRouter();
+
   const ids = carts?.items?.map((item) => item?.productId);
   const [relatedProductsData, setRelatedProductsData] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
@@ -49,38 +52,21 @@ const CartPage = () => {
     unitPriceId,
     subscriptionId
   ) => {
-    const storedIntent = localStorage.getItem("paymentIntent");
-    const parsedIntent = storedIntent ? JSON.parse(storedIntent) : null;
+    const cartId = carts?._id || null;
 
-    let paymentIntentId = "";
-    let shippingMethodId = "";
-    let coupon = "";
-
-    if (
-      parsedIntent &&
-      parsedIntent.shippingMethodId &&
-      parsedIntent.id &&
-      parsedIntent.clientSecret &&
-      parsedIntent.expiry > Date.now()
-    ) {
-      paymentIntentId = parsedIntent.id;
-      shippingMethodId = parsedIntent.shippingMethodId;
-      coupon = parsedIntent.coupon;
+    if (cartId) {
+      await addToCart({
+        data: {
+          cartId,
+          productId,
+          actionType,
+          purchaseType,
+          quantity,
+          unitPriceId,
+          subscriptionId,
+        },
+      });
     }
-
-    await addToCart({
-      data: {
-        paymentIntentId,
-        shippingMethodId,
-        coupon,
-        productId,
-        actionType,
-        purchaseType,
-        quantity,
-        unitPriceId,
-        subscriptionId,
-      },
-    });
   };
 
   // const handleNavigate = () => router.push("/checkout");

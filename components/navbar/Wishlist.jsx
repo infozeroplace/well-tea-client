@@ -1,18 +1,17 @@
-import React from 'react'
-import { useEffect, useState, useRef } from "react";
-import Link from 'next/link';
-import { usePathname, useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
-import { CiHeart } from 'react-icons/ci'
-import { RxCross1 } from "react-icons/rx";
-import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
 import { env } from "@/config/env";
-import { SectionLinkButton } from '../shared';
-import { useGetWtwQuery, useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
 import { useAddToCartMutation } from "@/services/features/cart/cartApi";
-import { useAppSelector } from '@/services/hook';
-import LoadingOverlay from '../shared/LoadingOverlay';
-import NextImage from '../shared/NextImage';
+import { useAddToWishlistMutation } from "@/services/features/wishlist/wishlistApi";
+import { useAppSelector } from "@/services/hook";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
+import { CiHeart } from "react-icons/ci";
+import { PiShoppingCartThin, PiTrashSimpleLight } from "react-icons/pi";
+import { RxCross1 } from "react-icons/rx";
+import { SectionLinkButton } from "../shared";
+import LoadingOverlay from "../shared/LoadingOverlay";
+import NextImage from "../shared/NextImage";
 const toNumber = (value) => {
   if (typeof value === "number") return value;
   if (typeof value === "string") return parseFloat(value);
@@ -23,11 +22,22 @@ function Wishlist({ buttonClass }) {
   const [isOpen, setIsOpen] = useState(false);
   const wishlistRef = useRef(null);
   const buttonRef = useRef(null);
-  const wishlist = useAppSelector((state) => state.wishlist.wishlist);
-  const [addToWishlist, { data: addToWishlistData, isLoading: addToWishlistLoading }] = useAddToWishlistMutation();
-  const [addToCart, { isLoading: addToCartLoading, data: addToCartData }] = useAddToCartMutation();
-  const { user } = useAppSelector(state => state.auth);
   const pathname = usePathname();
+
+  const [
+    addToWishlist,
+    { data: addToWishlistData, isLoading: addToWishlistLoading },
+  ] = useAddToWishlistMutation();
+
+  const [addToCart, { isLoading: addToCartLoading, data: addToCartData }] =
+    useAddToCartMutation();
+
+  const {
+    auth: { user },
+    carts: { carts },
+    wishlist: { wishlist },
+  } = useAppSelector((state) => state);
+
   const wishlistItems = wishlist?.items;
   const totalQuantity = wishlistItems?.length;
 
@@ -43,19 +53,24 @@ function Wishlist({ buttonClass }) {
     unitPriceId,
     subscriptionId
   ) => {
-    await addToCart({
-      data: {
-        productId,
-        actionType,
-        purchaseType,
-        quantity,
-        unitPriceId,
-        subscriptionId,
-      },
-    });
+    const cartId = carts?._id || null;
 
-    if (addToCartData?.message) {
-      toast.success(addToCartData?.message);
+    if (cartId) {
+      await addToCart({
+        data: {
+          cartId,
+          productId,
+          actionType,
+          purchaseType,
+          quantity,
+          unitPriceId,
+          subscriptionId,
+        },
+      });
+
+      if (addToCartData?.message) {
+        toast.success(addToCartData?.message);
+      }
     }
   };
 
@@ -219,4 +234,4 @@ function Wishlist({ buttonClass }) {
   );
 }
 
-export default Wishlist
+export default Wishlist;
