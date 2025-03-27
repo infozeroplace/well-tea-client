@@ -1,14 +1,10 @@
 "use client";
 
-// import { useSearchParams } from "next/navigation";
-// import Link from "next/link";
 import { useAppSelector } from "@/services/hook";
 import { SectionLinkButton } from "@/components";
 import { CiCircleCheck } from "react-icons/ci";
 
 export default function OrderPlacedPage() {
-//   const searchParams = useSearchParams();
-//   const orderId = searchParams.get("orderId") || "123456";
 
   const { auth: { user } } = useAppSelector((state) => state);
 
@@ -27,10 +23,6 @@ export default function OrderPlacedPage() {
           <span className="text-teagreen-600 font-semibold">{user?.firstName}</span>!
         </p>
 
-        {/* <div className="bg-gray-50 p-4 mt-4 rounded-md border">
-          <p className="text-gray-600">Order ID:</p>
-          <p className="text-lg font-semibold text-teagreen-600">{orderId}</p>
-        </div> */}
         <p>Your order details has been sent to you email!</p>
 
         <SectionLinkButton

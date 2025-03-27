@@ -4,7 +4,6 @@ import { faqMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-// export const metadata = faqMetadata;
 
 export async function generateMetadata() {
   return faqMetadata;

@@ -33,7 +33,6 @@ function ArticleList({ articleList = [], meta = {} }) {
         <>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {articleList.map((article) => (
-            // <ArticleCard key={article.title} article={article} />
             <Link href={`articles/${article.urlParameter}`} key={article._id}>
               <div className="h-[540px] bg-white rounded-lg border border-gray-100 shadow-md hover:shadow-lg hover:scale-105 duration-300 overflow-hidden">
                 <NextImage

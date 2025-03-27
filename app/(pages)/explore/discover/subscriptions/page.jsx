@@ -5,8 +5,6 @@ import { subscriptionMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-// export const metadata = subscriptionMetadata
-
 export async function generateMetadata() {
   return subscriptionMetadata;
 }

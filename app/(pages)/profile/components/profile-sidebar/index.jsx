@@ -46,11 +46,6 @@ function ProfileSidebar() {
       href: "/profile/settings",
       icon: <CiSettings />,
     },
-    // {
-    //   title: "Log Out",
-    //   href: "/logout",
-    //   icon: <CiLogout />,
-    // },
   ];
 
   const pathname = usePathname();
@@ -72,7 +67,6 @@ function ProfileSidebar() {
         dispatch(logOut());
         router.push("/");
 
-        // ✅ Explicitly reload the page after navigation
         setTimeout(() => {
           window.location.reload();
         }, 1); // Small delay to ensure navigation happens first

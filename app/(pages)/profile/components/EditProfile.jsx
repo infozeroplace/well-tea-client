@@ -17,7 +17,6 @@ import { setAuth } from "@/services/features/auth/authSlice";
 const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData }) => {
   const dispatch = useAppDispatch();
 
-  // const [editProfile, { isLoading }] = useEditProfileMutation();
 
   const {
     register,
@@ -30,7 +29,6 @@ const EditProfile = ({ auth, isOpen, onOpenChange, editProfile, editProfileData 
   const onSubmit = async (data) => {
     try {
       await editProfile({ data }).unwrap();
-      // dispatch(setAuth(res?.data));
       onOpenChange(false);
     } catch (error) {
       console.error("Failed to update profile:", error);

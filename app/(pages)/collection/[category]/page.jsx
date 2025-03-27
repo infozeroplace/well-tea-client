@@ -2,7 +2,6 @@ import axios from "@/api/axios";
 import { CommonBanner } from "@/components";
 import ProductList from "@/components/ProductList";
 import { Skeleton } from "@heroui/react";
-// import { Suspense } from "react";
 
 export const revalidate = 0;
 
@@ -25,10 +24,6 @@ export async function generateMetadata({
   const metaTitle =
     searchParams.productType && searchParams.productType.split(",").slice(0, 3).join(" | ");
   
-  // const title = searchParams.productType
-  //   ? capitalizeEachWord(metaTitle)
-  //   : "All Products";
-
   const title = `${capitalizeEachWord(decodedCategory)} Products`;
   const imageUrl = "/images/about-image-5.jpg";
   const siteUrl = "welltea.zeroplace.co/";

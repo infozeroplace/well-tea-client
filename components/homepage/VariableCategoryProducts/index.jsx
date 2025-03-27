@@ -1,4 +1,4 @@
-import CategorySlider from "@/components/category/CategorySlider";
+import CategorySlider from "@/components/homepage/category/CategorySlider";
 
 const VariableCategoryProducts = ({ initialProducts }) => {
   return (

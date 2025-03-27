@@ -148,7 +148,6 @@ function WishlistScreen() {
                       )
                     }
                     className="text-nowrap bg-teagreen-600 text-white px-3 py-2 flex items-center gap-2"
-                    // className="text-nowrap bg-teagreen-200 border-[.5px] border-teagreen-600 hover:bg-teagreen-300 rounded-sm px-3 py-2"
                   >
                     <PiShoppingCartThin className="text-brand__font__size__md" />
                     <span className="text-brand__font__size__sm">
@@ -158,7 +157,6 @@ function WishlistScreen() {
                   <button
                     onClick={() => handleRemoveFromWishlist(item?._id)}
                     className="text-nowrap bg-red-600 text-white px-3 py-2 flex items-center gap-2"
-                    // className="text-nowrap text-rose-600 bg-rose-100 border-[.5px] border-rose-600 hover:bg-rose-200 rounded-sm px-3 py-2"
                   >
                     <PiTrashSimpleLight className="text-brand__font__size__md" />
                     <span className="text-brand__font__size__sm">

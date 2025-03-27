@@ -3,8 +3,6 @@ import { makeMatchaMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-// export const metadata = makeMatchaMetadata;
-
 export async function generateMetadata() {
   return makeMatchaMetadata;
 }

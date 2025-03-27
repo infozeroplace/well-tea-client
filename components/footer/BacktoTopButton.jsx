@@ -32,7 +32,6 @@ const BackToTopButton = () => {
           onClick={scrollToTop}
           className="fixed bottom-10 right-10 z-20 bg-teagreen-700 p-3 rounded-full text-teagreen-100 flex items-center gap-2 group uppercase"
         >
-          {/* <i className="bx bx-up-arrow-circle text-[25px] text-teagreen-500 group-hover:-translate-y-[2px]  transition-all duration-300"></i> */}
           <FaArrowUp />
         </button>
       )}

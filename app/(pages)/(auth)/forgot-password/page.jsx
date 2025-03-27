@@ -27,7 +27,6 @@ const ForgetPasswordScreen = () => {
       handleError(error?.data?.message);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error]);
 
   const {

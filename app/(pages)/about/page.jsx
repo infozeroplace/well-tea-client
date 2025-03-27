@@ -1,9 +1,4 @@
-import {
-  CommonBanner,
-  DiscoverUs,
-  MarqueeText,
-  Subscription,
-} from "@/components";
+import { CommonBanner, DiscoverUs } from "@/components";
 import NextImage from "@/components/shared/NextImage";
 import { aboutMetadata } from "@/data/staticMetaData";
 
@@ -13,7 +8,6 @@ export async function generateMetadata() {
   return aboutMetadata;
 }
 
-// export const metadata = aboutMetadata;
 
 const About = () => {
   return (
@@ -135,16 +129,6 @@ const About = () => {
           </div>
         </div>
       </div>
-
-      {/* Fourth Section */}
-      <div className="section-gap">
-        <MarqueeText />
-        {/* Company Services
-        <CompanyServices /> */}
-      </div>
-
-      {/* Fifth Section */}
-      <Subscription />
     </div>
   );
 };

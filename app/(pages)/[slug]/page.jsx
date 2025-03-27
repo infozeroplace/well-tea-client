@@ -7,7 +7,7 @@ import {
   ProductTabs,
   RelatedProducts,
   YoutubeVideo,
-} from "../tea/components";
+} from "./components";
 
 export const revalidate = 0;
 

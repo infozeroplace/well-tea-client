@@ -2,7 +2,6 @@
 
 import { SectionLinkButton } from "@/components/shared";
 import { env } from "@/config/env";
-import Image from "next/image";
 import { useState } from "react";
 import NextImage from "@/components/shared/NextImage";
 
