@@ -20,6 +20,7 @@ function ManageProduct({ product }) {
     useAddToCartMutation();
 
   const {
+    auth: { user },
     carts: { carts },
   } = useAppSelector((state) => state);
 
@@ -103,6 +104,16 @@ function ManageProduct({ product }) {
   // ---------- Handle Add To Cart ---------- //
 
   const handleAddToCart = async () => {
+    if (purchaseType === "subscribe" && !user) {
+      return toast("Register first to activate subscription", {
+        style: {
+          border: "1px solid #713200",
+          padding: "16px",
+          color: "#713200",
+        },
+      });
+    }
+
     const cartId = carts?._id || null;
 
     if (cartId) {
@@ -169,7 +180,7 @@ function ManageProduct({ product }) {
       <div className="my-10">
         <div className="space-y-2">
           {/* ----------- One-Time Purchase Option ------------- */}
-          <label className="border flex items-center px-4 py-3 rounded-md bg-teagreen-100 text-teagreen-600">
+          <label className="border flex items-center px-4 py-3 rounded-md bg-teagreen-100 text-teagreen-600 cursor-pointer">
             <input
               type="radio"
               name="purchaseType"
@@ -195,7 +206,7 @@ function ManageProduct({ product }) {
           {/* ------------ Subscribe and Save Option ------------- */}
           {product?.isSubscription && (
             <div className="border rounded-md px-4 py-3 bg-teagreen-100 text-teagreen-600">
-              <label className="flex items-center">
+              <label className="flex items-center cursor-pointer">
                 <input
                   type="radio"
                   name="purchaseType"
