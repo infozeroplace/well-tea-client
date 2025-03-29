@@ -10,7 +10,6 @@ function SearchQuery({ initialSearchTerm="" }) {
   const router = useRouter();
 
   const handleSearch = async () => {
-    // if (searchTerm.trim() === "") return; // Prevent search if input is empty
 
     setIsLoading(true);
     try {
@@ -47,7 +46,6 @@ function SearchQuery({ initialSearchTerm="" }) {
         />
         <CiSearch size={25} onClick={handleSearch} className="cursor-pointer" />
       </div>
-      {/* {isLoading && <p>Loading...</p>} */}
       {isLoading && <Spinner />}
     </div>
   );

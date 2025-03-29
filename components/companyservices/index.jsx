@@ -1,4 +1,3 @@
-// "use client";
 
 import axios from "@/api/axios";
 import { env } from "@/config/env";

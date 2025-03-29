@@ -93,7 +93,7 @@ function ExploreDropdown() {
             className="group flex flex-col items-center gap-5"
           >
             <NextImage
-              img="/whychooseus/slide_banner_09.jpg"
+              img="/images/slide_banner.webp"
               alt="gifts"
               presets={{ width: 300, height: 250 }}
               style={{ width: "auto", height: "auto" }}

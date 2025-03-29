@@ -14,7 +14,6 @@ import { toast } from 'react-hot-toast';
 import LoadingOverlay from '@/components/shared/LoadingOverlay';
 
 function ConfirmDelete({ addressId, isOpen, onOpenChange }) {
-    // const [deleteAddressId, setDeleteAddressId] = useState()
     const [deleteAddress, { isLoading: deleteLoading, data: deleteAddressData }] = useDeleteAddressMutation();
     const handleDeleteAddress = async () => {
       await deleteAddress(addressId);

@@ -69,7 +69,6 @@ const CartPage = () => {
     }
   };
 
-  // const handleNavigate = () => router.push("/checkout");
 
   useEffect(() => {
     if (carts?.items?.length) {
@@ -120,7 +119,6 @@ const CartPage = () => {
                     </thead>
                     <tbody>
                       {carts?.items?.map((item, index) => {
-                        // const [selectedQuantity, setSelectedQuantity] = useState(item?.quantity);
                         const itemKey = getCartItemKey(item);
                         return (
                           <tr
@@ -229,20 +227,6 @@ const CartPage = () => {
 
               {/* Summary Section */}
               <div className="lg:w-2/6 lg:sticky lg:top-0 flex flex-col gap-6">
-                {/* <div className="bg-white p-6 border rounded">
-                <h3 className="text-lg font-light mb-4">Coupon Code</h3>
-                <p className="text-sm mb-4">
-                  Enter a coupon code to get a discount.
-                </p>
-                <input
-                  type="text"
-                  placeholder="Coupon Code"
-                  className="w-full border px-4 py-2 mb-4 text-gray-700 focus:outline-none"
-                />
-                <button className="bg-teagreen-600 text-white rounded-lg px-4 py-2 w-full">
-                  Apply
-                </button>
-              </div> */}
 
                 <div className="bg-white p-6 border-l">
                   <h3 className="text-lg font-normal mb-4">Basket totals</h3>
@@ -265,23 +249,10 @@ const CartPage = () => {
                       url="/checkout"
                       buttonClass="!w-full"
                       textClass="text-brand__font__size__sm"
-                      // onClick={handleNavigate}
                     />
                   </div>
                 </div>
 
-                {/* <div className="bg-white rounded-lg shadow-md grid grid-cols-2 gap-2 overflow-hidden">
-                <button className="bg-gray-600 text-white py-3">
-                  Link Pay
-                </button>
-                <button className="bg-gray-600 text-white py-3">
-                  Google Pay
-                </button>
-                <button className="bg-gray-600 text-white py-3">Paypal</button>
-                <button className="bg-gray-600 text-white py-3">
-                  Pay later
-                </button>
-              </div> */}
               </div>
             </div>
           </div>
@@ -289,7 +260,6 @@ const CartPage = () => {
 
         {relatedProductsData?.length > 0 && carts?.items?.length > 0 && (
           <div className="px-10 py-5">
-            {/* <YouMayAlsoLike relatedProductsData={relatedProductsData} /> */}
             <RelatedProducts
               relatedProductsData={relatedProductsData}
               title="You may also like"

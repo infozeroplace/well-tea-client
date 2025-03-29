@@ -4,8 +4,6 @@ import { icedTeaMetadata } from "@/data/staticMetaData";
 
 export const revalidate = 0;
 
-// export const metadata = icedTeaMetadata;
-
 export async function generateMetadata() {
   return icedTeaMetadata;
 }

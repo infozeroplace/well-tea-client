@@ -1,17 +1,11 @@
 export * from "./about";
 export * from "./auth";
-export { default as Banner } from "./banner";
-export { default as BestSellers } from "./bestseller";
-export { default as Category } from "./category";
-export { default as ChooseType } from "./choosetype";
 export { default as CompanyServices } from "./companyservices";
 export * from "./explore";
 export { default as Footer } from "./footer";
 export { default as Header } from "./header";
-export { default as Hero } from "./hero";
 export * from "./homepage";
 export { default as Navbar } from "./navbar";
-export { default as SelectedTeas } from "./selectedteas";
 export * from "./shared";
 export { default as SocialImages } from "./socialimages";
 export { default as PrivacyPolicyContents } from "./privacypolicy";

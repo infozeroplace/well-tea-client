@@ -40,11 +40,6 @@ function Footer() {
       url: "https://www.linkedin.com",
       icon: "bx bxl-linkedin",
     },
-    // {
-    //   name: "Youtube",
-    //   url: "https://www.youtube.com",
-    //   icon: "bx bxl-youtube",
-    // },
     {
       name: "Tiktok",
       url: "https://www.tiktok.com",

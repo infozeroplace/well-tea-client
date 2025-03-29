@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import {
   Modal,
@@ -15,7 +15,7 @@ function SubscriptionScreen() {
   const subscriptionList = [
     {
       _id: "",
-      image: "/products/product_01.jpg",
+      image: "/products/product_01.webp",
       title: "Product 1",
       duration: "3 weeks",
       quantity: "5",
@@ -23,12 +23,12 @@ function SubscriptionScreen() {
     },
     {
       _id: "",
-      image: "/products/product_01.jpg",
+      image: "/products/product_01.webp",
       title: "Product 2",
       duration: "6 weeks",
       quantity: "3",
       totalPrice: "46.95",
-    }
+    },
   ];
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,20 +59,13 @@ function SubscriptionScreen() {
             >
               <td className="py-4 flex items-center gap-1 md:gap-5">
                 <NextImage
-                  // src={`${env.image_path}/${item?.product?.thumbnails[0]}`}
-                  img="/products/product_01.jpg"
+                  img="/products/product_01.webp"
                   alt={item?.title}
-                  presets={{width: 30, height: 30}}
+                  presets={{ width: 30, height: 30 }}
                   className="w-20 h-20 object-cover"
                 />
                 <div>
                   <h4 className="font-light">{item?.title}</h4>
-                  {/* <p className="text-sm text-gray-500">Weight: {item?.unit}</p> */}
-                  {/* {item.purchaseType === "subscribe" && (
-                    <p className="text-sm text-gray-500">
-                      Subscription: {item?.subObj?.weeks}
-                    </p>
-                  )} */}
                 </div>
               </td>
               <td className="py-4 font-light">

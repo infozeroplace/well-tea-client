@@ -21,8 +21,7 @@ export async function generateMetadata({ searchParams: rawSearchParams }) {
 
   const { data: { meta = [] } = {} } = await axios.get(url);
 
-  // const metaTitle =
-  //   searchParams.type && searchParams.type.split(",").join(" | ");
+  searchParams.type && searchParams.type.split(",").join(" | ");
 
   return {
     title: `Search: ${meta.totalDocs} resutls found for ${searchParams.searchTerm}`,

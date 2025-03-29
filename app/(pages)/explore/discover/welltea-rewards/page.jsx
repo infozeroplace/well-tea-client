@@ -6,7 +6,6 @@ import { MdRealEstateAgent } from "react-icons/md";
 
 export const revalidate = 0;
 
-// export const metadata = rewardsMetadata;
 
 export async function generateMetadata() {
   return rewardsMetadata;

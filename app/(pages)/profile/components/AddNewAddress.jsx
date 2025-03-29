@@ -46,7 +46,6 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
       isDefault: false,
     },
   });
-  // const selectedCountry = watch("country");
 
   const onSubmit = async (formData) => {
     formData.isDefault = isDefault;
@@ -197,10 +196,8 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                       errorMessage={getAuthErrorMessage(errors, "country")}
                       isInvalid={!!getAuthErrorMessage(errors, "country")}
                       variant="bordered"
-                      // defaultItems={countries}
                       label="Country"
                       name="country"
-                      // placeholder="Search a country"
                     >
                       {countries.map((country) => (
                         <AutocompleteItem key={country}>
@@ -211,10 +208,6 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                     <Input
                       {...register("postalCode", {
                         required: true,
-                        // pattern: {
-                        //   value: /^[0-9]+$/,
-                        //   message: "Please enter only numbers",
-                        // },
                       })}
                       variant="bordered"
                       isRequired

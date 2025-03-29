@@ -111,7 +111,7 @@ const Navbar = () => {
               onMouseLeave={() => setActiveDropdown(null)}
               // className="group"
             >
-              <NavItem href="/explore" name="Explore" />
+              <NavItem href="" name="Explore" />
               <NavDropdown
                 extraClass={`shadow ${
                   activeDropdown === "explore" ? "scale-y-100 opacity-100" : ""

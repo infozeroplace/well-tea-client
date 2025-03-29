@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-  // Spinner,
 } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
@@ -161,7 +160,6 @@ const EditPassword = ({ user, token, isOpen, onOpenChange }) => {
                     Cancel
                   </Button>
                   <Button type="submit" className="bg-teagreen-600 text-white">
-                    {/* {isLoading ? <Spinner /> : <span>Update Profile</span>} */}
                     {user?.isPasswordHas ? "Update" : "Set Password"}
                   </Button>
                 </div>

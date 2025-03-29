@@ -197,10 +197,8 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                       errorMessage={getAuthErrorMessage(errors, "country")}
                       isInvalid={!!getAuthErrorMessage(errors, "country")}
                       variant="bordered"
-                      // defaultItems={countries}
                       label="Country"
                       name="country"
-                      // placeholder="Search a country"
                     >
                       {countries.map((country) => (
                         <AutocompleteItem key={country}>
@@ -212,10 +210,6 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                     <Input
                       {...register("postalCode", {
                         required: true,
-                        // pattern: {
-                        //   value: /^[0-9]+$/,
-                        //   message: "Please enter only numbers",
-                        // },
                       })}
                       variant="bordered"
                       isRequired

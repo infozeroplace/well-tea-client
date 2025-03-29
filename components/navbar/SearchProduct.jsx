@@ -40,8 +40,7 @@ const SearchProduct = ({ buttonClass }) => {
         }
       };
       fetchProducts();
-      // const debounceTimeout = setTimeout(fetchProducts, 1000);
-      // return () => clearTimeout(debounceTimeout);
+     
     }, [searchTerm]);
 
     const handleClose = () => {
