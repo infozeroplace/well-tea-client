@@ -121,7 +121,7 @@ const CheckoutTestScreen = () => {
 
   const subtotal = (carts?.totalPrice || 0) - discountPrice;
   const shipping = selectedMethod?.cost || 0;
-  const grandTotal = Number((subtotal + shipping).toFixed(2));
+  const grandTotal = Math.round(Number((subtotal + shipping).toFixed(2)));
 
   return (
     <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full">
