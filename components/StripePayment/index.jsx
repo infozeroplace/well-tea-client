@@ -7,7 +7,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaStripe } from "react-icons/fa";
 
 const stripePromise = loadStripe(env.stripe_publishable_key);
