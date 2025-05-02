@@ -116,7 +116,9 @@ function AddressScreen() {
 
       <div className="p-6 bg-teagreen-200 rounded">
         <div className="flex items-start justify-between gap-4 border">
-          <p className="text-brand__font__size__lg mb-1 content-gap">Your Address</p>
+          <p className="text-brand__font__size__lg mb-1 content-gap">
+            Your Address
+          </p>
           <div
             onClick={() => {
               handleEdit("addAddress");
@@ -138,7 +140,7 @@ function AddressScreen() {
                 key={index}
                 className="space-y-2 py-5 flex items-start justify-between border-b"
               >
-                <div className="space-y-2">
+                <div className="space-y-2 capitalize">
                   <p className="">
                     {item?.firstName} {item?.lastName}
                     {item?.isDefault && (
@@ -147,13 +149,13 @@ function AddressScreen() {
                       </span>
                     )}
                   </p>
-                  <p className="">{item?.company}</p>
-                  <p className="">{item?.address1}</p>
-                  <p className="">{item?.address2}</p>
-                  <p className="">{item?.city}</p>
-                  <p className="">{item?.country}</p>
-                  <p className="">{item?.postalCode}</p>
-                  <p className="">{item?.phone}</p>
+                  <p>{item?.company}</p>
+                  <p>{item?.address1}</p>
+                  <p>{item?.address2}</p>
+                  <p>{item?.city}</p>
+                  <p>{item?.country}</p>
+                  <p>{item?.postalCode}</p>
+                  <p>{item?.phone}</p>
                 </div>
                 <div className="flex gap-8">
                   <div

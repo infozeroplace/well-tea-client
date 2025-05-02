@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 export const env = {
   env: process.env.NEXT_PUBLIC_ENV,
 

@@ -24,10 +24,14 @@ const AddressSelection = ({
           <select
             value={shippingAddress?._id || ""}
             onChange={onChangeShippingAddress}
-            className="border rounded p-2 w-full text-brand__font__size__sm outline-none"
+            className="border rounded p-2 w-full text-brand__font__size__sm outline-none capitalize"
           >
             {addresses.map((address) => (
-              <option key={address._id} value={address._id}>
+              <option
+                key={address._id}
+                value={address._id}
+                className="capitalize"
+              >
                 {address.firstName} {address.lastName}, {address.address1}{" "}
                 {address.city}, {address.postalCode}, {address.country}
               </option>
@@ -41,11 +45,11 @@ const AddressSelection = ({
               name="country"
               value={shippingAddress?.country || ""}
               onChange={onChangeShippingFields}
-              className="border rounded p-2 w-full text-brand__font__size__sm outline-none"
+              className="border rounded p-2 w-full text-brand__font__size__sm outline-none capitalize"
               placeholder="Country"
             >
               {countries.map((country) => (
-                <option key={country} value={country}>
+                <option key={country} value={country} className="capitalize">
                   {country}
                 </option>
               ))}
@@ -58,7 +62,7 @@ const AddressSelection = ({
                 name="firstName"
                 onChange={onChangeShippingFields}
                 value={shippingAddress?.firstName || ""}
-                className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                 placeholder="First name"
               />
             </div>
@@ -68,7 +72,7 @@ const AddressSelection = ({
                 name="lastName"
                 onChange={onChangeShippingFields}
                 value={shippingAddress?.lastName || ""}
-                className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                 placeholder="Last name"
               />
             </div>
@@ -79,7 +83,7 @@ const AddressSelection = ({
               name="address1"
               onChange={onChangeShippingFields}
               value={shippingAddress?.address1 || ""}
-              className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+              className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
               placeholder="Address 1"
             />
           </div>
@@ -89,7 +93,7 @@ const AddressSelection = ({
               name="address2"
               onChange={onChangeShippingFields}
               value={shippingAddress?.address2 || ""}
-              className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+              className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
               placeholder="Address 2 (Optional)"
             />
           </div>
@@ -100,7 +104,7 @@ const AddressSelection = ({
                 name="city"
                 onChange={onChangeShippingFields}
                 value={shippingAddress?.city || ""}
-                className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                 placeholder="City"
               />
             </div>
@@ -149,11 +153,11 @@ const AddressSelection = ({
                 name="country"
                 value={billingAddress?.country || ""}
                 onChange={onChangeBillingFields}
-                className="border rounded p-2 w-full text-brand__font__size__sm outline-none"
+                className="border rounded p-2 w-full text-brand__font__size__sm outline-none capitalize"
                 placeholder="Country"
               >
                 {countries.map((country) => (
-                  <option key={country} value={country}>
+                  <option key={country} value={country} className="capitalize">
                     {country}
                   </option>
                 ))}
@@ -166,7 +170,7 @@ const AddressSelection = ({
                   name="firstName"
                   onChange={onChangeBillingFields}
                   value={billingAddress?.firstName || ""}
-                  className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                  className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                   placeholder="First name"
                 />
               </div>
@@ -176,7 +180,7 @@ const AddressSelection = ({
                   name="lastName"
                   onChange={onChangeBillingFields}
                   value={billingAddress?.lastName || ""}
-                  className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                  className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                   placeholder="Last name"
                 />
               </div>
@@ -187,7 +191,7 @@ const AddressSelection = ({
                 name="address1"
                 onChange={onChangeBillingFields}
                 value={billingAddress?.address1 || ""}
-                className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                 placeholder="Address 1"
               />
             </div>
@@ -197,7 +201,7 @@ const AddressSelection = ({
                 name="address2"
                 onChange={onChangeBillingFields}
                 value={billingAddress?.address2 || ""}
-                className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                 placeholder="Address 2 (Optional)"
               />
             </div>
@@ -208,7 +212,7 @@ const AddressSelection = ({
                   name="city"
                   onChange={onChangeBillingFields}
                   value={billingAddress?.city || ""}
-                  className="border p-2 text-brand__font__size__sm rounded w-full outline-none"
+                  className="border p-2 text-brand__font__size__sm rounded w-full outline-none capitalize"
                   placeholder="City"
                 />
               </div>

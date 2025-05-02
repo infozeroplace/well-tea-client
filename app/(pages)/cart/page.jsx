@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/services/hook";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { RelatedProducts } from "../tea/components";
+import { RelatedProducts } from "../[slug]/components";
 
 const toNumber = (value) => {
   if (typeof value === "number") return value;

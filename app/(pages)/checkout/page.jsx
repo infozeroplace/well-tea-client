@@ -121,6 +121,9 @@ const CheckoutScreen = () => {
   useEffect(() => {
     const load = async () => {
       const cartId = carts?._id || null;
+      const shippingMethodId = selectedMethod?._id || null;
+
+      if (!cartId || !shippingMethodId) return;
 
       const {
         data: { data: paymentIntent },
@@ -129,8 +132,6 @@ const CheckoutScreen = () => {
       );
 
       if (paymentIntent && paymentIntent.id && paymentIntent.clientSecret) {
-        const shippingMethodId = selectedMethod?._id || null;
-
         await updatePaymentIntent({
           data: {
             cartId,
@@ -159,8 +160,7 @@ const CheckoutScreen = () => {
     useCreatePaymentIntentMutation();
 
   useEffect(() => {
-    const loadPaymentIntent = async () => {
-      // predefined ids/email
+    const load = async () => {
       const cartId = carts?._id || null;
       const isItemsExists = carts?.items?.length > 0;
       const shippingMethodId = selectedMethod?._id || null;
@@ -173,6 +173,7 @@ const CheckoutScreen = () => {
       ) {
         return;
       }
+
       // Ensure the selected method is actually loaded
       if (!methods.length || !selectedMethod) return;
 
@@ -206,7 +207,7 @@ const CheckoutScreen = () => {
       }
     };
 
-    loadPaymentIntent();
+    load();
   }, [carts, shippingAddress, selectedMethod]);
 
   // Handle shipping address change

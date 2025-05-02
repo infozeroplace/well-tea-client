@@ -198,9 +198,10 @@ const AddNewAddress = ({ user, isOpen, onOpenChange }) => {
                       variant="bordered"
                       label="Country"
                       name="country"
+                      className="capitalize"
                     >
                       {countries.map((country) => (
-                        <AutocompleteItem key={country}>
+                        <AutocompleteItem key={country} className="capitalize">
                           {country}
                         </AutocompleteItem>
                       ))}

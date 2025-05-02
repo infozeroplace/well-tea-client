@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
+import LoadingOverlay from "@/components/shared/LoadingOverlay";
+import { countries } from "@/data/countries";
+import { useEditAddressMutation } from "@/services/features/address/addressApi";
+import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import {
+  Autocomplete,
+  AutocompleteItem,
   Button,
   Checkbox,
   Form,
@@ -7,22 +12,17 @@ import {
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalHeader,
-  Select,
-  SelectItem,
-  Autocomplete,
-  AutocompleteItem,
 } from "@heroui/react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { countries } from "@/data/countries";
-import { useEditAddressMutation } from "@/services/features/address/addressApi";
-import { getAuthErrorMessage } from "@/utils/getAuthErrorMessage";
 import { toast } from "react-hot-toast";
-import LoadingOverlay from "@/components/shared/LoadingOverlay";
 
 const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
-  const [editAddress, { isLoading: editAddressLoading, data: editAddressData }] = useEditAddressMutation();
+  const [
+    editAddress,
+    { isLoading: editAddressLoading, data: editAddressData },
+  ] = useEditAddressMutation();
   const [isDefault, setIsDefault] = useState(false);
 
   const {
@@ -199,9 +199,10 @@ const EditAddress = ({ currentAddressData, isOpen, onOpenChange }) => {
                       variant="bordered"
                       label="Country"
                       name="country"
+                      className="capitalize"
                     >
                       {countries.map((country) => (
-                        <AutocompleteItem key={country}>
+                        <AutocompleteItem key={country} className="capitalize">
                           {country}
                         </AutocompleteItem>
                       ))}
