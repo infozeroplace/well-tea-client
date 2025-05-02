@@ -38,6 +38,49 @@ const StripePayment = ({ grandTotal }) => {
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentRequest, setPaymentRequest] = useState(null);
+
+  // Initialize Payment Request Button
+  useEffect(() => {
+    if (stripe) {
+      const pr = stripe.paymentRequest({
+        country: "GB",
+        currency: "gbp",
+        total: {
+          label: "Total",
+          amount: grandTotal * 100, // in pence
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+      });
+
+      // Check if wallet payments are available
+      pr.canMakePayment().then((result) => {
+        if (result) {
+          setPaymentRequest(pr);
+        }
+      });
+
+      // Handle payment completion
+      pr.on("paymentmethod", async (ev) => {
+        // Confirm payment with Stripe
+        const { error } = await stripe.confirmPayment({
+          elements,
+          clientSecret: await fetchClientSecret(),
+          confirmParams: {
+            return_url: window.location.origin,
+          },
+          payment_method: ev.paymentMethod.id,
+        });
+
+        if (error) {
+          ev.complete("fail");
+        } else {
+          ev.complete("success");
+        }
+      });
+    }
+  }, [stripe, grandTotal]);
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
@@ -101,16 +144,15 @@ const StripePayment = ({ grandTotal }) => {
   return (
     <div className="flex flex-col gap-5 items-center w-full">
       <div className="w-full">
+        {paymentRequest && (
+          <div className="wallet-buttons">
+            <PaymentRequestButtonElement options={{ paymentRequest }} />
+            <div className="divider">OR</div>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
-          <PaymentElement
-            options={{
-              wallets: {
-                applePay: "auto", // or 'always' or 'auto'
-                googlePay: "auto", // or 'always' or 'auto'
-              },
-              layout: "tabs",
-            }}
-          />
+          <PaymentElement />
           <button
             disabled={isProcessing || !stripe || !elements}
             className="bg-teagreen-800 hover:bg-teagreen-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out w-full mt-3"
