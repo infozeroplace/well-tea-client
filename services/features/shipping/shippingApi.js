@@ -3,7 +3,7 @@ import generateServiceUrl from "@/utils/generateServiceUrl";
 
 const shippingApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getShippingMethods: builder.query({
+    sMethods: builder.query({
       query: (query) => ({
         url: generateServiceUrl("/public/shipping/list", query),
         method: "GET",
@@ -13,4 +13,4 @@ const shippingApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetShippingMethodsQuery } = shippingApi;
+export const { useSMethodsQuery } = shippingApi;

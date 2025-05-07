@@ -2,8 +2,8 @@
 
 import LoadingOverlay from "@/components/shared/LoadingOverlay";
 import {
+  useAddressQuery,
   useDeleteAddressMutation,
-  useGetAddressQuery,
 } from "@/services/features/address/addressApi";
 import { useEditProfileMutation } from "@/services/features/profile/profileApi";
 import { useAppSelector } from "@/services/hook";
@@ -39,7 +39,7 @@ function AddressScreen() {
     data: { data: allAddressData } = {},
     isLoading: addressLoading,
     error,
-  } = useGetAddressQuery({}, { skip: !token });
+  } = useAddressQuery({}, { skip: !token });
 
   const [deleteAddress, { isLoading: deleteLoading }] =
     useDeleteAddressMutation();

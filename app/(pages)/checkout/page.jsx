@@ -1,372 +1,258 @@
 "use client";
 
-import axios from "@/api/axios";
 import AddressSelection from "@/components/AddressSelection";
-import CheckoutForm from "@/components/CheckoutForm";
 import CheckoutPreview from "@/components/CheckoutPreview";
 import EmailSelection from "@/components/EmailSelection";
 import EmptyBasket from "@/components/EmptyBasket";
-import { env } from "@/config/env";
-import useToast from "@/hooks/useToast";
-import { useGetAddressQuery } from "@/services/features/address/addressApi";
-import { useApplyCouponMutation } from "@/services/features/coupon/couponApi";
-import {
-  useCreatePaymentIntentMutation,
-  useUpdatePaymentIntentMutation,
-} from "@/services/features/payment/paymentApi";
-import { useGetShippingMethodsQuery } from "@/services/features/shipping/shippingApi";
+import StripePayment from "@/components/StripePayment";
+import { useAddressQuery } from "@/services/features/address/addressApi";
+import { useSMethodsQuery } from "@/services/features/shipping/shippingApi";
 import { useAppSelector } from "@/services/hook";
-import { Alert } from "@heroui/react";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "react-hot-toast";
+import detectCountry from "@/utils/getCountry";
+import { useEffect, useMemo, useState } from "react";
 
-let stripePromise;
-
-const initializeStripe = async () => {
-  if (!stripePromise) {
-    stripePromise = await loadStripe(env.stripe_publishable_key);
-  }
+const errors = {
+  email: "",
+  sFirstName: "",
+  sLastName: "",
+  sAddress: "",
+  sCity: "",
+  sPostalCode: "",
+  sPhone: "",
+  bFirstName: "",
+  bLastName: "",
+  bAddress: "",
+  bCity: "",
+  bPostalCode: "",
+  bPhone: "",
 };
 
-const CheckoutScreen = () => {
-  const { handleError } = useToast();
-
+const CheckoutTestScreen = () => {
   const {
-    auth: { user, token },
+    auth: { user },
     carts: { carts },
   } = useAppSelector((state) => state);
 
-  const effectExecuted = useRef(false);
-  const [email, setEmail] = useState(user?.email || null);
-  const [useSameShipping, setUseSameShipping] = useState(true);
+  const [email, setEmail] = useState(null);
   const [shippingAddress, setShippingAddress] = useState(null);
   const [billingAddress, setBillingAddress] = useState(null);
-  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [isShipping, setIsShipping] = useState(true);
+  const [defaultCountry, setDefaultCountry] = useState("");
   const [coupon, setCoupon] = useState("");
   const [discount, setDiscount] = useState(null);
-  const [clientSecret, setClientSecret] = useState("");
-  const [stripe, setStripe] = useState(null);
-  const [alertData, setAlertData] = useState({ isShow: false, message: "" });
+  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [requiredErrors, setRequiredErrors] = useState(errors);
 
   // Fetch saved addresses
-  const { data: { data: addresses = [] } = {}, isLoading: addressLoading } =
-    useGetAddressQuery({}, { skip: !token });
+  const { data: { data: savedAddresses = [] } = {} } = useAddressQuery(
+    {},
+    { skip: !user }
+  );
 
   // Fetch shipping methods based on the country
-  const { data: shippingMethodQuery, isLoading: methodLoading } =
-    useGetShippingMethodsQuery({
-      country: shippingAddress?.country,
-    });
+  const { data: sm } = useSMethodsQuery({
+    country: shippingAddress?.country || defaultCountry,
+  });
 
-  const methods = shippingMethodQuery?.data?.methods || [];
+  // Memoized values
+  const methods = useMemo(() => sm?.data?.methods || [], [sm]);
 
-  // Set default shipping address
-  useEffect(() => {
-    if (addresses.length > 0) {
-      const defaultShipping =
-        addresses.find((addr) => addr.isDefault) || addresses[0];
-      setShippingAddress(defaultShipping);
-      setBillingAddress(defaultShipping);
+  const cartId = useMemo(() => carts?._id || null, [carts]);
+  const cartItems = useMemo(() => carts?.items || [], [carts]);
+  const totalProductQnt = useMemo(() => carts?.totalQuantity || 0, [carts]);
+
+  const shippingMethodId = useMemo(
+    () => selectedMethod?._id || null,
+    [selectedMethod]
+  );
+
+  // Calculated values
+  const { discountPrice, subtotal, shippingCost, grandTotal } = useMemo(() => {
+    let discountPrice = 0;
+
+    if (discount && !coupon) {
+      discountPrice =
+        discount?.discountType === "percent"
+          ? (carts?.totalPrice / 100) * discount.discount
+          : discount.discount;
     }
-  }, [addresses.length]);
+
+    const subtotal = (carts?.totalPrice || 0) - discountPrice;
+    const shippingCost = selectedMethod?.cost || 0;
+    const grandTotal = Number((subtotal + shippingCost).toFixed(2));
+
+    return { discountPrice, subtotal, shippingCost, grandTotal };
+  }, [carts, discount, selectedMethod]);
 
   // Set default shipping method when methods are fetched
   useEffect(() => {
     if (methods?.length > 0) {
       setSelectedMethod(methods[0]);
     }
-  }, [methods.length]);
+  }, [methods?.length]);
 
+  // Set user email if logged-in
   useEffect(() => {
-    const setupStripe = async () => {
-      await initializeStripe();
-      setStripe(stripePromise);
-    };
-
-    setupStripe();
-  }, []);
-
-  useEffect(() => {
-    setEmail(user?.email || null);
+    if (user?.email) setEmail(user?.email);
   }, [user?.email]);
 
-  const [
-    applyCoupon,
-    {
-      data: applyCouponData,
-      error: applyCouponError,
-      isLoading: applyCouponFetch,
-    },
-  ] = useApplyCouponMutation();
-
+  // Set default shipping address
   useEffect(() => {
-    if (applyCouponData?.data) {
-      toast.success(applyCouponData?.message);
-      setDiscount(applyCouponData?.data);
+    if (savedAddresses?.length > 0) {
+      const defaultShipping =
+        savedAddresses.find((addr) => addr?.isDefault) || savedAddresses[0];
+      setShippingAddress(defaultShipping);
+      setBillingAddress(defaultShipping);
+    } else {
+      detectCountry().then((country) => {
+        if (country) {
+          setDefaultCountry(country.toLowerCase());
+          setShippingAddress((prev) => ({
+            ...prev,
+            country: country.toLowerCase(),
+          }));
+          setBillingAddress((prev) => ({
+            ...prev,
+            country: country.toLowerCase(),
+          }));
+        }
+      });
     }
-  }, [applyCouponData?.data, applyCouponData?.message]);
+  }, [savedAddresses?.length]);
 
   useEffect(() => {
-    if (applyCouponError?.data?.message) {
-      toast.error(applyCouponError?.data?.message);
-    }
-  }, [applyCouponError?.data?.message]);
+    const fields = [
+      { value: email, key: "email" },
+      { value: shippingAddress?.firstName, key: "sFirstName" },
+      { value: shippingAddress?.lastName, key: "sLastName" },
+      { value: shippingAddress?.address1, key: "sAddress" },
+      { value: shippingAddress?.city, key: "sCity" },
+      { value: shippingAddress?.postalCode, key: "sPostalCode" },
+      { value: shippingAddress?.phone, key: "sPhone" },
+      ...(!isShipping
+        ? [
+            { value: billingAddress?.firstName, key: "bFirstName" },
+            { value: billingAddress?.lastName, key: "bLastName" },
+            { value: billingAddress?.address1, key: "bAddress" },
+            { value: billingAddress?.city, key: "bCity" },
+            { value: billingAddress?.postalCode, key: "bPostalCode" },
+            { value: billingAddress?.phone, key: "bPhone" },
+          ]
+        : []),
+    ];
 
-  const [updatePaymentIntent, { isLoading: updatePaymentIntentFetch }] =
-    useUpdatePaymentIntentMutation();
-
-  // Need to run every data change UseEffect
-  useEffect(() => {
-    const load = async () => {
-      const cartId = carts?._id || null;
-      const shippingMethodId = selectedMethod?._id || null;
-
-      if (!cartId || !shippingMethodId) return;
-
-      const {
-        data: { data: paymentIntent },
-      } = await axios.get(
-        `/public/payment/get-payment-intent?cartId=${cartId}`
-      );
-
-      if (paymentIntent && paymentIntent.id && paymentIntent.clientSecret) {
-        await updatePaymentIntent({
-          data: {
-            cartId,
-            id: paymentIntent.id,
-            coupon,
-            email,
-            billingAddress: useSameShipping ? shippingAddress : billingAddress,
-            shippingAddress,
-            shippingMethodId,
-          },
-        });
+    fields.forEach(({ value, key }) => {
+      if (value) {
+        handleRequiredErrors(key, "");
       }
-    };
-
-    load();
+    });
   }, [
     email,
-    selectedMethod,
-    useSameShipping,
-    applyCouponData?.data,
-    billingAddress ? Object.values(billingAddress).join() : null,
-    shippingAddress ? Object.values(shippingAddress).join() : null,
+    shippingAddress?.firstName,
+    shippingAddress?.lastName,
+    shippingAddress?.address1,
+    shippingAddress?.city,
+    shippingAddress?.postalCode,
+    shippingAddress?.phone,
+    billingAddress?.firstName,
+    billingAddress?.lastName,
+    billingAddress?.address1,
+    billingAddress?.city,
+    billingAddress?.postalCode,
+    billingAddress?.phone,
   ]);
 
-  const [createPaymentIntent, { isLoading: createPaymentIntentFetch }] =
-    useCreatePaymentIntentMutation();
-
-  useEffect(() => {
-    const load = async () => {
-      const cartId = carts?._id || null;
-      const isItemsExists = carts?.items?.length > 0;
-      const shippingMethodId = selectedMethod?._id || null;
-
-      if (
-        !cartId ||
-        !isItemsExists ||
-        !shippingMethodId ||
-        effectExecuted.current
-      ) {
-        return;
-      }
-
-      // Ensure the selected method is actually loaded
-      if (!methods.length || !selectedMethod) return;
-
-      const {
-        data: { data: paymentIntent },
-      } = await axios.get(
-        `/public/payment/get-payment-intent?cartId=${cartId}`
-      );
-
-      if (paymentIntent && paymentIntent.id && paymentIntent.clientSecret) {
-        setClientSecret(paymentIntent.clientSecret);
-        return;
-      }
-
-      effectExecuted.current = true;
-
-      try {
-        const { data } = await createPaymentIntent({
-          data: {
-            email,
-            cartId,
-            billingAddress: useSameShipping ? shippingAddress : billingAddress,
-            shippingAddress,
-            shippingMethodId,
-          },
-        }).unwrap();
-
-        setClientSecret(data);
-      } catch (error) {
-        handleError(error?.data?.message || "Something went wrong!");
-      }
-    };
-
-    load();
-  }, [carts, shippingAddress, selectedMethod]);
-
   // Handle shipping address change
-  const handleShippingAddressChange = (event) => {
-    const selectedAddress = addresses.find(
+  const handleShippingAdd = (event) => {
+    const selectedAddress = savedAddresses.find(
       (addr) => addr._id === event.target.value
     );
     setShippingAddress(selectedAddress);
   };
 
-  const handleChangeShippingAddressFields = (e) => {
+  const handleChangeShippingAdd = (e) => {
     const { name, value } = e.target;
     setShippingAddress((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleChangeBillingAddressFields = (e) => {
+  const handleChangeBillingAdd = (e) => {
     const { name, value } = e.target;
     setBillingAddress((prev) => ({ ...prev, [name]: value }));
   };
 
   // Handle shipping method change
-  const handleMethodChange = (event) => {
+  const handleSelectMethod = (event) => {
     const method = methods.find((m) => m._id === event.target.value);
     setSelectedMethod(method);
   };
 
-  const handleChangeSameShipping = (val) => setUseSameShipping(val);
+  const handleChangeIsShipping = (val) => setIsShipping(val);
 
-  const handleShowAlert = (message) => {
-    setAlertData({ isShow: true, message });
+  const handleChangeCoupon = (val) => setCoupon(val);
 
-    setTimeout(() => {
-      setAlertData({ isShow: false, message: "" });
-    }, 5000);
+  const handleDiscount = (dis) => setDiscount(dis);
+
+  const handleRemoveDiscount = () => setDiscount(null);
+
+  const handleChangeEmail = (val) => setEmail(val);
+
+  const handleRequiredErrors = (key, value) =>
+    setRequiredErrors((prev) => ({ ...prev, [key]: value }));
+
+  const props = {
+    user,
+    email,
+    isShipping,
+    savedAddresses,
+    defaultCountry,
+    coupon,
+    cartId,
+    shippingAddress,
+    billingAddress: isShipping ? shippingAddress : billingAddress,
+    shippingMethodId,
+    grandTotal,
+    cartItems,
+    totalProductQnt,
+    subtotal,
+    shippingCost,
+    methods,
+    selectedMethod,
+    discount,
+    discountPrice,
+    requiredErrors,
+    onChangeEmail: handleChangeEmail,
+    onSelectShippingAdd: handleShippingAdd,
+    onChangeBillingAdd: handleChangeBillingAdd,
+    onChangeIsShipping: handleChangeIsShipping,
+    onChangeShippingAdd: handleChangeShippingAdd,
+    onChangeCoupon: handleChangeCoupon,
+    onSelectMethod: handleSelectMethod,
+    onDiscount: handleDiscount,
+    onRemoveDiscount: handleRemoveDiscount,
+    onRequiredErrors: handleRequiredErrors,
   };
 
-  const handleSetCoupon = (val) => setCoupon(val);
-
-  const handleApplyCoupon = async () => {
-    const cartId = carts?._id || null;
-
-    const {
-      data: { data: paymentIntent },
-    } = await axios.get(`/public/payment/get-payment-intent?cartId=${cartId}`);
-
-    if (paymentIntent.id) {
-      await applyCoupon({
-        data: {
-          coupon,
-          paymentIntent: paymentIntent.id,
-        },
-      });
-    }
-  };
-
-  let discountPrice = 0;
-
-  if (discount) {
-    discountPrice =
-      discount?.discountType === "percent"
-        ? (carts?.totalPrice / 100) * discount.discount
-        : discount.discount;
-  }
-
-  const subtotal = carts?.totalPrice - discountPrice;
-  const shipping = selectedMethod?.cost || 0;
-  const grandTotal = (subtotal + shipping).toFixed(2);
-
-  return (
-    <>
+  if (!cartId || !cartItems.length) {
+    return <EmptyBasket />;
+  } else {
+    return (
       <div className="container px-5 sm:px-10 md:px-14 lg:px-10 w-full h-full">
-        {carts?._id && carts?.items?.length ? (
-          <div className="w-full flex flex-col xl:flex-row justify-center gap-4 py-10">
-            <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
-              {alertData.isShow && (
-                <Alert
-                  color="danger"
-                  description={alertData.message}
-                  title="Warning!"
-                />
-              )}
+        <div className="w-full flex flex-col xl:flex-row justify-center gap-5 py-10">
+          <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
+            <EmailSelection {...props} />
 
-              <EmailSelection
-                user={user}
-                email={email}
-                onChangeEmail={setEmail}
-              />
-
-              <AddressSelection
-                user={user}
-                addresses={addresses}
-                shippingAddress={shippingAddress}
-                billingAddress={billingAddress}
-                useSameShipping={useSameShipping}
-                onSameShipping={handleChangeSameShipping}
-                onChangeShippingFields={handleChangeShippingAddressFields}
-                onChangeBillingFields={handleChangeBillingAddressFields}
-                onChangeShippingAddress={handleShippingAddressChange}
-              />
-            </div>
-
-            <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
-              <CheckoutPreview
-                carts={carts}
-                totalPrice={subtotal}
-                shippingCost={shipping}
-                grandTotal={grandTotal}
-                methods={methods}
-                selectedMethod={selectedMethod}
-                coupon={coupon}
-                applyCouponLoading={applyCouponFetch}
-                loading={
-                  addressLoading ||
-                  methodLoading ||
-                  createPaymentIntentFetch ||
-                  updatePaymentIntentFetch
-                }
-                onChangeMethod={handleMethodChange}
-                onChangeCoupon={handleSetCoupon}
-                onApplyCoupon={handleApplyCoupon}
-              />
-
-              {clientSecret && stripe && (
-                <Elements
-                  stripe={stripe}
-                  options={{
-                    clientSecret,
-                    appearance: {
-                      variables: {
-                        colorPrimary: "#13a800",
-                      },
-                    },
-                  }}
-                >
-                  <CheckoutForm
-                    grandTotal={grandTotal}
-                    user={user}
-                    email={email}
-                    shippingAddress={shippingAddress}
-                    billingAddress={billingAddress}
-                    useSameShipping={useSameShipping}
-                    onShowAlert={handleShowAlert}
-                    loading={
-                      addressLoading ||
-                      methodLoading ||
-                      createPaymentIntentFetch ||
-                      updatePaymentIntentFetch
-                    }
-                  />
-                </Elements>
-              )}
-            </div>
+            <AddressSelection {...props} />
           </div>
-        ) : (
-          <EmptyBasket />
-        )}
+
+          <div className="xl:max-w-[500px] w-full h-full flex flex-col gap-4">
+            <CheckoutPreview {...props} />
+
+            <StripePayment {...props} />
+          </div>
+        </div>
       </div>
-    </>
-  );
+    );
+  }
 };
 
-export default CheckoutScreen;
+export default CheckoutTestScreen;

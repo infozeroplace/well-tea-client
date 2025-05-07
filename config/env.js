@@ -31,4 +31,5 @@ export const env = {
   google_client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   google_analytic_id: process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_ID,
   tidio_id: process.env.NEXT_PUBLIC_TIDIO_ID,
+  ip_api_key: process.env.NEXT_PUBLIC_IP_API_KEY,
 };

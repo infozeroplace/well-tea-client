@@ -27,7 +27,7 @@ const addressApi = api.injectEndpoints({
       }),
       invalidatesTags: ["address"],
     }),
-    getAddress: builder.query({
+    address: builder.query({
       query: (query) => ({
         url: generateServiceUrl("/secure/address/get", query),
         method: "GET",
@@ -41,5 +41,5 @@ export const {
   useDeleteAddressMutation,
   useEditAddressMutation,
   useAddAddressMutation,
-  useGetAddressQuery,
+  useAddressQuery,
 } = addressApi;

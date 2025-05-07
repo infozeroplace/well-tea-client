@@ -16,7 +16,7 @@ const ClientWrapper = ({ children }) => {
           <GoogleOAuthProvider clientId={env.google_client_id}>
             <UIProvider>
               {children}
-              <Toaster position="bottom-center" />
+              <Toaster position="bottom-right" />
             </UIProvider>
           </GoogleOAuthProvider>
         </PersistLogin>

@@ -1,5 +1,6 @@
-import axios from "@/api/axios";
 import { env } from "@/config/env";
+import useToast from "@/hooks/useToast";
+import { useCreatePaymentIntentMutation } from "@/services/features/payment/paymentApi";
 import {
   Elements,
   PaymentElement,
@@ -7,12 +8,14 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaStripe } from "react-icons/fa";
 
 const stripePromise = loadStripe(env.stripe_publishable_key);
 
-const StripeWrapper = ({ grandTotal, children }) => {
+const StripeWrapper = ({ props, children }) => {
+  const grandTotal = Math.round(props.grandTotal) || 0;
+
   return (
     <Elements
       stripe={stripePromise}
@@ -32,78 +35,167 @@ const StripeWrapper = ({ grandTotal, children }) => {
   );
 };
 
-const StripePayment = ({ grandTotal }) => {
+const StripePayment = ({ props }) => {
+  const {
+    isShipping,
+    shippingMethodId,
+    discount,
+    email,
+    shippingAddress,
+    billingAddress,
+    cartId,
+    grandTotal,
+    onRequiredErrors,
+  } = props;
+
+  const [createPaymentIntent] = useCreatePaymentIntentMutation();
+
   const stripe = useStripe();
   const elements = useElements();
+  const { handleError } = useToast();
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentRequest, setPaymentRequest] = useState(null);
 
-  // Initialize Payment Request Button
-  useEffect(() => {
-    if (stripe) {
-      const pr = stripe.paymentRequest({
-        country: "GB",
-        currency: "gbp",
-        total: {
-          label: "Total",
-          amount: grandTotal * 100, // in pence
-        },
-        requestPayerName: true,
-        requestPayerEmail: true,
-      });
+  const validateForm = () => {
+    let isValid = true;
 
-      // Check if wallet payments are available
-      pr.canMakePayment().then((result) => {
-        if (result) {
-          setPaymentRequest(pr);
-        }
-      });
+    // Validate each field using switch cases
+    const validateField = (fieldName, value) => {
+      switch (fieldName) {
+        case "email":
+          if (!value) {
+            onRequiredErrors("email", "Email is required!");
+            isValid = false;
+          }
+          break;
 
-      // Handle payment completion
-      pr.on("paymentmethod", async (ev) => {
-        // Confirm payment with Stripe
-        const { error } = await stripe.confirmPayment({
-          elements,
-          clientSecret: await fetchClientSecret(),
-          confirmParams: {
-            return_url: window.location.origin,
-          },
-          payment_method: ev.paymentMethod.id,
-        });
+        // Shipping address fields
+        case "shippingFirstName":
+          if (!value) {
+            onRequiredErrors("sFirstName", "First name is required!");
+            isValid = false;
+          }
+          break;
+        case "shippingLastName":
+          if (!value) {
+            onRequiredErrors("sLastName", "Last name is required!");
+            isValid = false;
+          }
+          break;
+        case "shippingAddress1":
+          if (!value) {
+            onRequiredErrors("sAddress", "Address is required!");
+            isValid = false;
+          }
+          break;
+        case "shippingCity":
+          if (!value) {
+            onRequiredErrors("sCity", "City is required!");
+            isValid = false;
+          }
+          break;
+        case "shippingPostalCode":
+          if (!value) {
+            onRequiredErrors("sPostalCode", "Postal is required!");
+            isValid = false;
+          }
+          break;
+        case "shippingPhone":
+          if (!value) {
+            onRequiredErrors("sPhone", "Phone is required!");
+            isValid = false;
+          }
+          break;
 
-        if (error) {
-          ev.complete("fail");
-        } else {
-          ev.complete("success");
-        }
-      });
+        // Billing address fields
+        case "billingFirstName":
+          if (!isShipping && !value) {
+            onRequiredErrors("bFirstName", "First name is required!");
+            isValid = false;
+          }
+          break;
+        case "billingLastName":
+          if (!isShipping && !value) {
+            onRequiredErrors("bLastName", "Last name is required!");
+            isValid = false;
+          }
+          break;
+        case "billingAddress1":
+          if (!isShipping && !value) {
+            onRequiredErrors("bAddress", "Address is required!");
+            isValid = false;
+          }
+          break;
+        case "billingCity":
+          if (!isShipping && !value) {
+            onRequiredErrors("bCity", "City is required!");
+            isValid = false;
+          }
+          break;
+        case "billingPostalCode":
+          if (!isShipping && !value) {
+            onRequiredErrors("bPostalCode", "Postal is required!");
+            isValid = false;
+          }
+          break;
+        case "billingPhone":
+          if (!isShipping && !value) {
+            onRequiredErrors("bPhone", "Phone is required!");
+            isValid = false;
+          }
+          break;
+      }
+    };
+
+    // Validate all fields
+    validateField("email", email);
+    validateField("shippingFirstName", shippingAddress?.firstName);
+    validateField("shippingLastName", shippingAddress?.lastName);
+    validateField("shippingAddress1", shippingAddress?.address1);
+    validateField("shippingCity", shippingAddress?.city);
+    validateField("shippingPostalCode", shippingAddress?.postalCode);
+    validateField("shippingPhone", shippingAddress?.phone);
+
+    if (!isShipping) {
+      validateField("billingFirstName", billingAddress?.firstName);
+      validateField("billingLastName", billingAddress?.lastName);
+      validateField("billingAddress1", billingAddress?.address1);
+      validateField("billingCity", billingAddress?.city);
+      validateField("billingPostalCode", billingAddress?.postalCode);
+      validateField("billingPhone", billingAddress?.phone);
     }
-  }, [stripe, grandTotal]);
+
+    return isValid;
+  };
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
 
     if (!stripe || !elements) return;
 
-    setIsProcessing(true);
-
     try {
       // 1. First validate the PaymentElement
       const { error: submitError } = await elements.submit();
-      if (submitError) {
-        console.error("Form validation failed:", submitError);
+      if (submitError) return;
+
+      if (!validateForm()) {
         return;
       }
 
+      setIsProcessing(true);
+
       // 2. Then fetch the PaymentIntent
-      const {
-        data: { data: clientSecret },
-      } = await axios.post(
-        "/public/payment/create-payment-intent-test",
-        { amount: grandTotal * 100 } // Send amount in cents
-      );
+      const { data: clientSecret } = await createPaymentIntent({
+        data: {
+          billingAddress: billingAddress || {},
+          shippingAddress: shippingAddress || {},
+          coupon: discount?.coupon || "",
+          cartId: cartId || "",
+          email: email || "",
+          shippingMethodId: shippingMethodId || "",
+        },
+      }).unwrap();
 
       // 3. Finally confirm the payment
       const { error, paymentIntent } = await stripe.confirmPayment({
@@ -129,12 +221,12 @@ const StripePayment = ({ grandTotal }) => {
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
-      } else {
-        setMessage("Payment is still processing. Check later.");
       }
     } catch (error) {
-      setMessage(
-        "An unexpected error occurred while processing the payment. Please try again."
+      console.log(error);
+      handleError(
+        error?.data?.errorMessages[0]?.message ||
+          "An unexpected error occurred while processing the payment. Please try again."
       );
     } finally {
       setIsProcessing(false);
@@ -144,15 +236,15 @@ const StripePayment = ({ grandTotal }) => {
   return (
     <div className="flex flex-col gap-5 items-center w-full">
       <div className="w-full">
-        {paymentRequest && (
-          <div className="wallet-buttons">
-            <PaymentRequestButtonElement options={{ paymentRequest }} />
-            <div className="divider">OR</div>
-          </div>
-        )}
-
         <form onSubmit={handleSubmit}>
-          <PaymentElement />
+          <PaymentElement
+            options={{
+              wallets: { applePay: "auto", googlePay: "auto" },
+              layout: {
+                type: "tabs",
+              },
+            }}
+          />
           <button
             disabled={isProcessing || !stripe || !elements}
             className="bg-teagreen-800 hover:bg-teagreen-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out w-full mt-3"
@@ -161,7 +253,9 @@ const StripePayment = ({ grandTotal }) => {
               {isProcessing ? "Processing... " : `Pay £${grandTotal}`}
             </span>
           </button>
-          {message && <div>{message}</div>}
+          {message && (
+            <div className="text-brand__font__size__xs mt-1">{message}</div>
+          )}
         </form>
       </div>
 
@@ -174,9 +268,9 @@ const StripePayment = ({ grandTotal }) => {
   );
 };
 
-const WrappedForm = ({ grandTotal = 0 }) => (
-  <StripeWrapper grandTotal={grandTotal}>
-    <StripePayment grandTotal={grandTotal} />
+const WrappedForm = (props) => (
+  <StripeWrapper props={props}>
+    <StripePayment props={props} />
   </StripeWrapper>
 );
 
