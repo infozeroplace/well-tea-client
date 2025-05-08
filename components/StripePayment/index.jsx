@@ -67,31 +67,71 @@ const StripePayment = ({ props }) => {
     if (!stripe) return;
 
     const pr = stripe.paymentRequest({
-      country: "GB",
-      currency: "gbp",
+      country: 'GB',
+      currency: 'gbp',
       total: {
-        label: "Total",
-        amount: grandTotal * 100,
+        label: 'Total',
+        amount: Math.round(grandTotal * 100), // in pence
       },
       requestPayerEmail: true,
-      requestPayerPhone: true,
     });
 
     // Check payment availability
-    pr.canMakePayment().then((result) => {
-      console.log("Available payment methods:", result);
+    pr.canMakePayment().then(result => {
+      console.log('Can make payment:', result);
       if (result) {
         setPaymentRequest(pr);
+      } else {
+        setMessage('No payment methods available');
       }
     });
 
-    // Handle payment completion
-    pr.on("paymentmethod", async (evt) => {
-      // Here you would typically:
-      // 1. Get a client secret from your backend
-      // 2. Confirm the payment
-      // 3. Call evt.complete('success') or evt.complete('fail')
+    // Handle payment
+    pr.on('paymentmethod', async (ev) => {
+      try {
+        // 1. Get client secret from backend
+        const { data } = await axios.post('/api/create-payment-intent', {
+          amount: Math.round(grandTotal * 100)
+        });
+
+        // 2. Confirm payment
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          data.clientSecret,
+          {
+            payment_method: ev.paymentMethod.id,
+          },
+          { handleActions: false }
+        );
+
+        if (error) {
+          ev.complete('fail');
+          setMessage(`Payment failed: ${error.message}`);
+          return;
+        }
+
+        // 3. Handle required actions (3D Secure)
+        if (paymentIntent.status === 'requires_action') {
+          const { error: actionError } = await stripe.handleCardAction(
+            data.clientSecret
+          );
+          
+          if (actionError) {
+            ev.complete('fail');
+            setMessage(`Action failed: ${actionError.message}`);
+            return;
+          }
+        }
+
+        // Success
+        ev.complete('success');
+        setMessage('Payment succeeded!');
+        
+      } catch (err) {
+        ev.complete('fail');
+        setMessage(`Error: ${err.message}`);
+      }
     });
+
   }, [stripe, grandTotal]);
 
   const validateForm = () => {
@@ -268,6 +308,11 @@ const StripePayment = ({ props }) => {
       );
     }
   };
+
+  if (!stripe) {
+    return <div>Loading Stripe...</div>;
+  }
+
 
   return (
     <div className="flex flex-col gap-5 items-center w-full">
