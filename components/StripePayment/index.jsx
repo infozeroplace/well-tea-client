@@ -6,12 +6,11 @@ import { useAppDispatch } from "@/services/hook";
 import {
   Elements,
   PaymentElement,
-  PaymentRequestButtonElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaStripe } from "react-icons/fa";
 
 const stripePromise = loadStripe(env.stripe_publishable_key);
@@ -26,7 +25,6 @@ const StripeWrapper = ({ props, children }) => {
         mode: "payment",
         amount: grandTotal * 100,
         currency: "gbp",
-        paymentMethodTypes: ["card", "paypal"],
         appearance: {
           variables: {
             colorPrimary: "#13a800",
@@ -61,78 +59,6 @@ const StripePayment = ({ props }) => {
 
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentRequest, setPaymentRequest] = useState(null);
-
-  useEffect(() => {
-    if (!stripe) return;
-
-    const pr = stripe.paymentRequest({
-      country: 'GB',
-      currency: 'gbp',
-      total: {
-        label: 'Total',
-        amount: Math.round(grandTotal * 100), // in pence
-      },
-      requestPayerEmail: true,
-    });
-
-    // Check payment availability
-    pr.canMakePayment().then(result => {
-      console.log('Can make payment:', result);
-      if (result) {
-        setPaymentRequest(pr);
-      } else {
-        setMessage('No payment methods available');
-      }
-    });
-
-    // Handle payment
-    pr.on('paymentmethod', async (ev) => {
-      try {
-        // 1. Get client secret from backend
-        const { data } = await axios.post('/api/create-payment-intent', {
-          amount: Math.round(grandTotal * 100)
-        });
-
-        // 2. Confirm payment
-        const { error, paymentIntent } = await stripe.confirmCardPayment(
-          data.clientSecret,
-          {
-            payment_method: ev.paymentMethod.id,
-          },
-          { handleActions: false }
-        );
-
-        if (error) {
-          ev.complete('fail');
-          setMessage(`Payment failed: ${error.message}`);
-          return;
-        }
-
-        // 3. Handle required actions (3D Secure)
-        if (paymentIntent.status === 'requires_action') {
-          const { error: actionError } = await stripe.handleCardAction(
-            data.clientSecret
-          );
-          
-          if (actionError) {
-            ev.complete('fail');
-            setMessage(`Action failed: ${actionError.message}`);
-            return;
-          }
-        }
-
-        // Success
-        ev.complete('success');
-        setMessage('Payment succeeded!');
-        
-      } catch (err) {
-        ev.complete('fail');
-        setMessage(`Error: ${err.message}`);
-      }
-    });
-
-  }, [stripe, grandTotal]);
 
   const validateForm = () => {
     let isValid = true;
@@ -293,10 +219,10 @@ const StripePayment = ({ props }) => {
         return;
       }
 
-      dispatch(removeCart());
       if (paymentIntent.status === "succeeded") {
         setMessage("Payment successful! Redirecting...");
         setTimeout(() => {
+          dispatch(removeCart());
           window.location.href = "/";
         }, 2000);
       }
@@ -309,30 +235,18 @@ const StripePayment = ({ props }) => {
     }
   };
 
-  if (!stripe) {
-    return <div>Loading Stripe...</div>;
-  }
-
-
   return (
     <div className="flex flex-col gap-5 items-center w-full">
       <div className="w-full">
-        {paymentRequest && (
-          <PaymentRequestButtonElement
+        <form onSubmit={handleSubmit}>
+          <PaymentElement
             options={{
-              paymentRequest,
-              style: {
-                paymentRequestButton: {
-                  type: "buy",
-                  theme: "dark",
-                  height: "48px",
-                },
+              wallets: { applePay: "auto", googlePay: "auto" },
+              layout: {
+                type: "tabs",
               },
             }}
           />
-        )}
-        <form onSubmit={handleSubmit}>
-          <PaymentElement />
           <button
             disabled={isProcessing || !stripe || !elements}
             className="bg-teagreen-800 hover:bg-teagreen-700 text-white font-semibold py-2 px-4 rounded shadow-lg transition duration-300 ease-in-out w-full mt-3"
