@@ -1,8 +1,6 @@
 import { env } from "@/config/env";
 import useToast from "@/hooks/useToast";
-import { removeCart } from "@/services/features/cart/cartSlices";
 import { useCreatePaymentIntentMutation } from "@/services/features/payment/paymentApi";
-import { useAppDispatch } from "@/services/hook";
 import {
   Elements,
   PaymentElement,
@@ -54,7 +52,6 @@ const StripePayment = ({ props }) => {
 
   const stripe = useStripe();
   const elements = useElements();
-  const dispatch = useAppDispatch();
   const { handleError } = useToast();
 
   const [message, setMessage] = useState(null);
@@ -222,7 +219,6 @@ const StripePayment = ({ props }) => {
       if (paymentIntent.status === "succeeded") {
         setMessage("Payment successful! Redirecting...");
         setTimeout(() => {
-          dispatch(removeCart());
           window.location.href = "/";
         }, 2000);
       }
