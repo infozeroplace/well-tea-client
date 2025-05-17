@@ -83,7 +83,7 @@ function ProductSlider({ product }) {
           <span>Save up to</span>
           <span className="text-red-600">£{product?.multiDiscountAmount}</span>
           <span>when you buy more than</span>
-          <span className="text-red-600">{product?.multiDiscountAmount}</span>
+          <span className="text-red-600">{product?.multiDiscountQuantity}</span>
           <span>items</span>
         </div>
       )}

@@ -33,6 +33,7 @@ export default {
         brand__font__bold: "900",
       },
       colors: {
+        success: "#65B741",
         error: "#E72929",
         background: "var(--background)",
         foreground: "var(--foreground)",

@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
- 
   images: {
     formats: ["image/avif", "image/webp"],
 
@@ -25,18 +24,20 @@ const nextConfig = {
 
   // Enable React strict mode for better performance in development
   reactStrictMode: true,
-  
+
   // Configure webpack for better performance
   webpack: (config, { dev, isServer }) => {
     // Split chunks for better caching
     config.optimization.splitChunks = {
-      chunks: 'all',
+      chunks: "all",
       maxInitialRequests: 25,
-      minSize: 20000
-    }
-    
-    return config
-  }
+      minSize: 20000,
+    };
+
+    return config;
+  },
+
+  turbopack: {},
 };
 
 export default nextConfig;

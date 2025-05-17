@@ -202,12 +202,23 @@ const StripePayment = ({ props }) => {
         elements,
         clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/`,
+          return_url: `${window.location.origin}/success?payment_intent_client_secret=${clientSecret}`,
         },
         redirect: "if_required",
       });
 
+      // Use confirmSetup instead of confirmPayment for subscriptions
+      // const { error, setupIntent } = await stripe.confirmSetup({
+      //   elements,
+      //   clientSecret,
+      //   confirmParams: {
+      //     return_url: `${window.location.origin}/success?payment_intent_client_secret=${clientSecret}`,
+      //   },
+      //   redirect: "if_required",
+      // });
+
       if (error) {
+        // console.log("line 221 ", error);
         const errorMessage =
           error.type === "card_error" || error.type === "validation_error"
             ? error.message
@@ -219,10 +230,20 @@ const StripePayment = ({ props }) => {
       if (paymentIntent.status === "succeeded") {
         setMessage("Payment successful! Redirecting...");
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = `${window.location.origin}/success?payment_intent_client_secret=${clientSecret}`;
         }, 2000);
       }
+
+      // if (setupIntent.status === "succeeded") {
+      //   setMessage("Payment method saved! Processing subscription...");
+      //   // You may need to manually trigger the subscription creation here
+      //   // or wait for a webhook confirmation
+      //   setTimeout(() => {
+      //     window.location.href = `${window.location.origin}/success?setup_intent_client_secret=${clientSecret}`;
+      //   }, 2000);
+      // }
     } catch (error) {
+      // console.log("line 237 ", error);
       setIsProcessing(false);
       handleError(
         error?.data?.errorMessages[0]?.message ||
